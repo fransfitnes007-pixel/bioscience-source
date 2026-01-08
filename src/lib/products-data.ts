@@ -179,10 +179,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "50mg", moq: 10 },
         ],
-        description: "SS-31 (Elamipretide) is a mitochondria-targeted tetrapeptide designed to localize to the inner mitochondrial membrane and stabilize cardiolipin-cytochrome c interactions. It is used to study mitochondrial function, oxidative stress resistance, and cellular energetics in research models of metabolic and age-related dysfunction. The peptide provides a tool for probing mitochondrial membrane integrity and ATP production efficiency.",
-        scientificPurpose: "Designed to study mitochondrial function, oxidative stress protection, cardiolipin stabilization, and cellular energy production in metabolic and aging research contexts.",
-        studiesFindings: "Stabilizes mitochondrial membrane structure and cardiolipin interactions. Reduces oxidative stress markers in mitochondrial dysfunction models. Improves ATP production efficiency in cellular systems (context dependent). Demonstrates protective effects in cardiac and renal injury models (study dependent). Supports investigation of mitochondrial bioenergetics in aging research. Enables mechanistic mapping of mitochondria-targeted peptide signaling.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/27197538/"
+        description: "SS-31 (elamipretide) is a mitochondria-targeted peptide designed to interact with inner mitochondrial membrane components (including cardiolipin-associated domains) to stabilize electron transport efficiency. It is studied for improving mitochondrial bioenergetics and reducing mitochondrial stress signaling.",
+        scientificPurpose: "Designed to study mitochondrial dysfunction biology, oxidative phosphorylation efficiency, and mitochondrial stress/ROS signaling modulation.",
+        studiesFindings: "Improves mitochondrial respiration and ATP production efficiency (context dependent). Stabilizes mitochondrial membrane-associated bioenergetic processes. Reduces mitochondrial oxidative stress markers in experimental models. Improves cellular energetic performance under stress conditions (study dependent). Used as a tool for investigating cardiolipin/ETC coupling biology.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=elamipretide+SS-31+cardiolipin+mitochondrial+function"
       },
       {
         name: "ARA-290",
@@ -191,10 +191,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "ARA-290 is an erythropoietin-derived peptide engineered to retain tissue-protective signaling without erythropoietic activity. It activates the innate repair receptor (IRR) pathway, distinct from the classical erythropoietin receptor, to study tissue protection and anti-inflammatory mechanisms. Research use centers on neuroprotection, wound healing, and metabolic tissue protection without affecting red blood cell production.",
-        scientificPurpose: "Designed to study innate repair receptor activation, tissue-protective signaling, anti-inflammatory pathways, and neuroprotection without erythropoietic effects.",
-        studiesFindings: "Activates innate repair receptor signaling distinct from EPO receptor. Demonstrates tissue-protective effects in injury models (context dependent). Reduces inflammatory markers in experimental systems (study dependent). Supports neuroprotection research without hematopoietic effects. Improves wound healing endpoints in select models. Enables investigation of EPO-derived peptide separation-of-function biology.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/22190412/"
+        description: "ARA-290 (cibinetide) is an erythropoietin-derived peptide designed to activate tissue-protective signaling through the innate repair receptor complex without stimulating erythropoiesis. Research uses it to probe anti-inflammatory and neuroprotective tissue resilience pathways.",
+        scientificPurpose: "Designed to study tissue-protective EPO-pathway signaling, anti-inflammatory mechanisms, and neuropathy/repair endpoints without hematopoietic stimulation.",
+        studiesFindings: "Reduces inflammatory signaling markers in experimental contexts (study dependent). Supports tissue-protective signaling in models of injury/stress. Demonstrates neuroprotective/neuropathy-relevant effects in some studies (context dependent). Improves functional endpoints tied to repair signaling in select models. Enables mechanistic mapping of EPO-derived innate repair receptor biology.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=ARA-290+cibinetide+innate+repair+receptor"
       },
       {
         name: "THYMALIN",
@@ -203,10 +203,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Thymalin is a thymus-derived polypeptide complex discussed in immunology research traditions as an immunoregulatory preparation. NIH-indexed literature describes it as a multi-component thymic extract with reported effects on immune functional markers and signaling profiles. Because it is a complex mixture, research interpretation often focuses on immune outcome patterns rather than a single receptor target.",
-        scientificPurpose: "Designed to study thymus-derived peptide immunoregulation, immune functional restoration markers, and T-cell–linked immune coordination pathways.",
-        studiesFindings: "Modulates immune functional markers in experimental contexts (context dependent). Supports T-lymphocyte functional activity signaling in some studies (study dependent). Influences cytokine signaling profiles associated with improved immune readiness. Provides a model for studying multi-peptide thymic extract immune signaling effects. Enables investigation into thymic peptide contributions to immune regulation networks. Used in immune aging and immune dysfunction research traditions (study dependent).",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/12943137/"
+        description: "Thymalin is a thymus-derived polypeptide complex studied in immune regulation research traditions, often described as influencing T-cell functional activity and broader immune coordination. NIH-indexed literature discusses thymalin as an immunomodulatory thymic extract with multiple peptide components.",
+        scientificPurpose: "Designed to study thymic-peptide immune modulation, immune restoration signaling, and T-cell functional biology in immune dysfunction contexts.",
+        studiesFindings: "Enhances immune functional markers in certain studies (context dependent). Increases T-lymphocyte functional activity in research settings (study dependent). Supports immune regulation pathways relevant to infection/immune dysfunction research. Provides a multi-peptide model for thymus-derived immunomodulation mechanisms. Enables investigation of peptide components that influence immune signaling.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Thymalin+polypeptide+thymus+extract+immunomodulatory"
       },
       {
         name: "EPITHALON",
@@ -458,10 +458,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "2mg", moq: 10 },
         ],
-        description: "IGF-DES is a truncated IGF-1 analogue used to study IGF-1 receptor signaling intensity and tissue-level growth responses. Structural truncation alters receptor interaction kinetics and may shift local signaling characteristics, making it useful for experiments that compare potency, duration, and spatial response profiles across IGF pathway variants. Research emphasis commonly includes PI3K/Akt and MAPK signaling outputs tied to growth and repair biology.",
-        scientificPurpose: "Designed to study IGF-1 receptor activation, localized anabolic signaling dynamics, growth-factor pathway potency profiling, and repair-associated signaling programs.",
-        studiesFindings: "Activates IGF-1 receptor signaling cascades (PI3K/Akt, MAPK; context dependent). Enhances localized anabolic signaling endpoints in experimental systems (study dependent). Supports growth and repair-associated signaling frameworks at cellular/tissue levels. Used to probe growth-factor signaling potency and kinetics comparisons. Provides a mechanistic tool for mapping IGF pathway intensity vs outcome relationships. Enables study of spatially localized IGF pathway response programs.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/8567815/"
+        description: "IGF-DES is a truncated IGF-1 analogue engineered to alter receptor interaction dynamics and is often discussed as having strong localized IGF-1 receptor signaling properties in experimental contexts. It is primarily used as a tool to study IGF signaling potency and tissue-level growth pathways.",
+        scientificPurpose: "Designed to study IGF-1 receptor signaling cascades, localized anabolic pathways, cellular growth responses, and repair biology.",
+        studiesFindings: "Activates IGF-1 receptor signaling pathways (PI3K/Akt, MAPK; context dependent). Supports localized growth and repair signaling in experimental systems. Influences protein synthesis/anabolic signaling endpoints (study dependent). Used for probing IGF pathway potency and tissue-specific responses. Provides a tool for mapping growth-factor signaling kinetics.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=IGF-1+DES+truncated+analog+IGF-1+receptor"
       },
       {
         name: "HCG",
@@ -650,10 +650,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Melanotan I (afamelanotide) is a linear melanocortin peptide that activates MC1R to stimulate melanogenesis and melanin production. It is studied for effects on pigmentation, photoprotection, and melanocyte biology. Research focuses on how MC1R activation influences skin pigmentation pathways and UV protection mechanisms.",
-        scientificPurpose: "Designed to study MC1R activation, melanogenesis, melanin production, and photoprotection mechanisms in pigmentation research.",
-        studiesFindings: "Activates MC1R signaling to stimulate melanocyte activity. Increases melanin production and skin pigmentation (context dependent). Demonstrates photoprotective effects through enhanced pigmentation. Supports investigation of melanocortin receptor biology. Enables study of pigmentation pathway regulation. Provides a tool for melanogenesis and photoprotection research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/8846201/"
+        description: "MT-1 commonly refers to melanotan I–related melanocortin signaling peptides; the clinically developed analogue afamelanotide is the best-defined NIH-indexed reference for melanocortin-1 receptor (MC1R) activation and melanogenesis/photoprotection research.",
+        scientificPurpose: "Designed to study melanocortin receptor signaling (MC1R), melanogenesis pathways, and UV/photoprotection biology in controlled contexts.",
+        studiesFindings: "Activates MC1R signaling and increases melanogenesis (context dependent). Enhances pigmentation-related photoprotective endpoints in clinical contexts (afamelanotide literature). Provides a tool for studying melanocortin signaling in skin biology. Modulates oxidative stress responses to UV exposure in some studies (study dependent). Enables mechanistic research on melanogenesis and pigmentation regulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=afamelanotide+melanocortin+1+receptor+MC1R+melanogenesis"
       },
       {
         name: "MT-2 (Melanotan II)",
@@ -662,10 +662,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Melanotan II is a cyclic melanocortin peptide that activates multiple melanocortin receptors (MC1R, MC3R, MC4R, MC5R) to influence pigmentation, sexual function, and appetite signaling. It is studied for broader melanocortin pathway effects compared to the more selective MT-1. Research focuses on multi-receptor activation profiles and downstream physiological effects.",
-        scientificPurpose: "Designed to study multi-melanocortin receptor activation, pigmentation, and CNS-mediated behavioral/metabolic endpoints.",
-        studiesFindings: "Activates multiple melanocortin receptor subtypes. Stimulates melanogenesis and skin pigmentation through MC1R. Influences CNS-mediated endpoints through MC3R/MC4R activation (context dependent). Demonstrates broader receptor activation profile than MT-1. Supports investigation of melanocortin pathway crosstalk. Provides a tool for multi-receptor melanocortin biology research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/9831248/"
+        description: "MT-2 (melanotan II) is a melanocortin receptor agonist developed in pigmentation research and also studied for CNS melanocortin pathway effects. Research commonly focuses on melanogenesis signaling and broader melanocortin-mediated behavioral/metabolic endpoints.",
+        scientificPurpose: "Designed to study melanocortin receptor biology (including pigmentation and CNS pathway signaling) and downstream melanogenesis mechanisms.",
+        studiesFindings: "Activates melanocortin signaling pathways relevant to pigmentation (context dependent). Increases melanogenesis-related markers in experimental contexts. Provides a tool for studying melanocortin receptor signaling cross-tissue effects. Supports research into melanocortin pathway roles in appetite/arousal circuitry (study dependent). Enables mechanistic mapping of melanocortin receptor activation profiles.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=melanotan+II+melanocortin+receptor+agonist"
       },
       {
         name: "5-AMINO-1MQ",
@@ -699,10 +699,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "3mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Bacteriostatic water is sterile water containing 0.9% benzyl alcohol as a preservative to inhibit microbial growth. It is used as a standard diluent for reconstituting lyophilized peptides and compounds in research applications. The benzyl alcohol preservative allows for multiple withdrawals while maintaining sterility.",
-        scientificPurpose: "Used as a standard diluent for reconstituting lyophilized peptides and research compounds while maintaining sterility through preservative action.",
-        studiesFindings: "Provides sterile reconstitution medium for lyophilized compounds. Contains benzyl alcohol preservative to inhibit microbial growth. Allows multiple withdrawals while maintaining sterility. Standard preparation medium for peptide research applications. Enables proper dissolution of lyophilized peptides for experimental use.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/23519466/"
+        description: "BAC Water refers to bacteriostatic water, a sterile aqueous diluent commonly formulated to resist microbial growth after repeated vial entry. In scientific handling terms, it is used as a reconstitution/solvent medium to maintain sterility characteristics during multi-use workflows.",
+        scientificPurpose: "Designed for sterile dilution/reconstitution workflows and to study stability/compatibility of reconstituted materials under bacteriostatic conditions.",
+        studiesFindings: "Supports sterile preparation workflows where multiple accesses may occur (context dependent). Maintains bacteriostatic characteristics based on formulation standards. Enables repeat-access handling models for laboratory/compounding contexts. Used to preserve preparation integrity in controlled settings. Supports standardized reconstitution protocols in research operations.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=bacteriostatic+water+benzyl+alcohol+sterile+diluent"
       },
       {
         name: "INSULIN",
@@ -747,10 +747,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "70mg", moq: 10 },
         ],
-        description: "Glow Stack is a bundled research concept combining three peptides studied for tissue remodeling and repair-associated signaling: BPC-157 (cytoprotection/repair cascades), GHK-Cu (extracellular matrix remodeling and repair gene programs), and thymosin beta-4–related material (cell migration/angiogenesis). The stack concept represents a multi-pathway model of repair biology, integrating vascular growth signaling, matrix reconstruction, and injury recovery kinetics. In research contexts, it is used to explore coordinated tissue remodeling as a systems process rather than a single receptor event.",
-        scientificPurpose: "Designed to study combined repair biology: angiogenesis, ECM remodeling, cell migration, cytoprotective signaling, and inflammation-phase coordination across tissue recovery models.",
-        studiesFindings: "BPC-157 literature reports enhanced repair signaling and angiogenesis markers (context dependent). GHK-Cu literature reports collagen/ECM remodeling and repair-associated gene expression shifts (study dependent). Thymosin beta-4 literature reports increased cell migration and wound repair signaling. Supports systems-level modeling of tissue remodeling programs across soft tissue contexts. Enables study of how matrix rebuilding and vascular signaling co-evolve during recovery. Provides a framework for multi-input repair pathway exploration in regenerative research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/25877441/"
+        description: "Glow Stack is a bundled research concept combining three signaling peptides frequently studied for regenerative and tissue-remodeling pathways: BPC-157 (repair/cytoprotection), GHK-Cu (ECM remodeling/gene expression), and thymosin beta-4–related material (migration/angiogenesis). The combined concept is positioned as a multi-pathway approach to repair signaling and matrix remodeling research.",
+        scientificPurpose: "Designed to study multi-target repair biology: angiogenesis, extracellular matrix remodeling, wound closure kinetics, and inflammatory modulation through complementary peptide signaling.",
+        studiesFindings: "BPC-157 literature: enhanced repair signaling and angiogenesis markers (context dependent). GHK-Cu literature: collagen/ECM remodeling gene expression patterns (study dependent). Thymosin beta-4 literature: cell migration and wound repair signaling. Combination concept: supports multi-pathway modeling of tissue remodeling and repair programs. Useful for studying how repair pathways may be coordinated across tissue compartments.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=BPC-157+tissue+repair"
       },
       {
         name: "KLOW STACK",
