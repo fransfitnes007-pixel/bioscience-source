@@ -166,10 +166,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Thymosin alpha-1 (thymalfasin) is a thymic peptide studied for immunomodulatory signaling, particularly in contexts involving T-cell function and innate–adaptive immune coordination. It is used to probe immune activation readiness, antigen presentation dynamics, and cytokine signaling patterns that influence immune response profiles. Research focuses on immune system coordination rather than direct antimicrobial action.",
-        scientificPurpose: "Designed to study immune modulation, T-cell functional signaling, antigen presentation pathway activation, and innate–adaptive immune coordination mechanisms.",
-        studiesFindings: "Enhances T-cell functional activity markers in immunology studies (context dependent). Supports antigen presentation and immune activation pathway signaling (study dependent). Modulates cytokine patterns associated with improved immune response profiles. Improves immune coordination endpoints in select infectious disease research contexts. Supports mechanistic mapping of thymic-peptide immune regulation pathways. Used as a probe for immune restoration signaling in immune dysfunction models.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/17428635/"
+        description: "Thymosin alpha-1 (thymalfasin) is a thymic peptide used as an immunomodulatory agent in multiple research and clinical contexts. It is studied for effects on T-cell function, antigen presentation signaling, and immune coordination under infection or immune dysfunction settings.",
+        scientificPurpose: "Designed to study immune restoration and modulation—particularly T-cell–linked immunity, innate-adaptive coordination, and anti-infective immune signaling support.",
+        studiesFindings: "Enhances T-cell functional signaling in immunology studies (context dependent). Improves immune coordination markers in infectious disease research programs. Supports antigen presentation and immune activation pathways (study dependent). Modulates cytokine signaling associated with improved immune response profiles. Used as a probe for thymic-peptide immune regulation mechanisms.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=thymosin+alpha-1+thymalfasin+immunomodulatory"
       },
       {
         name: "SS-31",
@@ -298,10 +298,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "15mg", moq: 10 },
         ],
-        description: "DSIP (Delta Sleep-Inducing Peptide) is a neuropeptide historically studied in sleep physiology and stress-response neurobiology. It is used as a mechanistic probe to explore how peptide signaling may influence sleep architecture, neuroendocrine stress markers, and CNS homeostatic regulation. Research outcomes vary by model, but DSIP remains a recurring reference compound in peptide-sleep pathway exploration.",
-        scientificPurpose: "Designed to study sleep regulation biology, neuroendocrine stress adaptation mechanisms, and peptide-mediated modulation of sleep-associated signaling networks.",
-        studiesFindings: "Influences sleep-related endpoints in some experimental designs (model dependent). Modulates neuroendocrine stress-response signaling markers (context dependent). Supports investigation into peptide regulation of sleep architecture hypotheses. Alters CNS signaling parameters associated with rest/stress coupling in select models. Provides a tool compound for sleep-peptide mechanistic research frameworks. Supports mapping of peptide influence on neuroendocrine sleep-state physiology.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/2885158/"
+        description: "DSIP (delta sleep-inducing peptide) is a neuropeptide historically studied in sleep physiology and stress-response neurobiology. Research interest includes its interactions with neuroendocrine signaling and sleep architecture markers in experimental contexts.",
+        scientificPurpose: "Designed to study sleep regulation biology, stress adaptation signaling, and neuroendocrine responses associated with sleep states.",
+        studiesFindings: "Influences sleep-related endpoints in some experimental designs (model dependent). Modulates stress-response signaling markers in neuroendocrine contexts. Provides a tool for studying peptide regulation of sleep architecture hypotheses. Demonstrates neurochemical modulation in CNS models (study dependent). Supports research into peptide-mediated sleep–stress coupling mechanisms.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=delta+sleep+inducing+peptide+DSIP"
       },
       {
         name: "PINEALON",
@@ -356,10 +356,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "CJC-1295 No DAC is a GHRH/GRF analogue designed to activate the GHRH receptor and stimulate endogenous pituitary growth hormone release, generally with shorter duration than DAC-linked variants. It is used to study GH pulsatility and downstream endocrine signaling patterns through the GH/IGF axis, with research emphasis on physiologic secretion dynamics rather than direct hormone replacement.",
-        scientificPurpose: "Designed to study physiologic GH stimulation via GHRH receptor activation, endocrine pulsatility, feedback regulation, and downstream IGF-axis signaling.",
-        studiesFindings: "Stimulates GH release via GHRH receptor signaling (context dependent). Supports study of pulsatile secretion dynamics and endocrine rhythm biology. Influences downstream IGF-axis signaling endpoints (study dependent). Enables mechanistic mapping of GH-axis control and feedback regulation. Serves as a tool for endocrine pathway exploration without exogenous GH. Supports comparative studies of GHRH-analogue signaling designs.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16352683/"
+        description: "CJC-1295 No DAC is a GHRH/GRF analogue engineered to activate the GHRH receptor and stimulate pituitary GH release, generally with shorter duration than DAC-conjugated variants. It is used to study GH pulsatility and downstream IGF-axis signaling responses.",
+        scientificPurpose: "Designed to study endogenous GH stimulation via GHRH receptor activation and downstream endocrine/metabolic signaling patterns.",
+        studiesFindings: "Stimulates GH release through GHRH receptor signaling. Supports pulsatile GH dynamics research frameworks. Influences downstream IGF-1 axis signaling (context dependent). Used for mapping endocrine regulation and feedback mechanisms. Provides a tool for GH-axis exploration without exogenous GH administration.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=CJC-1295+no+DAC+GHRH+analog"
       },
       {
         name: "SERMORELIN",
@@ -382,10 +382,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Ipamorelin is a synthetic growth hormone secretagogue designed to activate the ghrelin receptor (GHSR-1a) and stimulate pituitary GH release. It is used primarily to study endocrine secretion timing, pulsatility, and downstream GH/IGF-axis signaling, functioning as a mechanistic probe of ghrelin-receptor endocrine biology.",
-        scientificPurpose: "Designed to study ghrelin receptor signaling, GH release physiology, endocrine pulsatility, and downstream GH-axis metabolic/anabolic pathway regulation.",
-        studiesFindings: "Stimulates GH secretion through GHSR activation (context dependent). Supports evaluation of pituitary secretion dynamics and pulsatility patterns. Enables mapping of ghrelin receptor downstream signaling networks. Serves as a tool for GH-axis research designs evaluating endocrine regulation. Supports investigation of downstream IGF-axis signaling outcomes (study dependent). Provides a reference for GHSR agonist endocrine pathway modeling.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/9849822/"
+        description: "Ipamorelin is a synthetic growth hormone secretagogue designed to activate the ghrelin receptor (GHSR-1a), stimulating pituitary GH release. It is frequently used as a mechanistic probe of ghrelin/GHSR biology and GH-axis modulation.",
+        scientificPurpose: "Designed to study GHSR-mediated GH release, endocrine pulsatility, and downstream GH/IGF-axis signaling dynamics.",
+        studiesFindings: "Stimulates GH secretion via GHSR activation (context dependent). Supports investigation of pituitary hormone release mechanisms. Enables study of pulsatile endocrine signaling patterns. Provides a tool for mapping ghrelin-receptor downstream signaling pathways. Used in GH-axis research designs evaluating metabolic and anabolic signaling endpoints.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=ipamorelin+GHSR+growth+hormone+secretagogue"
       },
       {
         name: "HEXARELIN",
@@ -393,6 +393,7 @@ export const productCategories: ProductCategory[] = [
         slug: "hexarelin",
         variations: [
           { strength: "5mg", moq: 10 },
+          { strength: "10mg", moq: 10 },
         ],
         description: "Hexarelin is a potent synthetic growth hormone secretagogue that activates the ghrelin receptor (GHSR) to stimulate pituitary GH release. It is widely used to probe endocrine secretion dynamics, secretagogue potency profiles, and downstream GH/IGF-axis signaling changes. In research contexts it often serves as a comparator compound for receptor-driven GH release modeling.",
         scientificPurpose: "Designed to study GHSR-driven GH secretion, endocrine pulsatility, pituitary signaling biology, and downstream GH/IGF-axis pathway effects.",
@@ -407,10 +408,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "GHRP-6 is a synthetic peptide growth hormone secretagogue designed to activate the ghrelin receptor (GHSR) and stimulate pituitary GH release. It is used in endocrine research to probe receptor-driven secretion dynamics, endocrine pulsatility, and downstream GH-axis signaling outputs. It also functions as a foundational reference compound for secretagogue class comparison studies.",
-        scientificPurpose: "Designed to study GHSR-mediated GH release, pituitary secretion dynamics, endocrine feedback mechanisms, and ghrelin-pathway downstream signaling.",
-        studiesFindings: "Stimulates GH secretion via GHSR activation (model dependent). Supports study of pituitary secretion dynamics and endocrine pulsatility. Enables mapping of ghrelin receptor downstream signaling pathways. Serves as a reference model for GH secretagogue class biology. Supports investigation of GH-axis effects on metabolic/tissue signaling endpoints (study dependent). Enables comparative profiling against other secretagogue peptides.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/8871131/"
+        description: "GHRP-6 is a synthetic growth hormone–releasing peptide that activates the ghrelin receptor (GHSR), historically used to stimulate GH secretion and study GH-axis regulation. It is also used to probe appetite-related ghrelin-pathway signaling in some contexts.",
+        scientificPurpose: "Designed to study GHSR-driven GH release, endocrine feedback loops, and ghrelin-pathway signaling interactions.",
+        studiesFindings: "Stimulates GH secretion via GHSR activation (context dependent). Supports endocrine pulsatility and pituitary signaling research. Enables mechanistic mapping of ghrelin-receptor downstream pathways. Used as a tool for studying hormone release dynamics and feedback regulation. Provides a model compound for GH secretagogue class biology.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=GHRP-6+acetate+ghrelin+receptor+GHSR+growth+hormone"
       },
       {
         name: "HGH (Somatropin 191AA)",
@@ -445,10 +446,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "0.1mg", moq: 10 },
           { strength: "1mg", moq: 10 },
         ],
-        description: "IGF-1 LR3 is an engineered IGF-1 analogue designed to extend signaling persistence relative to native IGF-1, enabling prolonged IGF-1 receptor engagement in experimental systems. Research use focuses on IGF-1R downstream signaling networks such as PI3K/Akt and MAPK pathways, which regulate cellular growth, survival, and anabolic signaling. It is commonly used as a tool to study growth-factor signaling kinetics and tissue response magnitude.",
-        scientificPurpose: "Designed to study IGF-1 receptor signaling cascades, anabolic pathway activation, cellular growth responses, and repair-associated signaling frameworks.",
-        studiesFindings: "Activates IGF-1 receptor signaling cascades (PI3K/Akt, MAPK; context dependent). Increases anabolic/protein synthesis signaling markers in experimental contexts. Enhances growth and survival pathway signaling endpoints (study dependent). Provides prolonged IGF-related signaling relative to native IGF-1 (design rationale). Supports mechanistic study of growth-factor signaling duration vs response magnitude. Used to map tissue-level responses to sustained IGF pathway stimulation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/9194523/"
+        description: "IGF-1 LR3 is an engineered IGF-1 analogue designed to extend half-life and enhance receptor signaling persistence relative to native IGF-1. Research applications focus on IGF-1 receptor signaling, anabolic pathway activation, and growth/repair biology.",
+        scientificPurpose: "Designed to study IGF-1R downstream signaling (PI3K/Akt, MAPK), cellular growth responses, protein synthesis pathways, and tissue repair biology.",
+        studiesFindings: "Activates IGF-1 receptor signaling cascades (PI3K/Akt, MAPK; context dependent). Supports anabolic signaling and protein synthesis endpoints in experimental models. Influences cell survival and growth-associated pathways. Provides prolonged IGF-related signaling relative to native IGF-1 (design rationale). Used as a tool for studying growth-factor signaling intensity and duration.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=IGF-1+LR3+insulin-like+growth+factor+analog"
       },
       {
         name: "IGF-DES",
@@ -496,10 +497,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "40mg", moq: 10 },
         ],
-        description: "MOTS-c is a mitochondria-derived peptide encoded within the 12S rRNA gene, studied for effects on metabolic regulation and exercise-mimetic signaling. It is used to investigate AMPK activation, glucose metabolism, and cellular stress adaptation pathways. Research interest centers on how mitochondrial-derived peptides coordinate systemic metabolic responses.",
-        scientificPurpose: "Designed to study mitochondrial signaling, AMPK pathway activation, glucose metabolism regulation, and exercise-mimetic metabolic effects.",
-        studiesFindings: "Activates AMPK signaling pathways in metabolic tissues. Improves glucose metabolism endpoints in experimental models (context dependent). Demonstrates exercise-mimetic effects on metabolic adaptation (study dependent). Supports investigation of mitochondrial-derived peptide biology. Enables study of cellular stress adaptation and metabolic resilience. Provides a tool for mapping mitochondrial signaling to systemic metabolism.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/25738459/"
+        description: "MOTS-c is a mitochondria-encoded peptide studied as a metabolic signaling molecule that interfaces with cellular stress responses and glucose utilization pathways. It is used to explore mito-nuclear communication and adaptive metabolic programming.",
+        scientificPurpose: "Designed to study mitochondrial-derived peptide signaling, insulin sensitivity pathways, metabolic stress adaptation, and energy homeostasis regulation.",
+        studiesFindings: "Improves insulin sensitivity and glucose handling in experimental models (context dependent). Modulates metabolic stress-response pathways. Influences AMPK-related and energy-sensing signaling frameworks (study dependent). Supports research into mito-nuclear communication biology. Demonstrates protective metabolic effects under metabolic stress in some models.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=MOTS-c+mitochondrial+derived+peptide+insulin+sensitivity"
       },
       {
         name: "EPO-53000",
@@ -520,10 +521,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "PT-141 (Bremelanotide) is a melanocortin receptor agonist that activates MC3R and MC4R pathways in the central nervous system. It is used to study sexual arousal mechanisms, melanocortin signaling, and CNS-mediated behavioral endpoints. Research focuses on how melanocortin pathway activation influences arousal and desire through central mechanisms rather than peripheral vascular effects.",
-        scientificPurpose: "Designed to study melanocortin receptor signaling, CNS-mediated arousal pathways, and behavioral endpoints associated with MC3R/MC4R activation.",
-        studiesFindings: "Activates MC3R and MC4R signaling in central nervous system. Influences sexual arousal endpoints through CNS mechanisms (context dependent). Demonstrates effects distinct from peripheral vasodilator compounds. Supports investigation of melanocortin pathway behavioral effects. Enables study of CNS-mediated desire and arousal circuitry. Provides a tool for mapping melanocortin receptor biology in behavioral contexts.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/15974260/"
+        description: "PT-141 (bremelanotide) is a melanocortin receptor agonist developed to modulate CNS circuits involved in sexual desire and arousal. It is studied as a neuropeptide-like intervention acting through melanocortin signaling rather than vascular mechanisms.",
+        scientificPurpose: "Designed to study melanocortin receptor signaling in CNS arousal/desire circuitry and associated behavioral endpoints.",
+        studiesFindings: "Activates central melanocortin pathways involved in sexual motivation (context dependent). Improves sexual desire endpoints in clinical research contexts. Demonstrates CNS-mediated arousal signaling distinct from peripheral vasodilatory mechanisms. Supports mechanistic mapping of melanocortin receptor behavioral biology. Used to study peptide modulation of motivation/reward neurocircuits (study dependent).",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=bremelanotide+PT-141+melanocortin+receptor+sexual+desire"
       },
       {
         name: "VIP",
@@ -685,10 +686,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "SLU-PP-332 is a research compound designed to activate ERRα/γ (estrogen-related receptors), transcription factors that regulate mitochondrial biogenesis and oxidative metabolism. It is studied as an \"exercise mimetic\" for effects on muscle fiber type, endurance capacity, and metabolic adaptation. Research focuses on how ERR activation can shift metabolic programming toward oxidative phenotypes.",
-        scientificPurpose: "Designed to study ERRα/γ activation, mitochondrial biogenesis, oxidative metabolism, and exercise-mimetic effects in muscle and metabolism research.",
-        studiesFindings: "Activates ERRα/γ transcriptional programs in metabolic tissues. Enhances mitochondrial biogenesis markers (context dependent). Demonstrates exercise-mimetic effects on muscle metabolism (study dependent). Influences muscle fiber type composition toward oxidative phenotypes. Supports investigation of transcription factor-mediated metabolic programming. Provides a tool for studying non-exercise metabolic adaptation strategies.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/32479746/"
+        description: "SLU-PP-322 appears to be a catalog-style small-molecule code within the SLU-PP series of estrogen-related receptor (ERR) agonists discussed in exercise-mimetic metabolism research (closely related series compounds include SLU-PP-332). These agents are studied for transcriptional activation of mitochondrial and oxidative metabolism gene programs.",
+        scientificPurpose: "Designed to study ERR (ERRα/β/γ) activation and downstream transcriptional programs controlling mitochondrial biogenesis, fatty-acid oxidation, and exercise-mimetic metabolic remodeling.",
+        studiesFindings: "Activates ERR-regulated metabolic gene expression programs (series-dependent). Increases oxidative metabolism signatures in skeletal muscle models (context dependent). Enhances mitochondrial function and cellular respiration markers in experimental systems. Improves metabolic syndrome/obesity-related outcomes in animal models (series-dependent literature). Provides a tool for mapping ERR-driven endurance/exercise transcriptional responses.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=SLU-PP-332+ERR+agonist+exercise+mimetic"
       },
       {
         name: "BAC WATER",
