@@ -772,10 +772,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "KPV is a short bioactive tripeptide studied in inflammation research as a minimal motif capable of modulating cytokine output and inflammatory cascade amplification. It is frequently discussed in epithelial and mucosal immune contexts where small peptides can influence barrier-associated immune signaling. Research uses it to explore how compact peptide sequences can regulate inflammatory pathway dynamics.",
-        scientificPurpose: "Designed to study cytokine modulation, epithelial/mucosal inflammatory regulation, and anti-inflammatory signaling pathway dynamics in experimental systems.",
-        studiesFindings: "Reduces inflammatory cytokine signaling in experimental models (context dependent). Modulates immune signaling pathways associated with inflammation resolution. Supports epithelial barrier-associated immune regulation signaling in some studies. Demonstrates anti-inflammatory patterns in peptide research contexts. Provides a minimal-peptide tool for mapping inflammation pathway modulation. Useful for exploring peptide control of mucosal immune signaling networks.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/12820180/"
+        description: "KPV is a small bioactive tripeptide frequently discussed in inflammation and epithelial biology research. It is often studied for effects on cytokine signaling and barrier-associated inflammatory modulation.",
+        scientificPurpose: "Designed to study inflammation-regulating pathways, cytokine modulation, and mucosal/epithelial immune signaling.",
+        studiesFindings: "Reduces inflammatory signaling markers in experimental settings (context dependent). Modulates cytokine activity associated with inflammatory cascades. Supports epithelial barrier-associated signaling in some models. Demonstrates anti-inflammatory patterns in peptide-derivative research. Used as a mechanistic tool for small-peptide inflammation modulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=KPV+Lys-Pro-Val+tripeptide+anti-inflammatory"
       },
     ]
   }
