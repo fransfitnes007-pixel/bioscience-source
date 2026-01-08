@@ -85,10 +85,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Cagrilintide is a long-acting synthetic analogue designed to reproduce and prolong amylin-pathway satiety signaling, a neuroendocrine system co-regulating appetite and post-meal fullness. It is engineered to sustain receptor engagement so researchers can study extended appetite suppression and nutrient-handling effects. Research frameworks commonly focus on how amylin signaling interacts with brainstem/hypothalamic circuits that govern meal size and feeding drive.",
-        scientificPurpose: "Designed to study amylin receptor pathway activation for appetite regulation, reduced energy intake, and obesity-related endpoint modulation, including combination research with incretin signaling.",
-        studiesFindings: "Enhances satiety signaling and reduces meal size in controlled settings. Reduces caloric intake through CNS-mediated appetite suppression pathways. Modulates gastric motility/fullness signaling (context dependent). Improves weight-related endpoints in obesity-focused investigational programs. Demonstrates additive weight effects when combined with incretin signaling (study dependent). Supports mapping of amylin→brainstem→hypothalamus feeding circuitry. Improves select metabolic biomarkers in combination research contexts (study dependent). Enables mechanistic study of appetite suppression independent of glucose-dependent insulin pathways.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/34623893/"
+        description: "Cagrilintide is a long-acting amylin-analogue peptide designed to replicate satiety signaling associated with the endogenous pancreatic hormone amylin. It is engineered for prolonged receptor engagement to intensify appetite-regulating neuroendocrine signaling.",
+        scientificPurpose: "Designed to study amylin-receptor pathway activation, appetite suppression mechanisms, and additive weight-loss biology (including combination approaches with incretin agonists).",
+        studiesFindings: "Enhances satiety signaling and reduces energy intake. Supports weight reduction endpoints in obesity-focused research programs. Influences gastric motility and nutrient handling signals (context dependent). Improves metabolic biomarkers when paired with incretin signaling (study dependent). Enables mechanistic investigation of amylin pathway modulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=cagrilintide+amylin+analog+satiety"
       },
       {
         name: "MAZDUTIDE",
@@ -140,10 +140,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "BPC-157 is a synthetic pentadecapeptide derived from a protective protein found in gastric juice, engineered to study tissue repair and cytoprotective signaling cascades. It is used in research to investigate angiogenesis, wound healing kinetics, and gastrointestinal mucosal protection pathways. The peptide has become a standard reference compound for studying repair biology across multiple tissue types.",
-        scientificPurpose: "Designed to study tissue repair mechanisms, angiogenesis signaling, gastrointestinal protection pathways, and cytoprotective cascades in experimental injury and recovery models.",
-        studiesFindings: "Enhances angiogenesis markers in tissue repair studies. Accelerates wound healing kinetics in multiple tissue types. Demonstrates gastroprotective effects in mucosal injury models. Modulates growth factor expression related to tissue repair (context dependent). Supports tendon and ligament healing pathway investigation. Provides a reference standard for cytoprotective peptide research. Enables mapping of repair signaling cascades across tissue compartments.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/27349193/"
+        description: "BPC-157 is a synthetic pentadecapeptide derived from a gastric protein fragment, frequently studied in tissue-repair models for its unusual stability and signaling effects on repair cascades. It is commonly framed as a cytoprotective/regenerative research peptide.",
+        scientificPurpose: "Designed to explore angiogenesis, tissue repair kinetics, inflammatory signaling modulation, and mucosal protection mechanisms.",
+        studiesFindings: "Accelerates repair processes in tendon/ligament injury models. Enhances angiogenic signaling and microvascular recovery markers. Supports muscle repair signaling in preclinical contexts. Improves mucosal protective signaling in GI models. Modulates nitric oxide–linked pathways in repair contexts (model dependent).",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=BPC-157+pentadecapeptide+tissue+repair"
       },
       {
         name: "TB500",
@@ -153,10 +153,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "TB500 is a synthetic version of thymosin beta-4, a naturally occurring 43-amino-acid peptide involved in cell migration, wound healing, and tissue regeneration. It is used as a mechanistic tool to study actin regulation, angiogenesis, and repair-associated signaling in experimental systems. Research interest centers on its role in coordinating cellular migration and vascular growth during tissue recovery.",
-        scientificPurpose: "Designed to study cell migration, angiogenesis, wound healing, and actin cytoskeleton regulation in tissue repair and regeneration research contexts.",
-        studiesFindings: "Enhances cell migration in wound healing models. Promotes angiogenesis signaling in tissue repair studies. Regulates actin polymerization dynamics in cellular systems. Accelerates wound closure kinetics in experimental models (context dependent). Supports cardiac and vascular repair pathway investigation (study dependent). Enables mapping of thymosin beta-4 signaling in regenerative contexts. Provides a tool for studying coordinated tissue remodeling programs.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/20818537/"
+        description: "TB500 is commonly marketed as thymosin beta-4–related material; thymosin beta-4 is an endogenous actin-binding peptide involved in cytoskeletal remodeling, cell migration, and repair-associated signaling. Research literature often focuses on wound repair biology and angiogenesis.",
+        scientificPurpose: "Designed to study actin dynamics, cellular migration, angiogenesis, and tissue repair signaling networks.",
+        studiesFindings: "Promotes cell migration and tissue repair signaling. Enhances angiogenic responses in wound models. Supports regenerative processes in soft tissue models. Modulates inflammatory signaling in repair contexts. Influences cytoskeletal organization relevant to healing.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=thymosin+beta-4+cell+migration+angiogenesis"
       },
       {
         name: "THYMOSIN ALPHA-1",
@@ -228,10 +228,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "AOD is commonly described as a growth-hormone fragment–derived metabolic peptide concept, positioned to study adipose regulation and lipid mobilization signaling. Research usage emphasizes whether fragment-level motifs can influence fat metabolism programs without invoking the complete endocrine profile of full growth hormone. It is typically used as a mechanistic tool for adipocyte metabolism pathway exploration.",
-        scientificPurpose: "Designed to study adipocyte lipid mobilization, fat-mass regulation signaling, and fragment-based endocrine peptide separation-of-function metabolic mechanisms.",
-        studiesFindings: "Influences lipolysis-associated signaling pathways in adipose models (context dependent). Supports fat-mass reduction endpoints in some experimental contexts (study dependent). Helps isolate adipose metabolic effects from broader GH endocrine actions. Provides a tool for studying adipocyte storage vs mobilization dynamics. Enables mechanistic exploration of fragment-derived metabolic peptide signaling frameworks. Supports comparative research with GH fragment literature in adipose metabolism.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/11713213/"
+        description: "AOD is commonly referenced as an hGH-derived fragment concept (often tied to the 176–191 region) developed to study adipose metabolism signaling without the full spectrum of growth-hormone anabolic actions. Research framing focuses on lipolysis and fat-mass regulation pathways.",
+        scientificPurpose: "Designed to study adipocyte lipid mobilization, lipolysis signaling, and fat-mass reduction mechanisms in experimental contexts.",
+        studiesFindings: "Influences lipolysis-associated signaling in research models (context dependent). Supports fat-mass reduction endpoints in some experimental designs. Helps study GH-fragment–linked metabolic signaling separation from full GH activity. Used to explore adipocyte metabolism and lipid mobilization mechanisms. Provides a tool framework for fragment-based metabolic peptide research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=human+growth+hormone+fragment+176-191+lipolysis"
       },
       {
         name: "BPC-157 + TB500",
@@ -260,10 +260,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Semax is a synthetic neuroactive peptide derived from an ACTH fragment, engineered to modulate CNS signaling without the full endocrine actions of native ACTH. It is studied as a neuromodulatory and neuroprotective research compound that may influence neurotrophic pathways and synaptic plasticity-related programs. Research often frames Semax around cognition, stress-response signaling, and neurorepair-associated gene expression patterns.",
-        scientificPurpose: "Designed to study neurotrophic modulation, cognitive performance endpoints, stress adaptation circuitry, and neuroprotective signaling in experimental contexts.",
-        studiesFindings: "Modulates neurotrophic signaling associated with neuronal resilience (study dependent). Improves cognitive/learning endpoints in some experimental models. Alters stress-response neurochemistry markers (context dependent). Demonstrates neuroprotective signaling patterns in preclinical models. Influences neurotransmission-associated gene expression in some studies. Provides a tool for studying peptide-driven modulation of synaptic plasticity frameworks.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/17460624/"
+        description: "Semax is a synthetic neuroactive peptide derived from an ACTH fragment (ACTH(4–10)) engineered to modulate neuronal signaling and neurotrophic pathways. Research literature often frames it as influencing cognitive and neuroprotective signaling networks.",
+        scientificPurpose: "Designed to study neurotrophic modulation (e.g., BDNF-linked signaling), cognitive performance endpoints, stress-response neurobiology, and neuroprotection in experimental contexts.",
+        studiesFindings: "Modulates neurotrophic signaling pathways (study dependent). Supports cognitive performance endpoints in certain research settings. Influences stress-response neurochemistry in experimental models. Demonstrates neuroprotective signaling patterns in preclinical literature. Used as a probe for peptide-based CNS modulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Semax+peptide+BDNF+neuroprotective"
       },
       {
         name: "SELANK",
@@ -273,10 +273,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Selank is a synthetic tuftsin-analogue neuropeptide investigated for effects on anxiety-related signaling and stress physiology. It is studied as a peptide neuromodulator that may influence inhibitory neurotransmission networks and stress-adaptation pathways. Experimental literature often centers on behavioral outcomes and neurochemical signaling shifts relevant to emotional regulation circuits.",
-        scientificPurpose: "Designed to study peptide-based anxiolytic-like mechanisms, stress adaptation biology, and neurobehavioral endpoints in controlled models.",
-        studiesFindings: "Reduces anxiety-like behavioral endpoints in certain experimental settings (model dependent). Modulates stress-response signaling markers (context dependent). Influences inhibitory neurotransmission frameworks (often discussed with GABA-related pathways). Alters neurotransmission-associated gene expression patterns in some studies. Supports attention/cognitive endpoints in select experimental designs (study dependent). Provides a tool for mapping peptide modulation of emotional regulation circuitry.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/18577013/"
+        description: "Selank is a synthetic tuftsin-analogue neuropeptide designed to modulate CNS signaling associated with anxiety and stress physiology. It is investigated as a peptide neuromodulator with effects on neurotransmission-related gene expression.",
+        scientificPurpose: "Designed to study anxiolytic-like neuropeptide mechanisms, GABAergic modulation, stress adaptation signaling, and cognitive/behavioral endpoints in experimental contexts.",
+        studiesFindings: "Modulates anxiety-related behavioral endpoints in study settings (model dependent). Influences neurotransmission-associated gene expression patterns. Interacts with GABA-related signaling frameworks in experimental literature. Supports stress adaptation signaling in some models. Used as a tool compound for peptide-based anxiolytic pathway research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Selank+peptide+anxiolytic+GABA"
       },
       {
         name: "CEREBROLYSIN",
@@ -285,10 +285,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "60mg", moq: 6 },
         ],
-        description: "Cerebrolysin is a porcine brain–derived peptide mixture studied for neurotrophic-like effects on neuronal survival, plasticity, and recovery signaling. Research discussion often focuses on synaptic remodeling, neuroinflammation modulation, and functional recovery endpoints after neurological insult. It is frequently used as a complex peptide tool to probe multi-pathway neurorepair biology rather than a single receptor mechanism.",
-        scientificPurpose: "Designed to study neurotrophic-like signaling, neuroplasticity enhancement, neuronal resilience pathways, and neurorecovery endpoints in neurological injury/stress research.",
-        studiesFindings: "Supports neuroplasticity-associated signaling in experimental contexts. Improves functional recovery endpoints in some stroke/TBI studies (study dependent). Modulates neuronal survival pathway markers in preclinical research. Influences neuroinflammation-associated signaling parameters (context dependent). Improves neurocognitive performance endpoints in certain studies (model dependent). Provides a complex-peptide framework for neurorepair pathway investigation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/22036269/"
+        description: "Cerebrolysin is a porcine brain–derived peptide mixture used in neurobiology research and some clinical programs as a neurotrophic-like intervention. It is studied for its effects on neuroplasticity, neuronal survival signaling, and recovery pathways after injury or neurodegenerative stress.",
+        scientificPurpose: "Designed to study neurotrophic-like signaling, neuronal resilience, neurorecovery after insult, and cognitive/functional outcome endpoints.",
+        studiesFindings: "Supports neuroplasticity-associated signaling in experimental contexts. Improves functional recovery endpoints in some stroke/TBI studies (study dependent). Modulates neuronal survival pathways in preclinical research. Influences neuroinflammation-related signaling markers (context dependent). Used as a complex-peptide tool for neurorepair research frameworks.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Cerebrolysin+neurotrophic+stroke+traumatic+brain+injury"
       },
       {
         name: "DSIP",
@@ -331,10 +331,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Tesamorelin is a synthetic GHRH analogue designed to stimulate endogenous pituitary growth hormone release through GHRH receptor activation. It is used to study GH-axis pulsatility, somatotroph cell function, and downstream metabolic signaling associated with physiologic GH secretion. Research often emphasizes visceral adipose reduction and metabolic endpoint improvements in specific clinical contexts.",
-        scientificPurpose: "Designed to study GHRH receptor activation, pituitary somatotroph function, GH pulsatility, and downstream metabolic/body composition signaling.",
-        studiesFindings: "Stimulates endogenous GH secretion via GHRH receptor signaling. Supports pulsatile GH release pattern investigation. Reduces visceral adipose tissue in clinical research contexts (study dependent). Influences IGF-1 axis signaling downstream of GH release. Enables mechanistic study of GHRH-driven endocrine regulation. Provides a reference for studying physiologic GH stimulation vs exogenous GH.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/20739385/"
+        description: "Tesamorelin is a synthetic analogue of growth hormone–releasing hormone (GHRH) engineered to stimulate endogenous pulsatile growth hormone secretion from the pituitary. Its biology is used to study downstream GH/IGF-1 axis signaling and adipose distribution effects.",
+        scientificPurpose: "Designed to study GHRH receptor activation, GH pulsatility, IGF-1 axis modulation, and visceral adipose regulation endpoints.",
+        studiesFindings: "Increases endogenous GH secretion patterns (pulsatile). Elevates IGF-1 axis signaling (context dependent). Reduces visceral adipose tissue endpoints in clinical contexts. Improves some metabolic risk markers linked to visceral fat (study dependent). Enables mechanistic study of GH-axis modulation without exogenous GH.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=tesamorelin+GHRH+visceral+adipose+tissue"
       },
       {
         name: "CJC-1295 WITHOUT DAC + IPA",
@@ -343,10 +343,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg (5mg + 5mg)", moq: 10 },
         ],
-        description: "CJC-1295 (without DAC) is a GHRH/GRF analogue designed to stimulate endogenous growth hormone release through GHRH receptor activation, typically with shorter persistence than DAC-conjugated variants. \"IPA\" commonly refers to ipamorelin, a ghrelin receptor (GHSR-1a) agonist that stimulates GH release through a complementary endocrine pathway. The combination is used to study dual-input stimulation of GH pulsatility and downstream signaling through the GH/IGF axis.",
-        scientificPurpose: "Designed to study coordinated GH-axis stimulation using GHRH receptor activation (CJC) plus GHSR activation (ipamorelin), enabling analysis of endocrine pulsatility, feedback regulation, and downstream IGF-axis signaling.",
-        studiesFindings: "GHRH analog activation increases GH secretion signaling (context dependent). GHSR agonism stimulates GH release via ghrelin-pathway mechanisms. Supports investigation of pulsatile endocrine secretion dynamics. Enables study of additive/complementary GH-axis stimulation strategies. Supports mapping of downstream IGF signaling changes over time (study dependent). Provides a framework for GH-axis feedback loop and secretion pattern research. Enables comparative profiling of GH secretagogue pathway inputs.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16352683/"
+        description: "CJC-1295 (without DAC) is a GHRH/GRF analogue designed to stimulate pituitary GH release via GHRH receptor activation, typically with shorter activity than DAC-linked variants. \"IPA\" commonly refers to ipamorelin, a GHSR (ghrelin receptor) agonist; the combination is used to probe complementary GH-axis stimulation routes.",
+        scientificPurpose: "Designed to study coordinated GH-axis stimulation by combining GHRH receptor activation (CJC) with ghrelin receptor agonism (ipamorelin) to evaluate GH pulsatility and downstream IGF-1 signaling.",
+        studiesFindings: "Increases GH release signaling via GHRH receptor activation (CJC component). Stimulates GH secretion via GHSR activation (ipamorelin component). Supports investigation of pulsatile GH biology and endocrine dynamics. Used to study GH/IGF-1 axis downstream transcriptional and metabolic effects. Provides a model for dual-pathway GH-axis stimulation research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=CJC-1295+no+DAC+GHRH+analog"
       },
       {
         name: "CJC-1295 NO DAC",
@@ -553,10 +553,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "50mg", moq: 10 },
           { strength: "100mg", moq: 10 },
         ],
-        description: "GHK-Cu is a copper-binding tripeptide studied for effects on extracellular matrix remodeling, wound healing, and repair-associated gene expression. It is used to investigate collagen synthesis, skin regeneration, and tissue remodeling pathways. Research interest centers on how this minimal peptide-metal complex can shift gene expression programs related to tissue repair and aging.",
-        scientificPurpose: "Designed to study ECM remodeling, collagen synthesis, wound healing, and repair-associated gene expression in skin and tissue regeneration research.",
-        studiesFindings: "Modulates collagen synthesis and ECM remodeling signaling. Influences repair-associated gene expression patterns (context dependent). Supports wound healing pathway investigation in experimental models. Demonstrates antioxidant and anti-inflammatory signaling in some studies. Enables investigation of copper-peptide biology in tissue repair. Provides a tool for studying minimal-peptide regulation of regenerative programs.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/25877441/"
+        description: "GHK-Cu is a copper-binding tripeptide complex found in human plasma and extracellular matrix, studied as a regenerative signaling molecule. It is often associated with extracellular matrix remodeling and repair-related gene expression programs.",
+        scientificPurpose: "Designed to study collagen/elastin remodeling, wound repair signaling, antioxidant gene networks, and tissue regeneration pathways.",
+        studiesFindings: "Stimulates collagen-associated remodeling pathways (context dependent). Enhances wound healing signaling in experimental models. Modulates gene expression patterns linked to tissue repair. Supports antioxidant defense signaling in cellular models. Influences skin/tissue remodeling endpoints in research contexts.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=GHK-Cu+copper+peptide+collagen+gene+expression"
       },
       {
         name: "GLUTATHIONE",
@@ -565,10 +565,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "1500mg", moq: 10 },
         ],
-        description: "Glutathione is the master intracellular antioxidant tripeptide (γ-glutamyl-cysteinyl-glycine) that protects cells from oxidative damage and supports detoxification pathways. It is used to study cellular redox balance, phase II detoxification, and oxidative stress resistance mechanisms. Research applications span toxicology, aging, and cellular protection pathway investigation.",
-        scientificPurpose: "Designed to study cellular antioxidant mechanisms, redox balance, detoxification pathways, and oxidative stress resistance in experimental systems.",
-        studiesFindings: "Provides critical cellular defense against oxidative damage. Supports phase II detoxification enzyme function. Modulates cellular redox balance and thiol status. Demonstrates protective effects in oxidative stress models (context dependent). Enables investigation of antioxidant pathway regulation. Provides a reference for cellular protection and detoxification research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/24341424/"
+        description: "Glutathione (GSH) is the dominant intracellular thiol antioxidant and redox buffer, integral to detoxification chemistry and oxidative stress control. It participates in enzymatic antioxidant systems and conjugation reactions that protect cellular structures.",
+        scientificPurpose: "Designed to study oxidative stress mitigation, detoxification signaling, mitochondrial protection, and immune redox regulation.",
+        studiesFindings: "Reduces oxidative stress markers in cellular/physiologic models. Maintains redox balance and thiol homeostasis. Supports detoxification conjugation pathways (GST-linked). Protects mitochondrial function under oxidative challenge (context dependent). Supports immune-cell redox signaling in experimental contexts.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=glutathione+GSH+redox+mitochondria+oxidative+stress"
       },
       {
         name: "SNAP-8",
@@ -577,10 +577,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "SNAP-8 is a synthetic octapeptide designed to modulate SNARE complex formation and neuromuscular junction signaling. It is studied in cosmetic and neurobiology research for effects on muscle contraction patterns and expression line formation. Research focuses on how peptide-mediated SNARE modulation can influence neurotransmitter release and downstream muscle activity.",
-        scientificPurpose: "Designed to study SNARE complex modulation, neuromuscular junction signaling, and muscle contraction pathway regulation in cosmetic and neurobiology research.",
-        studiesFindings: "Modulates SNARE complex formation in neuromuscular systems. Influences neurotransmitter release signaling (context dependent). Supports investigation of muscle contraction pathway regulation. Demonstrates effects on expression-related muscle activity in cosmetic research. Enables study of peptide-mediated neuromuscular modulation. Provides a tool for SNARE-targeted signaling pathway research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/19146898/"
+        description: "SNAP-8 (acetyl octapeptide-3) is a synthetic peptide developed in cosmetic research to influence neuromuscular communication by targeting SNARE-complex–associated neurotransmitter release mechanics. It is commonly positioned as a topical \"signal-relaxing\" peptide concept.",
+        scientificPurpose: "Designed to study SNARE-mediated neurotransmitter release modulation and downstream effects on contraction-associated skin dynamics.",
+        studiesFindings: "Reduces SNARE-complex efficiency in experimental frameworks (context dependent). Decreases neurotransmitter release intensity in model systems. Reduces contraction-associated signaling relevant to dynamic wrinkle appearance. Supports cosmetic research endpoints for skin smoothing (study dependent). Provides a mechanistic analogue model for neuromodulatory topical peptides.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=acetyl+octapeptide-3+SNAP-8+SNARE+neurotransmitter"
       },
       {
         name: "LL-37",
@@ -589,10 +589,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "LL-37 is a human cathelicidin antimicrobial peptide with broad-spectrum antimicrobial activity and immunomodulatory properties. It is studied for effects on microbial membrane disruption, wound healing, and innate immune signaling. Research interest includes how this host defense peptide coordinates antimicrobial activity with tissue repair and immune regulation.",
-        scientificPurpose: "Designed to study antimicrobial mechanisms, innate immune signaling, wound healing, and host defense peptide biology in infection and immunity research.",
-        studiesFindings: "Demonstrates broad-spectrum antimicrobial activity against bacteria, viruses, and fungi. Modulates innate immune signaling and cytokine patterns. Supports wound healing pathway investigation (context dependent). Influences angiogenesis and tissue repair signaling in some studies. Enables investigation of host defense peptide mechanisms. Provides a tool for studying cathelicidin biology in immunity and repair.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16209167/"
+        description: "LL-37 is a synthetic form of the human cathelicidin antimicrobial peptide, a key component of innate immunity. Beyond antimicrobial effects, it is studied for immunomodulatory signaling and tissue-repair interactions.",
+        scientificPurpose: "Developed to investigate antimicrobial activity, immune signaling modulation, biofilm disruption, and wound-repair pathways.",
+        studiesFindings: "Broad antimicrobial activity against diverse organisms (model dependent). Disrupts or inhibits biofilm formation in experimental systems. Modulates innate immune cell recruitment/signaling. Supports wound repair processes in some models. Influences inflammatory pathway signaling (context dependent).",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=LL-37+cathelicidin+antimicrobial+peptide+biofilm"
       },
       {
         name: "NAD",
@@ -602,10 +602,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "100mg", moq: 10 },
           { strength: "500mg", moq: 10 },
         ],
-        description: "NAD+ (nicotinamide adenine dinucleotide) is an essential coenzyme involved in cellular metabolism, energy production, and sirtuin-mediated signaling. It is studied for effects on mitochondrial function, DNA repair pathways, and aging-associated metabolic changes. Research interest centers on how NAD+ availability influences cellular energetics and longevity-associated pathway regulation.",
-        scientificPurpose: "Designed to study cellular metabolism, sirtuin signaling, mitochondrial function, and aging-associated pathway regulation in metabolic and longevity research.",
-        studiesFindings: "Supports cellular energy metabolism and ATP production. Activates sirtuin-mediated signaling pathways (context dependent). Influences DNA repair and genomic stability mechanisms. Modulates mitochondrial function and bioenergetics. Enables investigation of NAD+-dependent enzyme biology. Provides a tool for studying metabolic and longevity pathway regulation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/26785480/"
+        description: "NAD (nicotinamide adenine dinucleotide) is a central metabolic cofactor governing redox reactions and mitochondrial energy transfer. It also serves as a substrate for NAD+-dependent enzymes involved in DNA repair and stress-response signaling.",
+        scientificPurpose: "Designed to study mitochondrial bioenergetics, redox homeostasis, NAD+-dependent signaling (sirtuins/PARPs), and cellular stress adaptation.",
+        studiesFindings: "Supports mitochondrial ATP production via redox coupling. Enables NAD+-dependent signaling linked to stress-response pathways. Supports DNA repair-associated enzyme activity (context dependent). Enhances cellular redox resilience in experimental models. Influences metabolic homeostasis pathways in research settings.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=NAD%2B+mitochondrial+metabolism+sirtuins+PARP"
       },
       {
         name: "LEMON BOTTLE",
@@ -614,10 +614,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "\"Lemon Bottle\" is a branded aesthetic product name rather than a standardized chemical identity commonly indexed on NIH/PubMed. Scientific evidence and NIH indexing generally track data by verified active ingredients, not brand formulations. The closest NIH-trackable mechanism for localized injectable fat reduction is ingredient-level adipocytolysis literature (frequently associated with deoxycholic acid), which has defined cellular mechanisms and measurable contour endpoints.",
-        scientificPurpose: "Marketed concept: localized adipose reduction. NIH-aligned evaluation is best mapped to ingredient-level adipocytolysis research rather than brand-level claims.",
-        studiesFindings: "Ingredient-level adipocytolysis literature demonstrates localized subcutaneous fat reduction endpoints (study dependent). Mechanistic studies show targeted adipocyte disruption in treated tissues (context dependent). Demonstrates measurable changes in treated-area contour/volume in controlled settings. Provides a standardized research framework for localized fat reduction via injectables. Enables study of tissue remodeling following adipocyte disruption (study dependent). Supports evaluation of fat reduction mechanisms at the cellular and tissue levels.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/30817890/"
+        description: "\"Lemon Bottle\" is a branded aesthetic product marketed for localized fat reduction; however, scientific literature and NIH indexing typically track evidence by active ingredient rather than brand names. For scientific matching, NIH-referenced research is most directly associated with established injectable adipocytolytic agents (e.g., deoxycholic acid) rather than the brand itself.",
+        scientificPurpose: "Marketed purpose: study/target localized adipose reduction concepts. Evidence-based scientific alignment on NIH is best mapped to deoxycholic acid–based adipocytolysis research rather than brand-level validation.",
+        studiesFindings: "NIH does not consistently index controlled research under the \"Lemon Bottle\" brand name (brand ≠ standardized molecule). Injectable adipocytolytic research (active-ingredient level, e.g., deoxycholic acid) has shown: Reduction of localized subcutaneous fat volume in controlled settings. Adipocyte disruption/adipocytolysis mechanisms in targeted tissue. Measurable changes in treated-area contour endpoints (study dependent).",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=deoxycholic+acid+injection+submental+fat+adipocytolysis"
       },
       {
         name: "BOTULINUM TOXIN",
@@ -638,10 +638,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10 mL", moq: 10 },
         ],
-        description: "L-Carnitine is an amino acid derivative essential for mitochondrial fatty acid transport and beta-oxidation. It is studied for effects on lipid metabolism, energy production, and exercise-related metabolic adaptation. Research applications include fatty acid oxidation pathway investigation and metabolic efficiency studies.",
-        scientificPurpose: "Designed to study mitochondrial fatty acid transport, beta-oxidation, lipid metabolism, and energy production in metabolic and exercise research.",
-        studiesFindings: "Facilitates fatty acid transport into mitochondria for oxidation. Supports energy production through lipid metabolism pathways. Influences exercise-related metabolic endpoints (context dependent). Modulates fatty acid oxidation efficiency in cellular systems. Enables investigation of carnitine shuttle biology. Provides a tool for studying lipid metabolism and cellular energetics.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/21224234/"
+        description: "L-Carnitine is a quaternary amine central to mitochondrial fatty-acid transport via the carnitine shuttle, enabling long-chain fatty acids to enter mitochondria for β-oxidation. It is used extensively to study lipid utilization, mitochondrial energetics, and metabolic flexibility.",
+        scientificPurpose: "Designed to study fatty-acid oxidation capacity, mitochondrial substrate transport, energy metabolism, and exercise/metabolic stress physiology.",
+        studiesFindings: "Supports transport of long-chain fatty acids into mitochondria. Enhances fatty-acid oxidation capacity in metabolic models (context dependent). Influences metabolic flexibility and substrate partitioning endpoints. Supports mitochondrial energetics under increased demand (study dependent). Used to study lipid metabolism and cellular energy regulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=L-carnitine+mitochondrial+fatty+acid+transport+beta+oxidation"
       },
       {
         name: "MT-1",
