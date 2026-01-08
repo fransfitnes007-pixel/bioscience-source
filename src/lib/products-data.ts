@@ -503,18 +503,6 @@ export const productCategories: ProductCategory[] = [
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=MOTS-c+mitochondrial+derived+peptide"
       },
       {
-        name: "EPO-53000",
-        displayName: "EPO-53000",
-        slug: "epo-53000",
-        variations: [
-          { strength: "3000 IU", moq: 10 },
-        ],
-        description: "Erythropoietin (EPO) is a glycoprotein cytokine hormone that binds the erythropoietin receptor (EPOR), classically expressed on erythroid progenitor cells, where it supports survival, proliferation, and differentiation along the red blood cell lineage. Mechanistically, EPOR activation triggers receptor-associated kinase signaling (commonly discussed via JAK2/STAT), promoting erythroid maturation programs and anti-apoptotic signaling in erythropoiesis models. Beyond hematopoiesis, EPO biology is also used in research to explore tissue-protective signaling hypotheses and EPOR-associated pathway effects in cellular stress models (context dependent to model and receptor expression).",
-        scientificPurpose: "Designed to study EPOR signaling, erythropoiesis pathway regulation, erythroid progenitor survival/differentiation signaling, and receptor-mediated JAK/STAT transcription programs in hematology and cell-signaling research.",
-        studiesFindings: "Activates EPOR signaling and downstream JAK2/STAT pathway activity in erythroid models (context dependent). Supports erythroid progenitor survival and maturation signaling programs (study dependent). Increases erythropoiesis-associated gene expression markers linked to red cell lineage progression. Provides a controlled ligand for mapping hematopoietic cytokine receptor signaling kinetics and potency. Supports investigation of EPO-linked cellular resilience signaling in select experimental stress/injury models (study dependent). Enables mechanistic studies distinguishing EPOR-mediated transcriptional programs from other cytokine pathways.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=erythropoietin+EPO+EPOR+JAK2+STAT+erythropoiesis+progenitor+survival"
-      },
-      {
         name: "PT-141",
         displayName: "PT-141",
         slug: "pt-141",
@@ -618,18 +606,6 @@ export const productCategories: ProductCategory[] = [
         scientificPurpose: "Marketed purpose: study/target localized adipose reduction concepts. Evidence-based scientific alignment on NIH is best mapped to deoxycholic acid–based adipocytolysis research rather than brand-level validation.",
         studiesFindings: "NIH does not consistently index controlled research under the \"Lemon Bottle\" brand name (brand ≠ standardized molecule). Injectable adipocytolytic research (active-ingredient level, e.g., deoxycholic acid) has shown: Reduction of localized subcutaneous fat volume in controlled settings. Adipocyte disruption/adipocytolysis mechanisms in targeted tissue. Measurable changes in treated-area contour endpoints (study dependent).",
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=deoxycholic+acid+adipocytolysis+injection"
-      },
-      {
-        name: "BOTULINUM TOXIN",
-        displayName: "BOTULINUM TOXIN",
-        slug: "botulinum-toxin",
-        variations: [
-          { strength: "100 IU", moq: 10 },
-        ],
-        description: "Botulinum toxin is a neurotoxin that inhibits acetylcholine release at neuromuscular junctions by cleaving SNARE complex proteins. It is studied for effects on muscle contraction, neurotransmitter release mechanisms, and therapeutic applications in movement disorders. Research focuses on SNARE-mediated vesicle fusion and neuromuscular signaling pathway regulation.",
-        scientificPurpose: "Designed to study SNARE complex cleavage, neuromuscular junction signaling, acetylcholine release inhibition, and muscle relaxation mechanisms.",
-        studiesFindings: "Inhibits acetylcholine release through SNARE complex cleavage. Produces muscle relaxation via neuromuscular junction blockade. Demonstrates dose-dependent duration of effect (context dependent). Supports investigation of neurotransmitter release mechanisms. Enables study of SNARE protein biology and vesicle fusion. Provides a reference for neuromuscular signaling pathway research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/17706675/"
       },
       {
         name: "L-CARNITINE",
