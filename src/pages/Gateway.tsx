@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Footer } from "@/components/layout/Footer";
 
 const Gateway = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +92,6 @@ const Gateway = () => {
     setIsLoading(true);
 
     try {
-      // For now, just show success - you can add a contact table later
       toast.success("Message sent! We'll get back to you shortly.");
       setShowContactModal(false);
       setContactData({ name: "", email: "", message: "" });
@@ -102,43 +102,43 @@ const Gateway = () => {
     }
   };
 
-  const inputClassName = "w-full px-4 py-3 bg-white border border-gray-200 rounded-lg font-body text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00a6ed]/50 focus:border-[#00a6ed]";
-  const labelClassName = "font-body text-sm font-medium text-gray-900 block mb-2";
+  const inputClassName = "w-full px-4 py-3 bg-secondary/30 border border-border rounded-lg font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30";
+  const labelClassName = "font-heading text-sm font-medium text-foreground block mb-2";
 
   return (
-    <div className="min-h-screen bg-white flex flex-col lg:flex-row">
-      {/* Left side - Video */}
-      <div className="lg:w-1/2 h-64 lg:h-auto relative bg-gray-900">
-        {/* Video placeholder - replace src with your video */}
-        <video
-          className="w-full h-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster=""
-        >
-          {/* Add your video source here */}
-          {/* <source src="/your-video.mp4" type="video/mp4" /> */}
-        </video>
-        
-        {/* Fallback gradient background when no video */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 -z-10" />
-        
-        {/* Optional overlay for video */}
-        <div className="absolute inset-0 bg-black/10" />
-      </div>
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col lg:flex-row">
+        {/* Left side - Video */}
+        <div className="lg:w-1/2 h-64 lg:h-auto relative bg-card">
+          {/* Video placeholder - replace src with your video */}
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster=""
+          >
+            {/* Add your video source here */}
+            {/* <source src="/your-video.mp4" type="video/mp4" /> */}
+          </video>
+          
+          {/* Fallback gradient background when no video */}
+          <div className="absolute inset-0 bg-gradient-to-br from-card to-background -z-10" />
+          
+          {/* Molecular grid background */}
+          <div className="absolute inset-0 bg-molecular-grid opacity-30" />
+        </div>
 
-      {/* Right side - Auth content */}
-      <div className="lg:w-1/2 flex flex-col">
-        {/* Main form area */}
-        <div className="flex-1 flex items-center justify-center p-8 lg:p-12">
-          <div className="w-full max-w-md">
+        {/* Right side - Auth content */}
+        <div className="lg:w-1/2 flex flex-col justify-center p-8 lg:p-12 xl:p-16">
+          <div className="w-full max-w-md mx-auto">
             {/* Welcome heading */}
-            <h1 className="font-heading text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+            <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-2">
               Welcome to PØINT BioSciences
             </h1>
-            <p className="font-body text-gray-600 mb-8">
+            <p className="font-body text-muted-foreground mb-8">
               Sign in below to access our B2B platform.
             </p>
 
@@ -170,76 +170,82 @@ const Gateway = () => {
 
               <button
                 type="button"
-                className="font-body text-sm text-[#00a6ed] hover:text-[#0090d0] transition-colors"
+                className="font-body text-sm text-foreground/70 hover:text-foreground transition-colors underline"
               >
                 Forgot password?
               </button>
 
               <Button
                 type="submit"
+                variant="hero"
+                size="lg"
                 disabled={isLoading}
-                className="w-full h-12 bg-[#00a6ed] hover:bg-[#0090d0] text-white font-body font-medium text-base rounded-lg transition-colors"
+                className="w-full"
               >
                 {isLoading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
 
             {/* Open account section */}
-            <div className="mt-10">
-              <h2 className="font-heading text-xl font-bold text-gray-900 mb-2">
+            <div className="mt-10 pt-8 border-t border-border">
+              <h2 className="font-heading text-xl font-bold text-foreground mb-2">
                 Open an account with us!
               </h2>
-              <p className="font-body text-gray-600 mb-6">
+              <p className="font-body text-muted-foreground mb-6">
                 Click on the button below to apply for an account with us. We respond within 24 hours.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button
                   onClick={() => setShowApplyModal(true)}
-                  className="flex-1 h-12 bg-gray-900 hover:bg-gray-800 text-white font-body font-medium rounded-lg transition-colors"
+                  variant="hero"
+                  className="flex-1"
                 >
                   Apply for an account
                 </Button>
                 <Button
                   onClick={() => setShowContactModal(true)}
-                  variant="outline"
-                  className="flex-1 h-12 border-gray-300 text-gray-900 hover:bg-gray-50 font-body font-medium rounded-lg transition-colors"
+                  variant="heroOutline"
+                  className="flex-1"
                 >
-                  Questions? Contact us today!
+                  Questions? Contact us!
                 </Button>
               </div>
             </div>
 
             {/* Benefits link */}
             <div className="mt-8 text-center">
-              <button className="font-body text-sm text-[#00a6ed] hover:text-[#0090d0] transition-colors underline">
+              <button className="font-body text-sm text-muted-foreground hover:text-foreground transition-colors underline">
                 Explore the benefits of the B2B experience
               </button>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Distributor CTA Banner */}
-        <div className="bg-[#00a6ed] px-8 py-6">
-          <div className="max-w-md mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <h3 className="font-heading text-lg font-semibold text-white">
-              Interested in becoming a distributor?
-            </h3>
-            <Button
-              onClick={() => setShowApplyModal(true)}
-              className="bg-white text-[#00a6ed] hover:bg-gray-100 font-body font-medium rounded-lg px-6 transition-colors"
-            >
-              Apply Now
-            </Button>
-          </div>
+      {/* Distributor CTA Banner */}
+      <div className="bg-foreground px-8 py-6">
+        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <h3 className="font-heading text-lg font-semibold text-background text-center sm:text-left">
+            Interested in becoming a distributor?
+          </h3>
+          <Button
+            onClick={() => setShowApplyModal(true)}
+            className="bg-background text-foreground hover:bg-background/90 font-body font-medium rounded-lg px-8 transition-colors"
+          >
+            Apply Now
+          </Button>
         </div>
       </div>
 
+      {/* Footer */}
+      <Footer />
+
       {/* Apply Modal */}
       <Dialog open={showApplyModal} onOpenChange={setShowApplyModal}>
-        <DialogContent className="bg-white max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-card border-border max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="font-heading text-2xl font-bold text-gray-900">
+            <DialogTitle className="font-heading text-2xl font-bold text-foreground">
               Apply for an Account
             </DialogTitle>
           </DialogHeader>
@@ -338,8 +344,10 @@ const Gateway = () => {
 
             <Button
               type="submit"
+              variant="hero"
+              size="lg"
               disabled={isLoading}
-              className="w-full h-12 bg-[#00a6ed] hover:bg-[#0090d0] text-white font-body font-medium text-base rounded-lg transition-colors mt-6"
+              className="w-full mt-6"
             >
               {isLoading ? "Submitting..." : "Submit Application"}
             </Button>
@@ -349,9 +357,9 @@ const Gateway = () => {
 
       {/* Contact Modal */}
       <Dialog open={showContactModal} onOpenChange={setShowContactModal}>
-        <DialogContent className="bg-white max-w-lg">
+        <DialogContent className="bg-card border-border max-w-lg">
           <DialogHeader>
-            <DialogTitle className="font-heading text-2xl font-bold text-gray-900">
+            <DialogTitle className="font-heading text-2xl font-bold text-foreground">
               Contact Us
             </DialogTitle>
           </DialogHeader>
@@ -393,8 +401,10 @@ const Gateway = () => {
 
             <Button
               type="submit"
+              variant="hero"
+              size="lg"
               disabled={isLoading}
-              className="w-full h-12 bg-[#00a6ed] hover:bg-[#0090d0] text-white font-body font-medium text-base rounded-lg transition-colors mt-6"
+              className="w-full mt-6"
             >
               {isLoading ? "Sending..." : "Send Message"}
             </Button>
