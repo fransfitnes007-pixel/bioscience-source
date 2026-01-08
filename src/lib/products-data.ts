@@ -37,10 +37,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "20mg", moq: 10 },
           { strength: "30mg", moq: 10 },
         ],
-        description: "GLP1-SEMA is a synthetic glucagon-like peptide-1 (GLP-1) receptor agonist that mimics the incretin hormone to regulate glucose metabolism. It is structurally modified for enhanced stability and prolonged half-life in research applications.",
-        scientificPurpose: "Designed for in-vitro research on metabolic pathways, insulin secretion mechanisms, and glucose homeostasis studies.",
-        studiesFindings: "Studies have shown significant effects on glucose-dependent insulin secretion and appetite regulation pathways in controlled research environments.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/28637769/"
+        description: "GLP1-SEMA is a long-acting peptide agonist engineered to mimic endogenous glucagon-like peptide-1 (GLP-1), a nutrient-responsive incretin hormone that coordinates glucose handling and appetite regulation. It is structurally modified to resist rapid enzymatic degradation and to sustain systemic exposure, enabling prolonged GLP-1 receptor activation. In research settings, it is used to map how sustained GLP-1R signaling alters pancreatic endocrine output, gastrointestinal motility, and CNS satiety circuitry.",
+        scientificPurpose: "Designed to study GLP-1 receptor biology across metabolic tissues, with emphasis on glucose-dependent insulin secretion dynamics, suppression of nutrient-inappropriate glucagon output, gastric emptying control, and hypothalamic/brainstem satiety network activation.",
+        studiesFindings: "Increases glucose-dependent insulin secretion signaling. Suppresses glucagon output under nutrient availability (context dependent). Delays gastric emptying kinetics, reducing post-meal glucose excursion magnitude. Enhances satiety signaling and reduces energy intake in controlled settings. Produces sustained reductions in body weight and fat mass in clinical research programs. Improves glycemic endpoints in metabolic disease contexts (study dependent). Improves select cardiometabolic biomarkers in obesity/metabolic studies (context dependent). Enables mechanistic mapping of GLP-1R pathways across peripheral + CNS compartments.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=semaglutide+GLP-1+receptor+mechanism+gastric+emptying+satiety"
       },
       {
         name: "TIRZEPATIDE",
@@ -56,10 +56,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "50mg", moq: 10 },
           { strength: "60mg", moq: 10 },
         ],
-        description: "GLP1-TRIZ is a dual glucose-dependent insulinotropic polypeptide (GIP) and GLP-1 receptor agonist designed for advanced metabolic research applications.",
-        scientificPurpose: "Developed for investigating dual incretin receptor activation and its effects on metabolic regulation in laboratory settings.",
-        studiesFindings: "Research has demonstrated enhanced metabolic effects through dual receptor activation compared to single receptor agonists.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/34170647/"
+        description: "GLP1-TRIZ is a dual incretin receptor agonist engineered to activate both GLP-1 and GIP receptors, combining two nutrient-sensing endocrine pathways into a single signaling framework. This dual design is used to study \"incretin synergy,\" where parallel receptor engagement can amplify insulinotropic signaling while also modulating appetite and metabolic substrate handling. Research interest centers on how dual-pathway activation alters endocrine output, energy intake, and adiposity outcomes compared with single incretin activation.",
+        scientificPurpose: "Designed to study combined GLP-1R/GIPR activation on glucose-dependent insulin secretion, systemic insulin sensitivity, appetite regulation, and fat-mass reduction biology, including downstream transcriptional remodeling in metabolic tissues.",
+        studiesFindings: "Amplifies glucose-dependent insulin secretion via dual incretin engagement. Improves insulin sensitivity measures in metabolic studies (context dependent). Reduces appetite drive and caloric intake through CNS satiety signaling. Produces substantial reductions in body weight and fat mass in clinical programs. Improves glycemic endpoints (fasting measures/HbA1c in clinical contexts). Improves lipid-related biomarkers in obesity/metabolic research (study dependent). Supports mechanistic study of dual receptor signaling bias and pathway crosstalk. Demonstrates larger weight-related outcomes than some single-pathway strategies (study dependent).",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=tirzepatide+GIP+GLP-1+dual+agonist+mechanism+weight+loss"
       },
       {
         name: "RETATRUTIDE",
@@ -72,10 +72,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "20mg", moq: 10 },
           { strength: "30mg", moq: 10 },
         ],
-        description: "GLP3-RETA is a triple hormone receptor agonist targeting GLP-1, GIP, and glucagon receptors for comprehensive metabolic research.",
-        scientificPurpose: "Engineered for studying multi-receptor metabolic pathway interactions and energy balance mechanisms.",
-        studiesFindings: "Studies report significant modulation of multiple metabolic pathways simultaneously in preclinical research models.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/37385275/"
+        description: "GLP3-RETA is a tri-agonist metabolic peptide designed to activate GLP-1, GIP, and glucagon receptors. The architecture is intended to combine incretin-driven satiety and glycemic control with glucagon-receptor–linked energy expenditure and lipid mobilization signaling. In research, it is used to explore \"balanced polyagonism\" as a strategy to shift weight-loss magnitude and metabolic flexibility beyond incretin-only models.",
+        scientificPurpose: "Designed to study multi-receptor coordination of appetite suppression, glycemic regulation, lipid oxidation, and energy expenditure signaling—particularly the contribution of glucagon receptor signaling to weight-loss outcomes.",
+        studiesFindings: "Produces large body-weight reductions in investigational clinical research (study dependent). Reduces fat mass and improves adiposity-associated endpoints. Enhances energy expenditure/thermogenic signaling markers (context dependent). Improves glycemic control metrics via incretin pathway activity. Improves lipid metabolism biomarkers in metabolic disease contexts (study dependent). Supports mechanistic evaluation of receptor-balanced polyagonist design. Enables mapping of glucagon receptor effects on substrate utilization in obesity models. Improves composite cardiometabolic endpoints in select programs (context dependent).",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=retatrutide+GLP-1+GIP+glucagon+triple+agonist+energy+expenditure"
       },
       {
         name: "CAGRILINTIDE",
@@ -85,10 +85,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Cagrilintide is a long-acting amylin analog designed for research into satiety signaling and metabolic regulation.",
-        scientificPurpose: "Developed for investigating amylin receptor pathways and their role in appetite and glucose regulation.",
-        studiesFindings: "Research has shown effects on gastric emptying and satiety signaling pathways in laboratory studies.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/34623893/"
+        description: "Cagrilintide is a long-acting synthetic analogue designed to reproduce and prolong amylin-pathway satiety signaling, a neuroendocrine system co-regulating appetite and post-meal fullness. It is engineered to sustain receptor engagement so researchers can study extended appetite suppression and nutrient-handling effects. Research frameworks commonly focus on how amylin signaling interacts with brainstem/hypothalamic circuits that govern meal size and feeding drive.",
+        scientificPurpose: "Designed to study amylin receptor pathway activation for appetite regulation, reduced energy intake, and obesity-related endpoint modulation, including combination research with incretin signaling.",
+        studiesFindings: "Enhances satiety signaling and reduces meal size in controlled settings. Reduces caloric intake through CNS-mediated appetite suppression pathways. Modulates gastric motility/fullness signaling (context dependent). Improves weight-related endpoints in obesity-focused investigational programs. Demonstrates additive weight effects when combined with incretin signaling (study dependent). Supports mapping of amylin→brainstem→hypothalamus feeding circuitry. Improves select metabolic biomarkers in combination research contexts (study dependent). Enables mechanistic study of appetite suppression independent of glucose-dependent insulin pathways.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=cagrilintide+amylin+analog+satiety+weight+loss"
       },
       {
         name: "MAZDUTIDE",
@@ -97,10 +97,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Mazdutide is a novel dual GLP-1 and glucagon receptor agonist for metabolic research applications.",
-        scientificPurpose: "Designed for studying dual receptor activation effects on metabolism and energy expenditure.",
-        studiesFindings: "Studies have demonstrated effects on both glucose regulation and energy metabolism pathways.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/35872749/"
+        description: "Mazdutide is an investigational dual agonist targeting GLP-1 and glucagon receptors, designed to integrate satiety-driven energy intake reduction with glucagon-linked energy expenditure and lipid utilization signaling. Mechanistically, it is studied to determine how adding glucagon receptor activity can shift substrate partitioning and thermogenic outputs while maintaining incretin-mediated glycemic benefits. It is primarily used as a polyagonist tool for obesity and metabolic disease research.",
+        scientificPurpose: "Designed to study GLP-1R/GCGR dual activation for appetite suppression, energy expenditure modulation, lipid oxidation signaling, and metabolic biomarker improvement in obesity research.",
+        studiesFindings: "Reduces body weight and adiposity endpoints in investigational programs (study dependent). Suppresses appetite and lowers energy intake via incretin pathway activity. Enhances energy expenditure and lipid oxidation signaling (context dependent). Improves glycemic endpoints through GLP-1 receptor signaling. Improves lipid metabolism biomarkers in obesity/metabolic disease contexts. Supports mechanistic mapping of glucagon receptor contributions to weight-loss magnitude. Improves composite cardiometabolic risk markers in select studies (study dependent). Enables evaluation of receptor balance (satiety vs expenditure) in polyagonist design.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=mazdutide+GLP-1+glucagon+dual+agonist+obesity"
       },
       {
         name: "SURVODUTIDE",
@@ -109,10 +109,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Survodutide is a dual glucagon and GLP-1 receptor agonist for advanced metabolic research.",
-        scientificPurpose: "Engineered for investigating dual hormone receptor effects on hepatic and systemic metabolism.",
-        studiesFindings: "Research reports significant effects on liver metabolism and systemic energy balance.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/36702540/"
+        description: "Survodutide is an investigational dual agonist designed to activate both GLP-1 and glucagon receptors, merging satiety/glycemic signaling with glucagon-linked energy expenditure and substrate mobilization biology. In research terms, it is used to evaluate whether dual activation can outperform incretin-only approaches by increasing energy expenditure while maintaining appetite suppression. The compound is used to study receptor-balanced metabolic remodeling in obesity-focused programs.",
+        scientificPurpose: "Designed to study GLP-1R/GCGR dual agonism for appetite reduction, increased energy expenditure signaling, lipid oxidation, and metabolic endpoint improvement.",
+        studiesFindings: "Produces weight reduction endpoints in investigational metabolic programs (study dependent). Reduces appetite and energy intake via GLP-1 pathway signaling. Enhances energy expenditure and lipid utilization signaling (context dependent). Improves glycemic biomarkers in metabolic disease contexts (study dependent). Improves cardiometabolic biomarkers in obesity-focused research (context dependent). Supports mapping of polyagonist receptor balance effects on substrate partitioning. Enables mechanistic study of glucagon receptor contributions to metabolic remodeling. Used to evaluate combined satiety + expenditure strategy in obesity research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=survodutide+GLP-1+glucagon+dual+agonist"
       },
       {
         name: "GLP-1",
@@ -121,10 +121,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "Native glucagon-like peptide-1 for fundamental research on incretin hormone biology.",
-        scientificPurpose: "Used as a reference compound for studying GLP-1 receptor activation and signaling.",
-        studiesFindings: "Studies have established baseline incretin effects for comparison with modified analogs.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/17416993/"
+        description: "GLP-1 is an endogenous incretin hormone secreted from intestinal L-cells after nutrient exposure. It signals through GLP-1 receptors to coordinate glucose-dependent insulin secretion, suppression of glucagon output, gastric emptying regulation, and central satiety signaling. It serves as the physiological template for GLP-1 receptor agonist drug design and incretin pathway research.",
+        scientificPurpose: "Designed to study native incretin physiology: GLP-1R signaling kinetics, endocrine pancreas regulation, gastric motility control, and appetite/satiety circuitry.",
+        studiesFindings: "Enhances glucose-dependent insulin secretion under nutrient availability. Suppresses glucagon secretion in postprandial contexts (context dependent). Slows gastric emptying, moderating nutrient delivery rate. Activates central satiety pathways and reduces energy intake. Improves glycemic regulation endpoints in metabolic studies. Enables mechanistic mapping of incretin signaling in endocrine-metabolic integration. Supports investigation of appetite regulation pathways linked to gut-brain communication. Serves as a core reference molecule in incretin receptor research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=glucagon-like+peptide-1+GLP-1+receptor+incretin+mechanism"
       },
     ]
   },
@@ -140,10 +140,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "BPC-157 is a synthetic peptide derived from body protection compound found in gastric juice, consisting of 15 amino acids.",
-        scientificPurpose: "Designed for research on tissue repair mechanisms, angiogenesis, and gastrointestinal protection pathways.",
-        studiesFindings: "Studies have shown effects on various healing pathways and protective mechanisms in research settings.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/27349193/"
+        description: "BPC-157 is a synthetic pentadecapeptide derived from a protective protein found in gastric juice, engineered to study tissue repair and cytoprotective signaling cascades. It is used in research to investigate angiogenesis, wound healing kinetics, and gastrointestinal mucosal protection pathways. The peptide has become a standard reference compound for studying repair biology across multiple tissue types.",
+        scientificPurpose: "Designed to study tissue repair mechanisms, angiogenesis signaling, gastrointestinal protection pathways, and cytoprotective cascades in experimental injury and recovery models.",
+        studiesFindings: "Enhances angiogenesis markers in tissue repair studies. Accelerates wound healing kinetics in multiple tissue types. Demonstrates gastroprotective effects in mucosal injury models. Modulates growth factor expression related to tissue repair (context dependent). Supports tendon and ligament healing pathway investigation. Provides a reference standard for cytoprotective peptide research. Enables mapping of repair signaling cascades across tissue compartments.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=BPC-157+tissue+repair+angiogenesis"
       },
       {
         name: "TB500",
@@ -153,22 +153,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "TB500 is a synthetic version of Thymosin Beta-4, a naturally occurring peptide involved in tissue repair.",
-        scientificPurpose: "Used for investigating wound healing, cell migration, and tissue regeneration mechanisms.",
-        studiesFindings: "Research demonstrates effects on actin regulation and cellular repair processes.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/20818537/"
-      },
-      {
-        name: "LL-37",
-        displayName: "LL-37",
-        slug: "ll-37",
-        variations: [
-          { strength: "10mg", moq: 10 },
-        ],
-        description: "LL-37 is a cathelicidin antimicrobial peptide with multifunctional properties for immune research.",
-        scientificPurpose: "Designed for studying antimicrobial mechanisms, immune modulation, and wound healing.",
-        studiesFindings: "Studies report broad-spectrum antimicrobial activity and immunomodulatory effects.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16209167/"
+        description: "TB500 is a synthetic version of thymosin beta-4, a naturally occurring 43-amino-acid peptide involved in cell migration, wound healing, and tissue regeneration. It is used as a mechanistic tool to study actin regulation, angiogenesis, and repair-associated signaling in experimental systems. Research interest centers on its role in coordinating cellular migration and vascular growth during tissue recovery.",
+        scientificPurpose: "Designed to study cell migration, angiogenesis, wound healing, and actin cytoskeleton regulation in tissue repair and regeneration research contexts.",
+        studiesFindings: "Enhances cell migration in wound healing models. Promotes angiogenesis signaling in tissue repair studies. Regulates actin polymerization dynamics in cellular systems. Accelerates wound closure kinetics in experimental models (context dependent). Supports cardiac and vascular repair pathway investigation (study dependent). Enables mapping of thymosin beta-4 signaling in regenerative contexts. Provides a tool for studying coordinated tissue remodeling programs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=thymosin+beta-4+wound+healing+cell+migration"
       },
       {
         name: "THYMOSIN ALPHA-1",
@@ -178,10 +166,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Thymosin Alpha-1 is a thymic peptide involved in immune system regulation and T-cell function.",
-        scientificPurpose: "Used for research on immune enhancement, T-cell maturation, and immunomodulation.",
-        studiesFindings: "Studies have demonstrated immunomodulatory effects and T-cell activation properties.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/17428635/"
+        description: "Thymosin alpha-1 (thymalfasin) is a thymic peptide studied for immunomodulatory signaling, particularly in contexts involving T-cell function and innate–adaptive immune coordination. It is used to probe immune activation readiness, antigen presentation dynamics, and cytokine signaling patterns that influence immune response profiles. Research focuses on immune system coordination rather than direct antimicrobial action.",
+        scientificPurpose: "Designed to study immune modulation, T-cell functional signaling, antigen presentation pathway activation, and innate–adaptive immune coordination mechanisms.",
+        studiesFindings: "Enhances T-cell functional activity markers in immunology studies (context dependent). Supports antigen presentation and immune activation pathway signaling (study dependent). Modulates cytokine patterns associated with improved immune response profiles. Improves immune coordination endpoints in select infectious disease research contexts. Supports mechanistic mapping of thymic-peptide immune regulation pathways. Used as a probe for immune restoration signaling in immune dysfunction models.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=thymosin+alpha-1+thymalfasin+immunomodulatory+T+cell"
       },
       {
         name: "SS-31",
@@ -191,10 +179,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "50mg", moq: 10 },
         ],
-        description: "SS-31 (Elamipretide) is a mitochondria-targeted tetrapeptide for cellular energy research.",
-        scientificPurpose: "Designed for investigating mitochondrial function, oxidative stress, and cellular energetics.",
-        studiesFindings: "Research shows effects on mitochondrial membrane stabilization and ATP production.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/27197538/"
+        description: "SS-31 (Elamipretide) is a mitochondria-targeted tetrapeptide designed to localize to the inner mitochondrial membrane and stabilize cardiolipin-cytochrome c interactions. It is used to study mitochondrial function, oxidative stress resistance, and cellular energetics in research models of metabolic and age-related dysfunction. The peptide provides a tool for probing mitochondrial membrane integrity and ATP production efficiency.",
+        scientificPurpose: "Designed to study mitochondrial function, oxidative stress protection, cardiolipin stabilization, and cellular energy production in metabolic and aging research contexts.",
+        studiesFindings: "Stabilizes mitochondrial membrane structure and cardiolipin interactions. Reduces oxidative stress markers in mitochondrial dysfunction models. Improves ATP production efficiency in cellular systems (context dependent). Demonstrates protective effects in cardiac and renal injury models (study dependent). Supports investigation of mitochondrial bioenergetics in aging research. Enables mechanistic mapping of mitochondria-targeted peptide signaling.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=SS-31+elamipretide+mitochondria+cardiolipin"
       },
       {
         name: "ARA-290",
@@ -203,10 +191,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "ARA-290 is an erythropoietin-derived peptide with tissue-protective properties.",
-        scientificPurpose: "Used for studying tissue protection mechanisms without erythropoietic effects.",
-        studiesFindings: "Studies report tissue-protective and anti-inflammatory effects in research models.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/22190412/"
+        description: "ARA-290 is an erythropoietin-derived peptide engineered to retain tissue-protective signaling without erythropoietic activity. It activates the innate repair receptor (IRR) pathway, distinct from the classical erythropoietin receptor, to study tissue protection and anti-inflammatory mechanisms. Research use centers on neuroprotection, wound healing, and metabolic tissue protection without affecting red blood cell production.",
+        scientificPurpose: "Designed to study innate repair receptor activation, tissue-protective signaling, anti-inflammatory pathways, and neuroprotection without erythropoietic effects.",
+        studiesFindings: "Activates innate repair receptor signaling distinct from EPO receptor. Demonstrates tissue-protective effects in injury models (context dependent). Reduces inflammatory markers in experimental systems (study dependent). Supports neuroprotection research without hematopoietic effects. Improves wound healing endpoints in select models. Enables investigation of EPO-derived peptide separation-of-function biology.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=ARA-290+erythropoietin+tissue+protection+innate+repair"
       },
       {
         name: "THYMALIN",
@@ -215,10 +203,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Thymalin is a thymic extract peptide complex for immune system research.",
-        scientificPurpose: "Designed for investigating thymic function and immune system regulation.",
-        studiesFindings: "Research demonstrates effects on T-cell development and immune homeostasis.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/12943137/"
+        description: "Thymalin is a thymus-derived polypeptide complex discussed in immunology research traditions as an immunoregulatory preparation. NIH-indexed literature describes it as a multi-component thymic extract with reported effects on immune functional markers and signaling profiles. Because it is a complex mixture, research interpretation often focuses on immune outcome patterns rather than a single receptor target.",
+        scientificPurpose: "Designed to study thymus-derived peptide immunoregulation, immune functional restoration markers, and T-cell–linked immune coordination pathways.",
+        studiesFindings: "Modulates immune functional markers in experimental contexts (context dependent). Supports T-lymphocyte functional activity signaling in some studies (study dependent). Influences cytokine signaling profiles associated with improved immune readiness. Provides a model for studying multi-peptide thymic extract immune signaling effects. Enables investigation into thymic peptide contributions to immune regulation networks. Used in immune aging and immune dysfunction research traditions (study dependent).",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Thymalin+thymus+extract+polypeptide+immunomodulatory"
       },
       {
         name: "EPITHALON",
@@ -228,10 +216,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "50mg", moq: 10 },
         ],
-        description: "Epithalon is a synthetic tetrapeptide for telomerase and cellular aging research.",
-        scientificPurpose: "Used for studying telomerase activation and cellular senescence mechanisms.",
-        studiesFindings: "Studies have shown effects on telomerase activity and cellular lifespan in vitro.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/12937340/"
+        description: "Epithalon (Epitalon) is a synthetic peptide associated with pineal-derived peptide research traditions and aging biology. It is discussed in literature exploring long-term cellular function, circadian-linked neuroendocrine regulation, and telomere-associated hypotheses in aging frameworks. Research interest often centers on how peptide signals might influence aging-related molecular programs, with results varying by model and study lineage.",
+        scientificPurpose: "Designed to study aging-associated molecular programs, neuroendocrine/circadian regulation biology, and telomere/telomerase-related hypotheses in experimental aging research.",
+        studiesFindings: "Modulates aging-associated biomarkers in certain experimental traditions (context dependent). Influences neuroendocrine and circadian-linked signaling markers (study dependent). Associated with telomere/telomerase pathway hypotheses in some publications. Supports investigation of peptide regulation of long-term cellular stress adaptation programs. Used as a tool for studying peptide–aging pathway interactions in controlled settings. Enables evaluation of peptide-driven molecular aging frameworks in preclinical contexts.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Epithalon+Epitalon+peptide+telomerase+telomere"
       },
       {
         name: "AOD",
@@ -240,10 +228,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "AOD-9604 is a modified fragment of human growth hormone for metabolic research.",
-        scientificPurpose: "Designed for studying lipolysis and fat metabolism without growth effects.",
-        studiesFindings: "Research reports effects on fat metabolism pathways without affecting IGF-1 levels.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/11713213/"
+        description: "AOD is commonly described as a growth-hormone fragment–derived metabolic peptide concept, positioned to study adipose regulation and lipid mobilization signaling. Research usage emphasizes whether fragment-level motifs can influence fat metabolism programs without invoking the complete endocrine profile of full growth hormone. It is typically used as a mechanistic tool for adipocyte metabolism pathway exploration.",
+        scientificPurpose: "Designed to study adipocyte lipid mobilization, fat-mass regulation signaling, and fragment-based endocrine peptide separation-of-function metabolic mechanisms.",
+        studiesFindings: "Influences lipolysis-associated signaling pathways in adipose models (context dependent). Supports fat-mass reduction endpoints in some experimental contexts (study dependent). Helps isolate adipose metabolic effects from broader GH endocrine actions. Provides a tool for studying adipocyte storage vs mobilization dynamics. Enables mechanistic exploration of fragment-derived metabolic peptide signaling frameworks. Supports comparative research with GH fragment literature in adipose metabolism.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=growth+hormone+fragment+lipolysis+adipose"
       },
       {
         name: "BPC-157 + TB500",
@@ -253,60 +241,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "20mg", moq: 10 },
         ],
-        description: "A combined formulation of BPC-157 and TB500 for synergistic tissue repair research.",
-        scientificPurpose: "Designed for investigating combined effects on tissue regeneration and healing.",
-        studiesFindings: "Studies suggest synergistic effects when used in combination for repair research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/27349193/"
-      },
-      {
-        name: "GLUTATHIONE",
-        displayName: "GLUTATHIONE",
-        slug: "glutathione",
-        variations: [
-          { strength: "1500mg", moq: 10 },
-        ],
-        description: "Glutathione is the master antioxidant tripeptide for oxidative stress research.",
-        scientificPurpose: "Used for studying cellular antioxidant mechanisms and detoxification pathways.",
-        studiesFindings: "Research demonstrates critical roles in cellular defense against oxidative damage.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/24341424/"
-      },
-      {
-        name: "SNAP-8",
-        displayName: "SNAP-8",
-        slug: "snap-8",
-        variations: [
-          { strength: "10mg", moq: 10 },
-        ],
-        description: "SNAP-8 is an octapeptide for neuromuscular research and cosmetic applications.",
-        scientificPurpose: "Designed for studying SNARE complex modulation and muscle contraction pathways.",
-        studiesFindings: "Studies report effects on neuromuscular junction signaling mechanisms.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/19146898/"
-      },
-      {
-        name: "GHK-CU",
-        displayName: "GHK-CU",
-        slug: "ghk-cu",
-        variations: [
-          { strength: "50mg", moq: 10 },
-          { strength: "100mg", moq: 10 },
-        ],
-        description: "GHK-Cu is a copper tripeptide complex for tissue remodeling and regeneration research.",
-        scientificPurpose: "Used for investigating wound healing, collagen synthesis, and skin regeneration.",
-        studiesFindings: "Research shows effects on gene expression related to tissue repair and regeneration.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/25877441/"
-      },
-      {
-        name: "NAD",
-        displayName: "NAD",
-        slug: "nad",
-        variations: [
-          { strength: "100mg", moq: 10 },
-          { strength: "500mg", moq: 10 },
-        ],
-        description: "NAD+ is a coenzyme essential for cellular metabolism and energy production research.",
-        scientificPurpose: "Designed for studying sirtuins, cellular aging, and metabolic pathway regulation.",
-        studiesFindings: "Studies demonstrate critical roles in cellular energy metabolism and longevity pathways.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/26785480/"
+        description: "BPC-157 + TB500 is a combined research formulation pairing two peptides studied for complementary tissue repair mechanisms. BPC-157 contributes cytoprotective and angiogenic signaling, while TB500 (thymosin beta-4) adds cell migration and actin-regulation pathways. The combination is used to study multi-input repair biology and whether coordinated peptide signaling produces synergistic tissue remodeling outcomes.",
+        scientificPurpose: "Designed to study combined repair biology: angiogenesis, cell migration, cytoprotective signaling, and coordinated tissue remodeling across multiple pathway inputs.",
+        studiesFindings: "BPC-157 literature reports enhanced repair signaling and angiogenesis markers. TB500 literature reports increased cell migration and wound repair signaling. Combination concept supports systems-level modeling of tissue repair programs. Enables study of whether multi-peptide inputs produce synergistic repair outcomes. Provides a framework for coordinated tissue remodeling pathway exploration. Supports investigation of soft tissue recovery across multiple signaling axes.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=BPC-157+thymosin+beta-4+tissue+repair"
       },
     ]
   },
@@ -322,10 +260,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Semax is a synthetic peptide derived from ACTH for neuroprotection and cognitive research.",
-        scientificPurpose: "Designed for investigating neurotrophic factors, BDNF expression, and cognitive mechanisms.",
-        studiesFindings: "Studies have shown effects on brain-derived neurotrophic factor and cognitive pathways.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/17460624/"
+        description: "Semax is a synthetic neuroactive peptide derived from an ACTH fragment, engineered to modulate CNS signaling without the full endocrine actions of native ACTH. It is studied as a neuromodulatory and neuroprotective research compound that may influence neurotrophic pathways and synaptic plasticity-related programs. Research often frames Semax around cognition, stress-response signaling, and neurorepair-associated gene expression patterns.",
+        scientificPurpose: "Designed to study neurotrophic modulation, cognitive performance endpoints, stress adaptation circuitry, and neuroprotective signaling in experimental contexts.",
+        studiesFindings: "Modulates neurotrophic signaling associated with neuronal resilience (study dependent). Improves cognitive/learning endpoints in some experimental models. Alters stress-response neurochemistry markers (context dependent). Demonstrates neuroprotective signaling patterns in preclinical models. Influences neurotransmission-associated gene expression in some studies. Provides a tool for studying peptide-driven modulation of synaptic plasticity frameworks.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Semax+peptide+ACTH(4-10)+neuroprotective+BDNF"
       },
       {
         name: "SELANK",
@@ -335,23 +273,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Selank is a synthetic peptide derived from tuftsin for anxiolytic and immunomodulatory research.",
-        scientificPurpose: "Used for studying anxiety-related pathways and immune-neuroendocrine interactions.",
-        studiesFindings: "Research reports anxiolytic-like effects and immunomodulatory properties in studies.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/18577013/"
-      },
-      {
-        name: "TESAMORELIN",
-        displayName: "TESAMORELIN",
-        slug: "tesamorelin",
-        variations: [
-          { strength: "5mg", moq: 10 },
-          { strength: "10mg", moq: 10 },
-        ],
-        description: "Tesamorelin is a synthetic GHRH analog for growth hormone secretion research.",
-        scientificPurpose: "Designed for studying GHRH receptor activation and somatotroph cell function.",
-        studiesFindings: "Studies demonstrate effects on pulsatile growth hormone release patterns.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/20739385/"
+        description: "Selank is a synthetic tuftsin-analogue neuropeptide investigated for effects on anxiety-related signaling and stress physiology. It is studied as a peptide neuromodulator that may influence inhibitory neurotransmission networks and stress-adaptation pathways. Experimental literature often centers on behavioral outcomes and neurochemical signaling shifts relevant to emotional regulation circuits.",
+        scientificPurpose: "Designed to study peptide-based anxiolytic-like mechanisms, stress adaptation biology, and neurobehavioral endpoints in controlled models.",
+        studiesFindings: "Reduces anxiety-like behavioral endpoints in certain experimental settings (model dependent). Modulates stress-response signaling markers (context dependent). Influences inhibitory neurotransmission frameworks (often discussed with GABA-related pathways). Alters neurotransmission-associated gene expression patterns in some studies. Supports attention/cognitive endpoints in select experimental designs (study dependent). Provides a tool for mapping peptide modulation of emotional regulation circuitry.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Selank+peptide+anxiolytic+tuftsin+GABA"
       },
       {
         name: "CEREBROLYSIN",
@@ -360,10 +285,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "60mg", moq: 6 },
         ],
-        description: "Cerebrolysin is a neuropeptide preparation for neurotrophic and neuroprotective research.",
-        scientificPurpose: "Used for investigating neuroplasticity, neurotrophic support, and neuroprotection.",
-        studiesFindings: "Research shows effects on neurotrophic pathways and neuronal survival mechanisms.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/22036269/"
+        description: "Cerebrolysin is a porcine brain–derived peptide mixture studied for neurotrophic-like effects on neuronal survival, plasticity, and recovery signaling. Research discussion often focuses on synaptic remodeling, neuroinflammation modulation, and functional recovery endpoints after neurological insult. It is frequently used as a complex peptide tool to probe multi-pathway neurorepair biology rather than a single receptor mechanism.",
+        scientificPurpose: "Designed to study neurotrophic-like signaling, neuroplasticity enhancement, neuronal resilience pathways, and neurorecovery endpoints in neurological injury/stress research.",
+        studiesFindings: "Supports neuroplasticity-associated signaling in experimental contexts. Improves functional recovery endpoints in some stroke/TBI studies (study dependent). Modulates neuronal survival pathway markers in preclinical research. Influences neuroinflammation-associated signaling parameters (context dependent). Improves neurocognitive performance endpoints in certain studies (model dependent). Provides a complex-peptide framework for neurorepair pathway investigation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Cerebrolysin+neurotrophic+stroke+traumatic+brain+injury+recovery"
       },
       {
         name: "DSIP",
@@ -373,10 +298,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "15mg", moq: 10 },
         ],
-        description: "Delta Sleep Inducing Peptide (DSIP) is a neuropeptide for sleep and stress research.",
-        scientificPurpose: "Designed for studying sleep architecture and stress-related neuroendocrine pathways.",
-        studiesFindings: "Studies report effects on sleep patterns and stress hormone regulation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/2885158/"
+        description: "DSIP (Delta Sleep-Inducing Peptide) is a neuropeptide historically studied in sleep physiology and stress-response neurobiology. It is used as a mechanistic probe to explore how peptide signaling may influence sleep architecture, neuroendocrine stress markers, and CNS homeostatic regulation. Research outcomes vary by model, but DSIP remains a recurring reference compound in peptide-sleep pathway exploration.",
+        scientificPurpose: "Designed to study sleep regulation biology, neuroendocrine stress adaptation mechanisms, and peptide-mediated modulation of sleep-associated signaling networks.",
+        studiesFindings: "Influences sleep-related endpoints in some experimental designs (model dependent). Modulates neuroendocrine stress-response signaling markers (context dependent). Supports investigation into peptide regulation of sleep architecture hypotheses. Alters CNS signaling parameters associated with rest/stress coupling in select models. Provides a tool compound for sleep-peptide mechanistic research frameworks. Supports mapping of peptide influence on neuroendocrine sleep-state physiology.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=delta+sleep+inducing+peptide+DSIP+sleep+neuropeptide"
       },
       {
         name: "PINEALON",
@@ -387,10 +312,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "20mg", moq: 10 },
         ],
-        description: "Pinealon is a tripeptide for pineal gland function and circadian rhythm research.",
-        scientificPurpose: "Used for investigating melatonin synthesis and circadian biology.",
-        studiesFindings: "Research demonstrates effects on pinealocyte function and circadian regulation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16758709/"
+        description: "Pinealon is a short synthetic tripeptide (often referenced as Glu-Asp-Arg; EDR) studied in neurobiology and aging-related research traditions. It is discussed as a minimal peptide motif capable of shifting oxidative stress resistance and neuronal resilience programs. Research commonly evaluates functional cognitive/behavioral outcomes and stress-response signaling markers in controlled experimental models.",
+        scientificPurpose: "Designed to study neuroprotective signaling, oxidative stress adaptation in CNS models, peptide regulation of cognitive endpoints, and neuronal resilience mechanisms.",
+        studiesFindings: "Improves cognitive/behavioral endpoints in select experimental models (study dependent). Increases neuronal resistance to oxidative stress in preclinical systems. Modulates stress-response signaling markers in CNS experimental frameworks. Influences neurochemical signaling profiles in some models. Provides a minimal-peptide tool for studying neuroprotection and stress resilience hypotheses. Supports research into short-peptide regulation of neuronal survival programs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Pinealon+Glu-Asp-Arg+EDR+peptide+neuroprotective"
       },
     ]
   },
@@ -399,16 +324,29 @@ export const productCategories: ProductCategory[] = [
     slug: "growth-hormone-peptides",
     products: [
       {
+        name: "TESAMORELIN",
+        displayName: "TESAMORELIN",
+        slug: "tesamorelin",
+        variations: [
+          { strength: "5mg", moq: 10 },
+          { strength: "10mg", moq: 10 },
+        ],
+        description: "Tesamorelin is a synthetic GHRH analogue designed to stimulate endogenous pituitary growth hormone release through GHRH receptor activation. It is used to study GH-axis pulsatility, somatotroph cell function, and downstream metabolic signaling associated with physiologic GH secretion. Research often emphasizes visceral adipose reduction and metabolic endpoint improvements in specific clinical contexts.",
+        scientificPurpose: "Designed to study GHRH receptor activation, pituitary somatotroph function, GH pulsatility, and downstream metabolic/body composition signaling.",
+        studiesFindings: "Stimulates endogenous GH secretion via GHRH receptor signaling. Supports pulsatile GH release pattern investigation. Reduces visceral adipose tissue in clinical research contexts (study dependent). Influences IGF-1 axis signaling downstream of GH release. Enables mechanistic study of GHRH-driven endocrine regulation. Provides a reference for studying physiologic GH stimulation vs exogenous GH.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=tesamorelin+GHRH+growth+hormone+visceral+fat"
+      },
+      {
         name: "CJC-1295 WITHOUT DAC + IPA",
         displayName: "CJC-1295 WITHOUT DAC + IPA",
         slug: "cjc-1295-ipa",
         variations: [
           { strength: "10mg (5mg + 5mg)", moq: 10 },
         ],
-        description: "A combination of modified GHRH and Ipamorelin for synergistic GH secretion research.",
-        scientificPurpose: "Designed for studying combined GHRH and ghrelin mimetic effects on GH release.",
-        studiesFindings: "Studies show synergistic effects on growth hormone secretion patterns.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16352683/"
+        description: "CJC-1295 (without DAC) is a GHRH/GRF analogue designed to stimulate endogenous growth hormone release through GHRH receptor activation, typically with shorter persistence than DAC-conjugated variants. \"IPA\" commonly refers to ipamorelin, a ghrelin receptor (GHSR-1a) agonist that stimulates GH release through a complementary endocrine pathway. The combination is used to study dual-input stimulation of GH pulsatility and downstream signaling through the GH/IGF axis.",
+        scientificPurpose: "Designed to study coordinated GH-axis stimulation using GHRH receptor activation (CJC) plus GHSR activation (ipamorelin), enabling analysis of endocrine pulsatility, feedback regulation, and downstream IGF-axis signaling.",
+        studiesFindings: "GHRH analog activation increases GH secretion signaling (context dependent). GHSR agonism stimulates GH release via ghrelin-pathway mechanisms. Supports investigation of pulsatile endocrine secretion dynamics. Enables study of additive/complementary GH-axis stimulation strategies. Supports mapping of downstream IGF signaling changes over time (study dependent). Provides a framework for GH-axis feedback loop and secretion pattern research. Enables comparative profiling of GH secretagogue pathway inputs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=CJC-1295+without+DAC+GHRH+analog+growth+hormone"
       },
       {
         name: "CJC-1295 NO DAC",
@@ -418,10 +356,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "CJC-1295 without Drug Affinity Complex for GHRH receptor research.",
-        scientificPurpose: "Used for investigating GHRH receptor activation with shorter half-life.",
-        studiesFindings: "Research demonstrates potent GHRH receptor agonist activity.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16352683/"
+        description: "CJC-1295 No DAC is a GHRH/GRF analogue designed to activate the GHRH receptor and stimulate endogenous pituitary growth hormone release, generally with shorter duration than DAC-linked variants. It is used to study GH pulsatility and downstream endocrine signaling patterns through the GH/IGF axis, with research emphasis on physiologic secretion dynamics rather than direct hormone replacement.",
+        scientificPurpose: "Designed to study physiologic GH stimulation via GHRH receptor activation, endocrine pulsatility, feedback regulation, and downstream IGF-axis signaling.",
+        studiesFindings: "Stimulates GH release via GHRH receptor signaling (context dependent). Supports study of pulsatile secretion dynamics and endocrine rhythm biology. Influences downstream IGF-axis signaling endpoints (study dependent). Enables mechanistic mapping of GH-axis control and feedback regulation. Serves as a tool for endocrine pathway exploration without exogenous GH. Supports comparative studies of GHRH-analogue signaling designs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=CJC-1295+no+DAC+GHRH+analog+growth+hormone"
       },
       {
         name: "SERMORELIN",
@@ -431,10 +369,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Sermorelin is a synthetic GHRH(1-29) for growth hormone releasing research.",
-        scientificPurpose: "Designed for studying physiological GH release patterns and somatotroph function.",
-        studiesFindings: "Studies show natural pulsatile GH release activation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/9502821/"
+        description: "Sermorelin is a GHRH analogue (GRF 1–29) designed to stimulate endogenous pituitary GH release via GHRH receptor activation. It is used to study GH-axis pulsatility, endocrine feedback regulation, and downstream GH/IGF pathway signaling in a physiologic stimulation framework. Research often emphasizes secretion dynamics and endocrine rhythm control.",
+        scientificPurpose: "Designed to study pituitary GH release mechanisms, endocrine pulsatility, GH-axis feedback loops, and downstream IGF signaling outcomes.",
+        studiesFindings: "Stimulates endogenous GH secretion via GHRH receptor signaling (context dependent). Supports evaluation of pulsatile secretion and endocrine rhythm biology. Influences downstream IGF-axis signaling endpoints (study dependent). Enables mechanistic study of endocrine feedback control of GH release. Provides a GH-axis stimulation model without exogenous GH administration. Useful for studying GH-axis regulation and time-dependent signaling outputs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=sermorelin+GRF+1-29+GHRH+growth+hormone"
       },
       {
         name: "IPAMORELIN",
@@ -444,10 +382,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Ipamorelin is a selective ghrelin receptor agonist for GH secretion research.",
-        scientificPurpose: "Used for studying selective GH release without affecting other hormones.",
-        studiesFindings: "Research demonstrates selective GH secretagogue activity with minimal side effects.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/9849822/"
+        description: "Ipamorelin is a synthetic growth hormone secretagogue designed to activate the ghrelin receptor (GHSR-1a) and stimulate pituitary GH release. It is used primarily to study endocrine secretion timing, pulsatility, and downstream GH/IGF-axis signaling, functioning as a mechanistic probe of ghrelin-receptor endocrine biology.",
+        scientificPurpose: "Designed to study ghrelin receptor signaling, GH release physiology, endocrine pulsatility, and downstream GH-axis metabolic/anabolic pathway regulation.",
+        studiesFindings: "Stimulates GH secretion through GHSR activation (context dependent). Supports evaluation of pituitary secretion dynamics and pulsatility patterns. Enables mapping of ghrelin receptor downstream signaling networks. Serves as a tool for GH-axis research designs evaluating endocrine regulation. Supports investigation of downstream IGF-axis signaling outcomes (study dependent). Provides a reference for GHSR agonist endocrine pathway modeling.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=ipamorelin+GHSR-1a+growth+hormone+secretagogue"
       },
       {
         name: "HEXARELIN",
@@ -456,10 +394,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "Hexarelin is a potent synthetic hexapeptide GHRP for growth hormone research.",
-        scientificPurpose: "Designed for investigating GH secretagogue receptor activation and signaling.",
-        studiesFindings: "Studies show potent GH releasing activity through ghrelin receptor activation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/8740429/"
+        description: "Hexarelin is a potent synthetic growth hormone secretagogue that activates the ghrelin receptor (GHSR) to stimulate pituitary GH release. It is widely used to probe endocrine secretion dynamics, secretagogue potency profiles, and downstream GH/IGF-axis signaling changes. In research contexts it often serves as a comparator compound for receptor-driven GH release modeling.",
+        scientificPurpose: "Designed to study GHSR-driven GH secretion, endocrine pulsatility, pituitary signaling biology, and downstream GH/IGF-axis pathway effects.",
+        studiesFindings: "Stimulates GH release via ghrelin receptor activation (context dependent). Supports study of pituitary secretion dynamics and endocrine rhythm control. Enables mechanistic mapping of GHSR downstream signaling in endocrine tissues. Serves as a reference point for secretagogue potency and response profiling. Used to explore GH-axis modulation effects on metabolic/anabolic endpoints (study dependent). Supports comparative endocrine modeling across secretagogue classes.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=hexarelin+GHSR+ghrelin+receptor+growth+hormone+secretagogue"
       },
       {
         name: "GHRP-6 ACETATE",
@@ -469,10 +407,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "GHRP-6 is a growth hormone releasing hexapeptide for GH secretion research.",
-        scientificPurpose: "Used for studying GH release mechanisms and hunger signaling pathways.",
-        studiesFindings: "Research demonstrates robust GH release and appetite stimulation effects.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/8871131/"
+        description: "GHRP-6 is a synthetic peptide growth hormone secretagogue designed to activate the ghrelin receptor (GHSR) and stimulate pituitary GH release. It is used in endocrine research to probe receptor-driven secretion dynamics, endocrine pulsatility, and downstream GH-axis signaling outputs. It also functions as a foundational reference compound for secretagogue class comparison studies.",
+        scientificPurpose: "Designed to study GHSR-mediated GH release, pituitary secretion dynamics, endocrine feedback mechanisms, and ghrelin-pathway downstream signaling.",
+        studiesFindings: "Stimulates GH secretion via GHSR activation (model dependent). Supports study of pituitary secretion dynamics and endocrine pulsatility. Enables mapping of ghrelin receptor downstream signaling pathways. Serves as a reference model for GH secretagogue class biology. Supports investigation of GH-axis effects on metabolic/tissue signaling endpoints (study dependent). Enables comparative profiling against other secretagogue peptides.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=GHRP-6+acetate+ghrelin+receptor+GHSR+growth+hormone"
       },
       {
         name: "HGH (Somatropin 191AA)",
@@ -482,10 +420,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10 IU", moq: 10 },
           { strength: "15 IU", moq: 10 },
         ],
-        description: "Recombinant human growth hormone (191 amino acid) for growth research.",
-        scientificPurpose: "Designed for investigating GH receptor activation and somatotropic axis.",
-        studiesFindings: "Studies confirm identical bioactivity to endogenous human growth hormone.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/11701431/"
+        description: "Recombinant human growth hormone (191 amino acid somatropin) is identical in sequence to endogenous pituitary-derived GH. It is used to study GH receptor activation, somatotropic axis signaling, and downstream anabolic/metabolic pathway regulation. Research applications span growth biology, body composition, and metabolic endpoint investigation.",
+        scientificPurpose: "Designed to study GH receptor activation, somatotropic axis biology, IGF-1 pathway signaling, and anabolic/metabolic downstream effects.",
+        studiesFindings: "Activates GH receptors with identical bioactivity to endogenous GH. Stimulates IGF-1 axis signaling downstream of GH receptor activation. Influences body composition and metabolic endpoints (context dependent). Supports study of anabolic signaling in growth and repair contexts. Enables mechanistic mapping of GH receptor downstream pathways. Provides a reference standard for GH biology research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=somatropin+191+amino+acid+growth+hormone+receptor"
       },
       {
         name: "HGH FRAGMENT 176-191",
@@ -494,10 +432,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "The C-terminal fragment of HGH for lipolysis and fat metabolism research.",
-        scientificPurpose: "Used for studying fat-specific effects of GH without growth properties.",
-        studiesFindings: "Research shows lipolytic activity without effects on glucose or IGF-1.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/11713213/"
+        description: "HGH Fragment 176–191 is a peptide fragment derived from the C-terminal region of human growth hormone, developed to study fat-metabolism signaling motifs potentially separable from full GH's broader anabolic effects. It is used as a fragment-based tool to probe adipocyte lipid mobilization, lipolysis-associated signaling, and fat mass regulation hypotheses in controlled models. Research framing emphasizes adipose metabolism pathway evaluation rather than systemic GH replacement biology.",
+        scientificPurpose: "Designed to study lipolysis mechanisms, adipocyte lipid mobilization signaling, fat-mass regulation endpoints, and GH fragment separation-of-function concepts.",
+        studiesFindings: "Influences lipolysis-associated signaling in adipose models (context dependent). Supports reductions in fat-mass endpoints in select experimental designs (study dependent). Provides a model for studying adipose metabolism effects distinct from full GH endocrine actions. Supports mechanistic mapping of fragment-derived endocrine peptide signaling. Enables investigation of adipocyte energy storage vs mobilization under peptide regulation. Used as a tool for evaluating fragment-specific metabolic pathway contributions.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=growth+hormone+fragment+176-191+lipolysis+fat+mass"
       },
       {
         name: "IGF-1 LR3",
@@ -507,10 +445,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "0.1mg", moq: 10 },
           { strength: "1mg", moq: 10 },
         ],
-        description: "Long R3 IGF-1 is a modified insulin-like growth factor for cell growth research.",
-        scientificPurpose: "Designed for studying IGF-1 receptor signaling with extended half-life.",
-        studiesFindings: "Studies demonstrate enhanced potency and bioavailability over native IGF-1.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/9194523/"
+        description: "IGF-1 LR3 is an engineered IGF-1 analogue designed to extend signaling persistence relative to native IGF-1, enabling prolonged IGF-1 receptor engagement in experimental systems. Research use focuses on IGF-1R downstream signaling networks such as PI3K/Akt and MAPK pathways, which regulate cellular growth, survival, and anabolic signaling. It is commonly used as a tool to study growth-factor signaling kinetics and tissue response magnitude.",
+        scientificPurpose: "Designed to study IGF-1 receptor signaling cascades, anabolic pathway activation, cellular growth responses, and repair-associated signaling frameworks.",
+        studiesFindings: "Activates IGF-1 receptor signaling cascades (PI3K/Akt, MAPK; context dependent). Increases anabolic/protein synthesis signaling markers in experimental contexts. Enhances growth and survival pathway signaling endpoints (study dependent). Provides prolonged IGF-related signaling relative to native IGF-1 (design rationale). Supports mechanistic study of growth-factor signaling duration vs response magnitude. Used to map tissue-level responses to sustained IGF pathway stimulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=IGF-1+LR3+analog+IGF-1+receptor+PI3K+Akt+MAPK"
       },
       {
         name: "IGF-DES",
@@ -519,10 +457,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "2mg", moq: 10 },
         ],
-        description: "Des(1-3)IGF-1 is a truncated IGF-1 for enhanced receptor binding research.",
-        scientificPurpose: "Used for investigating IGF-1 activity without binding protein interference.",
-        studiesFindings: "Research shows enhanced activity due to reduced IGFBP binding.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/8567815/"
+        description: "IGF-DES is a truncated IGF-1 analogue used to study IGF-1 receptor signaling intensity and tissue-level growth responses. Structural truncation alters receptor interaction kinetics and may shift local signaling characteristics, making it useful for experiments that compare potency, duration, and spatial response profiles across IGF pathway variants. Research emphasis commonly includes PI3K/Akt and MAPK signaling outputs tied to growth and repair biology.",
+        scientificPurpose: "Designed to study IGF-1 receptor activation, localized anabolic signaling dynamics, growth-factor pathway potency profiling, and repair-associated signaling programs.",
+        studiesFindings: "Activates IGF-1 receptor signaling cascades (PI3K/Akt, MAPK; context dependent). Enhances localized anabolic signaling endpoints in experimental systems (study dependent). Supports growth and repair-associated signaling frameworks at cellular/tissue levels. Used to probe growth-factor signaling potency and kinetics comparisons. Provides a mechanistic tool for mapping IGF pathway intensity vs outcome relationships. Enables study of spatially localized IGF pathway response programs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=IGF-1+DES+truncated+analog+IGF-1+receptor"
       },
       {
         name: "HCG",
@@ -532,10 +470,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5000 IU", moq: 10 },
           { strength: "10000 IU", moq: 10 },
         ],
-        description: "Human Chorionic Gonadotropin for LH receptor research and reproductive studies.",
-        scientificPurpose: "Designed for investigating gonadal function and reproductive endocrinology.",
-        studiesFindings: "Studies demonstrate LH-like activity on gonadal tissue.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/10580854/"
+        description: "Human Chorionic Gonadotropin (HCG) is a glycoprotein hormone that mimics luteinizing hormone (LH) signaling through the LH/CG receptor. It is used in reproductive endocrinology research to study gonadal function, steroidogenesis, and reproductive axis regulation. Research applications include Leydig cell stimulation, ovarian function, and gonadotropin signaling pathway investigation.",
+        scientificPurpose: "Designed to study LH/CG receptor activation, gonadal steroidogenesis, reproductive axis regulation, and gonadotropin signaling mechanisms.",
+        studiesFindings: "Activates LH/CG receptors with LH-like signaling activity. Stimulates gonadal steroidogenesis in reproductive tissue models. Supports study of Leydig cell and ovarian function (context dependent). Enables investigation of reproductive endocrine axis regulation. Provides a tool for gonadotropin receptor signaling research. Used in fertility and reproductive biology research contexts.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=human+chorionic+gonadotropin+HCG+LH+receptor+steroidogenesis"
       },
       {
         name: "KISSPEPTIN-10",
@@ -545,10 +483,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Kisspeptin-10 is a neuropeptide for reproductive neuroendocrinology research.",
-        scientificPurpose: "Used for studying GnRH release regulation and reproductive axis control.",
-        studiesFindings: "Research shows potent stimulation of GnRH and gonadotropin release.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16621871/"
+        description: "Kisspeptin-10 is a neuropeptide fragment that activates the kisspeptin receptor (KISS1R/GPR54) to stimulate GnRH release and downstream gonadotropin secretion. It is used to study reproductive neuroendocrinology, puberty onset mechanisms, and hypothalamic-pituitary-gonadal axis regulation. Research focuses on how kisspeptin signaling coordinates reproductive hormone cascades.",
+        scientificPurpose: "Designed to study kisspeptin receptor activation, GnRH release regulation, reproductive neuroendocrinology, and hypothalamic control of gonadotropin secretion.",
+        studiesFindings: "Activates kisspeptin receptor signaling to stimulate GnRH neurons. Increases LH and FSH secretion through GnRH pathway activation. Supports study of puberty onset and reproductive axis maturation (context dependent). Enables investigation of hypothalamic reproductive circuitry. Provides a tool for mapping kisspeptin→GnRH→gonadotropin signaling cascades. Used in fertility and reproductive biology research contexts.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=kisspeptin-10+KISS1R+GnRH+gonadotropin+reproductive"
       },
       {
         name: "MOTS-c",
@@ -558,10 +496,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "40mg", moq: 10 },
         ],
-        description: "MOTS-c is a mitochondria-derived peptide for metabolic and exercise research.",
-        scientificPurpose: "Designed for investigating mitochondrial signaling and metabolic adaptation.",
-        studiesFindings: "Studies demonstrate effects on glucose metabolism and exercise mimetic properties.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/25738459/"
+        description: "MOTS-c is a mitochondria-derived peptide encoded within the 12S rRNA gene, studied for effects on metabolic regulation and exercise-mimetic signaling. It is used to investigate AMPK activation, glucose metabolism, and cellular stress adaptation pathways. Research interest centers on how mitochondrial-derived peptides coordinate systemic metabolic responses.",
+        scientificPurpose: "Designed to study mitochondrial signaling, AMPK pathway activation, glucose metabolism regulation, and exercise-mimetic metabolic effects.",
+        studiesFindings: "Activates AMPK signaling pathways in metabolic tissues. Improves glucose metabolism endpoints in experimental models (context dependent). Demonstrates exercise-mimetic effects on metabolic adaptation (study dependent). Supports investigation of mitochondrial-derived peptide biology. Enables study of cellular stress adaptation and metabolic resilience. Provides a tool for mapping mitochondrial signaling to systemic metabolism.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=MOTS-c+mitochondrial+peptide+AMPK+glucose+metabolism"
       },
       {
         name: "EPO-53000",
@@ -570,10 +508,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "3000 IU", moq: 10 },
         ],
-        description: "Erythropoietin for hematopoiesis and red blood cell production research.",
-        scientificPurpose: "Used for studying erythrocyte development and oxygen-carrying capacity.",
-        studiesFindings: "Research demonstrates effects on erythroid progenitor cell differentiation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/15001466/"
+        description: "Erythropoietin (EPO) is a glycoprotein hormone that activates the erythropoietin receptor to stimulate erythropoiesis and red blood cell production. It is used in hematology research to study erythroid progenitor cell differentiation, oxygen-carrying capacity, and hematopoietic signaling pathways. Research applications include anemia modeling and erythropoietic pathway investigation.",
+        scientificPurpose: "Designed to study erythropoietin receptor signaling, erythroid differentiation, red blood cell production, and hematopoietic pathway regulation.",
+        studiesFindings: "Activates erythropoietin receptor signaling in hematopoietic tissues. Stimulates erythroid progenitor cell differentiation and maturation. Increases red blood cell production endpoints (context dependent). Supports investigation of oxygen-carrying capacity regulation. Enables study of hematopoietic growth factor signaling. Provides a reference for erythropoiesis pathway research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=erythropoietin+EPO+receptor+erythropoiesis+red+blood+cell"
       },
       {
         name: "PT-141",
@@ -582,10 +520,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "PT-141 (Bremelanotide) is a melanocortin receptor agonist for sexual function research.",
-        scientificPurpose: "Designed for investigating MC3/MC4 receptor pathways and arousal mechanisms.",
-        studiesFindings: "Studies report effects on sexual arousal pathways through central mechanisms.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/15974260/"
+        description: "PT-141 (Bremelanotide) is a melanocortin receptor agonist that activates MC3R and MC4R pathways in the central nervous system. It is used to study sexual arousal mechanisms, melanocortin signaling, and CNS-mediated behavioral endpoints. Research focuses on how melanocortin pathway activation influences arousal and desire through central mechanisms rather than peripheral vascular effects.",
+        scientificPurpose: "Designed to study melanocortin receptor signaling, CNS-mediated arousal pathways, and behavioral endpoints associated with MC3R/MC4R activation.",
+        studiesFindings: "Activates MC3R and MC4R signaling in central nervous system. Influences sexual arousal endpoints through CNS mechanisms (context dependent). Demonstrates effects distinct from peripheral vasodilator compounds. Supports investigation of melanocortin pathway behavioral effects. Enables study of CNS-mediated desire and arousal circuitry. Provides a tool for mapping melanocortin receptor biology in behavioral contexts.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=PT-141+bremelanotide+melanocortin+MC4R+sexual+arousal"
       },
       {
         name: "VIP",
@@ -595,10 +533,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Vasoactive Intestinal Peptide for vasodilation and neuropeptide research.",
-        scientificPurpose: "Used for studying vasodilation, neuromodulation, and immune regulation.",
-        studiesFindings: "Research shows broad neuromodulatory and anti-inflammatory effects.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/15109742/"
+        description: "VIP (vasoactive intestinal peptide) is an endogenous neuropeptide hormone that signals through VPAC receptors and regulates vascular tone, smooth muscle relaxation, and immune modulation. It functions as a neuroimmune communicator linking nervous system signaling to inflammatory regulation. Research interest includes how VIP shifts cytokine profiles and tissue physiology via receptor-mediated signaling.",
+        scientificPurpose: "Designed to study VPAC receptor biology, vascular and smooth muscle signaling, and immunomodulatory pathway regulation.",
+        studiesFindings: "Produces vasodilation through smooth muscle relaxation signaling. Modulates immune-cell activity and cytokine signaling patterns (context dependent). Influences neuroimmune communication pathways in inflammatory models. Demonstrates protective signaling profiles in select inflammation contexts (study dependent). Supports mechanistic mapping of peptide regulation of vascular-immune homeostasis. Used to study receptor-driven coordination between vascular tone and immune signaling.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=vasoactive+intestinal+peptide+VIP+VPAC+immunomodulation"
       },
     ]
   },
@@ -607,16 +545,78 @@ export const productCategories: ProductCategory[] = [
     slug: "aesthetic-cosmetic-supplies-stacks",
     products: [
       {
+        name: "GHK-CU",
+        displayName: "GHK-CU",
+        slug: "ghk-cu",
+        variations: [
+          { strength: "50mg", moq: 10 },
+          { strength: "100mg", moq: 10 },
+        ],
+        description: "GHK-Cu is a copper-binding tripeptide studied for effects on extracellular matrix remodeling, wound healing, and repair-associated gene expression. It is used to investigate collagen synthesis, skin regeneration, and tissue remodeling pathways. Research interest centers on how this minimal peptide-metal complex can shift gene expression programs related to tissue repair and aging.",
+        scientificPurpose: "Designed to study ECM remodeling, collagen synthesis, wound healing, and repair-associated gene expression in skin and tissue regeneration research.",
+        studiesFindings: "Modulates collagen synthesis and ECM remodeling signaling. Influences repair-associated gene expression patterns (context dependent). Supports wound healing pathway investigation in experimental models. Demonstrates antioxidant and anti-inflammatory signaling in some studies. Enables investigation of copper-peptide biology in tissue repair. Provides a tool for studying minimal-peptide regulation of regenerative programs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=GHK-Cu+copper+peptide+collagen+gene+expression"
+      },
+      {
+        name: "GLUTATHIONE",
+        displayName: "GLUTATHIONE",
+        slug: "glutathione",
+        variations: [
+          { strength: "1500mg", moq: 10 },
+        ],
+        description: "Glutathione is the master intracellular antioxidant tripeptide (γ-glutamyl-cysteinyl-glycine) that protects cells from oxidative damage and supports detoxification pathways. It is used to study cellular redox balance, phase II detoxification, and oxidative stress resistance mechanisms. Research applications span toxicology, aging, and cellular protection pathway investigation.",
+        scientificPurpose: "Designed to study cellular antioxidant mechanisms, redox balance, detoxification pathways, and oxidative stress resistance in experimental systems.",
+        studiesFindings: "Provides critical cellular defense against oxidative damage. Supports phase II detoxification enzyme function. Modulates cellular redox balance and thiol status. Demonstrates protective effects in oxidative stress models (context dependent). Enables investigation of antioxidant pathway regulation. Provides a reference for cellular protection and detoxification research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=glutathione+antioxidant+oxidative+stress+detoxification"
+      },
+      {
+        name: "SNAP-8",
+        displayName: "SNAP-8",
+        slug: "snap-8",
+        variations: [
+          { strength: "10mg", moq: 10 },
+        ],
+        description: "SNAP-8 is a synthetic octapeptide designed to modulate SNARE complex formation and neuromuscular junction signaling. It is studied in cosmetic and neurobiology research for effects on muscle contraction patterns and expression line formation. Research focuses on how peptide-mediated SNARE modulation can influence neurotransmitter release and downstream muscle activity.",
+        scientificPurpose: "Designed to study SNARE complex modulation, neuromuscular junction signaling, and muscle contraction pathway regulation in cosmetic and neurobiology research.",
+        studiesFindings: "Modulates SNARE complex formation in neuromuscular systems. Influences neurotransmitter release signaling (context dependent). Supports investigation of muscle contraction pathway regulation. Demonstrates effects on expression-related muscle activity in cosmetic research. Enables study of peptide-mediated neuromuscular modulation. Provides a tool for SNARE-targeted signaling pathway research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=SNAP-8+octapeptide+SNARE+neuromuscular+acetylcholine"
+      },
+      {
+        name: "LL-37",
+        displayName: "LL-37",
+        slug: "ll-37",
+        variations: [
+          { strength: "10mg", moq: 10 },
+        ],
+        description: "LL-37 is a human cathelicidin antimicrobial peptide with broad-spectrum antimicrobial activity and immunomodulatory properties. It is studied for effects on microbial membrane disruption, wound healing, and innate immune signaling. Research interest includes how this host defense peptide coordinates antimicrobial activity with tissue repair and immune regulation.",
+        scientificPurpose: "Designed to study antimicrobial mechanisms, innate immune signaling, wound healing, and host defense peptide biology in infection and immunity research.",
+        studiesFindings: "Demonstrates broad-spectrum antimicrobial activity against bacteria, viruses, and fungi. Modulates innate immune signaling and cytokine patterns. Supports wound healing pathway investigation (context dependent). Influences angiogenesis and tissue repair signaling in some studies. Enables investigation of host defense peptide mechanisms. Provides a tool for studying cathelicidin biology in immunity and repair.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=LL-37+cathelicidin+antimicrobial+peptide+innate+immunity"
+      },
+      {
+        name: "NAD",
+        displayName: "NAD",
+        slug: "nad",
+        variations: [
+          { strength: "100mg", moq: 10 },
+          { strength: "500mg", moq: 10 },
+        ],
+        description: "NAD+ (nicotinamide adenine dinucleotide) is an essential coenzyme involved in cellular metabolism, energy production, and sirtuin-mediated signaling. It is studied for effects on mitochondrial function, DNA repair pathways, and aging-associated metabolic changes. Research interest centers on how NAD+ availability influences cellular energetics and longevity-associated pathway regulation.",
+        scientificPurpose: "Designed to study cellular metabolism, sirtuin signaling, mitochondrial function, and aging-associated pathway regulation in metabolic and longevity research.",
+        studiesFindings: "Supports cellular energy metabolism and ATP production. Activates sirtuin-mediated signaling pathways (context dependent). Influences DNA repair and genomic stability mechanisms. Modulates mitochondrial function and bioenergetics. Enables investigation of NAD+-dependent enzyme biology. Provides a tool for studying metabolic and longevity pathway regulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=NAD+nicotinamide+adenine+dinucleotide+sirtuin+metabolism"
+      },
+      {
         name: "LEMON BOTTLE",
         displayName: "LEMON BOTTLE",
         slug: "lemon-bottle",
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Lemon Bottle is an advanced lipolytic solution for fat dissolution research.",
-        scientificPurpose: "Designed for studying localized lipolysis and adipocyte metabolism.",
-        studiesFindings: "Studies report effects on adipocyte membranes and fat cell metabolism.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/30817890/"
+        description: "\"Lemon Bottle\" is a branded aesthetic product name rather than a standardized chemical identity commonly indexed on NIH/PubMed. Scientific evidence and NIH indexing generally track data by verified active ingredients, not brand formulations. The closest NIH-trackable mechanism for localized injectable fat reduction is ingredient-level adipocytolysis literature (frequently associated with deoxycholic acid), which has defined cellular mechanisms and measurable contour endpoints.",
+        scientificPurpose: "Marketed concept: localized adipose reduction. NIH-aligned evaluation is best mapped to ingredient-level adipocytolysis research rather than brand-level claims.",
+        studiesFindings: "Ingredient-level adipocytolysis literature demonstrates localized subcutaneous fat reduction endpoints (study dependent). Mechanistic studies show targeted adipocyte disruption in treated tissues (context dependent). Demonstrates measurable changes in treated-area contour/volume in controlled settings. Provides a standardized research framework for localized fat reduction via injectables. Enables study of tissue remodeling following adipocyte disruption (study dependent). Supports evaluation of fat reduction mechanisms at the cellular and tissue levels.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=deoxycholic+acid+injection+adipocytolysis+subcutaneous+fat"
       },
       {
         name: "BOTULINUM TOXIN",
@@ -625,10 +625,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "100 IU", moq: 10 },
         ],
-        description: "Botulinum toxin for neuromuscular junction and muscle contraction research.",
-        scientificPurpose: "Used for studying acetylcholine release inhibition and muscle relaxation.",
-        studiesFindings: "Research demonstrates effects on SNARE complex and neurotransmitter release.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/17706675/"
+        description: "Botulinum toxin is a neurotoxin that inhibits acetylcholine release at neuromuscular junctions by cleaving SNARE complex proteins. It is studied for effects on muscle contraction, neurotransmitter release mechanisms, and therapeutic applications in movement disorders. Research focuses on SNARE-mediated vesicle fusion and neuromuscular signaling pathway regulation.",
+        scientificPurpose: "Designed to study SNARE complex cleavage, neuromuscular junction signaling, acetylcholine release inhibition, and muscle relaxation mechanisms.",
+        studiesFindings: "Inhibits acetylcholine release through SNARE complex cleavage. Produces muscle relaxation via neuromuscular junction blockade. Demonstrates dose-dependent duration of effect (context dependent). Supports investigation of neurotransmitter release mechanisms. Enables study of SNARE protein biology and vesicle fusion. Provides a reference for neuromuscular signaling pathway research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=botulinum+toxin+SNARE+acetylcholine+neuromuscular+junction"
       },
       {
         name: "L-CARNITINE",
@@ -637,10 +637,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10 mL", moq: 10 },
         ],
-        description: "L-Carnitine is an amino acid derivative for fatty acid metabolism research.",
-        scientificPurpose: "Designed for studying mitochondrial fatty acid transport and oxidation.",
-        studiesFindings: "Studies show effects on fatty acid beta-oxidation and energy metabolism.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/21224234/"
+        description: "L-Carnitine is an amino acid derivative essential for mitochondrial fatty acid transport and beta-oxidation. It is studied for effects on lipid metabolism, energy production, and exercise-related metabolic adaptation. Research applications include fatty acid oxidation pathway investigation and metabolic efficiency studies.",
+        scientificPurpose: "Designed to study mitochondrial fatty acid transport, beta-oxidation, lipid metabolism, and energy production in metabolic and exercise research.",
+        studiesFindings: "Facilitates fatty acid transport into mitochondria for oxidation. Supports energy production through lipid metabolism pathways. Influences exercise-related metabolic endpoints (context dependent). Modulates fatty acid oxidation efficiency in cellular systems. Enables investigation of carnitine shuttle biology. Provides a tool for studying lipid metabolism and cellular energetics.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=L-carnitine+fatty+acid+transport+mitochondria+beta+oxidation"
       },
       {
         name: "MT-1",
@@ -649,10 +649,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Melanotan I is a linear melanocortin peptide for tanning and skin research.",
-        scientificPurpose: "Used for investigating MC1 receptor activation and melanogenesis.",
-        studiesFindings: "Research demonstrates melanocyte stimulation and photoprotective effects.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/8846201/"
+        description: "Melanotan I (afamelanotide) is a linear melanocortin peptide that activates MC1R to stimulate melanogenesis and melanin production. It is studied for effects on pigmentation, photoprotection, and melanocyte biology. Research focuses on how MC1R activation influences skin pigmentation pathways and UV protection mechanisms.",
+        scientificPurpose: "Designed to study MC1R activation, melanogenesis, melanin production, and photoprotection mechanisms in pigmentation research.",
+        studiesFindings: "Activates MC1R signaling to stimulate melanocyte activity. Increases melanin production and skin pigmentation (context dependent). Demonstrates photoprotective effects through enhanced pigmentation. Supports investigation of melanocortin receptor biology. Enables study of pigmentation pathway regulation. Provides a tool for melanogenesis and photoprotection research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=melanotan+afamelanotide+MC1R+melanogenesis+pigmentation"
       },
       {
         name: "MT-2 (Melanotan II)",
@@ -661,10 +661,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Melanotan II is a cyclic melanocortin peptide for pigmentation research.",
-        scientificPurpose: "Designed for studying melanocortin receptor activation and melanogenesis.",
-        studiesFindings: "Studies report potent melanogenesis induction through MC receptor activation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/9831248/"
+        description: "Melanotan II is a cyclic melanocortin peptide that activates multiple melanocortin receptors (MC1R, MC3R, MC4R, MC5R) to influence pigmentation, sexual function, and appetite signaling. It is studied for broader melanocortin pathway effects compared to the more selective MT-1. Research focuses on multi-receptor activation profiles and downstream physiological effects.",
+        scientificPurpose: "Designed to study multi-melanocortin receptor activation, pigmentation, and CNS-mediated behavioral/metabolic endpoints.",
+        studiesFindings: "Activates multiple melanocortin receptor subtypes. Stimulates melanogenesis and skin pigmentation through MC1R. Influences CNS-mediated endpoints through MC3R/MC4R activation (context dependent). Demonstrates broader receptor activation profile than MT-1. Supports investigation of melanocortin pathway crosstalk. Provides a tool for multi-receptor melanocortin biology research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=melanotan+II+melanocortin+receptor+MC1R+MC4R+pigmentation"
       },
       {
         name: "5-AMINO-1MQ",
@@ -673,10 +673,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "5-Amino-1MQ is an NNMT inhibitor for metabolic and adipose tissue research.",
-        scientificPurpose: "Used for studying nicotinamide N-methyltransferase and fat metabolism.",
-        studiesFindings: "Research shows effects on energy expenditure and adipocyte function.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/32479746/"
+        description: "5-Amino-1MQ is a small molecule inhibitor of nicotinamide N-methyltransferase (NNMT), an enzyme involved in cellular metabolism and adipose tissue function. It is studied for effects on energy expenditure, fat metabolism, and metabolic pathway regulation. Research focuses on how NNMT inhibition influences adipocyte biology and systemic metabolic endpoints.",
+        scientificPurpose: "Designed to study NNMT inhibition, adipocyte metabolism, energy expenditure, and metabolic pathway regulation in obesity and metabolism research.",
+        studiesFindings: "Inhibits NNMT enzyme activity in metabolic tissues. Influences energy expenditure and adipocyte function (context dependent). Modulates NAD+ salvage pathway through NNMT inhibition. Demonstrates effects on fat metabolism in preclinical models (study dependent). Supports investigation of NNMT role in metabolic regulation. Provides a tool for studying metabolic enzyme inhibition strategies.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=5-amino-1MQ+NNMT+inhibitor+adipose+metabolism"
       },
       {
         name: "SLU-PP-322",
@@ -685,10 +685,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "SLU-PP-322 is a research compound for metabolic pathway investigation.",
-        scientificPurpose: "Designed for studying specific metabolic enzyme inhibition pathways.",
-        studiesFindings: "Studies report selective activity on targeted metabolic enzymes.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/32479746/"
+        description: "SLU-PP-332 is a research compound designed to activate ERRα/γ (estrogen-related receptors), transcription factors that regulate mitochondrial biogenesis and oxidative metabolism. It is studied as an \"exercise mimetic\" for effects on muscle fiber type, endurance capacity, and metabolic adaptation. Research focuses on how ERR activation can shift metabolic programming toward oxidative phenotypes.",
+        scientificPurpose: "Designed to study ERRα/γ activation, mitochondrial biogenesis, oxidative metabolism, and exercise-mimetic effects in muscle and metabolism research.",
+        studiesFindings: "Activates ERRα/γ transcriptional programs in metabolic tissues. Enhances mitochondrial biogenesis markers (context dependent). Demonstrates exercise-mimetic effects on muscle metabolism (study dependent). Influences muscle fiber type composition toward oxidative phenotypes. Supports investigation of transcription factor-mediated metabolic programming. Provides a tool for studying non-exercise metabolic adaptation strategies.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=SLU-PP-332+ERR+exercise+mimetic+mitochondrial+biogenesis"
       },
       {
         name: "BAC WATER",
@@ -698,10 +698,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "3mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Bacteriostatic water is sterile water with 0.9% benzyl alcohol for reconstitution.",
-        scientificPurpose: "Used as a diluent for reconstituting lyophilized peptides and compounds.",
-        studiesFindings: "Standard preparation medium for peptide research applications.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/"
+        description: "Bacteriostatic water is sterile water containing 0.9% benzyl alcohol as a preservative to inhibit microbial growth. It is used as a standard diluent for reconstituting lyophilized peptides and compounds in research applications. The benzyl alcohol preservative allows for multiple withdrawals while maintaining sterility.",
+        scientificPurpose: "Used as a standard diluent for reconstituting lyophilized peptides and research compounds while maintaining sterility through preservative action.",
+        studiesFindings: "Provides sterile reconstitution medium for lyophilized compounds. Contains benzyl alcohol preservative to inhibit microbial growth. Allows multiple withdrawals while maintaining sterility. Standard preparation medium for peptide research applications. Enables proper dissolution of lyophilized peptides for experimental use.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=bacteriostatic+water+benzyl+alcohol+reconstitution"
       },
       {
         name: "INSULIN",
@@ -710,10 +710,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "3 mL", moq: 1 },
         ],
-        description: "Recombinant human insulin for glucose metabolism and cell culture research.",
-        scientificPurpose: "Designed for studying insulin receptor signaling and glucose uptake.",
-        studiesFindings: "Studies demonstrate effects on glucose transporter activation and metabolism.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/21324315/"
+        description: "Recombinant human insulin is identical to endogenous insulin and activates insulin receptors to regulate glucose uptake, metabolism, and anabolic signaling. It is used in metabolic research to study insulin receptor signaling, GLUT4 translocation, and glucose homeostasis pathways. Research applications span diabetes modeling, cell culture, and metabolic pathway investigation.",
+        scientificPurpose: "Designed to study insulin receptor signaling, glucose transporter activation, metabolic regulation, and anabolic pathway biology.",
+        studiesFindings: "Activates insulin receptor signaling with identical bioactivity to endogenous insulin. Stimulates GLUT4 translocation and glucose uptake. Regulates metabolic and anabolic signaling pathways. Supports investigation of glucose homeostasis mechanisms. Enables study of insulin resistance and metabolic dysfunction. Provides a reference standard for insulin biology research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=insulin+receptor+GLUT4+glucose+uptake+metabolism"
       },
       {
         name: "HYALURONIC ACID",
@@ -722,10 +722,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 1 },
         ],
-        description: "Hyaluronic acid is a glycosaminoglycan for tissue hydration and matrix research.",
-        scientificPurpose: "Used for studying extracellular matrix, hydration, and tissue engineering.",
-        studiesFindings: "Research shows effects on tissue hydration and wound healing pathways.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16199091/"
+        description: "Hyaluronic acid is a high-molecular-weight glycosaminoglycan that provides tissue hydration, lubrication, and extracellular matrix structure. It is studied for effects on wound healing, tissue engineering, and skin hydration mechanisms. Research focuses on how HA molecular weight and concentration influence tissue hydration, viscoelasticity, and repair signaling.",
+        scientificPurpose: "Designed to study extracellular matrix biology, tissue hydration, wound healing, and viscoelastic properties in tissue engineering and dermatology research.",
+        studiesFindings: "Provides tissue hydration through water-binding capacity. Supports extracellular matrix structure and viscoelasticity. Influences wound healing pathway signaling (context dependent). Demonstrates effects on cell migration and tissue repair. Enables investigation of glycosaminoglycan biology. Provides a tool for tissue engineering and hydration research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=hyaluronic+acid+glycosaminoglycan+wound+healing+hydration"
       },
       {
         name: "FOLLISTATIN",
@@ -734,10 +734,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "Single item", moq: 1 },
         ],
-        description: "Follistatin is an activin-binding protein for muscle growth and myostatin research.",
-        scientificPurpose: "Designed for studying myostatin inhibition and muscle development pathways.",
-        studiesFindings: "Studies demonstrate antagonism of myostatin and promotion of muscle growth.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/11502797/"
+        description: "Follistatin is an activin-binding protein that neutralizes myostatin and other TGF-β superfamily members to influence muscle growth and development. It is studied for effects on muscle hypertrophy, satellite cell activation, and developmental signaling pathways. Research focuses on how follistatin-mediated inhibition of negative regulators can shift muscle growth dynamics.",
+        scientificPurpose: "Designed to study myostatin/activin inhibition, muscle hypertrophy signaling, satellite cell biology, and TGF-β pathway regulation.",
+        studiesFindings: "Binds and neutralizes myostatin and activin signaling. Promotes muscle hypertrophy through negative regulator inhibition. Influences satellite cell activation and muscle development (context dependent). Demonstrates effects on muscle mass in preclinical models (study dependent). Supports investigation of TGF-β superfamily biology. Provides a tool for studying muscle growth pathway regulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=follistatin+myostatin+activin+muscle+hypertrophy"
       },
       {
         name: "GLOW STACK",
@@ -746,10 +746,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "70mg", moq: 10 },
         ],
-        description: "GLOW Stack combines BPC-157, GHK-Cu, and TB500 for comprehensive skin research.",
-        scientificPurpose: "Designed for investigating synergistic effects on skin repair and regeneration.",
-        studiesFindings: "Studies suggest combined peptides enhance tissue repair and collagen synthesis.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/25877441/"
+        description: "Glow Stack is a bundled research concept combining three peptides studied for tissue remodeling and repair-associated signaling: BPC-157 (cytoprotection/repair cascades), GHK-Cu (extracellular matrix remodeling and repair gene programs), and thymosin beta-4–related material (cell migration/angiogenesis). The stack concept represents a multi-pathway model of repair biology, integrating vascular growth signaling, matrix reconstruction, and injury recovery kinetics. In research contexts, it is used to explore coordinated tissue remodeling as a systems process rather than a single receptor event.",
+        scientificPurpose: "Designed to study combined repair biology: angiogenesis, ECM remodeling, cell migration, cytoprotective signaling, and inflammation-phase coordination across tissue recovery models.",
+        studiesFindings: "BPC-157 literature reports enhanced repair signaling and angiogenesis markers (context dependent). GHK-Cu literature reports collagen/ECM remodeling and repair-associated gene expression shifts (study dependent). Thymosin beta-4 literature reports increased cell migration and wound repair signaling. Supports systems-level modeling of tissue remodeling programs across soft tissue contexts. Enables study of how matrix rebuilding and vascular signaling co-evolve during recovery. Provides a framework for multi-input repair pathway exploration in regenerative research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=BPC-157+GHK-Cu+thymosin+beta-4+tissue+repair"
       },
       {
         name: "KLOW STACK",
@@ -758,10 +758,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "80mg", moq: 10 },
         ],
-        description: "KLOW Stack combines CU50, BPC10, TB500, and KPV10 for advanced skin research.",
-        scientificPurpose: "Designed for studying multi-peptide effects on skin health and repair.",
-        studiesFindings: "Research suggests synergistic benefits from combined peptide formulations.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/25877441/"
+        description: "KLOW Stack combines multiple peptides (GHK-Cu, BPC-157, TB500, and KPV) for advanced multi-pathway skin and tissue research. The formulation concept integrates ECM remodeling (GHK-Cu), cytoprotective signaling (BPC-157), cell migration/angiogenesis (TB500), and anti-inflammatory modulation (KPV). It is used to study coordinated tissue repair and skin health optimization through combined peptide inputs.",
+        scientificPurpose: "Designed to study multi-peptide effects on skin health, tissue repair, anti-inflammatory signaling, and coordinated regenerative pathway activation.",
+        studiesFindings: "GHK-Cu literature reports ECM remodeling and repair gene expression. BPC-157 literature reports cytoprotective and angiogenic signaling. TB500 literature reports cell migration and wound repair effects. KPV literature reports anti-inflammatory cytokine modulation. Supports investigation of multi-pathway tissue optimization strategies. Provides a framework for studying synergistic peptide effects on skin and tissue health.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=GHK-Cu+BPC-157+TB500+KPV+tissue+repair+skin"
       },
       {
         name: "KPV (Lysine-Proline-Valine)",
@@ -771,10 +771,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "KPV is an alpha-MSH derived tripeptide for anti-inflammatory research.",
-        scientificPurpose: "Used for studying melanocortin-related anti-inflammatory pathways.",
-        studiesFindings: "Research shows anti-inflammatory effects independent of melanocortin receptors.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/12820180/"
+        description: "KPV is a short bioactive tripeptide studied in inflammation research as a minimal motif capable of modulating cytokine output and inflammatory cascade amplification. It is frequently discussed in epithelial and mucosal immune contexts where small peptides can influence barrier-associated immune signaling. Research uses it to explore how compact peptide sequences can regulate inflammatory pathway dynamics.",
+        scientificPurpose: "Designed to study cytokine modulation, epithelial/mucosal inflammatory regulation, and anti-inflammatory signaling pathway dynamics in experimental systems.",
+        studiesFindings: "Reduces inflammatory cytokine signaling in experimental models (context dependent). Modulates immune signaling pathways associated with inflammation resolution. Supports epithelial barrier-associated immune regulation signaling in some studies. Demonstrates anti-inflammatory patterns in peptide research contexts. Provides a minimal-peptide tool for mapping inflammation pathway modulation. Useful for exploring peptide control of mucosal immune signaling networks.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=KPV+Lys-Pro-Val+tripeptide+anti-inflammatory+cytokines"
       },
     ]
   }
