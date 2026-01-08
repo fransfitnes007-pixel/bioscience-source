@@ -1,6 +1,7 @@
 import { Product, ProductVariation } from "@/lib/products-data";
 import { Button } from "@/components/ui/button";
 import { X, ImageIcon, ExternalLink } from "lucide-react";
+import { getProductImage } from "@/lib/product-images";
 import {
   Accordion,
   AccordionContent,
@@ -23,6 +24,8 @@ export const ProductDetail = ({
   onInquire,
   onClose,
 }: ProductDetailProps) => {
+  const productImage = getProductImage(product.slug);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
@@ -44,9 +47,17 @@ export const ProductDetail = ({
         <div className="p-6 md:p-8">
           {/* Header */}
           <div className="flex flex-col md:flex-row gap-8 mb-8">
-            {/* Image placeholder */}
-            <div className="w-full md:w-64 aspect-square bg-secondary/30 rounded-lg flex items-center justify-center flex-shrink-0">
-              <ImageIcon className="w-16 h-16 text-muted-foreground/30" strokeWidth={1} />
+            {/* Product image */}
+            <div className="w-full md:w-64 aspect-square bg-secondary/30 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+              {productImage ? (
+                <img
+                  src={productImage}
+                  alt={product.displayName}
+                  className="w-full h-full object-contain p-4"
+                />
+              ) : (
+                <ImageIcon className="w-16 h-16 text-muted-foreground/30" strokeWidth={1} />
+              )}
             </div>
 
             <div className="flex-1">

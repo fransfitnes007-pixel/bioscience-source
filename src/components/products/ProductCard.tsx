@@ -1,6 +1,7 @@
 import { Product } from "@/lib/products-data";
 import { Button } from "@/components/ui/button";
 import { ImageIcon } from "lucide-react";
+import { getProductImage } from "@/lib/product-images";
 
 interface ProductCardProps {
   product: Product;
@@ -8,11 +9,21 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
+  const productImage = getProductImage(product.slug);
+
   return (
     <div className="group p-6 border border-border/50 rounded-lg bg-card/30 hover-lift transition-all duration-300">
-      {/* Image placeholder */}
+      {/* Product image */}
       <div className="aspect-square mb-4 bg-secondary/30 rounded-lg flex items-center justify-center overflow-hidden">
-        <ImageIcon className="w-12 h-12 text-muted-foreground/30" strokeWidth={1} />
+        {productImage ? (
+          <img
+            src={productImage}
+            alt={product.displayName}
+            className="w-full h-full object-contain p-2"
+          />
+        ) : (
+          <ImageIcon className="w-12 h-12 text-muted-foreground/30" strokeWidth={1} />
+        )}
       </div>
 
       {/* Product name */}
