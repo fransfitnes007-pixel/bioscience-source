@@ -241,10 +241,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "20mg", moq: 10 },
         ],
-        description: "BPC-157 + TB500 is a combined research formulation pairing two peptides studied for complementary tissue repair mechanisms. BPC-157 contributes cytoprotective and angiogenic signaling, while TB500 (thymosin beta-4) adds cell migration and actin-regulation pathways. The combination is used to study multi-input repair biology and whether coordinated peptide signaling produces synergistic tissue remodeling outcomes.",
-        scientificPurpose: "Designed to study combined repair biology: angiogenesis, cell migration, cytoprotective signaling, and coordinated tissue remodeling across multiple pathway inputs.",
-        studiesFindings: "BPC-157 literature reports enhanced repair signaling and angiogenesis markers. TB500 literature reports increased cell migration and wound repair signaling. Combination concept supports systems-level modeling of tissue repair programs. Enables study of whether multi-peptide inputs produce synergistic repair outcomes. Provides a framework for coordinated tissue remodeling pathway exploration. Supports investigation of soft tissue recovery across multiple signaling axes.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/27349193/"
+        description: "The BPC-157 + TB500 combo is a bundled research concept combining two peptides frequently discussed in regenerative and tissue remodeling research. BPC-157 is a stable pentadecapeptide derived from a gastric protein fragment and is studied for multi-pathway cytoprotective and repair-associated signaling (often framed around angiogenesis, inflammatory phase modulation, and tissue recovery kinetics). TB500 is commonly presented as thymosin beta-4–related material; thymosin beta-4 is an actin-binding peptide that regulates cytoskeletal dynamics and is studied for its role in cell migration, wound closure programs, and angiogenesis-associated signaling. Together, the combo is used as a systems-style research framework to examine how vascular growth, migration, and repair signaling can be co-modulated during tissue recovery.",
+        scientificPurpose: "Designed to study coordinated tissue repair biology, including angiogenesis signaling, cytoskeletal/migration programs, inflammatory signaling modulation, and extracellular remodeling dynamics in controlled injury/repair models.",
+        studiesFindings: "BPC-157 research reports enhanced repair signaling and angiogenesis markers in preclinical models (study dependent). TB500/thymosin beta-4 literature supports increased cell migration and wound closure signaling pathways. Combined framework supports modeling of multi-input repair programs (migration + vascular signaling). Improves tissue remodeling endpoints in select musculoskeletal/soft tissue experimental settings (context dependent). Supports investigation of inflammatory phase regulation alongside repair and regeneration signaling (study dependent). Enables mechanistic comparison of \"cytoprotection-driven repair\" (BPC-157) vs \"migration/actin-driven repair\" (TB500) pathways.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=BPC-157+tissue+repair+angiogenesis"
       },
     ]
   },
@@ -421,10 +421,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10 IU", moq: 10 },
           { strength: "15 IU", moq: 10 },
         ],
-        description: "Recombinant human growth hormone (191 amino acid somatropin) is identical in sequence to endogenous pituitary-derived GH. It is used to study GH receptor activation, somatotropic axis signaling, and downstream anabolic/metabolic pathway regulation. Research applications span growth biology, body composition, and metabolic endpoint investigation.",
-        scientificPurpose: "Designed to study GH receptor activation, somatotropic axis biology, IGF-1 pathway signaling, and anabolic/metabolic downstream effects.",
-        studiesFindings: "Activates GH receptors with identical bioactivity to endogenous GH. Stimulates IGF-1 axis signaling downstream of GH receptor activation. Influences body composition and metabolic endpoints (context dependent). Supports study of anabolic signaling in growth and repair contexts. Enables mechanistic mapping of GH receptor downstream pathways. Provides a reference standard for GH biology research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/11701431/"
+        description: "Somatropin is recombinant human growth hormone (rhGH), a 191–amino acid polypeptide identical to endogenous pituitary GH. It binds the growth hormone receptor (GHR), leading to receptor dimerization and activation of intracellular signaling networks including JAK2/STAT, as well as cross-talk with MAPK and PI3K/Akt pathways. A major downstream endocrine mediator of GH activity is IGF-1, produced largely in the liver and also locally in tissues, which coordinates anabolic, growth, and metabolic remodeling programs. In research, somatropin is used to model GH-axis physiology, growth factor signaling kinetics, and tissue-level anabolic/metabolic adaptations.",
+        scientificPurpose: "Designed to study GHR signaling, GH-axis physiology, IGF-1 induction, anabolic signaling programs (protein synthesis and tissue growth pathways), and systemic metabolic regulation (substrate partitioning, body composition, and tissue remodeling) in controlled endocrine research.",
+        studiesFindings: "Activates GHR → JAK2/STAT signaling and associated transcriptional programs (context dependent). Increases IGF-1 production and downstream growth-factor signaling in clinical and experimental settings. Enhances protein synthesis/anabolic signaling markers in muscle and other tissues (study dependent). Supports tissue growth and remodeling signaling frameworks through GH/IGF axis coordination. Modulates substrate utilization and metabolic regulation endpoints in metabolic physiology models (context dependent). Provides a standardized tool for evaluating GH-axis feedback regulation and endocrine kinetics.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=somatropin+recombinant+human+growth+hormone+GHR+JAK2+STAT+IGF-1"
       },
       {
         name: "HGH FRAGMENT 176-191",
@@ -471,10 +471,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5000 IU", moq: 10 },
           { strength: "10000 IU", moq: 10 },
         ],
-        description: "Human Chorionic Gonadotropin (HCG) is a glycoprotein hormone that mimics luteinizing hormone (LH) signaling through the LH/CG receptor. It is used in reproductive endocrinology research to study gonadal function, steroidogenesis, and reproductive axis regulation. Research applications include Leydig cell stimulation, ovarian function, and gonadotropin signaling pathway investigation.",
-        scientificPurpose: "Designed to study LH/CG receptor activation, gonadal steroidogenesis, reproductive axis regulation, and gonadotropin signaling mechanisms.",
-        studiesFindings: "Activates LH/CG receptors with LH-like signaling activity. Stimulates gonadal steroidogenesis in reproductive tissue models. Supports study of Leydig cell and ovarian function (context dependent). Enables investigation of reproductive endocrine axis regulation. Provides a tool for gonadotropin receptor signaling research. Used in fertility and reproductive biology research contexts.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/10580854/"
+        description: "Human Chorionic Gonadotropin (hCG) is a glycoprotein hormone naturally produced by trophoblastic tissue in pregnancy and is structurally/functionally related to luteinizing hormone (LH). It binds the LH/CG receptor (LHCGR), a G-protein–coupled receptor expressed primarily in gonadal tissue, triggering steroidogenic signaling cascades that regulate gonadal endocrine output. In research, hCG is used as a precise tool to activate LHCGR signaling to model ovulatory/luteal biology in ovaries and Leydig-cell testosterone biosynthesis biology in testes, as well as to interrogate downstream cAMP/PKA-driven steroidogenic gene programs.",
+        scientificPurpose: "Designed to study LHCGR receptor activation, gonadal steroidogenesis, reproductive endocrine axis signaling, ovulation/luteal support mechanisms, and gonadal cell signaling responses (cAMP/PKA and steroidogenic pathway transcription networks).",
+        studiesFindings: "Activates LHCGR signaling and increases downstream cAMP/PKA pathway activity in gonadal cells. Stimulates steroidogenic enzyme pathway expression involved in gonadal hormone synthesis (context dependent). Drives Leydig-cell steroidogenesis signaling endpoints in experimental endocrine models (study dependent). Induces ovulation-associated signaling and luteal endocrine support pathways in ovarian research settings. Provides a robust endocrine stimulus for mapping hypothalamic–pituitary–gonadal (HPG) axis feedback dynamics (model dependent). Enables controlled evaluation of receptor-mediated gonadal signaling versus upstream pituitary LH inputs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=human+chorionic+gonadotropin+hCG+LHCGR+cAMP+PKA+steroidogenesis"
       },
       {
         name: "KISSPEPTIN-10",
@@ -509,10 +509,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "3000 IU", moq: 10 },
         ],
-        description: "Erythropoietin (EPO) is a glycoprotein hormone that activates the erythropoietin receptor to stimulate erythropoiesis and red blood cell production. It is used in hematology research to study erythroid progenitor cell differentiation, oxygen-carrying capacity, and hematopoietic signaling pathways. Research applications include anemia modeling and erythropoietic pathway investigation.",
-        scientificPurpose: "Designed to study erythropoietin receptor signaling, erythroid differentiation, red blood cell production, and hematopoietic pathway regulation.",
-        studiesFindings: "Activates erythropoietin receptor signaling in hematopoietic tissues. Stimulates erythroid progenitor cell differentiation and maturation. Increases red blood cell production endpoints (context dependent). Supports investigation of oxygen-carrying capacity regulation. Enables study of hematopoietic growth factor signaling. Provides a reference for erythropoiesis pathway research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/15001466/"
+        description: "Erythropoietin (EPO) is a glycoprotein cytokine hormone that binds the erythropoietin receptor (EPOR), classically expressed on erythroid progenitor cells, where it supports survival, proliferation, and differentiation along the red blood cell lineage. Mechanistically, EPOR activation triggers receptor-associated kinase signaling (commonly discussed via JAK2/STAT), promoting erythroid maturation programs and anti-apoptotic signaling in erythropoiesis models. Beyond hematopoiesis, EPO biology is also used in research to explore tissue-protective signaling hypotheses and EPOR-associated pathway effects in cellular stress models (context dependent to model and receptor expression).",
+        scientificPurpose: "Designed to study EPOR signaling, erythropoiesis pathway regulation, erythroid progenitor survival/differentiation signaling, and receptor-mediated JAK/STAT transcription programs in hematology and cell-signaling research.",
+        studiesFindings: "Activates EPOR signaling and downstream JAK2/STAT pathway activity in erythroid models (context dependent). Supports erythroid progenitor survival and maturation signaling programs (study dependent). Increases erythropoiesis-associated gene expression markers linked to red cell lineage progression. Provides a controlled ligand for mapping hematopoietic cytokine receptor signaling kinetics and potency. Supports investigation of EPO-linked cellular resilience signaling in select experimental stress/injury models (study dependent). Enables mechanistic studies distinguishing EPOR-mediated transcriptional programs from other cytokine pathways.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=erythropoietin+EPO+EPOR+JAK2+STAT+erythropoiesis+progenitor+survival"
       },
       {
         name: "PT-141",
@@ -534,10 +534,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "VIP (vasoactive intestinal peptide) is an endogenous neuropeptide hormone that signals through VPAC receptors and regulates vascular tone, smooth muscle relaxation, and immune modulation. It functions as a neuroimmune communicator linking nervous system signaling to inflammatory regulation. Research interest includes how VIP shifts cytokine profiles and tissue physiology via receptor-mediated signaling.",
-        scientificPurpose: "Designed to study VPAC receptor biology, vascular and smooth muscle signaling, and immunomodulatory pathway regulation.",
-        studiesFindings: "Produces vasodilation through smooth muscle relaxation signaling. Modulates immune-cell activity and cytokine signaling patterns (context dependent). Influences neuroimmune communication pathways in inflammatory models. Demonstrates protective signaling profiles in select inflammation contexts (study dependent). Supports mechanistic mapping of peptide regulation of vascular-immune homeostasis. Used to study receptor-driven coordination between vascular tone and immune signaling.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/15109742/"
+        description: "VIP (vasoactive intestinal peptide) is an endogenous neuropeptide hormone with broad receptor-mediated effects across smooth muscle, vasculature, and immune cells. It is studied for its vasodilatory, bronchodilatory, and immunomodulatory signaling roles.",
+        scientificPurpose: "Designed to study VPAC receptor signaling, vascular tone regulation, smooth muscle relaxation biology, and immune modulation mechanisms.",
+        studiesFindings: "Potent vasodilation via smooth muscle relaxation signaling. Modulates immune responses and inflammatory cytokine patterns (context dependent). Influences airway/smooth muscle physiology in experimental models. Supports investigation of neuroimmune communication pathways. Demonstrates protective signaling roles in certain inflammation models (study dependent).",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=vasoactive+intestinal+peptide+VIP+VPAC+immunomodulation"
       },
     ]
   },
