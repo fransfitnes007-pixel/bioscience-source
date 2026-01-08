@@ -109,10 +109,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "10mg", moq: 10 },
         ],
-        description: "Survodutide is an investigational dual agonist designed to activate both GLP-1 and glucagon receptors, merging satiety/glycemic signaling with glucagon-linked energy expenditure and substrate mobilization biology. In research terms, it is used to evaluate whether dual activation can outperform incretin-only approaches by increasing energy expenditure while maintaining appetite suppression. The compound is used to study receptor-balanced metabolic remodeling in obesity-focused programs.",
-        scientificPurpose: "Designed to study GLP-1R/GCGR dual agonism for appetite reduction, increased energy expenditure signaling, lipid oxidation, and metabolic endpoint improvement.",
-        studiesFindings: "Produces weight reduction endpoints in investigational metabolic programs (study dependent). Reduces appetite and energy intake via GLP-1 pathway signaling. Enhances energy expenditure and lipid utilization signaling (context dependent). Improves glycemic biomarkers in metabolic disease contexts (study dependent). Improves cardiometabolic biomarkers in obesity-focused research (context dependent). Supports mapping of polyagonist receptor balance effects on substrate partitioning. Enables mechanistic study of glucagon receptor contributions to metabolic remodeling. Used to evaluate combined satiety + expenditure strategy in obesity research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/36702540/"
+        description: "Survodutide is an investigational dual agonist designed to activate both the GLP-1 receptor and the glucagon receptor, integrating incretin-driven satiety/glycemic signaling with glucagon-linked energy expenditure and lipid utilization programs. In research framing, it is a representative \"poly-agonist metabolic peptide\" used to study how coordinated receptor engagement can shift body weight outcomes and metabolic biomarkers beyond incretin-only approaches.",
+        scientificPurpose: "Designed to study GLP-1R/GCGR dual agonism for appetite reduction, energy expenditure signaling, lipid oxidation, and metabolic disease endpoints in obesity-focused research.",
+        studiesFindings: "Produces weight reduction endpoints in investigational metabolic programs (study dependent). Suppresses appetite and reduces energy intake via GLP-1 pathway activity (context dependent). Enhances energy expenditure and lipid utilization signaling through glucagon-receptor components (context dependent). Improves glycemic biomarkers via incretin-associated signaling. Improves cardiometabolic biomarkers in obesity/metabolic disease research contexts (study dependent). Provides a tool framework for studying receptor-balanced polyagonism and weight-loss magnitude.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=survodutide+GLP-1+glucagon+dual+agonist+obesity"
       },
       {
         name: "GLP-1",
@@ -121,10 +121,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "GLP-1 is an endogenous incretin hormone secreted from intestinal L-cells after nutrient exposure. It signals through GLP-1 receptors to coordinate glucose-dependent insulin secretion, suppression of glucagon output, gastric emptying regulation, and central satiety signaling. It serves as the physiological template for GLP-1 receptor agonist drug design and incretin pathway research.",
-        scientificPurpose: "Designed to study native incretin physiology: GLP-1R signaling kinetics, endocrine pancreas regulation, gastric motility control, and appetite/satiety circuitry.",
-        studiesFindings: "Enhances glucose-dependent insulin secretion under nutrient availability. Suppresses glucagon secretion in postprandial contexts (context dependent). Slows gastric emptying, moderating nutrient delivery rate. Activates central satiety pathways and reduces energy intake. Improves glycemic regulation endpoints in metabolic studies. Enables mechanistic mapping of incretin signaling in endocrine-metabolic integration. Supports investigation of appetite regulation pathways linked to gut-brain communication. Serves as a core reference molecule in incretin receptor research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/17416993/"
+        description: "GLP-1 (glucagon-like peptide-1) is an endogenous incretin hormone secreted primarily from intestinal L-cells following nutrient exposure. It signals through the GLP-1 receptor to coordinate glucose-dependent insulin secretion, glucagon suppression, gastric emptying modulation, and central satiety signaling. In research and drug development, native GLP-1 biology serves as the physiologic blueprint for incretin therapeutics and appetite regulation studies.",
+        scientificPurpose: "Designed to study native incretin physiology, GLP-1 receptor signaling kinetics, glucose homeostasis regulation, gastric motility control, and appetite/satiety circuitry.",
+        studiesFindings: "Enhances glucose-dependent insulin secretion during nutrient availability. Suppresses glucagon secretion in postprandial contexts (context dependent). Slows gastric emptying, moderating nutrient delivery and postprandial glucose excursions. Activates central satiety pathways and reduces energy intake in controlled contexts. Improves glycemic regulation endpoints in metabolic studies. Provides a core physiologic reference model for incretin receptor signaling research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=glucagon-like+peptide-1+GLP-1+receptor+incretin+mechanism"
       },
     ]
   },
@@ -312,10 +312,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "10mg", moq: 10 },
           { strength: "20mg", moq: 10 },
         ],
-        description: "Pinealon is a short synthetic tripeptide (often referenced as Glu-Asp-Arg; EDR) studied in neurobiology and aging-related research traditions. It is discussed as a minimal peptide motif capable of shifting oxidative stress resistance and neuronal resilience programs. Research commonly evaluates functional cognitive/behavioral outcomes and stress-response signaling markers in controlled experimental models.",
-        scientificPurpose: "Designed to study neuroprotective signaling, oxidative stress adaptation in CNS models, peptide regulation of cognitive endpoints, and neuronal resilience mechanisms.",
-        studiesFindings: "Improves cognitive/behavioral endpoints in select experimental models (study dependent). Increases neuronal resistance to oxidative stress in preclinical systems. Modulates stress-response signaling markers in CNS experimental frameworks. Influences neurochemical signaling profiles in some models. Provides a minimal-peptide tool for studying neuroprotection and stress resilience hypotheses. Supports research into short-peptide regulation of neuronal survival programs.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16758709/"
+        description: "Pinealon is a short synthetic tripeptide (commonly referenced as Glu-Asp-Arg, EDR) studied in neurobiology and aging-related research traditions. It is discussed as a peptide that may influence neuronal resilience, oxidative stress resistance, and cognitive-performance-associated endpoints in experimental contexts. Research often emphasizes its role as a minimal peptide motif capable of shifting stress-response signaling and functional neurophysiology readouts.",
+        scientificPurpose: "Designed to study neuroprotective signaling, oxidative stress adaptation in CNS models, peptide-driven modulation of cognitive endpoints, and neuronal resilience mechanisms.",
+        studiesFindings: "Improves cognitive/behavioral endpoints in select experimental models (study dependent). Increases neuronal resistance to oxidative stress in preclinical systems (context dependent). Modulates stress-response signaling markers in CNS-related experimental frameworks. Influences neurochemical signaling profiles in some models. Provides a minimal peptide tool for studying neuroprotection and stress resilience hypotheses.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Pinealon+Glu-Asp-Arg+EDR+peptide+neuroprotective"
       },
     ]
   },
@@ -369,10 +369,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Sermorelin is a GHRH analogue (GRF 1–29) designed to stimulate endogenous pituitary GH release via GHRH receptor activation. It is used to study GH-axis pulsatility, endocrine feedback regulation, and downstream GH/IGF pathway signaling in a physiologic stimulation framework. Research often emphasizes secretion dynamics and endocrine rhythm control.",
-        scientificPurpose: "Designed to study pituitary GH release mechanisms, endocrine pulsatility, GH-axis feedback loops, and downstream IGF signaling outcomes.",
-        studiesFindings: "Stimulates endogenous GH secretion via GHRH receptor signaling (context dependent). Supports evaluation of pulsatile secretion and endocrine rhythm biology. Influences downstream IGF-axis signaling endpoints (study dependent). Enables mechanistic study of endocrine feedback control of GH release. Provides a GH-axis stimulation model without exogenous GH administration. Useful for studying GH-axis regulation and time-dependent signaling outputs.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/9502821/"
+        description: "Sermorelin is a GHRH (growth hormone–releasing hormone) analogue (GRF 1–29) designed to stimulate endogenous pituitary growth hormone release through GHRH receptor activation. Research uses sermorelin as a tool compound to examine GH-axis pulsatility, endocrine feedback control, and downstream GH/IGF-axis signaling outcomes. It is best understood as a physiologic stimulation approach to GH-axis study rather than direct GH replacement.",
+        scientificPurpose: "Designed to study pituitary GH release mechanisms via GHRH receptor activation, endocrine pulsatility, and downstream GH/IGF-axis signaling and feedback biology.",
+        studiesFindings: "Stimulates endogenous GH secretion via GHRH receptor signaling (context dependent). Supports evaluation of pulsatile GH dynamics and endocrine rhythm biology. Influences downstream IGF-axis signaling endpoints in controlled contexts (study dependent). Enables mechanistic study of endocrine feedback loops that regulate GH release. Provides a framework for GH-axis modulation studies without exogenous GH administration.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=sermorelin+GRF+1-29+GHRH+growth+hormone+release"
       },
       {
         name: "IPAMORELIN",
@@ -395,10 +395,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Hexarelin is a potent synthetic growth hormone secretagogue that activates the ghrelin receptor (GHSR) to stimulate pituitary GH release. It is widely used to probe endocrine secretion dynamics, secretagogue potency profiles, and downstream GH/IGF-axis signaling changes. In research contexts it often serves as a comparator compound for receptor-driven GH release modeling.",
-        scientificPurpose: "Designed to study GHSR-driven GH secretion, endocrine pulsatility, pituitary signaling biology, and downstream GH/IGF-axis pathway effects.",
-        studiesFindings: "Stimulates GH release via ghrelin receptor activation (context dependent). Supports study of pituitary secretion dynamics and endocrine rhythm control. Enables mechanistic mapping of GHSR downstream signaling in endocrine tissues. Serves as a reference point for secretagogue potency and response profiling. Used to explore GH-axis modulation effects on metabolic/anabolic endpoints (study dependent). Supports comparative endocrine modeling across secretagogue classes.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/8740429/"
+        description: "Hexarelin is a potent synthetic growth hormone secretagogue designed to activate the ghrelin receptor (GHSR) and stimulate pituitary GH release. It is used as a mechanistic probe of endocrine secretion dynamics, receptor-driven GH release patterns, and downstream GH/IGF-axis signaling outcomes. In research contexts it often serves as a reference compound for comparing secretagogue potency and endocrine response profiles.",
+        scientificPurpose: "Designed to study GHSR-driven GH secretion, endocrine pulsatility patterns, pituitary signaling biology, and downstream GH/IGF-axis pathway effects.",
+        studiesFindings: "Stimulates GH release via ghrelin receptor activation (context dependent). Supports study of pituitary secretion dynamics and endocrine rhythm control. Enables mechanistic mapping of GHSR downstream signaling in endocrine tissues. Used in studies exploring GH-axis modulation and metabolic/anabolic signaling outcomes. Provides a reference point for secretagogue class potency and response profiling.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=hexarelin+GHSR+ghrelin+receptor+growth+hormone+secretagogue"
       },
       {
         name: "GHRP-6 ACETATE",
@@ -433,10 +433,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "HGH Fragment 176–191 is a peptide fragment derived from the C-terminal region of human growth hormone, developed to study fat-metabolism signaling motifs potentially separable from full GH's broader anabolic effects. It is used as a fragment-based tool to probe adipocyte lipid mobilization, lipolysis-associated signaling, and fat mass regulation hypotheses in controlled models. Research framing emphasizes adipose metabolism pathway evaluation rather than systemic GH replacement biology.",
-        scientificPurpose: "Designed to study lipolysis mechanisms, adipocyte lipid mobilization signaling, fat-mass regulation endpoints, and GH fragment separation-of-function concepts.",
-        studiesFindings: "Influences lipolysis-associated signaling in adipose models (context dependent). Supports reductions in fat-mass endpoints in select experimental designs (study dependent). Provides a model for studying adipose metabolism effects distinct from full GH endocrine actions. Supports mechanistic mapping of fragment-derived endocrine peptide signaling. Enables investigation of adipocyte energy storage vs mobilization under peptide regulation. Used as a tool for evaluating fragment-specific metabolic pathway contributions.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/11713213/"
+        description: "HGH Fragment 176–191 is a peptide fragment derived from the C-terminal region of human growth hormone, developed to study fat-metabolism signaling properties that may be partially separable from full growth hormone's broad anabolic/growth effects. Research interest centers on adipocyte lipid mobilization, lipolysis-associated signaling, and fat-mass regulation endpoints in experimental models. It is frequently used as a \"fragment-based\" tool to explore whether specific GH motifs preferentially influence adipose metabolism programs.",
+        scientificPurpose: "Designed to study lipolysis mechanisms, adipocyte fat mobilization signaling, fat-mass regulation endpoints, and GH fragment separation-of-function concepts in metabolic research.",
+        studiesFindings: "Influences lipolysis-associated signaling in adipose models (context dependent). Supports reductions in fat-mass endpoints in some experimental designs (study dependent). Provides a model to study adipose metabolism effects distinct from full GH endocrine actions. Supports mechanistic mapping of fragment-derived endocrine peptide signaling. Enables investigation of adipocyte energy storage vs mobilization pathways under peptide regulation.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=growth+hormone+fragment+176-191+lipolysis+adipose+fat+mass"
       },
       {
         name: "IGF-1 LR3",
@@ -484,10 +484,10 @@ export const productCategories: ProductCategory[] = [
           { strength: "5mg", moq: 10 },
           { strength: "10mg", moq: 10 },
         ],
-        description: "Kisspeptin-10 is a neuropeptide fragment that activates the kisspeptin receptor (KISS1R/GPR54) to stimulate GnRH release and downstream gonadotropin secretion. It is used to study reproductive neuroendocrinology, puberty onset mechanisms, and hypothalamic-pituitary-gonadal axis regulation. Research focuses on how kisspeptin signaling coordinates reproductive hormone cascades.",
-        scientificPurpose: "Designed to study kisspeptin receptor activation, GnRH release regulation, reproductive neuroendocrinology, and hypothalamic control of gonadotropin secretion.",
-        studiesFindings: "Activates kisspeptin receptor signaling to stimulate GnRH neurons. Increases LH and FSH secretion through GnRH pathway activation. Supports study of puberty onset and reproductive axis maturation (context dependent). Enables investigation of hypothalamic reproductive circuitry. Provides a tool for mapping kisspeptin→GnRH→gonadotropin signaling cascades. Used in fertility and reproductive biology research contexts.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16621871/"
+        description: "Kisspeptin-10 is a biologically active peptide fragment that activates the KISS1 receptor (KISS1R), a key upstream control node for GnRH pulse generation in the hypothalamus. Because GnRH pulsatility drives downstream LH/FSH release, kisspeptin-10 is widely used as a tool to study reproductive-axis activation, endocrine pulse architecture, and neuroendocrine feedback control. Its value in research is that it provides a direct handle on the hypothalamic \"switch\" that initiates reproductive endocrine signaling.",
+        scientificPurpose: "Designed to study KISS1R-mediated GnRH regulation, reproductive endocrine-axis pulsatility, and downstream gonadotropin release mechanisms.",
+        studiesFindings: "Activates KISS1R signaling and stimulates GnRH release pathways (context dependent). Increases LH (and sometimes FSH) release endpoints in controlled research contexts. Enables mechanistic analysis of reproductive-axis pulse generation and timing. Supports mapping of neuroendocrine feedback loops controlling gonadotropin signaling. Serves as a core tool compound in fertility signaling and hypothalamic control research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=kisspeptin-10+KISS1R+GnRH+pulsatility+LH+FSH"
       },
       {
         name: "MOTS-c",
@@ -674,10 +674,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 10 },
         ],
-        description: "5-Amino-1MQ is a small molecule inhibitor of nicotinamide N-methyltransferase (NNMT), an enzyme involved in cellular metabolism and adipose tissue function. It is studied for effects on energy expenditure, fat metabolism, and metabolic pathway regulation. Research focuses on how NNMT inhibition influences adipocyte biology and systemic metabolic endpoints.",
-        scientificPurpose: "Designed to study NNMT inhibition, adipocyte metabolism, energy expenditure, and metabolic pathway regulation in obesity and metabolism research.",
-        studiesFindings: "Inhibits NNMT enzyme activity in metabolic tissues. Influences energy expenditure and adipocyte function (context dependent). Modulates NAD+ salvage pathway through NNMT inhibition. Demonstrates effects on fat metabolism in preclinical models (study dependent). Supports investigation of NNMT role in metabolic regulation. Provides a tool for studying metabolic enzyme inhibition strategies.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/32479746/"
+        description: "5-Amino-1MQ is a small-molecule research compound commonly described as an inhibitor of NNMT (nicotinamide N-methyltransferase), an enzyme implicated in nicotinamide metabolism and broader NAD-associated metabolic regulation. In metabolic research, NNMT inhibition is explored as a strategy to shift cellular energy-handling programs, adipose tissue metabolism, and metabolic phenotype endpoints. It is used as a mechanistic tool to test how NNMT activity influences obesity-associated metabolic networks.",
+        scientificPurpose: "Designed to study NNMT biology, nicotinamide/NAD-linked metabolic regulation, adipose energetic programming, and downstream metabolic phenotype shifts in experimental systems.",
+        studiesFindings: "Inhibits NNMT activity in experimental contexts (mechanism-based). Alters metabolic programming linked to nicotinamide metabolism (context dependent). Improves metabolic phenotype endpoints in select preclinical studies (study dependent). Supports adipose tissue metabolic remodeling hypotheses in obesity research frameworks. Enables mechanistic mapping of NNMT's role in energy homeostasis and metabolic flexibility.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=5-Amino-1MQ+NNMT+inhibitor+metabolic+remodeling"
       },
       {
         name: "SLU-PP-322",
@@ -711,10 +711,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "3 mL", moq: 1 },
         ],
-        description: "Recombinant human insulin is identical to endogenous insulin and activates insulin receptors to regulate glucose uptake, metabolism, and anabolic signaling. It is used in metabolic research to study insulin receptor signaling, GLUT4 translocation, and glucose homeostasis pathways. Research applications span diabetes modeling, cell culture, and metabolic pathway investigation.",
-        scientificPurpose: "Designed to study insulin receptor signaling, glucose transporter activation, metabolic regulation, and anabolic pathway biology.",
-        studiesFindings: "Activates insulin receptor signaling with identical bioactivity to endogenous insulin. Stimulates GLUT4 translocation and glucose uptake. Regulates metabolic and anabolic signaling pathways. Supports investigation of glucose homeostasis mechanisms. Enables study of insulin resistance and metabolic dysfunction. Provides a reference standard for insulin biology research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/21324315/"
+        description: "Insulin is a peptide hormone and master regulator of systemic energy storage, acting through the insulin receptor to control glucose uptake, glycogen synthesis, lipid storage, and protein synthesis. At the cellular level, insulin receptor activation initiates canonical signaling cascades including PI3K/Akt pathways that regulate glucose transporter trafficking and metabolic enzyme activity. In research, insulin is foundational for studying metabolic homeostasis, anabolic signaling, and disease models of insulin resistance.",
+        scientificPurpose: "Designed to study insulin receptor signaling, glucose transport regulation, anabolic nutrient storage pathways, metabolic substrate partitioning, and insulin resistance mechanisms.",
+        studiesFindings: "Activates insulin receptor signaling cascades (PI3K/Akt; context dependent). Increases cellular glucose uptake via transporter regulation mechanisms. Promotes glycogen synthesis and nutrient storage signaling programs. Modulates lipid metabolism and protein synthesis pathways in metabolic tissues. Serves as a reference standard for modeling insulin resistance and metabolic disease signaling. Supports mechanistic mapping of endocrine control over systemic energy distribution.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=insulin+receptor+signaling+PI3K+Akt+glucose+uptake+GLUT4"
       },
       {
         name: "HYALURONIC ACID",
@@ -723,10 +723,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "5mg", moq: 1 },
         ],
-        description: "Hyaluronic acid is a high-molecular-weight glycosaminoglycan that provides tissue hydration, lubrication, and extracellular matrix structure. It is studied for effects on wound healing, tissue engineering, and skin hydration mechanisms. Research focuses on how HA molecular weight and concentration influence tissue hydration, viscoelasticity, and repair signaling.",
-        scientificPurpose: "Designed to study extracellular matrix biology, tissue hydration, wound healing, and viscoelastic properties in tissue engineering and dermatology research.",
-        studiesFindings: "Provides tissue hydration through water-binding capacity. Supports extracellular matrix structure and viscoelasticity. Influences wound healing pathway signaling (context dependent). Demonstrates effects on cell migration and tissue repair. Enables investigation of glycosaminoglycan biology. Provides a tool for tissue engineering and hydration research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/16199091/"
+        description: "Hyaluronic acid (HA) is a naturally occurring glycosaminoglycan polymer that contributes to extracellular matrix hydration, viscoelasticity, and tissue lubrication. Because of its strong water-binding capacity and mechanical properties, HA is extensively used in biomaterials research, wound microenvironment modeling, tissue engineering, and extracellular matrix remodeling studies. Its effects are commonly evaluated through rheologic behavior, hydration dynamics, and cell–matrix interaction endpoints.",
+        scientificPurpose: "Designed to study extracellular matrix hydration mechanics, viscoelastic biomaterial behavior, tissue lubrication dynamics, wound-healing microenvironments, and scaffold-based tissue engineering.",
+        studiesFindings: "Enhances tissue hydration and extracellular matrix viscoelastic properties. Supports cell migration and tissue remodeling microenvironments (context dependent). Serves as a scaffold component in tissue engineering models. Improves lubrication mechanics in joint/soft tissue research contexts (study dependent). Modulates wound-healing signaling environments by altering matrix mechanics and hydration. Enables controlled modeling of ECM physical properties and cell–matrix signaling interplay.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=hyaluronic+acid+extracellular+matrix+viscoelastic+biomaterial+wound+healing"
       },
       {
         name: "FOLLISTATIN",
@@ -735,10 +735,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "Single item", moq: 1 },
         ],
-        description: "Follistatin is an activin-binding protein that neutralizes myostatin and other TGF-β superfamily members to influence muscle growth and development. It is studied for effects on muscle hypertrophy, satellite cell activation, and developmental signaling pathways. Research focuses on how follistatin-mediated inhibition of negative regulators can shift muscle growth dynamics.",
-        scientificPurpose: "Designed to study myostatin/activin inhibition, muscle hypertrophy signaling, satellite cell biology, and TGF-β pathway regulation.",
-        studiesFindings: "Binds and neutralizes myostatin and activin signaling. Promotes muscle hypertrophy through negative regulator inhibition. Influences satellite cell activation and muscle development (context dependent). Demonstrates effects on muscle mass in preclinical models (study dependent). Supports investigation of TGF-β superfamily biology. Provides a tool for studying muscle growth pathway regulation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/11502797/"
+        description: "Follistatin is an endogenous binding protein that neutralizes select TGF-β superfamily ligands, most notably myostatin and activins, thereby altering the signaling environment that constrains muscle growth and tissue remodeling. It is heavily studied in skeletal muscle hypertrophy biology, regeneration research, and developmental signaling frameworks due to its role as a powerful upstream modulator of growth-limiting pathways. Research interpretation typically focuses on pathway inhibition effects and downstream muscle/tissue outcomes.",
+        scientificPurpose: "Designed to study inhibition of myostatin/activin signaling, regulation of muscle growth constraints, skeletal muscle remodeling, and TGF-β superfamily pathway modulation.",
+        studiesFindings: "Binds and inhibits myostatin signaling activity (context dependent). Promotes increased skeletal muscle mass in multiple experimental models when upregulated. Modulates activin signaling pathways involved in tissue remodeling and metabolism. Supports muscle regeneration biology and satellite cell–linked repair processes (study dependent). Enables mechanistic mapping of growth inhibition pathways and hypertrophy signaling programs.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=follistatin+myostatin+activin+muscle+hypertrophy+regeneration"
       },
       {
         name: "GLOW STACK",
@@ -759,10 +759,10 @@ export const productCategories: ProductCategory[] = [
         variations: [
           { strength: "80mg", moq: 10 },
         ],
-        description: "KLOW Stack combines multiple peptides (GHK-Cu, BPC-157, TB500, and KPV) for advanced multi-pathway skin and tissue research. The formulation concept integrates ECM remodeling (GHK-Cu), cytoprotective signaling (BPC-157), cell migration/angiogenesis (TB500), and anti-inflammatory modulation (KPV). It is used to study coordinated tissue repair and skin health optimization through combined peptide inputs.",
-        scientificPurpose: "Designed to study multi-peptide effects on skin health, tissue repair, anti-inflammatory signaling, and coordinated regenerative pathway activation.",
-        studiesFindings: "GHK-Cu literature reports ECM remodeling and repair gene expression. BPC-157 literature reports cytoprotective and angiogenic signaling. TB500 literature reports cell migration and wound repair effects. KPV literature reports anti-inflammatory cytokine modulation. Supports investigation of multi-pathway tissue optimization strategies. Provides a framework for studying synergistic peptide effects on skin and tissue health.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/25877441/"
+        description: "KLOW Stack is a bundled research concept combining GHK-Cu (copper peptide; extracellular matrix remodeling), BPC-157 (tissue repair/cytoprotection), thymosin beta-4–related material (cell migration/angiogenesis), and KPV (small-peptide inflammation modulation). The rationale for the stack concept is to model tissue recovery as a systems-biology process involving vascular signaling, matrix rebuilding, and inflammatory phase regulation. It is best understood as a multi-input pathway tool used to explore coordinated tissue remodeling programs.",
+        scientificPurpose: "Designed to study integrated tissue repair biology: ECM remodeling, angiogenesis and migration signaling, cytoprotection, and inflammation modulation pathways in combined experimental frameworks.",
+        studiesFindings: "GHK-Cu: supports collagen/ECM remodeling pathways and repair-associated gene expression programs (context dependent). BPC-157: enhances repair/angiogenesis signaling markers in preclinical literature. Thymosin beta-4: promotes migration and wound repair signaling pathways. KPV: modulates inflammatory cytokine-associated signaling patterns in experimental contexts. Stack concept: supports systems-level modeling of tissue remodeling by combining complementary pathway inputs. Useful for studying how inflammatory control and matrix reconstruction may co-evolve during tissue recovery.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=GHK-Cu+copper+peptide+collagen+gene+expression"
       },
       {
         name: "KPV (Lysine-Proline-Valine)",
