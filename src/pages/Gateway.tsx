@@ -168,21 +168,23 @@ const Gateway = () => {
             <img 
               src={pointLogo} 
               alt="PØINT BioSciences" 
-              className={`w-72 lg:w-96 mb-10 drop-shadow-2xl transition-all duration-700 ease-out ${
-                showLogoOverlay ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              className={`w-80 lg:w-[420px] mb-12 transition-all duration-1000 ease-in-out ${
+                showLogoOverlay ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
               style={{ 
-                filter: 'invert(1) drop-shadow(0 4px 20px rgba(255,255,255,0.3))',
-                transitionDelay: '200ms'
+                filter: 'invert(1) brightness(2)',
               }}
             />
             <p 
-              className={`font-heading text-lg lg:text-xl font-light text-foreground tracking-[0.15em] text-center px-8 italic transition-all duration-700 ease-out ${
-                showLogoOverlay ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+              className={`font-heading text-lg lg:text-2xl font-medium text-white tracking-[0.25em] uppercase text-center px-8 transition-all duration-1000 ease-in-out ${
+                showLogoOverlay ? 'opacity-100' : 'opacity-0'
               }`}
-              style={{ transitionDelay: '500ms' }}
+              style={{ 
+                transitionDelay: '300ms',
+                textShadow: '0 2px 20px rgba(0,0,0,0.5)'
+              }}
             >
-              "Absolute precision from the origin."
+              Absolute precision from the origin.
             </p>
           </div>
         </div>
