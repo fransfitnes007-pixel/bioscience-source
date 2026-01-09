@@ -87,6 +87,7 @@ export const productImages: Record<string, string> = {
   "sermorelin": sermorelin,
   "ipamorelin": ipamorelin,
   "cjc-1295-ipamorelin": cjc1295Ipamorelin,
+  "cjc-1295-ipa": cjc1295Ipamorelin,
   "cjc-1295-no-dac": cjc1295NoDac,
   "ghrp-6": ghrp6,
   "ghrp-6-acetate": ghrp6,
