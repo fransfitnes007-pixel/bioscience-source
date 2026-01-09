@@ -20,7 +20,6 @@ import glp1 from "@/assets/products/glp1.png";
 import glp3Reta from "@/assets/products/glp3-reta.png";
 import glutathione from "@/assets/products/glutathione.png";
 import hexarelin from "@/assets/products/hexarelin.png";
-import hghFragment from "@/assets/products/hgh-fragment-176-191.png";
 import hyaluronicAcid from "@/assets/products/hyaluronic-acid.png";
 import igf1Lr3 from "@/assets/products/igf-1-lr3.png";
 import igfDes from "@/assets/products/igf-des.png";
@@ -53,61 +52,72 @@ import vip5mg from "@/assets/products/vip-5mg.png";
 
 // Map product slugs to their images
 export const productImages: Record<string, string> = {
-  "5-amino-1mq": amino1mq,
-  "aod": aod,
-  "ara-290": ara290,
-  "bac-water": bacWater,
-  "bpc-157": bpc157,
-  "cagrilintide": cagrilintide,
-  "cerebrolysin": cerebrolysin,
-  "cjc-1295-ipamorelin": cjc1295Ipamorelin,
-  "cjc-1295-no-dac": cjc1295NoDac,
-  "dsip": dsip,
-  "epithalon": epithalon,
-  "follistatin": follistatin,
-  "ghk-cu": ghkCu,
-  "ghrp-6": ghrp6,
-  "glow": glowStack,
+  // GLP / Metabolic
   "glp1-sema": glp1Sema,
   "glp1-triz": glp1Triz,
-  "glp-1": glp1,
   "glp3-reta": glp3Reta,
-  "glutathione": glutathione,
+  "cagrilintide": cagrilintide,
+  "mazdutide": mazdutide,
+  "survodutide": survodutide,
+  "glp-1": glp1,
+  
+  // Recovery & Regenerative
+  "bpc-157": bpc157,
+  "tb500": tb500,
+  "thymosin-alpha-1": thymosinAlpha1,
+  "ss-31": ss31,
+  "ara-290": ara290,
+  "thymalin": thymalin,
+  "epithalon": epithalon,
+  "aod": aod,
+  "bpc-157-tb500": bpc157, // Combo uses BPC-157 image
+  
+  // Cognitive & Neuro
+  "semax": semax,
+  "selank": selank,
+  "cerebrolysin": cerebrolysin,
+  "dsip": dsip,
+  "pinealon": pinealon,
+  
+  // Growth Hormone & Secretagogues
+  "sermorelin": sermorelin,
+  "ipamorelin": ipamorelin,
+  "cjc-1295-ipamorelin": cjc1295Ipamorelin,
+  "cjc-1295-no-dac": cjc1295NoDac,
+  "ghrp-6": ghrp6,
+  "ghrp-6-acetate": ghrp6, // Uses ghrp-6 image
   "hexarelin": hexarelin,
-  "hgh-fragment-176-191": hghFragment,
-  "hyaluronic-acid": hyaluronicAcid,
+  "tesamorelin": tesamorelin,
   "igf-1-lr3": igf1Lr3,
   "igf-des": igfDes,
-  "insulin": insulin,
-  "ipamorelin": ipamorelin,
   "kisspeptin-10": kisspeptin10,
-  "klow": klowStack,
-  "kpv": kpv,
-  "l-carnitine": lCarnitine,
-  "lemon-bottle": lemonBottle,
+  "mots-c": ss31, // Fallback - no dedicated image
+  "pt-141": pt141,
+  "vip": vip5mg,
+  
+  // Aesthetic / Cosmetic + Supplies + Stacks
+  "ghk-cu": ghkCu,
+  "glutathione": glutathione,
+  "snap-8": snap8,
   "ll-37": ll37,
-  "mazdutide": mazdutide,
+  "nad": nad,
+  "lemon-bottle": lemonBottle,
+  "l-carnitine": lCarnitine,
   "mt-1": mt1,
   "mt-2": mt2,
-  "nad": nad,
-  "pinealon": pinealon,
-  "pt-141": pt141,
-  "selank": selank,
-  "semax": semax,
-  "sermorelin": sermorelin,
+  "5-amino-1mq": amino1mq,
   "slu-pp-322": sluPp322,
-  "snap-8": snap8,
-  "ss-31": ss31,
-  "survodutide": survodutide,
-  "tb500": tb500,
-  "tesamorelin": tesamorelin,
-  "thymalin": thymalin,
-  "thymosin-alpha-1": thymosinAlpha1,
-  "vip": vip5mg,
-  // Products with missing dedicated images - using related fallbacks
-  "bpc-157-tb500": bpc157,
-  "mots-c": ss31,
-  "hgh": hghFragment,
+  "bac-water": bacWater,
+  "insulin": insulin,
+  "hyaluronic-acid": hyaluronicAcid,
+  "follistatin": follistatin,
+  "glow": glowStack,
+  "klow": klowStack,
+  "kpv": kpv,
+  
+  // Products awaiting dedicated images (will show placeholder)
+  // "hcg": needs image upload
+  // "hgh-somatropin": needs image upload
 };
 
 export const getProductImage = (slug: string): string | undefined => {

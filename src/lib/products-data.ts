@@ -427,18 +427,6 @@ export const productCategories: ProductCategory[] = [
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=somatropin+recombinant+human+growth+hormone+GHR+JAK2+STAT+IGF-1"
       },
       {
-        name: "HGH FRAGMENT 176-191",
-        displayName: "HGH FRAGMENT 176-191",
-        slug: "hgh-fragment",
-        variations: [
-          { strength: "5mg", moq: 10 },
-        ],
-        description: "HGH Fragment 176–191 is a peptide fragment derived from the C-terminal region of human growth hormone, developed to study fat-metabolism signaling properties that may be partially separable from full growth hormone's broad anabolic/growth effects. Research interest centers on adipocyte lipid mobilization, lipolysis-associated signaling, and fat-mass regulation endpoints in experimental models. It is frequently used as a \"fragment-based\" tool to explore whether specific GH motifs preferentially influence adipose metabolism programs.",
-        scientificPurpose: "Designed to study lipolysis mechanisms, adipocyte fat mobilization signaling, fat-mass regulation endpoints, and GH fragment separation-of-function concepts in metabolic research.",
-        studiesFindings: "Influences lipolysis-associated signaling in adipose models (context dependent). Supports reductions in fat-mass endpoints in some experimental designs (study dependent). Provides a model to study adipose metabolism effects distinct from full GH endocrine actions. Supports mechanistic mapping of fragment-derived endocrine peptide signaling. Enables investigation of adipocyte energy storage vs mobilization pathways under peptide regulation.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=growth+hormone+fragment+176-191+lipolysis"
-      },
-      {
         name: "IGF-1 LR3",
         displayName: "IGF-1 LR3",
         slug: "igf-1-lr3",
