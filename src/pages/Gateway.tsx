@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Footer } from "@/components/layout/Footer";
 import labVideo from "@/assets/lab-facility-video.mp4";
-import pointLogo from "@/assets/point-logo-white.png";
+import pointLogo from "@/assets/point-logo-transparent.png";
 const Gateway = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showApplyModal, setShowApplyModal] = useState(false);
@@ -159,22 +159,30 @@ const Gateway = () => {
           {/* Dark overlay for better contrast */}
           <div className="absolute inset-0 bg-background/40 pointer-events-none" />
           
-          {/* Logo overlay - transparent background, just the logo */}
+          {/* Logo overlay - slides in with transparent background */}
           <div 
-            className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-1000 ${
+            className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ${
               showLogoOverlay ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
             <img 
               src={pointLogo} 
               alt="PØINT BioSciences" 
-              className="w-72 lg:w-96 mb-8 animate-fade-in drop-shadow-2xl"
+              className={`w-72 lg:w-96 mb-10 drop-shadow-2xl transition-all duration-700 ease-out ${
+                showLogoOverlay ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`}
+              style={{ 
+                filter: 'invert(1) drop-shadow(0 4px 20px rgba(255,255,255,0.3))',
+                transitionDelay: '200ms'
+              }}
             />
             <p 
-              className="font-heading text-xl lg:text-2xl font-medium text-foreground tracking-[0.2em] uppercase text-center px-6 animate-fade-in drop-shadow-lg"
-              style={{ animationDelay: '0.3s' }}
+              className={`font-heading text-lg lg:text-xl font-light text-foreground tracking-[0.15em] text-center px-8 italic transition-all duration-700 ease-out ${
+                showLogoOverlay ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+              }`}
+              style={{ transitionDelay: '500ms' }}
             >
-              Absolute precision from the origin.
+              "Absolute precision from the origin."
             </p>
           </div>
         </div>
