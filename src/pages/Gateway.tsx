@@ -144,35 +144,39 @@ const Gateway = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col lg:flex-row">
         {/* Left side - Video */}
-        <div className="lg:w-1/2 h-64 lg:h-auto relative bg-card overflow-hidden">
-          {/* Lab facility video */}
+        <div className="lg:w-1/2 h-64 lg:h-auto relative bg-background overflow-hidden">
+          {/* Lab facility video with blur effect */}
           <video
             ref={videoRef}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover blur-sm scale-105"
             autoPlay
+            loop
             muted
             playsInline
             src={labVideo}
           />
           
-          {/* Logo overlay that appears at video end */}
+          {/* Dark overlay for better contrast */}
+          <div className="absolute inset-0 bg-background/40 pointer-events-none" />
+          
+          {/* Logo overlay - transparent background, just the logo */}
           <div 
-            className={`absolute inset-0 bg-background/90 backdrop-blur-sm flex flex-col items-center justify-center transition-opacity duration-1000 ${
+            className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-1000 ${
               showLogoOverlay ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
             <img 
               src={pointLogo} 
               alt="PØINT BioSciences" 
-              className="w-64 lg:w-80 mb-6 animate-fade-in"
+              className="w-72 lg:w-96 mb-8 animate-fade-in drop-shadow-2xl"
             />
-            <p className="font-heading text-lg lg:text-xl text-foreground tracking-wider text-center px-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <p 
+              className="font-heading text-xl lg:text-2xl font-medium text-foreground tracking-[0.2em] uppercase text-center px-6 animate-fade-in drop-shadow-lg"
+              style={{ animationDelay: '0.3s' }}
+            >
               Absolute precision from the origin.
             </p>
           </div>
-          
-          {/* Subtle overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/20 to-transparent pointer-events-none" />
         </div>
 
         {/* Right side - Auth content */}
