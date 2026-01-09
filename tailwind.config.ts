@@ -97,8 +97,8 @@ export default {
           to: { opacity: "1", transform: "scale(1)" },
         },
         "pulse-glow": {
-          "0%, 100%": { opacity: "0.3", transform: "scale(1)" },
-          "50%": { opacity: "0.6", transform: "scale(1.05)" },
+          "0%, 100%": { filter: "invert(1) brightness(2) drop-shadow(0 0 20px rgba(255,255,255,0.4))" },
+          "50%": { filter: "invert(1) brightness(2) drop-shadow(0 0 40px rgba(255,255,255,0.8))" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },

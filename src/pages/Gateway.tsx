@@ -169,11 +169,8 @@ const Gateway = () => {
               src={pointLogo} 
               alt="PØINT BioSciences" 
               className={`w-80 lg:w-[420px] mb-12 transition-all duration-1000 ease-in-out ${
-                showLogoOverlay ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                showLogoOverlay ? 'opacity-100 scale-100 animate-pulse-glow' : 'opacity-0 scale-95'
               }`}
-              style={{ 
-                filter: 'invert(1) brightness(2)',
-              }}
             />
             <p 
               className={`font-heading text-lg lg:text-2xl font-medium text-white tracking-[0.25em] uppercase text-center px-8 transition-all duration-1000 ease-in-out ${
