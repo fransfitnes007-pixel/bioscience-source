@@ -4,6 +4,7 @@ import aod from "@/assets/products/aod.png";
 import ara290 from "@/assets/products/ara-290.png";
 import bacWater from "@/assets/products/bac-water.png";
 import bpc157 from "@/assets/products/bpc-157.png";
+import bpc157Tb500 from "@/assets/products/bpc-157-tb500.png";
 import cagrilintide from "@/assets/products/cagrilintide.png";
 import cerebrolysin from "@/assets/products/cerebrolysin.png";
 import cjc1295Ipamorelin from "@/assets/products/cjc-1295-ipamorelin.png";
@@ -19,6 +20,8 @@ import glp1Triz from "@/assets/products/glp1-triz.png";
 import glp1 from "@/assets/products/glp1.png";
 import glp3Reta from "@/assets/products/glp3-reta.png";
 import glutathione from "@/assets/products/glutathione.png";
+import hcg from "@/assets/products/hcg.png";
+import hghSomatropin from "@/assets/products/hgh-somatropin.png";
 import hexarelin from "@/assets/products/hexarelin.png";
 import hyaluronicAcid from "@/assets/products/hyaluronic-acid.png";
 import igf1Lr3 from "@/assets/products/igf-1-lr3.png";
@@ -32,6 +35,7 @@ import lCarnitine from "@/assets/products/l-carnitine.png";
 import lemonBottle from "@/assets/products/lemon-bottle.png";
 import ll37 from "@/assets/products/ll-37.png";
 import mazdutide from "@/assets/products/mazdutide.png";
+import motsC from "@/assets/products/mots-c.png";
 import mt1 from "@/assets/products/mt-1.png";
 import mt2 from "@/assets/products/mt-2.png";
 import nad from "@/assets/products/nad.png";
@@ -70,7 +74,7 @@ export const productImages: Record<string, string> = {
   "thymalin": thymalin,
   "epithalon": epithalon,
   "aod": aod,
-  "bpc-157-tb500": bpc157, // Combo uses BPC-157 image
+  "bpc-157-tb500": bpc157Tb500,
   
   // Cognitive & Neuro
   "semax": semax,
@@ -85,15 +89,17 @@ export const productImages: Record<string, string> = {
   "cjc-1295-ipamorelin": cjc1295Ipamorelin,
   "cjc-1295-no-dac": cjc1295NoDac,
   "ghrp-6": ghrp6,
-  "ghrp-6-acetate": ghrp6, // Uses ghrp-6 image
+  "ghrp-6-acetate": ghrp6,
   "hexarelin": hexarelin,
   "tesamorelin": tesamorelin,
   "igf-1-lr3": igf1Lr3,
   "igf-des": igfDes,
   "kisspeptin-10": kisspeptin10,
-  "mots-c": ss31, // Fallback - no dedicated image
+  "mots-c": motsC,
   "pt-141": pt141,
   "vip": vip5mg,
+  "hcg": hcg,
+  "hgh-somatropin": hghSomatropin,
   
   // Aesthetic / Cosmetic + Supplies + Stacks
   "ghk-cu": ghkCu,
@@ -114,10 +120,6 @@ export const productImages: Record<string, string> = {
   "glow": glowStack,
   "klow": klowStack,
   "kpv": kpv,
-  
-  // Products awaiting dedicated images (will show placeholder)
-  // "hcg": needs image upload
-  // "hgh-somatropin": needs image upload
 };
 
 export const getProductImage = (slug: string): string | undefined => {
