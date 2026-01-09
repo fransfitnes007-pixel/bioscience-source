@@ -54,7 +54,7 @@ import vip5mg from "@/assets/products/vip-5mg.png";
 // Map product slugs to their images
 export const productImages: Record<string, string> = {
   "5-amino-1mq": amino1mq,
-  "aod-9604": aod,
+  "aod": aod,
   "ara-290": ara290,
   "bac-water": bacWater,
   "bpc-157": bpc157,
@@ -64,10 +64,10 @@ export const productImages: Record<string, string> = {
   "cjc-1295-no-dac": cjc1295NoDac,
   "dsip": dsip,
   "epithalon": epithalon,
-  "follistatin-344": follistatin,
+  "follistatin": follistatin,
   "ghk-cu": ghkCu,
   "ghrp-6": ghrp6,
-  "glow-stack": glowStack,
+  "glow": glowStack,
   "glp1-sema": glp1Sema,
   "glp1-triz": glp1Triz,
   "glp-1": glp1,
@@ -81,7 +81,7 @@ export const productImages: Record<string, string> = {
   "insulin": insulin,
   "ipamorelin": ipamorelin,
   "kisspeptin-10": kisspeptin10,
-  "klow-stack": klowStack,
+  "klow": klowStack,
   "kpv": kpv,
   "l-carnitine": lCarnitine,
   "lemon-bottle": lemonBottle,
@@ -95,7 +95,7 @@ export const productImages: Record<string, string> = {
   "selank": selank,
   "semax": semax,
   "sermorelin": sermorelin,
-  "slu-pp-332": sluPp322,
+  "slu-pp-322": sluPp322,
   "snap-8": snap8,
   "ss-31": ss31,
   "survodutide": survodutide,
@@ -104,10 +104,10 @@ export const productImages: Record<string, string> = {
   "thymalin": thymalin,
   "thymosin-alpha-1": thymosinAlpha1,
   "vip": vip5mg,
-  // Aliases for products with different slugs
+  // Products with missing dedicated images - using related fallbacks
+  "bpc-157-tb500": bpc157,
+  "mots-c": ss31,
   "hgh": hghFragment,
-  "mots-c": ss31, // Using ss-31 as fallback
-  "bpc-157-tb500-combo": bpc157, // Using bpc-157 as fallback for combo
 };
 
 export const getProductImage = (slug: string): string | undefined => {
