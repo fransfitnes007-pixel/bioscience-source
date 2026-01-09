@@ -159,30 +159,16 @@ const Gateway = () => {
           {/* Dark overlay for better contrast */}
           <div className="absolute inset-0 bg-background/40 pointer-events-none" />
           
-          {/* Logo overlay - slides in with transparent background */}
-          <div 
-            className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ${
-              showLogoOverlay ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-          >
+          {/* Logo overlay - drops in from above */}
+          <div className="absolute inset-0 flex items-center justify-center">
             <img 
               src={pointLogo} 
               alt="PØINT BioSciences" 
-              className={`w-80 lg:w-[420px] mb-12 transition-all duration-1000 ease-in-out ${
-                showLogoOverlay ? 'opacity-100 scale-100 animate-pulse-glow' : 'opacity-0 scale-95'
-              }`}
-            />
-            <p 
-              className={`font-heading text-lg lg:text-2xl font-medium text-white tracking-[0.25em] uppercase text-center px-8 transition-all duration-1000 ease-in-out ${
-                showLogoOverlay ? 'opacity-100' : 'opacity-0'
-              }`}
+              className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up"
               style={{ 
-                transitionDelay: '300ms',
-                textShadow: '0 2px 20px rgba(0,0,0,0.5)'
+                filter: 'invert(1) brightness(2)',
               }}
-            >
-              Absolute precision from the origin.
-            </p>
+            />
           </div>
         </div>
 
