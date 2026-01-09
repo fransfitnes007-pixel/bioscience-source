@@ -1,16 +1,50 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Footer } from "@/components/layout/Footer";
-
+import labVideo from "@/assets/lab-facility-video.mp4";
+import pointLogo from "@/assets/point-logo-white.png";
 const Gateway = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [showLogoOverlay, setShowLogoOverlay] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
+
+  // Handle video end to show logo overlay
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      // Show overlay when video is near the end (last 3 seconds)
+      if (video.duration - video.currentTime <= 3) {
+        setShowLogoOverlay(true);
+      }
+    };
+
+    const handleEnded = () => {
+      setShowLogoOverlay(true);
+      // Restart video after a delay
+      setTimeout(() => {
+        setShowLogoOverlay(false);
+        video.currentTime = 0;
+        video.play();
+      }, 4000);
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [applyData, setApplyData] = useState({
@@ -110,25 +144,35 @@ const Gateway = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col lg:flex-row">
         {/* Left side - Video */}
-        <div className="lg:w-1/2 h-64 lg:h-auto relative bg-card">
-          {/* Video placeholder - replace src with your video */}
+        <div className="lg:w-1/2 h-64 lg:h-auto relative bg-card overflow-hidden">
+          {/* Lab facility video */}
           <video
+            ref={videoRef}
             className="w-full h-full object-cover"
             autoPlay
-            loop
             muted
             playsInline
-            poster=""
+            src={labVideo}
+          />
+          
+          {/* Logo overlay that appears at video end */}
+          <div 
+            className={`absolute inset-0 bg-background/90 backdrop-blur-sm flex flex-col items-center justify-center transition-opacity duration-1000 ${
+              showLogoOverlay ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
           >
-            {/* Add your video source here */}
-            {/* <source src="/your-video.mp4" type="video/mp4" /> */}
-          </video>
+            <img 
+              src={pointLogo} 
+              alt="PØINT BioSciences" 
+              className="w-64 lg:w-80 mb-6 animate-fade-in"
+            />
+            <p className="font-heading text-lg lg:text-xl text-foreground tracking-wider text-center px-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              Absolute precision from the origin.
+            </p>
+          </div>
           
-          {/* Fallback gradient background when no video */}
-          <div className="absolute inset-0 bg-gradient-to-br from-card to-background -z-10" />
-          
-          {/* Molecular grid background */}
-          <div className="absolute inset-0 bg-molecular-grid opacity-30" />
+          {/* Subtle overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/20 to-transparent pointer-events-none" />
         </div>
 
         {/* Right side - Auth content */}
