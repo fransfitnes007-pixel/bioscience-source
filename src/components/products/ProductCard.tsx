@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Product } from "@/lib/products-data";
 import { Button } from "@/components/ui/button";
 import { ImageIcon } from "lucide-react";
@@ -5,14 +6,17 @@ import { getProductImage } from "@/lib/product-images";
 
 interface ProductCardProps {
   product: Product;
-  onViewDetails: () => void;
+  onViewDetails?: () => void;
 }
 
-export const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
+export const ProductCard = ({ product }: ProductCardProps) => {
   const productImage = getProductImage(product.slug);
 
   return (
-    <div className="group p-6 border border-border/50 rounded-lg bg-card/30 hover-lift transition-all duration-300">
+    <Link 
+      to={`/products/${product.slug}`}
+      className="group p-6 border border-border/50 rounded-lg bg-card/30 hover-lift transition-all duration-300 block"
+    >
       {/* Product image */}
       <div className="aspect-square mb-4 bg-secondary/30 rounded-lg flex items-center justify-center overflow-hidden">
         {productImage ? (
@@ -36,10 +40,9 @@ export const ProductCard = ({ product, onViewDetails }: ProductCardProps) => {
         variant="heroOutline"
         size="sm"
         className="w-full"
-        onClick={onViewDetails}
       >
         View Details
       </Button>
-    </div>
+    </Link>
   );
 };
