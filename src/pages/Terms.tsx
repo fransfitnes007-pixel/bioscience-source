@@ -170,11 +170,11 @@ const Terms = () => {
               <section className="mb-8">
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Governing Law</h3>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
-                  These Terms are governed by the laws of Arizona, United States, without regard to conflict of 
+                  These Terms are governed by the laws of Florida, United States, without regard to conflict of 
                   law principles.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  Any disputes will be resolved in the courts of Arizona, and you consent to exclusive jurisdiction 
+                  Any disputes will be resolved in the courts of Florida, and you consent to exclusive jurisdiction 
                   in those courts.
                 </p>
               </section>
