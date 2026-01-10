@@ -16,52 +16,85 @@ export type Database = {
     Tables: {
       applications: {
         Row: {
+          business_address: string | null
           business_name: string
           business_type: string | null
+          city: string | null
+          company_impact: string | null
           contact_name: string
+          country: string | null
           created_at: string
           document_url: string | null
           email: string
+          how_we_benefit: string | null
           id: string
           intended_use: string | null
+          monthly_volume: string | null
           notes: string | null
           phone: string | null
+          product_usage: string | null
+          products_interest: string | null
+          referral_source: string | null
           reviewed_at: string | null
+          state: string | null
           status: Database["public"]["Enums"]["user_status"]
-          tax_id: string | null
           user_id: string | null
+          website: string | null
+          zip_code: string | null
         }
         Insert: {
+          business_address?: string | null
           business_name: string
           business_type?: string | null
+          city?: string | null
+          company_impact?: string | null
           contact_name: string
+          country?: string | null
           created_at?: string
           document_url?: string | null
           email: string
+          how_we_benefit?: string | null
           id?: string
           intended_use?: string | null
+          monthly_volume?: string | null
           notes?: string | null
           phone?: string | null
+          product_usage?: string | null
+          products_interest?: string | null
+          referral_source?: string | null
           reviewed_at?: string | null
+          state?: string | null
           status?: Database["public"]["Enums"]["user_status"]
-          tax_id?: string | null
           user_id?: string | null
+          website?: string | null
+          zip_code?: string | null
         }
         Update: {
+          business_address?: string | null
           business_name?: string
           business_type?: string | null
+          city?: string | null
+          company_impact?: string | null
           contact_name?: string
+          country?: string | null
           created_at?: string
           document_url?: string | null
           email?: string
+          how_we_benefit?: string | null
           id?: string
           intended_use?: string | null
+          monthly_volume?: string | null
           notes?: string | null
           phone?: string | null
+          product_usage?: string | null
+          products_interest?: string | null
+          referral_source?: string | null
           reviewed_at?: string | null
+          state?: string | null
           status?: Database["public"]["Enums"]["user_status"]
-          tax_id?: string | null
           user_id?: string | null
+          website?: string | null
+          zip_code?: string | null
         }
         Relationships: []
       }
