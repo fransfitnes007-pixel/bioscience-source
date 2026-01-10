@@ -1,0 +1,360 @@
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Layout } from "@/components/layout/Layout";
+import { Button } from "@/components/ui/button";
+import { PriceDisplay } from "@/components/cart/PriceDisplay";
+import { useCart } from "@/contexts/CartContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { getProductImage } from "@/lib/product-images";
+import {
+  ArrowLeft,
+  ShoppingCart,
+  Plus,
+  Minus,
+  ExternalLink,
+  ImageIcon,
+  Check,
+} from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+interface ProductData {
+  id: string;
+  name: string;
+  display_name: string;
+  slug: string;
+  description: string | null;
+  scientific_purpose: string | null;
+  studies_findings: string | null;
+  nih_link: string | null;
+  image_url: string | null;
+  variations: {
+    id: string;
+    strength: string;
+    price: number | null;
+    moq: number;
+  }[];
+}
+
+const ProductPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  
+  const [product, setProduct] = useState<ProductData | null>(null);
+  const [selectedVariation, setSelectedVariation] = useState<ProductData["variations"][0] | null>(null);
+  const [quantity, setQuantity] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      if (!slug) return;
+
+      const { data, error } = await supabase
+        .from("products")
+        .select(`
+          id,
+          name,
+          display_name,
+          slug,
+          description,
+          scientific_purpose,
+          studies_findings,
+          nih_link,
+          image_url,
+          product_variations (
+            id,
+            strength,
+            price,
+            moq,
+            sort_order
+          )
+        `)
+        .eq("slug", slug)
+        .eq("is_active", true)
+        .single();
+
+      if (error || !data) {
+        navigate("/products");
+        return;
+      }
+
+      const productData: ProductData = {
+        ...data,
+        variations: (data.product_variations || [])
+          .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
+          .map((v: any) => ({
+            id: v.id,
+            strength: v.strength,
+            price: v.price ? Number(v.price) : null,
+            moq: v.moq,
+          })),
+      };
+
+      setProduct(productData);
+      if (productData.variations.length > 0) {
+        setSelectedVariation(productData.variations[0]);
+        setQuantity(productData.variations[0].moq);
+      }
+      setIsLoading(false);
+    };
+
+    fetchProduct();
+  }, [slug, navigate]);
+
+  const handleAddToCart = async () => {
+    if (!product || !selectedVariation || !selectedVariation.price) {
+      toast.error("Please select a variation with a price");
+      return;
+    }
+
+    setIsAddingToCart(true);
+    await addToCart({
+      productId: product.id,
+      variationId: selectedVariation.id,
+      productName: product.display_name,
+      variationName: selectedVariation.strength,
+      quantity,
+      price: selectedVariation.price,
+    });
+    setIsAddingToCart(false);
+  };
+
+  const productImage = product ? getProductImage(product.slug) : null;
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="pt-24 lg:pt-32 pb-16 min-h-screen flex items-center justify-center">
+          <div className="animate-pulse text-muted-foreground">Loading...</div>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!product) return null;
+
+  return (
+    <Layout>
+      <div className="pt-24 lg:pt-32 pb-16">
+        <div className="container mx-auto px-4 lg:px-8">
+          {/* Back button */}
+          <Link
+            to="/products"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span className="font-body text-sm">Back to Products</span>
+          </Link>
+
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Product Image */}
+            <div className="relative">
+              <div className="aspect-square bg-card border border-border rounded-2xl flex items-center justify-center overflow-hidden sticky top-32">
+                {productImage ? (
+                  <img
+                    src={productImage}
+                    alt={product.display_name}
+                    className="w-full h-full object-contain p-8"
+                  />
+                ) : (
+                  <ImageIcon className="w-24 h-24 text-muted-foreground/30" strokeWidth={1} />
+                )}
+              </div>
+            </div>
+
+            {/* Product Info */}
+            <div>
+              <h1 className="font-heading text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                {product.display_name}
+              </h1>
+
+              {product.description && (
+                <p className="font-body text-lg text-muted-foreground mb-8 leading-relaxed">
+                  {product.description}
+                </p>
+              )}
+
+              {/* Variations */}
+              <div className="mb-8">
+                <h3 className="font-heading text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">
+                  Select Variation
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {product.variations.map((variation) => (
+                    <button
+                      key={variation.id}
+                      onClick={() => {
+                        setSelectedVariation(variation);
+                        setQuantity(variation.moq);
+                      }}
+                      className={`relative p-4 border rounded-xl text-left transition-all ${
+                        selectedVariation?.id === variation.id
+                          ? "border-foreground bg-foreground/5 ring-2 ring-foreground/20"
+                          : "border-border hover:border-foreground/50"
+                      }`}
+                    >
+                      {selectedVariation?.id === variation.id && (
+                        <div className="absolute top-2 right-2 w-5 h-5 bg-foreground rounded-full flex items-center justify-center">
+                          <Check className="w-3 h-3 text-background" />
+                        </div>
+                      )}
+                      <span className="font-heading font-semibold text-foreground block mb-1">
+                        {variation.strength}
+                      </span>
+                      <span className="font-body text-xs text-muted-foreground">
+                        Min: {variation.moq} units
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Price Display */}
+              {selectedVariation?.price && (
+                <div className="flex items-center gap-8 mb-8">
+                  <PriceDisplay price={selectedVariation.price} size="lg" />
+                  <div>
+                    <span className="font-body text-sm text-muted-foreground block">per unit</span>
+                    <span className="font-heading text-lg font-medium text-foreground">
+                      {selectedVariation.strength}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Quantity */}
+              <div className="mb-8">
+                <h3 className="font-heading text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">
+                  Quantity
+                </h3>
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center border border-border rounded-lg overflow-hidden">
+                    <button
+                      onClick={() => setQuantity(Math.max(selectedVariation?.moq || 1, quantity - 1))}
+                      className="p-3 hover:bg-secondary/50 transition-colors"
+                      disabled={quantity <= (selectedVariation?.moq || 1)}
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                    <input
+                      type="number"
+                      value={quantity}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value) || selectedVariation?.moq || 1;
+                        setQuantity(Math.max(selectedVariation?.moq || 1, val));
+                      }}
+                      className="w-20 text-center font-heading font-medium text-foreground bg-transparent border-x border-border py-3"
+                    />
+                    <button
+                      onClick={() => setQuantity(quantity + 1)}
+                      className="p-3 hover:bg-secondary/50 transition-colors"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                  {selectedVariation?.price && (
+                    <div className="font-body text-muted-foreground">
+                      Total:{" "}
+                      <span className="font-heading font-semibold text-foreground">
+                        ${(selectedVariation.price * quantity).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Add to Cart */}
+              <Button
+                variant="hero"
+                size="lg"
+                className="w-full gap-3 text-lg py-6"
+                onClick={handleAddToCart}
+                disabled={!selectedVariation?.price || isAddingToCart}
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {isAddingToCart ? "Adding..." : selectedVariation?.price ? "Add to Cart" : "Contact for Pricing"}
+              </Button>
+
+              {/* Product Details Accordion */}
+              <div className="mt-12 border-t border-border pt-8">
+                <Accordion type="multiple" className="w-full">
+                  {product.scientific_purpose && (
+                    <AccordionItem value="purpose" className="border-border/50">
+                      <AccordionTrigger className="font-heading text-lg font-medium text-foreground hover:no-underline">
+                        Scientific Research Purpose
+                      </AccordionTrigger>
+                      <AccordionContent className="font-body text-muted-foreground leading-relaxed text-base">
+                        {product.scientific_purpose}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {product.studies_findings && (
+                    <AccordionItem value="studies" className="border-border/50">
+                      <AccordionTrigger className="font-heading text-lg font-medium text-foreground hover:no-underline">
+                        Studies Have Proven To Show
+                      </AccordionTrigger>
+                      <AccordionContent className="font-body text-muted-foreground leading-relaxed text-base">
+                        {product.studies_findings}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {product.nih_link && (
+                    <AccordionItem value="nih" className="border-border/50">
+                      <AccordionTrigger className="font-heading text-lg font-medium text-foreground hover:no-underline">
+                        NIH Research Link
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <a
+                          href={product.nih_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 font-body text-foreground hover:text-foreground/80 transition-colors text-base"
+                        >
+                          View on PubMed
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  <AccordionItem value="coa" className="border-border/50">
+                    <AccordionTrigger className="font-heading text-lg font-medium text-foreground hover:no-underline">
+                      COA Photo & Lab Testing
+                    </AccordionTrigger>
+                    <AccordionContent className="font-body text-muted-foreground text-base">
+                      <p className="italic">COA documentation available for approved B2B partners.</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+
+              {/* Terms disclaimer */}
+              <div className="mt-12 p-4 bg-secondary/30 rounded-lg border border-border/50">
+                <p className="font-body text-xs text-muted-foreground leading-relaxed">
+                  <strong>DISCLAIMER:</strong> This product is intended for research purposes only. 
+                  NOT FOR HUMAN CONSUMPTION. NOT FOR ANIMAL TESTING OR CONSUMPTION. 
+                  By purchasing this product, you agree to our{" "}
+                  <Link to="/terms" className="underline hover:text-foreground">
+                    Terms of Service
+                  </Link>{" "}
+                  and confirm you are a qualified research professional.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default ProductPage;

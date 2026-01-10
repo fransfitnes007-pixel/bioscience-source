@@ -203,6 +203,51 @@ export type Database = {
         }
         Relationships: []
       }
+      cart_items: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string | null
+          quantity: number
+          updated_at: string
+          user_id: string
+          variation_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id?: string | null
+          quantity?: number
+          updated_at?: string
+          user_id: string
+          variation_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string | null
+          quantity?: number
+          updated_at?: string
+          user_id?: string
+          variation_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cart_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cart_items_variation_id_fkey"
+            columns: ["variation_id"]
+            isOneToOne: false
+            referencedRelation: "product_variations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       coa_documents: {
         Row: {
           created_at: string
@@ -277,6 +322,59 @@ export type Database = {
           visitor_id?: string | null
         }
         Relationships: []
+      }
+      deal_tiers: {
+        Row: {
+          celebration_text: string
+          created_at: string
+          id: string
+          is_active: boolean | null
+          min_spend: number
+          name: string
+          reward_description: string
+          reward_product_id: string | null
+          reward_type: string
+          reward_value: number | null
+          tier_number: number
+          updated_at: string
+        }
+        Insert: {
+          celebration_text?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          min_spend: number
+          name: string
+          reward_description: string
+          reward_product_id?: string | null
+          reward_type: string
+          reward_value?: number | null
+          tier_number: number
+          updated_at?: string
+        }
+        Update: {
+          celebration_text?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          min_spend?: number
+          name?: string
+          reward_description?: string
+          reward_product_id?: string | null
+          reward_type?: string
+          reward_value?: number | null
+          tier_number?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deal_tiers_reward_product_id_fkey"
+            columns: ["reward_product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       email_logs: {
         Row: {
@@ -436,6 +534,202 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          id: string
+          order_id: string
+          product_id: string | null
+          product_name: string
+          quantity: number
+          total_price: number
+          unit_price: number
+          variation_id: string | null
+          variation_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          order_id: string
+          product_id?: string | null
+          product_name: string
+          quantity: number
+          total_price: number
+          unit_price: number
+          variation_id?: string | null
+          variation_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          order_id?: string
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          total_price?: number
+          unit_price?: number
+          variation_id?: string | null
+          variation_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_variation_id_fkey"
+            columns: ["variation_id"]
+            isOneToOne: false
+            referencedRelation: "product_variations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          billing_address: string
+          billing_address_2: string | null
+          billing_city: string
+          billing_company: string | null
+          billing_country: string
+          billing_email: string
+          billing_first_name: string
+          billing_last_name: string
+          billing_phone: string | null
+          billing_state: string | null
+          billing_zip: string
+          buyer_protection: boolean | null
+          buyer_protection_cost: number | null
+          created_at: string
+          discount_amount: number | null
+          discount_code: string | null
+          discount_tier: string | null
+          id: string
+          internal_notes: string | null
+          notes: string | null
+          order_number: string
+          paid_at: string | null
+          payment_status: string | null
+          shipping_address: string | null
+          shipping_address_2: string | null
+          shipping_city: string | null
+          shipping_company: string | null
+          shipping_cost: number | null
+          shipping_country: string | null
+          shipping_first_name: string | null
+          shipping_last_name: string | null
+          shipping_same_as_billing: boolean | null
+          shipping_state: string | null
+          shipping_zip: string | null
+          status: string
+          stripe_customer_id: string | null
+          stripe_payment_intent_id: string | null
+          subtotal: number
+          tax_amount: number | null
+          total: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          billing_address: string
+          billing_address_2?: string | null
+          billing_city: string
+          billing_company?: string | null
+          billing_country: string
+          billing_email: string
+          billing_first_name: string
+          billing_last_name: string
+          billing_phone?: string | null
+          billing_state?: string | null
+          billing_zip: string
+          buyer_protection?: boolean | null
+          buyer_protection_cost?: number | null
+          created_at?: string
+          discount_amount?: number | null
+          discount_code?: string | null
+          discount_tier?: string | null
+          id?: string
+          internal_notes?: string | null
+          notes?: string | null
+          order_number: string
+          paid_at?: string | null
+          payment_status?: string | null
+          shipping_address?: string | null
+          shipping_address_2?: string | null
+          shipping_city?: string | null
+          shipping_company?: string | null
+          shipping_cost?: number | null
+          shipping_country?: string | null
+          shipping_first_name?: string | null
+          shipping_last_name?: string | null
+          shipping_same_as_billing?: boolean | null
+          shipping_state?: string | null
+          shipping_zip?: string | null
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_payment_intent_id?: string | null
+          subtotal: number
+          tax_amount?: number | null
+          total: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          billing_address?: string
+          billing_address_2?: string | null
+          billing_city?: string
+          billing_company?: string | null
+          billing_country?: string
+          billing_email?: string
+          billing_first_name?: string
+          billing_last_name?: string
+          billing_phone?: string | null
+          billing_state?: string | null
+          billing_zip?: string
+          buyer_protection?: boolean | null
+          buyer_protection_cost?: number | null
+          created_at?: string
+          discount_amount?: number | null
+          discount_code?: string | null
+          discount_tier?: string | null
+          id?: string
+          internal_notes?: string | null
+          notes?: string | null
+          order_number?: string
+          paid_at?: string | null
+          payment_status?: string | null
+          shipping_address?: string | null
+          shipping_address_2?: string | null
+          shipping_city?: string | null
+          shipping_company?: string | null
+          shipping_cost?: number | null
+          shipping_country?: string | null
+          shipping_first_name?: string | null
+          shipping_last_name?: string | null
+          shipping_same_as_billing?: boolean | null
+          shipping_state?: string | null
+          shipping_zip?: string | null
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_payment_intent_id?: string | null
+          subtotal?: number
+          tax_amount?: number | null
+          total?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       page_views: {
         Row: {
