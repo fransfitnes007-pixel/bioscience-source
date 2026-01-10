@@ -9,7 +9,6 @@ import labVideo from "@/assets/lab-facility-video.mp4";
 import pointLogo from "@/assets/point-logo-transparent.png";
 const Gateway = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [showApplyModal, setShowApplyModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showLogoOverlay, setShowLogoOverlay] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -47,16 +46,6 @@ const Gateway = () => {
   }, []);
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });
-  const [applyData, setApplyData] = useState({
-    businessName: "",
-    contactName: "",
-    email: "",
-    phone: "",
-    businessType: "",
-    taxId: "",
-    intendedUse: "",
-    notes: "",
-  });
   const [contactData, setContactData] = useState({
     name: "",
     email: "",
@@ -79,43 +68,6 @@ const Gateway = () => {
       navigate("/home");
     } catch (error: any) {
       toast.error(error.message || "Login failed");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleApply = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const { error } = await supabase.from("applications").insert({
-        business_name: applyData.businessName,
-        contact_name: applyData.contactName,
-        email: applyData.email,
-        phone: applyData.phone || null,
-        business_type: applyData.businessType || null,
-        tax_id: applyData.taxId || null,
-        intended_use: applyData.intendedUse || null,
-        notes: applyData.notes || null,
-      });
-
-      if (error) throw error;
-
-      toast.success("Application submitted! We respond within 24 hours.");
-      setShowApplyModal(false);
-      setApplyData({
-        businessName: "",
-        contactName: "",
-        email: "",
-        phone: "",
-        businessType: "",
-        taxId: "",
-        intendedUse: "",
-        notes: "",
-      });
-    } catch (error: any) {
-      toast.error(error.message || "Application submission failed");
     } finally {
       setIsLoading(false);
     }
@@ -238,7 +190,7 @@ const Gateway = () => {
 
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button
-                  onClick={() => setShowApplyModal(true)}
+                  onClick={() => navigate("/apply")}
                   variant="hero"
                   className="flex-1"
                 >
@@ -271,7 +223,7 @@ const Gateway = () => {
             Interested in becoming a distributor?
           </h3>
           <Button
-            onClick={() => setShowApplyModal(true)}
+            onClick={() => navigate("/apply")}
             className="bg-background text-foreground hover:bg-background/90 font-body font-medium rounded-lg px-8 transition-colors"
           >
             Apply Now
@@ -281,120 +233,6 @@ const Gateway = () => {
 
       {/* Footer */}
       <Footer />
-
-      {/* Apply Modal */}
-      <Dialog open={showApplyModal} onOpenChange={setShowApplyModal}>
-        <DialogContent className="bg-card border-border max-w-lg max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="font-heading text-2xl font-bold text-foreground">
-              Apply for an Account
-            </DialogTitle>
-          </DialogHeader>
-          
-          <form onSubmit={handleApply} className="space-y-4 mt-4">
-            <div>
-              <label className={labelClassName}>Business Name *</label>
-              <input
-                type="text"
-                required
-                value={applyData.businessName}
-                onChange={(e) => setApplyData((prev) => ({ ...prev, businessName: e.target.value }))}
-                className={inputClassName}
-              />
-            </div>
-            
-            <div>
-              <label className={labelClassName}>Contact Name *</label>
-              <input
-                type="text"
-                required
-                value={applyData.contactName}
-                onChange={(e) => setApplyData((prev) => ({ ...prev, contactName: e.target.value }))}
-                className={inputClassName}
-              />
-            </div>
-            
-            <div>
-              <label className={labelClassName}>Email *</label>
-              <input
-                type="email"
-                required
-                value={applyData.email}
-                onChange={(e) => setApplyData((prev) => ({ ...prev, email: e.target.value }))}
-                className={inputClassName}
-              />
-            </div>
-            
-            <div>
-              <label className={labelClassName}>Phone</label>
-              <input
-                type="tel"
-                value={applyData.phone}
-                onChange={(e) => setApplyData((prev) => ({ ...prev, phone: e.target.value }))}
-                className={inputClassName}
-              />
-            </div>
-            
-            <div>
-              <label className={labelClassName}>Business Type</label>
-              <select
-                value={applyData.businessType}
-                onChange={(e) => setApplyData((prev) => ({ ...prev, businessType: e.target.value }))}
-                className={inputClassName}
-              >
-                <option value="">Select...</option>
-                <option value="research_lab">Research Laboratory</option>
-                <option value="pharmacy">Pharmacy</option>
-                <option value="clinic">Clinic</option>
-                <option value="distributor">Distributor</option>
-                <option value="manufacturer">Manufacturer</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            
-            <div>
-              <label className={labelClassName}>Tax ID / EIN</label>
-              <input
-                type="text"
-                value={applyData.taxId}
-                onChange={(e) => setApplyData((prev) => ({ ...prev, taxId: e.target.value }))}
-                className={inputClassName}
-              />
-            </div>
-            
-            <div>
-              <label className={labelClassName}>Intended Use</label>
-              <textarea
-                rows={3}
-                value={applyData.intendedUse}
-                onChange={(e) => setApplyData((prev) => ({ ...prev, intendedUse: e.target.value }))}
-                className={inputClassName}
-                placeholder="Describe how you plan to use our products..."
-              />
-            </div>
-            
-            <div>
-              <label className={labelClassName}>Additional Notes</label>
-              <textarea
-                rows={2}
-                value={applyData.notes}
-                onChange={(e) => setApplyData((prev) => ({ ...prev, notes: e.target.value }))}
-                className={inputClassName}
-              />
-            </div>
-
-            <Button
-              type="submit"
-              variant="hero"
-              size="lg"
-              disabled={isLoading}
-              className="w-full mt-6"
-            >
-              {isLoading ? "Submitting..." : "Submit Application"}
-            </Button>
-          </form>
-        </DialogContent>
-      </Dialog>
 
       {/* Contact Modal */}
       <Dialog open={showContactModal} onOpenChange={setShowContactModal}>
