@@ -4,7 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/cart/PriceDisplay";
 import { useCart } from "@/contexts/CartContext";
-import { supabase } from "@/integrations/supabase/client";
+import { getProductBySlug, Product, ProductVariation } from "@/lib/products-data";
 import { toast } from "sonner";
 import { getProductImage } from "@/lib/product-images";
 import {
@@ -23,112 +23,63 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-interface ProductData {
-  id: string;
-  name: string;
-  display_name: string;
-  slug: string;
-  description: string | null;
-  scientific_purpose: string | null;
-  studies_findings: string | null;
-  nih_link: string | null;
-  image_url: string | null;
-  variations: {
-    id: string;
-    strength: string;
-    price: number | null;
-    moq: number;
-  }[];
-}
-
 const ProductPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
   
-  const [product, setProduct] = useState<ProductData | null>(null);
-  const [selectedVariation, setSelectedVariation] = useState<ProductData["variations"][0] | null>(null);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      if (!slug) return;
+    if (!slug) {
+      navigate("/products");
+      return;
+    }
 
-      const { data, error } = await supabase
-        .from("products")
-        .select(`
-          id,
-          name,
-          display_name,
-          slug,
-          description,
-          scientific_purpose,
-          studies_findings,
-          nih_link,
-          image_url,
-          product_variations (
-            id,
-            strength,
-            price,
-            moq,
-            sort_order
-          )
-        `)
-        .eq("slug", slug)
-        .eq("is_active", true)
-        .single();
+    const foundProduct = getProductBySlug(slug);
+    if (!foundProduct) {
+      navigate("/products");
+      return;
+    }
 
-      if (error || !data) {
-        navigate("/products");
-        return;
-      }
-
-      const productData: ProductData = {
-        ...data,
-        variations: (data.product_variations || [])
-          .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
-          .map((v: any) => ({
-            id: v.id,
-            strength: v.strength,
-            price: v.price ? Number(v.price) : null,
-            moq: v.moq,
-          })),
-      };
-
-      setProduct(productData);
-      if (productData.variations.length > 0) {
-        setSelectedVariation(productData.variations[0]);
-        setQuantity(productData.variations[0].moq);
-      }
-      setIsLoading(false);
-    };
-
-    fetchProduct();
+    setProduct(foundProduct);
+    if (foundProduct.variations.length > 0) {
+      setSelectedVariation(foundProduct.variations[0]);
+      setQuantity(foundProduct.variations[0].moq);
+    }
   }, [slug, navigate]);
 
   const handleAddToCart = async () => {
-    if (!product || !selectedVariation || !selectedVariation.price) {
-      toast.error("Please select a variation with a price");
+    if (!product || !selectedVariation) {
+      toast.error("Please select a variation");
+      return;
+    }
+
+    // Check if price exists (it may be 0 or undefined for now)
+    const price = selectedVariation.price ?? 0;
+    if (price === 0) {
+      toast.info("Price coming soon - contact us for pricing");
       return;
     }
 
     setIsAddingToCart(true);
     await addToCart({
-      productId: product.id,
-      variationId: selectedVariation.id,
-      productName: product.display_name,
+      productId: product.slug, // Using slug as ID for local data
+      variationId: `${product.slug}-${selectedVariation.strength}`,
+      productName: product.displayName,
       variationName: selectedVariation.strength,
       quantity,
-      price: selectedVariation.price,
+      price,
     });
     setIsAddingToCart(false);
   };
 
   const productImage = product ? getProductImage(product.slug) : null;
 
-  if (isLoading) {
+  if (!product) {
     return (
       <Layout>
         <div className="pt-24 lg:pt-32 pb-16 min-h-screen flex items-center justify-center">
@@ -138,7 +89,7 @@ const ProductPage = () => {
     );
   }
 
-  if (!product) return null;
+  const currentPrice = selectedVariation?.price ?? 0;
 
   return (
     <Layout>
@@ -160,7 +111,7 @@ const ProductPage = () => {
                 {productImage ? (
                   <img
                     src={productImage}
-                    alt={product.display_name}
+                    alt={product.displayName}
                     className="w-full h-full object-contain p-8"
                   />
                 ) : (
@@ -172,7 +123,7 @@ const ProductPage = () => {
             {/* Product Info */}
             <div>
               <h1 className="font-heading text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                {product.display_name}
+                {product.displayName}
               </h1>
 
               {product.description && (
@@ -187,20 +138,20 @@ const ProductPage = () => {
                   Select Variation
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {product.variations.map((variation) => (
+                  {product.variations.map((variation, index) => (
                     <button
-                      key={variation.id}
+                      key={`${product.slug}-${variation.strength}-${index}`}
                       onClick={() => {
                         setSelectedVariation(variation);
                         setQuantity(variation.moq);
                       }}
                       className={`relative p-4 border rounded-xl text-left transition-all ${
-                        selectedVariation?.id === variation.id
+                        selectedVariation?.strength === variation.strength
                           ? "border-foreground bg-foreground/5 ring-2 ring-foreground/20"
                           : "border-border hover:border-foreground/50"
                       }`}
                     >
-                      {selectedVariation?.id === variation.id && (
+                      {selectedVariation?.strength === variation.strength && (
                         <div className="absolute top-2 right-2 w-5 h-5 bg-foreground rounded-full flex items-center justify-center">
                           <Check className="w-3 h-3 text-background" />
                         </div>
@@ -217,17 +168,17 @@ const ProductPage = () => {
               </div>
 
               {/* Price Display */}
-              {selectedVariation?.price && (
-                <div className="flex items-center gap-8 mb-8">
-                  <PriceDisplay price={selectedVariation.price} size="lg" />
-                  <div>
-                    <span className="font-body text-sm text-muted-foreground block">per unit</span>
-                    <span className="font-heading text-lg font-medium text-foreground">
-                      {selectedVariation.strength}
-                    </span>
-                  </div>
+              <div className="flex items-center gap-8 mb-8">
+                <PriceDisplay price={currentPrice} size="lg" />
+                <div>
+                  <span className="font-body text-sm text-muted-foreground block">
+                    {currentPrice > 0 ? "per unit" : "Price coming soon"}
+                  </span>
+                  <span className="font-heading text-lg font-medium text-foreground">
+                    {selectedVariation?.strength}
+                  </span>
                 </div>
-              )}
+              </div>
 
               {/* Quantity */}
               <div className="mb-8">
@@ -259,14 +210,12 @@ const ProductPage = () => {
                       <Plus className="w-4 h-4" />
                     </button>
                   </div>
-                  {selectedVariation?.price && (
-                    <div className="font-body text-muted-foreground">
-                      Total:{" "}
-                      <span className="font-heading font-semibold text-foreground">
-                        ${(selectedVariation.price * quantity).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-                      </span>
-                    </div>
-                  )}
+                  <div className="font-body text-muted-foreground">
+                    Total:{" "}
+                    <span className="font-heading font-semibold text-foreground">
+                      ${(currentPrice * quantity).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -276,45 +225,45 @@ const ProductPage = () => {
                 size="lg"
                 className="w-full gap-3 text-lg py-6"
                 onClick={handleAddToCart}
-                disabled={!selectedVariation?.price || isAddingToCart}
+                disabled={currentPrice === 0 || isAddingToCart}
               >
                 <ShoppingCart className="w-5 h-5" />
-                {isAddingToCart ? "Adding..." : selectedVariation?.price ? "Add to Cart" : "Contact for Pricing"}
+                {isAddingToCart ? "Adding..." : currentPrice > 0 ? "Add to Cart" : "Contact for Pricing"}
               </Button>
 
               {/* Product Details Accordion */}
               <div className="mt-12 border-t border-border pt-8">
                 <Accordion type="multiple" className="w-full">
-                  {product.scientific_purpose && (
+                  {product.scientificPurpose && (
                     <AccordionItem value="purpose" className="border-border/50">
                       <AccordionTrigger className="font-heading text-lg font-medium text-foreground hover:no-underline">
                         Scientific Research Purpose
                       </AccordionTrigger>
                       <AccordionContent className="font-body text-muted-foreground leading-relaxed text-base">
-                        {product.scientific_purpose}
+                        {product.scientificPurpose}
                       </AccordionContent>
                     </AccordionItem>
                   )}
 
-                  {product.studies_findings && (
+                  {product.studiesFindings && (
                     <AccordionItem value="studies" className="border-border/50">
                       <AccordionTrigger className="font-heading text-lg font-medium text-foreground hover:no-underline">
                         Studies Have Proven To Show
                       </AccordionTrigger>
                       <AccordionContent className="font-body text-muted-foreground leading-relaxed text-base">
-                        {product.studies_findings}
+                        {product.studiesFindings}
                       </AccordionContent>
                     </AccordionItem>
                   )}
 
-                  {product.nih_link && (
+                  {product.nihLink && (
                     <AccordionItem value="nih" className="border-border/50">
                       <AccordionTrigger className="font-heading text-lg font-medium text-foreground hover:no-underline">
                         NIH Research Link
                       </AccordionTrigger>
                       <AccordionContent>
                         <a
-                          href={product.nih_link}
+                          href={product.nihLink}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 font-body text-foreground hover:text-foreground/80 transition-colors text-base"
