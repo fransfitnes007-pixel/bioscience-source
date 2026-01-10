@@ -14,6 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_daily: {
+        Row: {
+          applications_submitted: number | null
+          avg_session_duration: number | null
+          bounce_rate: number | null
+          created_at: string
+          date: string
+          id: string
+          inquiries_submitted: number | null
+          page_views: number | null
+          product_views: number | null
+          sessions: number | null
+          top_pages: Json | null
+          top_products: Json | null
+          total_visitors: number | null
+          traffic_sources: Json | null
+          unique_visitors: number | null
+          updated_at: string
+        }
+        Insert: {
+          applications_submitted?: number | null
+          avg_session_duration?: number | null
+          bounce_rate?: number | null
+          created_at?: string
+          date: string
+          id?: string
+          inquiries_submitted?: number | null
+          page_views?: number | null
+          product_views?: number | null
+          sessions?: number | null
+          top_pages?: Json | null
+          top_products?: Json | null
+          total_visitors?: number | null
+          traffic_sources?: Json | null
+          unique_visitors?: number | null
+          updated_at?: string
+        }
+        Update: {
+          applications_submitted?: number | null
+          avg_session_duration?: number | null
+          bounce_rate?: number | null
+          created_at?: string
+          date?: string
+          id?: string
+          inquiries_submitted?: number | null
+          page_views?: number | null
+          product_views?: number | null
+          sessions?: number | null
+          top_pages?: Json | null
+          top_products?: Json | null
+          total_visitors?: number | null
+          traffic_sources?: Json | null
+          unique_visitors?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      analytics_events: {
+        Row: {
+          created_at: string
+          event_name: string
+          event_type: string
+          id: string
+          ip_address: string | null
+          metadata: Json | null
+          page_path: string | null
+          page_url: string | null
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+          user_id: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_name: string
+          event_type: string
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          page_path?: string | null
+          page_url?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_name?: string
+          event_type?: string
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          page_path?: string | null
+          page_url?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       applications: {
         Row: {
           business_address: string | null
@@ -122,6 +227,150 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          notes: string | null
+          phone: string | null
+          responded_at: string | null
+          responded_by: string | null
+          session_id: string | null
+          source_page: string | null
+          status: string
+          subject: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          responded_at?: string | null
+          responded_by?: string | null
+          session_id?: string | null
+          source_page?: string | null
+          status?: string
+          subject?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          responded_at?: string | null
+          responded_by?: string | null
+          session_id?: string | null
+          source_page?: string | null
+          status?: string
+          subject?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
+      email_logs: {
+        Row: {
+          bounced_at: string | null
+          clicked_at: string | null
+          created_at: string
+          email_type: string
+          error_message: string | null
+          id: string
+          metadata: Json | null
+          opened_at: string | null
+          recipient_email: string
+          recipient_name: string | null
+          sent_at: string | null
+          status: string
+          subject: string | null
+          template_id: string | null
+        }
+        Insert: {
+          bounced_at?: string | null
+          clicked_at?: string | null
+          created_at?: string
+          email_type: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json | null
+          opened_at?: string | null
+          recipient_email: string
+          recipient_name?: string | null
+          sent_at?: string | null
+          status?: string
+          subject?: string | null
+          template_id?: string | null
+        }
+        Update: {
+          bounced_at?: string | null
+          clicked_at?: string | null
+          created_at?: string
+          email_type?: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json | null
+          opened_at?: string | null
+          recipient_email?: string
+          recipient_name?: string | null
+          sent_at?: string | null
+          status?: string
+          subject?: string | null
+          template_id?: string | null
+        }
+        Relationships: []
+      }
+      form_submissions: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          form_name: string
+          form_type: string
+          id: string
+          page_url: string | null
+          session_id: string | null
+          submission_data: Json
+          success: boolean | null
+          user_id: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          form_name: string
+          form_type: string
+          id?: string
+          page_url?: string | null
+          session_id?: string | null
+          submission_data?: Json
+          success?: boolean | null
+          user_id?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          form_name?: string
+          form_type?: string
+          id?: string
+          page_url?: string | null
+          session_id?: string | null
+          submission_data?: Json
+          success?: boolean | null
+          user_id?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       inquiries: {
         Row: {
           business_name: string
@@ -188,6 +437,51 @@ export type Database = {
           },
         ]
       }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          ip_address: string | null
+          page_path: string
+          page_title: string | null
+          page_url: string
+          referrer: string | null
+          session_id: string | null
+          time_on_page: number | null
+          user_agent: string | null
+          user_id: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          page_path: string
+          page_title?: string | null
+          page_url: string
+          referrer?: string | null
+          session_id?: string | null
+          time_on_page?: number | null
+          user_agent?: string | null
+          user_id?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          page_path?: string
+          page_title?: string | null
+          page_url?: string
+          referrer?: string | null
+          session_id?: string | null
+          time_on_page?: number | null
+          user_agent?: string | null
+          user_id?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       product_categories: {
         Row: {
           created_at: string
@@ -243,6 +537,53 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "product_variations_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_views: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string | null
+          product_name: string
+          session_id: string | null
+          user_id: string | null
+          variation_id: string | null
+          variation_name: string | null
+          view_duration: number | null
+          visitor_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id?: string | null
+          product_name: string
+          session_id?: string | null
+          user_id?: string | null
+          variation_id?: string | null
+          variation_name?: string | null
+          view_duration?: number | null
+          visitor_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string | null
+          product_name?: string
+          session_id?: string | null
+          user_id?: string | null
+          variation_id?: string | null
+          variation_name?: string | null
+          view_duration?: number | null
+          visitor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_views_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
             referencedRelation: "products"
@@ -396,9 +737,148 @@ export type Database = {
         }
         Relationships: []
       }
+      user_sessions: {
+        Row: {
+          browser: string | null
+          city: string | null
+          country: string | null
+          device_type: string | null
+          ended_at: string | null
+          events_count: number | null
+          first_page: string | null
+          id: string
+          ip_address: string | null
+          last_page: string | null
+          os: string | null
+          page_views: number | null
+          referrer: string | null
+          session_id: string
+          started_at: string
+          user_agent: string | null
+          user_id: string | null
+          visitor_id: string
+        }
+        Insert: {
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          device_type?: string | null
+          ended_at?: string | null
+          events_count?: number | null
+          first_page?: string | null
+          id?: string
+          ip_address?: string | null
+          last_page?: string | null
+          os?: string | null
+          page_views?: number | null
+          referrer?: string | null
+          session_id: string
+          started_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+          visitor_id: string
+        }
+        Update: {
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          device_type?: string | null
+          ended_at?: string | null
+          events_count?: number | null
+          first_page?: string | null
+          id?: string
+          ip_address?: string | null
+          last_page?: string | null
+          os?: string | null
+          page_views?: number | null
+          referrer?: string | null
+          session_id?: string
+          started_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+          visitor_id?: string
+        }
+        Relationships: []
+      }
+      webhook_logs: {
+        Row: {
+          created_at: string
+          endpoint_url: string
+          error_message: string | null
+          id: string
+          related_id: string | null
+          related_table: string | null
+          request_payload: Json | null
+          response_payload: Json | null
+          response_status: number | null
+          retry_count: number | null
+          success: boolean | null
+          triggered_by: string | null
+          webhook_type: string
+        }
+        Insert: {
+          created_at?: string
+          endpoint_url: string
+          error_message?: string | null
+          id?: string
+          related_id?: string | null
+          related_table?: string | null
+          request_payload?: Json | null
+          response_payload?: Json | null
+          response_status?: number | null
+          retry_count?: number | null
+          success?: boolean | null
+          triggered_by?: string | null
+          webhook_type: string
+        }
+        Update: {
+          created_at?: string
+          endpoint_url?: string
+          error_message?: string | null
+          id?: string
+          related_id?: string | null
+          related_table?: string | null
+          request_payload?: Json | null
+          response_payload?: Json | null
+          response_status?: number | null
+          retry_count?: number | null
+          success?: boolean | null
+          triggered_by?: string | null
+          webhook_type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      all_customer_leads: {
+        Row: {
+          business_address: string | null
+          business_name: string | null
+          business_type: string | null
+          city: string | null
+          company_impact: string | null
+          country: string | null
+          created_at: string | null
+          email: string | null
+          how_we_benefit: string | null
+          id: string | null
+          intended_use: string | null
+          lead_type: string | null
+          monthly_volume: string | null
+          name: string | null
+          notes: string | null
+          phone: string | null
+          product_usage: string | null
+          products_interest: string | null
+          referral_source: string | null
+          state: string | null
+          status: string | null
+          user_id: string | null
+          website: string | null
+          zip_code: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
