@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CartIcon } from "@/components/layout/CartIcon";
 import logo from "@/assets/logo.png";
 
 const navLinks = [
-  { name: "Home", path: "/" },
+  { name: "Home", path: "/home" },
   { name: "Products", path: "/products" },
   { name: "About", path: "/about" },
   { name: "Terms", path: "/terms" },
@@ -47,6 +48,7 @@ export const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
+            <CartIcon />
             <Link to="/access">
               <Button variant="heroOutline" size="default">
                 B2B Access
@@ -55,13 +57,16 @@ export const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 text-foreground"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <CartIcon />
+            <button
+              className="p-2 text-foreground"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

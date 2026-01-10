@@ -14,6 +14,7 @@ import {
   Lock,
   Truck,
   Package,
+  Loader2,
 } from "lucide-react";
 
 const BUYER_PROTECTION_COST = 29.99;
@@ -23,6 +24,7 @@ const Checkout = () => {
   const { items, subtotal, currentTier, clearCart } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const [currentStep, setCurrentStep] = useState(2);
 
   // Form state
   const [buyerProtection, setBuyerProtection] = useState(false);
@@ -54,13 +56,6 @@ const Checkout = () => {
     country: "United States",
   });
 
-  const [payment, setPayment] = useState({
-    cardNumber: "",
-    expiry: "",
-    cvc: "",
-    cardName: "",
-  });
-
   // Check auth
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -69,8 +64,6 @@ const Checkout = () => {
         return;
       }
       setUserId(session.user.id);
-      
-      // Pre-fill email from auth
       setBilling(prev => ({ ...prev, email: session.user.email || "" }));
     });
   }, [navigate]);
@@ -122,7 +115,7 @@ const Checkout = () => {
       // Generate order number
       const orderNumber = `PB-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
 
-      // Create order
+      // Create order in database
       const { data: order, error: orderError } = await supabase
         .from("orders")
         .insert({
@@ -182,15 +175,27 @@ const Checkout = () => {
 
       if (itemsError) throw itemsError;
 
-      // Clear cart
-      await clearCart();
+      // Create Stripe checkout session
+      const { data: checkoutData, error: checkoutError } = await supabase.functions.invoke(
+        "create-checkout",
+        {
+          body: { orderId: order.id },
+        }
+      );
 
-      toast.success("Order placed successfully!");
-      navigate(`/order-confirmation?order=${orderNumber}`);
+      if (checkoutError) throw checkoutError;
+
+      if (checkoutData?.url) {
+        // Clear cart before redirecting
+        await clearCart();
+        // Redirect to Stripe Checkout
+        window.location.href = checkoutData.url;
+      } else {
+        throw new Error("Failed to create checkout session");
+      }
     } catch (error: any) {
       console.error("Checkout error:", error);
-      toast.error(error.message || "Failed to place order");
-    } finally {
+      toast.error(error.message || "Failed to process checkout");
       setIsSubmitting(false);
     }
   };
@@ -200,9 +205,9 @@ const Checkout = () => {
 
   const steps = [
     { num: 1, label: "Cart", completed: true },
-    { num: 2, label: "Shipping", completed: false },
-    { num: 3, label: "Payment", completed: false },
-    { num: 4, label: "Review", completed: false },
+    { num: 2, label: "Info", completed: currentStep > 2 },
+    { num: 3, label: "Shipping", completed: currentStep > 3 },
+    { num: 4, label: "Payment", completed: false },
     { num: 5, label: "Complete", completed: false },
   ];
 
@@ -218,7 +223,7 @@ const Checkout = () => {
                   className={`flex items-center gap-2 px-4 py-2 rounded-full ${
                     step.completed
                       ? "bg-foreground text-background"
-                      : step.num === 2
+                      : step.num === currentStep
                       ? "bg-foreground/20 text-foreground border border-foreground"
                       : "bg-secondary/50 text-muted-foreground"
                   }`}
@@ -514,66 +519,19 @@ const Checkout = () => {
                   )}
                 </div>
 
-                {/* Payment Information */}
+                {/* Secure Payment Notice */}
                 <div className="bg-card border border-border rounded-xl p-6">
-                  <h2 className="font-heading text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
+                  <h2 className="font-heading text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
                     <Lock className="w-5 h-5" />
-                    Payment Information
+                    Secure Payment
                   </h2>
 
-                  <div className="p-4 bg-secondary/30 rounded-lg mb-6 flex items-center gap-3">
+                  <div className="p-4 bg-secondary/30 rounded-lg flex items-center gap-3">
                     <Lock className="w-5 h-5 text-green-500" />
                     <span className="font-body text-sm text-muted-foreground">
-                      Your payment is secured with 256-bit SSL encryption
+                      Payment is processed securely through Stripe with 256-bit SSL encryption.
+                      You'll be redirected to complete payment after submitting your order.
                     </span>
-                  </div>
-
-                  <div>
-                    <label className={labelClassName}>Name on Card *</label>
-                    <input
-                      type="text"
-                      required
-                      value={payment.cardName}
-                      onChange={(e) => setPayment({ ...payment, cardName: e.target.value })}
-                      className={inputClassName}
-                    />
-                  </div>
-
-                  <div className="mt-4">
-                    <label className={labelClassName}>Card Number *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="1234 5678 9012 3456"
-                      value={payment.cardNumber}
-                      onChange={(e) => setPayment({ ...payment, cardNumber: e.target.value })}
-                      className={inputClassName}
-                    />
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4 mt-4">
-                    <div>
-                      <label className={labelClassName}>Expiry Date *</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="MM/YY"
-                        value={payment.expiry}
-                        onChange={(e) => setPayment({ ...payment, expiry: e.target.value })}
-                        className={inputClassName}
-                      />
-                    </div>
-                    <div>
-                      <label className={labelClassName}>CVC *</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="123"
-                        value={payment.cvc}
-                        onChange={(e) => setPayment({ ...payment, cvc: e.target.value })}
-                        className={inputClassName}
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -689,8 +647,17 @@ const Checkout = () => {
                       className="w-full mt-6 gap-2"
                       disabled={isSubmitting}
                     >
-                      <Lock className="w-4 h-4" />
-                      {isSubmitting ? "Processing..." : `Pay ${formatCurrency(total)}`}
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Lock className="w-4 h-4" />
+                          Proceed to Payment
+                        </>
+                      )}
                     </Button>
 
                     <p className="font-body text-xs text-muted-foreground text-center mt-4">
