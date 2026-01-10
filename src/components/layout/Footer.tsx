@@ -91,6 +91,9 @@ export const Footer = () => {
               <Link to="/terms" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
                 Terms of Service
               </Link>
+              <Link to="/privacy" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                Privacy Policy
+              </Link>
               <Link to="/access" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
                 B2B Access
               </Link>
