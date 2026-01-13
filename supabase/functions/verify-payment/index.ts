@@ -12,16 +12,43 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  const supabaseClient = createClient(
-    Deno.env.get("SUPABASE_URL") ?? "",
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
-  );
-
   try {
+    // Require authentication
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
+      );
+    }
+
+    // Create client with user's auth token for RLS-aware queries
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    // Verify user authentication
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabaseClient.auth.getClaims(token);
+
+    if (claimsError || !claimsData?.claims) {
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 401 }
+      );
+    }
+
+    const userId = claimsData.claims.sub;
+
     const { sessionId, orderNumber } = await req.json();
 
     if (!sessionId && !orderNumber) {
-      throw new Error("Session ID or Order Number is required");
+      return new Response(
+        JSON.stringify({ error: "Session ID or Order Number is required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+      );
     }
 
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
@@ -30,6 +57,12 @@ serve(async (req) => {
 
     let paymentStatus = "pending";
     let paymentSucceeded = false;
+
+    // Create a service role client for updating order (bypasses RLS for admin operations)
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
 
     if (sessionId) {
       // Verify session with Stripe
@@ -42,9 +75,25 @@ serve(async (req) => {
         paymentStatus = "failed";
       }
 
-      // Update order if we have metadata
+      // Update order if we have metadata - but first verify user owns the order
       if (session.metadata?.order_id) {
-        const { error } = await supabaseClient
+        // Verify the order belongs to this user
+        const { data: orderCheck, error: orderCheckError } = await supabaseClient
+          .from("orders")
+          .select("id, user_id")
+          .eq("id", session.metadata.order_id)
+          .eq("user_id", userId)
+          .single();
+
+        if (orderCheckError || !orderCheck) {
+          return new Response(
+            JSON.stringify({ error: "Order not found or access denied" }),
+            { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 403 }
+          );
+        }
+
+        // Use admin client to update the order
+        const { error } = await supabaseAdmin
           .from("orders")
           .update({
             payment_status: paymentStatus,
@@ -60,21 +109,48 @@ serve(async (req) => {
       }
     }
 
-    // Get order details if orderNumber provided
+    // Get order details - RLS will ensure user can only access their own orders
     let order = null;
     if (orderNumber) {
       const { data, error } = await supabaseClient
         .from("orders")
         .select(`
-          *,
-          order_items (*)
+          id,
+          order_number,
+          status,
+          payment_status,
+          subtotal,
+          discount_amount,
+          discount_tier,
+          shipping_cost,
+          buyer_protection,
+          buyer_protection_cost,
+          total,
+          billing_email,
+          billing_first_name,
+          billing_last_name,
+          created_at,
+          order_items (
+            id,
+            product_name,
+            variation_name,
+            quantity,
+            unit_price,
+            total_price
+          )
         `)
         .eq("order_number", orderNumber)
+        .eq("user_id", userId)
         .single();
 
-      if (!error) {
-        order = data;
+      if (error) {
+        return new Response(
+          JSON.stringify({ error: "Order not found or access denied" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 404 }
+        );
       }
+
+      order = data;
     }
 
     return new Response(JSON.stringify({
@@ -85,9 +161,10 @@ serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Verify payment error:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    // Return generic error message to avoid leaking internal details
+    return new Response(JSON.stringify({ error: "Payment verification failed" }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });
