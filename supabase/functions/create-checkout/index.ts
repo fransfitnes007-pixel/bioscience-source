@@ -159,9 +159,25 @@ serve(async (req) => {
     });
   } catch (error: any) {
     console.error("Checkout error:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    
+    // Return sanitized error messages to prevent information leakage
+    let clientMessage = "Failed to create checkout session";
+    let statusCode = 500;
+    
+    if (error.message?.includes("not authenticated") || error.message?.includes("email not available")) {
+      clientMessage = "Authentication required";
+      statusCode = 401;
+    } else if (error.message?.includes("not found") || error.message?.includes("Order not found")) {
+      clientMessage = "Order not found";
+      statusCode = 404;
+    } else if (error.message?.includes("required")) {
+      clientMessage = "Invalid request";
+      statusCode = 400;
+    }
+    
+    return new Response(JSON.stringify({ error: clientMessage }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 500,
+      status: statusCode,
     });
   }
 });
