@@ -148,7 +148,8 @@ export const ProductDetail = ({
                     href={product.nihLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-body text-foreground hover:text-foreground/80 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-2 font-body text-foreground hover:text-foreground/80 transition-colors underline"
                   >
                     View on PubMed
                     <ExternalLink className="w-4 h-4" />
