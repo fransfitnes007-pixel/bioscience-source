@@ -168,27 +168,6 @@ export const MolecularAnimation = () => {
         </div>
       ))}
 
-      {/* Subtle radial glow following mouse */}
-      <div
-        className="absolute w-[600px] h-[600px] rounded-full pointer-events-none transition-all duration-500 ease-out"
-        style={{
-          left: `${mousePos.x * 100}%`,
-          top: `${mousePos.y * 100}%`,
-          transform: "translate(-50%, -50%)",
-          background: "radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)",
-        }}
-      />
-      
-      {/* Secondary softer glow */}
-      <div
-        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none transition-all duration-300 ease-out"
-        style={{
-          left: `${mousePos.x * 100}%`,
-          top: `${mousePos.y * 100}%`,
-          transform: "translate(-50%, -50%)",
-          background: "radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 60%)",
-        }}
-      />
 
       {/* Subtle grid pattern */}
       <div 
