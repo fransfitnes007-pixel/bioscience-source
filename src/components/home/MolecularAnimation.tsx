@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 
 interface Ripple {
   id: number;
@@ -14,6 +14,8 @@ interface Particle {
   speedX: number;
   speedY: number;
 }
+
+const CONNECTION_DISTANCE = 15; // percentage of screen
 
 export const MolecularAnimation = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -67,11 +69,46 @@ export const MolecularAnimation = () => {
     const newRipple = { id: rippleIdRef.current++, x, y };
     setRipples(prev => [...prev, newRipple]);
     
-    // Remove ripple after animation
     setTimeout(() => {
       setRipples(prev => prev.filter(r => r.id !== newRipple.id));
     }, 1000);
   }, []);
+
+  // Calculate particle positions with mouse offset
+  const particlePositions = useMemo(() => {
+    return particles.map((particle) => ({
+      ...particle,
+      currentX: particle.x + (mousePos.x - 0.5) * 20 * particle.speedX,
+      currentY: particle.y + (mousePos.y - 0.5) * 20 * particle.speedY,
+    }));
+  }, [particles, mousePos]);
+
+  // Calculate connections between nearby particles
+  const connections = useMemo(() => {
+    const lines: { x1: number; y1: number; x2: number; y2: number; opacity: number }[] = [];
+    
+    for (let i = 0; i < particlePositions.length; i++) {
+      for (let j = i + 1; j < particlePositions.length; j++) {
+        const p1 = particlePositions[i];
+        const p2 = particlePositions[j];
+        const dx = p1.currentX - p2.currentX;
+        const dy = p1.currentY - p2.currentY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < CONNECTION_DISTANCE) {
+          const opacity = 1 - distance / CONNECTION_DISTANCE;
+          lines.push({
+            x1: p1.currentX,
+            y1: p1.currentY,
+            x2: p2.currentX,
+            y2: p2.currentY,
+            opacity: opacity * 0.3,
+          });
+        }
+      }
+    }
+    return lines;
+  }, [particlePositions]);
 
   // Color shifts based on scroll: deep blue → purple → warm amber
   const hue = Math.round(220 + scrollProgress * 140);
@@ -85,25 +122,37 @@ export const MolecularAnimation = () => {
         background: `linear-gradient(135deg, hsl(${hue}, 30%, 3%) 0%, hsl(${hue + 30}, 40%, 6%) 50%, hsl(${hue + 60}, 35%, 4%) 100%)`,
       }}
     >
-      {/* Floating particles that respond to mouse */}
-      {particles.map((particle) => {
-        const offsetX = (mousePos.x - 0.5) * 20 * particle.speedX;
-        const offsetY = (mousePos.y - 0.5) * 20 * particle.speedY;
-        return (
-          <div
-            key={particle.id}
-            className="absolute rounded-full pointer-events-none transition-transform duration-700 ease-out"
-            style={{
-              left: `${particle.x + offsetX}%`,
-              top: `${particle.y + offsetY}%`,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              background: `hsla(${hue + particle.id * 5}, 60%, 60%, ${0.15 + particle.size * 0.05})`,
-              boxShadow: `0 0 ${particle.size * 2}px hsla(${hue + particle.id * 5}, 60%, 60%, 0.3)`,
-            }}
+      {/* Connection lines between particles */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none">
+        {connections.map((conn, i) => (
+          <line
+            key={i}
+            x1={`${conn.x1}%`}
+            y1={`${conn.y1}%`}
+            x2={`${conn.x2}%`}
+            y2={`${conn.y2}%`}
+            stroke={`hsla(${hue + 30}, 60%, 60%, ${conn.opacity})`}
+            strokeWidth="1"
+            className="transition-opacity duration-300"
           />
-        );
-      })}
+        ))}
+      </svg>
+
+      {/* Floating particles that respond to mouse */}
+      {particlePositions.map((particle) => (
+        <div
+          key={particle.id}
+          className="absolute rounded-full pointer-events-none transition-transform duration-700 ease-out"
+          style={{
+            left: `${particle.currentX}%`,
+            top: `${particle.currentY}%`,
+            width: `${particle.size}px`,
+            height: `${particle.size}px`,
+            background: `hsla(${hue + particle.id * 5}, 60%, 60%, ${0.15 + particle.size * 0.05})`,
+            boxShadow: `0 0 ${particle.size * 2}px hsla(${hue + particle.id * 5}, 60%, 60%, 0.3)`,
+          }}
+        />
+      ))}
 
       {/* Ripple effects on click */}
       {ripples.map((ripple) => (
