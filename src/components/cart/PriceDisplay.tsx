@@ -2,15 +2,19 @@ import { motion } from "framer-motion";
 
 interface PriceDisplayProps {
   price: number;
+  originalPrice?: number;
   size?: "sm" | "md" | "lg" | "xl";
   showCurrency?: boolean;
+  showDiscount?: boolean;
   className?: string;
 }
 
 export const PriceDisplay = ({
   price,
+  originalPrice,
   size = "md",
   showCurrency = true,
+  showDiscount = true,
   className = "",
 }: PriceDisplayProps) => {
   const sizeClasses = {
@@ -29,10 +33,14 @@ export const PriceDisplay = ({
 
   const formatPrice = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(amount);
   };
+
+  // Calculate original price if not provided (price = 80% of original, so original = price / 0.8)
+  const calculatedOriginal = originalPrice ?? Math.round(price / 0.8);
+  const hasDiscount = price > 0 && showDiscount;
 
   return (
     <motion.div
@@ -40,6 +48,18 @@ export const PriceDisplay = ({
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 400 }}
     >
+      {/* Discount badge */}
+      {hasDiscount && (
+        <motion.div
+          className="absolute -top-2 -right-2 z-10 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded-full shadow-lg"
+          initial={{ scale: 0, rotate: -12 }}
+          animate={{ scale: 1, rotate: -12 }}
+          transition={{ delay: 0.3, type: "spring", stiffness: 500 }}
+        >
+          20% OFF
+        </motion.div>
+      )}
+
       {/* Hexagon container */}
       <div
         className={`${hexagonSizes[size]} relative flex items-center justify-center`}
@@ -58,7 +78,18 @@ export const PriceDisplay = ({
           }}
         >
           <div className="text-center text-background">
-            {showCurrency && (
+            {/* Original price with strikethrough */}
+            {hasDiscount && (
+              <motion.span
+                className="text-xs font-body opacity-60 block line-through -mb-0.5"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 0.6, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                ${formatPrice(calculatedOriginal)}
+              </motion.span>
+            )}
+            {showCurrency && !hasDiscount && (
               <motion.span
                 className="text-xs font-heading font-bold opacity-80 block -mb-1"
                 initial={{ opacity: 0, y: -5 }}
