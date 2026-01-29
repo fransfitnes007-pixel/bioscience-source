@@ -1,5 +1,48 @@
 import { useEffect, useRef, useState } from "react";
-import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2 } from "lucide-react";
+import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2, TrendingUp, Quote } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from "recharts";
+
+const growthData = [
+  { month: "Jan", revenue: 45 },
+  { month: "Feb", revenue: 52 },
+  { month: "Mar", revenue: 61 },
+  { month: "Apr", revenue: 78 },
+  { month: "May", revenue: 95 },
+  { month: "Jun", revenue: 120 },
+];
+
+const profitData = [
+  { month: "Jan", profit: 30 },
+  { month: "Feb", profit: 45 },
+  { month: "Mar", profit: 58 },
+  { month: "Apr", profit: 72 },
+  { month: "May", profit: 89 },
+  { month: "Jun", profit: 115 },
+];
+
+const testimonials = [
+  {
+    quote: "Switching to Point Peptides increased our margins by 340% while maintaining the quality our clients expect.",
+    author: "Medical Aesthetics Clinic",
+    role: "Partner since 2023",
+    metric: "+340%",
+    metricLabel: "Margin Growth"
+  },
+  {
+    quote: "The COA documentation and purity standards have made compliance reviews seamless for our research facility.",
+    author: "Research Laboratory",
+    role: "Partner since 2022",
+    metric: "99.9%",
+    metricLabel: "Purity Verified"
+  },
+  {
+    quote: "24-hour quote turnaround and reliable fulfillment have transformed how we manage inventory.",
+    author: "Wellness Center",
+    role: "Partner since 2024",
+    metric: "48h",
+    metricLabel: "Avg. Delivery"
+  },
+];
 
 const certifications = [
   { icon: FlaskConical, label: "GMP Compliant" },
@@ -114,6 +157,142 @@ export const TrustSection = () => {
                 <span className="font-body text-xs text-muted-foreground text-center max-w-[80px]">
                   {cert.label}
                 </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Testimonials with Metrics */}
+        <div className={`mt-20 transition-all duration-700 delay-600 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
+          <h3 className="font-heading text-2xl md:text-3xl font-semibold text-center mb-4 text-foreground">
+            Partner Success Stories
+          </h3>
+          <p className="font-body text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+            See how businesses are scaling their operations with our research compounds.
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="p-6 border border-border/50 rounded-lg bg-card/30 backdrop-blur-sm relative group hover-lift"
+              >
+                <Quote className="w-8 h-8 text-foreground/10 absolute top-4 right-4" />
+                <div className="mb-4">
+                  <span className="font-heading text-3xl font-bold text-foreground">{testimonial.metric}</span>
+                  <p className="font-body text-xs text-muted-foreground uppercase tracking-wider">{testimonial.metricLabel}</p>
+                </div>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4 italic">
+                  "{testimonial.quote}"
+                </p>
+                <div className="pt-4 border-t border-border/30">
+                  <p className="font-heading text-sm font-medium text-foreground">{testimonial.author}</p>
+                  <p className="font-body text-xs text-muted-foreground">{testimonial.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Growth Charts Section */}
+        <div className={`mt-20 transition-all duration-700 delay-700 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
+          <h3 className="font-heading text-2xl md:text-3xl font-semibold text-center mb-4 text-foreground">
+            Accelerate Your Growth
+          </h3>
+          <p className="font-body text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+            Partners typically see significant revenue and margin improvements within the first 6 months.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Revenue Growth Chart */}
+            <div className="p-6 border border-border/50 rounded-lg bg-card/30 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingUp className="w-5 h-5 text-foreground" />
+                <h4 className="font-heading text-lg font-medium text-foreground">Revenue Growth</h4>
+              </div>
+              <p className="font-body text-sm text-muted-foreground mb-6">Average partner revenue trajectory (indexed)</p>
+              <div className="h-48">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={growthData}>
+                    <defs>
+                      <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--foreground))" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="hsl(var(--foreground))" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <XAxis 
+                      dataKey="month" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                    />
+                    <YAxis hide />
+                    <Area 
+                      type="monotone" 
+                      dataKey="revenue" 
+                      stroke="hsl(var(--foreground))" 
+                      strokeWidth={2}
+                      fill="url(#revenueGradient)"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="font-body text-sm text-muted-foreground">6-month average</span>
+                <span className="font-heading text-xl font-bold text-foreground">+167%</span>
+              </div>
+            </div>
+
+            {/* Profit Margin Chart */}
+            <div className="p-6 border border-border/50 rounded-lg bg-card/30 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingUp className="w-5 h-5 text-foreground" />
+                <h4 className="font-heading text-lg font-medium text-foreground">Profit Margins</h4>
+              </div>
+              <p className="font-body text-sm text-muted-foreground mb-6">Average margin improvement (indexed)</p>
+              <div className="h-48">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={profitData}>
+                    <XAxis 
+                      dataKey="month" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                    />
+                    <YAxis hide />
+                    <Line 
+                      type="monotone" 
+                      dataKey="profit" 
+                      stroke="hsl(var(--foreground))" 
+                      strokeWidth={2}
+                      dot={{ fill: 'hsl(var(--foreground))', strokeWidth: 0, r: 4 }}
+                      activeDot={{ r: 6, fill: 'hsl(var(--foreground))' }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="font-body text-sm text-muted-foreground">Margin potential</span>
+                <span className="font-heading text-xl font-bold text-foreground">300-500%</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
+            {[
+              { value: "150+", label: "Active Partners" },
+              { value: "$2.5M+", label: "Partner Revenue" },
+              { value: "98%", label: "Retention Rate" },
+              { value: "4.9/5", label: "Partner Rating" },
+            ].map((stat, index) => (
+              <div key={index} className="text-center p-4 border border-border/30 rounded-lg bg-card/20">
+                <p className="font-heading text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>
+                <p className="font-body text-xs text-muted-foreground uppercase tracking-wider">{stat.label}</p>
               </div>
             ))}
           </div>
