@@ -22,25 +22,25 @@ const profitData = [
 
 const testimonials = [
   {
-    quote: "Switching to Point Peptides increased our margins by 340% while maintaining the quality our clients expect.",
-    author: "Medical Aesthetics Clinic",
-    role: "Partner since 2023",
-    metric: "+340%",
-    metricLabel: "Margin Growth"
+    quote: "We reduced our procurement costs by over 60% while actually improving product quality. The COA documentation makes audits effortless.",
+    author: "Dr. Sarah M.",
+    role: "Medical Director, Aesthetics Practice",
+    metric: "60%+",
+    metricLabel: "Cost Reduction"
   },
   {
-    quote: "The COA documentation and purity standards have made compliance reviews seamless for our research facility.",
-    author: "Research Laboratory",
-    role: "Partner since 2022",
-    metric: "99.9%",
-    metricLabel: "Purity Verified"
+    quote: "Consistent 99%+ purity across every batch. Our research depends on reliable compounds—Point delivers every time.",
+    author: "James K.",
+    role: "Lab Manager, Biotech Research",
+    metric: "99%+",
+    metricLabel: "Purity Standard"
   },
   {
-    quote: "24-hour quote turnaround and reliable fulfillment have transformed how we manage inventory.",
-    author: "Wellness Center",
-    role: "Partner since 2024",
-    metric: "48h",
-    metricLabel: "Avg. Delivery"
+    quote: "From quote to delivery in under 72 hours. The speed and reliability have completely transformed our inventory management.",
+    author: "Michelle R.",
+    role: "Operations Lead, Wellness Clinic",
+    metric: "<72h",
+    metricLabel: "Avg. Turnaround"
   },
 ];
 
