@@ -1,6 +1,66 @@
 import { useEffect, useRef, useState } from "react";
 import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2, TrendingUp, Quote } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from "recharts";
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, ReferenceDot } from "recharts";
+
+// Animated dot component for the mountain chart
+const AnimatedChartDot = ({ isVisible, data }: { isVisible: boolean; data: typeof growthData }) => {
+  const [dotIndex, setDotIndex] = useState(0);
+  const [animationProgress, setAnimationProgress] = useState(0);
+  
+  useEffect(() => {
+    if (!isVisible) {
+      setDotIndex(0);
+      setAnimationProgress(0);
+      return;
+    }
+    
+    const totalDuration = 2500;
+    const startTime = Date.now();
+    
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / totalDuration, 1);
+      setAnimationProgress(progress);
+      
+      const currentIndex = Math.min(Math.floor(progress * data.length), data.length - 1);
+      setDotIndex(currentIndex);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    const timeout = setTimeout(() => {
+      requestAnimationFrame(animate);
+    }, 300);
+    
+    return () => clearTimeout(timeout);
+  }, [isVisible, data.length]);
+  
+  if (!isVisible || data.length === 0) return null;
+  
+  const currentData = data[dotIndex];
+  // Color transitions from red to green at 25% mark
+  const colorProgress = animationProgress >= 0.25 ? Math.min((animationProgress - 0.25) / 0.25, 1) : 0;
+  const dotColor = animationProgress < 0.25 
+    ? '#ef4444' 
+    : `rgb(${Math.round(239 - (239 - 34) * colorProgress)}, ${Math.round(68 + (197 - 68) * colorProgress)}, ${Math.round(68 + (94 - 68) * colorProgress)})`;
+  
+  return (
+    <ReferenceDot
+      x={currentData?.month}
+      y={currentData?.revenue}
+      r={8}
+      fill={dotColor}
+      stroke="white"
+      strokeWidth={2}
+      style={{
+        filter: `drop-shadow(0 0 8px ${dotColor})`,
+        transition: 'fill 0.1s ease-out'
+      }}
+    />
+  );
+};
 
 const growthData = [
   { month: "Jan", revenue: 45 },
@@ -219,12 +279,16 @@ export const TrustSection = () => {
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={isVisible ? growthData : []}>
                     <defs>
-                      <linearGradient id="revenueGradient" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#ef4444" stopOpacity={0.4}/>
-                        <stop offset="100%" stopColor="#22c55e" stopOpacity={0.4}/>
+                      <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#22c55e" stopOpacity={0.6}/>
+                        <stop offset="50%" stopColor="#eab308" stopOpacity={0.3}/>
+                        <stop offset="100%" stopColor="#ef4444" stopOpacity={0.1}/>
                       </linearGradient>
                       <linearGradient id="revenueStroke" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stopColor="#ef4444"/>
+                        <stop offset="25%" stopColor="#f97316"/>
+                        <stop offset="50%" stopColor="#eab308"/>
+                        <stop offset="75%" stopColor="#84cc16"/>
                         <stop offset="100%" stopColor="#22c55e"/>
                       </linearGradient>
                     </defs>
@@ -234,18 +298,20 @@ export const TrustSection = () => {
                       tickLine={false} 
                       tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                     />
-                    <YAxis hide />
+                    <YAxis hide domain={[0, 'dataMax + 20']} />
                     <Area 
-                      type="monotone" 
+                      type="natural" 
                       dataKey="revenue" 
                       stroke="url(#revenueStroke)" 
-                      strokeWidth={2}
+                      strokeWidth={3}
                       fill="url(#revenueGradient)"
                       isAnimationActive={true}
                       animationBegin={0}
                       animationDuration={2000}
                       animationEasing="ease-out"
+                      baseValue={0}
                     />
+                    <AnimatedChartDot isVisible={isVisible} data={growthData} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
