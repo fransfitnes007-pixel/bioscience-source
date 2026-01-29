@@ -10,9 +10,6 @@ import { getProductImage } from "@/lib/product-images";
 import {
   ArrowLeft,
   ShoppingCart,
-  Plus,
-  Minus,
-  ExternalLink,
   ImageIcon,
   Check,
 } from "lucide-react";
@@ -22,6 +19,31 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ExternalLink } from "lucide-react";
+
+// Available quantity tiers
+const QUANTITY_TIERS = [10, 20, 30] as const;
+type QuantityTier = typeof QUANTITY_TIERS[number];
+
+// Helper to get price for a quantity tier
+const getPriceForTier = (variation: ProductVariation, tier: QuantityTier): number => {
+  switch (tier) {
+    case 10:
+      return variation.price10 ?? 0;
+    case 20:
+      return variation.price20 ?? 0;
+    case 30:
+      return variation.price30 ?? 0;
+    default:
+      return 0;
+  }
+};
+
+// Helper to get original price (before 20% discount)
+const getOriginalPrice = (price: number): number => {
+  if (price === 0) return 0;
+  return Math.round(price / 0.8);
+};
 
 const ProductPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -30,7 +52,7 @@ const ProductPage = () => {
   
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
-  const [quantity, setQuantity] = useState(1);
+  const [selectedQuantity, setSelectedQuantity] = useState<QuantityTier>(10);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   useEffect(() => {
@@ -48,7 +70,7 @@ const ProductPage = () => {
     setProduct(foundProduct);
     if (foundProduct.variations.length > 0) {
       setSelectedVariation(foundProduct.variations[0]);
-      setQuantity(foundProduct.variations[0].moq);
+      setSelectedQuantity(10);
     }
   }, [slug, navigate]);
 
@@ -58,8 +80,7 @@ const ProductPage = () => {
       return;
     }
 
-    // Check if price exists (it may be 0 or undefined for now)
-    const price = selectedVariation.price ?? 0;
+    const price = getPriceForTier(selectedVariation, selectedQuantity);
     if (price === 0) {
       toast.info("Price coming soon - contact us for pricing");
       return;
@@ -67,11 +88,11 @@ const ProductPage = () => {
 
     setIsAddingToCart(true);
     await addToCart({
-      productId: product.slug, // Using slug as ID for local data
-      variationId: `${product.slug}-${selectedVariation.strength}`,
+      productId: product.slug,
+      variationId: `${product.slug}-${selectedVariation.strength}-${selectedQuantity}`,
       productName: product.displayName,
-      variationName: selectedVariation.strength,
-      quantity,
+      variationName: `${selectedVariation.strength} × ${selectedQuantity} vials`,
+      quantity: 1, // Each tier is sold as a single unit (10/20/30 vials)
       price,
     });
     setIsAddingToCart(false);
@@ -89,7 +110,8 @@ const ProductPage = () => {
     );
   }
 
-  const currentPrice = selectedVariation?.price ?? 0;
+  const currentPrice = selectedVariation ? getPriceForTier(selectedVariation, selectedQuantity) : 0;
+  const originalPrice = getOriginalPrice(currentPrice);
 
   return (
     <Layout>
@@ -143,7 +165,7 @@ const ProductPage = () => {
                       key={`${product.slug}-${variation.strength}-${index}`}
                       onClick={() => {
                         setSelectedVariation(variation);
-                        setQuantity(variation.moq);
+                        setSelectedQuantity(10);
                       }}
                       className={`relative p-4 border rounded-xl text-left transition-all ${
                         selectedVariation?.strength === variation.strength
@@ -160,62 +182,68 @@ const ProductPage = () => {
                         {variation.strength}
                       </span>
                       <span className="font-body text-xs text-muted-foreground">
-                        Min: {variation.moq} units
+                        per vial
                       </span>
                     </button>
                   ))}
                 </div>
               </div>
 
+              {/* Quantity Tiers */}
+              <div className="mb-8">
+                <h3 className="font-heading text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">
+                  Select Quantity
+                </h3>
+                <div className="grid grid-cols-3 gap-3">
+                  {QUANTITY_TIERS.map((tier) => {
+                    const tierPrice = selectedVariation ? getPriceForTier(selectedVariation, tier) : 0;
+                    const hasPrice = tierPrice > 0;
+                    
+                    return (
+                      <button
+                        key={tier}
+                        onClick={() => hasPrice && setSelectedQuantity(tier)}
+                        disabled={!hasPrice}
+                        className={`relative p-4 border rounded-xl text-center transition-all ${
+                          selectedQuantity === tier && hasPrice
+                            ? "border-foreground bg-foreground/5 ring-2 ring-foreground/20"
+                            : hasPrice
+                            ? "border-border hover:border-foreground/50"
+                            : "border-border/50 opacity-50 cursor-not-allowed"
+                        }`}
+                      >
+                        {selectedQuantity === tier && hasPrice && (
+                          <div className="absolute top-2 right-2 w-5 h-5 bg-foreground rounded-full flex items-center justify-center">
+                            <Check className="w-3 h-3 text-background" />
+                          </div>
+                        )}
+                        <span className="font-heading font-semibold text-foreground block mb-1">
+                          {tier} Vials
+                        </span>
+                        <span className="font-body text-sm text-muted-foreground">
+                          {hasPrice ? `$${tierPrice.toLocaleString()}` : "N/A"}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Price Display */}
               <div className="flex items-center gap-8 mb-8">
-                <PriceDisplay price={currentPrice} size="lg" />
+                <PriceDisplay 
+                  price={currentPrice} 
+                  originalPrice={originalPrice}
+                  size="lg" 
+                  showDiscount={currentPrice > 0}
+                />
                 <div>
                   <span className="font-body text-sm text-muted-foreground block">
-                    {currentPrice > 0 ? "per unit" : "Price coming soon"}
+                    {currentPrice > 0 ? `for ${selectedQuantity} vials` : "Price coming soon"}
                   </span>
                   <span className="font-heading text-lg font-medium text-foreground">
                     {selectedVariation?.strength}
                   </span>
-                </div>
-              </div>
-
-              {/* Quantity */}
-              <div className="mb-8">
-                <h3 className="font-heading text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">
-                  Quantity
-                </h3>
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center border border-border rounded-lg overflow-hidden">
-                    <button
-                      onClick={() => setQuantity(Math.max(selectedVariation?.moq || 1, quantity - 1))}
-                      className="p-3 hover:bg-secondary/50 transition-colors"
-                      disabled={quantity <= (selectedVariation?.moq || 1)}
-                    >
-                      <Minus className="w-4 h-4" />
-                    </button>
-                    <input
-                      type="number"
-                      value={quantity}
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value) || selectedVariation?.moq || 1;
-                        setQuantity(Math.max(selectedVariation?.moq || 1, val));
-                      }}
-                      className="w-20 text-center font-heading font-medium text-foreground bg-transparent border-x border-border py-3"
-                    />
-                    <button
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="p-3 hover:bg-secondary/50 transition-colors"
-                    >
-                      <Plus className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <div className="font-body text-muted-foreground">
-                    Total:{" "}
-                    <span className="font-heading font-semibold text-foreground">
-                      ${(currentPrice * quantity).toLocaleString("en-US", { minimumFractionDigits: 2 })}
-                    </span>
-                  </div>
                 </div>
               </div>
 
