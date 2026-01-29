@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2, Building2 } from "lucide-react";
+import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2 } from "lucide-react";
 
 const certifications = [
   { icon: FlaskConical, label: "GMP Compliant" },
   { icon: Award, label: "ISO 9001" },
   { icon: CheckCircle2, label: "Lab Verified" },
   { icon: Shield, label: "COA Certified" },
-  { icon: Building2, label: "FDA Registered" },
 ];
 
 const partnerPlaceholders = ["Partner 1", "Partner 2", "Partner 3", "Partner 4"];
