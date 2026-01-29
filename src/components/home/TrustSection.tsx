@@ -217,7 +217,7 @@ export const TrustSection = () => {
               <p className="font-body text-sm text-muted-foreground mb-6">Average partner revenue trajectory (indexed)</p>
               <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={growthData}>
+                  <AreaChart data={isVisible ? growthData : []}>
                     <defs>
                       <linearGradient id="revenueGradient" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stopColor="#ef4444" stopOpacity={0.4}/>
@@ -241,6 +241,10 @@ export const TrustSection = () => {
                       stroke="url(#revenueStroke)" 
                       strokeWidth={2}
                       fill="url(#revenueGradient)"
+                      isAnimationActive={true}
+                      animationBegin={0}
+                      animationDuration={2000}
+                      animationEasing="ease-out"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -260,7 +264,7 @@ export const TrustSection = () => {
               <p className="font-body text-sm text-muted-foreground mb-6">Average margin improvement (indexed)</p>
               <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={profitData}>
+                  <LineChart data={isVisible ? profitData : []}>
                     <defs>
                       <linearGradient id="profitStroke" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stopColor="#ef4444"/>
@@ -284,6 +288,10 @@ export const TrustSection = () => {
                         return <circle cx={cx} cy={cy} r={4} fill={colors[index]} />;
                       }}
                       activeDot={{ r: 6, fill: '#22c55e' }}
+                      isAnimationActive={true}
+                      animationBegin={200}
+                      animationDuration={2000}
+                      animationEasing="ease-out"
                     />
                   </LineChart>
                 </ResponsiveContainer>
