@@ -219,9 +219,13 @@ export const TrustSection = () => {
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={growthData}>
                     <defs>
-                      <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(var(--foreground))" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="hsl(var(--foreground))" stopOpacity={0}/>
+                      <linearGradient id="revenueGradient" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#ef4444" stopOpacity={0.4}/>
+                        <stop offset="100%" stopColor="#22c55e" stopOpacity={0.4}/>
+                      </linearGradient>
+                      <linearGradient id="revenueStroke" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#ef4444"/>
+                        <stop offset="100%" stopColor="#22c55e"/>
                       </linearGradient>
                     </defs>
                     <XAxis 
@@ -234,7 +238,7 @@ export const TrustSection = () => {
                     <Area 
                       type="monotone" 
                       dataKey="revenue" 
-                      stroke="hsl(var(--foreground))" 
+                      stroke="url(#revenueStroke)" 
                       strokeWidth={2}
                       fill="url(#revenueGradient)"
                     />
@@ -257,6 +261,12 @@ export const TrustSection = () => {
               <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={profitData}>
+                    <defs>
+                      <linearGradient id="profitStroke" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#ef4444"/>
+                        <stop offset="100%" stopColor="#22c55e"/>
+                      </linearGradient>
+                    </defs>
                     <XAxis 
                       dataKey="month" 
                       axisLine={false} 
@@ -267,10 +277,13 @@ export const TrustSection = () => {
                     <Line 
                       type="monotone" 
                       dataKey="profit" 
-                      stroke="hsl(var(--foreground))" 
+                      stroke="url(#profitStroke)" 
                       strokeWidth={2}
-                      dot={{ fill: 'hsl(var(--foreground))', strokeWidth: 0, r: 4 }}
-                      activeDot={{ r: 6, fill: 'hsl(var(--foreground))' }}
+                      dot={({ cx, cy, index }) => {
+                        const colors = ['#ef4444', '#f97316', '#eab308', '#84cc16', '#22c55e', '#22c55e'];
+                        return <circle cx={cx} cy={cy} r={4} fill={colors[index]} />;
+                      }}
+                      activeDot={{ r: 6, fill: '#22c55e' }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
