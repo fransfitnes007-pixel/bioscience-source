@@ -1,12 +1,12 @@
 // Product image imports
 import amino1mq from "@/assets/products/5-amino-1mq.png";
 import aod from "@/assets/products/aod.png";
-import ara290 from "@/assets/products/ara-290.png";
+
 import bacWater from "@/assets/products/bac-water.png";
 import bpc157 from "@/assets/products/bpc-157.png";
 import bpc157Tb500 from "@/assets/products/bpc-157-tb500.png";
 import cagrilintide from "@/assets/products/cagrilintide.png";
-import cerebrolysin from "@/assets/products/cerebrolysin.png";
+
 import cjc1295Ipamorelin from "@/assets/products/cjc-1295-ipamorelin.png";
 import cjc1295NoDac from "@/assets/products/cjc-1295-no-dac.png";
 import dsip from "@/assets/products/dsip.png";
@@ -17,13 +17,13 @@ import ghrp6 from "@/assets/products/ghrp-6.png";
 import glowStack from "@/assets/products/glow-stack.png";
 import glp1Sema from "@/assets/products/glp1-sema.png";
 import glp1Triz from "@/assets/products/glp1-triz.png";
-import glp1 from "@/assets/products/glp1.png";
+
 import glp3Reta from "@/assets/products/glp3-reta.png";
 import glutathione from "@/assets/products/glutathione.png";
 import hcg from "@/assets/products/hcg.png";
 import hghSomatropin from "@/assets/products/hgh-somatropin.png";
 import hexarelin from "@/assets/products/hexarelin.png";
-import hyaluronicAcid from "@/assets/products/hyaluronic-acid.png";
+
 import igf1Lr3 from "@/assets/products/igf-1-lr3.png";
 import igfDes from "@/assets/products/igf-des.png";
 import insulin from "@/assets/products/insulin.png";
@@ -63,14 +63,14 @@ export const productImages: Record<string, string> = {
   "cagrilintide": cagrilintide,
   "mazdutide": mazdutide,
   "survodutide": survodutide,
-  "glp-1": glp1,
+  
   
   // Recovery & Regenerative
   "bpc-157": bpc157,
   "tb500": tb500,
   "thymosin-alpha-1": thymosinAlpha1,
   "ss-31": ss31,
-  "ara-290": ara290,
+  
   "thymalin": thymalin,
   "epithalon": epithalon,
   "aod": aod,
@@ -79,7 +79,7 @@ export const productImages: Record<string, string> = {
   // Cognitive & Neuro
   "semax": semax,
   "selank": selank,
-  "cerebrolysin": cerebrolysin,
+  
   "dsip": dsip,
   "pinealon": pinealon,
   
@@ -116,7 +116,7 @@ export const productImages: Record<string, string> = {
   "slu-pp-322": sluPp322,
   "bac-water": bacWater,
   "insulin": insulin,
-  "hyaluronic-acid": hyaluronicAcid,
+  
   "follistatin": follistatin,
   "glow": glowStack,
   "klow": klowStack,
