@@ -8,7 +8,7 @@ const certifications = [
   { icon: Shield, label: "COA Certified" },
 ];
 
-const partnerPlaceholders = ["Partner 1", "Partner 2", "Partner 3", "Partner 4"];
+
 
 const trustPoints = [
   {
@@ -119,29 +119,6 @@ export const TrustSection = () => {
           </div>
         </div>
 
-        {/* Partner Logos Placeholder */}
-        <div className={`mt-16 pt-12 border-t border-border/30 transition-all duration-700 delay-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}>
-          <h3 className="font-heading text-lg font-medium text-center mb-8 text-muted-foreground">
-            Trusted Partners
-          </h3>
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-            {partnerPlaceholders.map((partner, index) => (
-              <div
-                key={index}
-                className="w-24 h-12 md:w-32 md:h-14 rounded border border-dashed border-border/40 bg-card/20 flex items-center justify-center"
-              >
-                <span className="font-body text-[10px] text-muted-foreground/50 uppercase tracking-wider">
-                  {partner}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="font-body text-xs text-muted-foreground/50 text-center mt-6">
-            Partner logos coming soon
-          </p>
-        </div>
       </div>
     </section>
   );
