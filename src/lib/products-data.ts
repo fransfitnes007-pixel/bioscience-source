@@ -120,18 +120,6 @@ export const productCategories: ProductCategory[] = [
         studiesFindings: "Produces weight reduction endpoints in investigational metabolic programs (study dependent). Suppresses appetite and reduces energy intake via GLP-1 pathway activity (context dependent). Enhances energy expenditure and lipid utilization signaling through glucagon-receptor components (context dependent). Improves glycemic biomarkers via incretin-associated signaling. Improves cardiometabolic biomarkers in obesity/metabolic disease research contexts (study dependent). Provides a tool framework for studying receptor-balanced polyagonism and weight-loss magnitude.",
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=survodutide+GLP-1+glucagon+dual+agonist"
       },
-      {
-        name: "GLP-1",
-        displayName: "GLP-1",
-        slug: "glp-1",
-        variations: [
-          { strength: "5mg", moq: 10 },
-        ],
-        description: "GLP-1 (glucagon-like peptide-1) is an endogenous incretin hormone secreted primarily from intestinal L-cells following nutrient exposure. It signals through the GLP-1 receptor to coordinate glucose-dependent insulin secretion, glucagon suppression, gastric emptying modulation, and central satiety signaling. In research and drug development, native GLP-1 biology serves as the physiologic blueprint for incretin therapeutics and appetite regulation studies.",
-        scientificPurpose: "Designed to study native incretin physiology, GLP-1 receptor signaling kinetics, glucose homeostasis regulation, gastric motility control, and appetite/satiety circuitry.",
-        studiesFindings: "Enhances glucose-dependent insulin secretion during nutrient availability. Suppresses glucagon secretion in postprandial contexts (context dependent). Slows gastric emptying, moderating nutrient delivery and postprandial glucose excursions. Activates central satiety pathways and reduces energy intake in controlled contexts. Improves glycemic regulation endpoints in metabolic studies. Provides a core physiologic reference model for incretin receptor signaling research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=glucagon-like+peptide-1+GLP-1+receptor"
-      },
     ]
   },
   {
@@ -189,18 +177,6 @@ export const productCategories: ProductCategory[] = [
         scientificPurpose: "Designed to study mitochondrial bioenergetics and electron transport chain efficiency, cardiolipin biology and membrane organization, oxidative phosphorylation regulation, mitochondrial ROS production and oxidative stress, cristae structure maintenance, and cellular resilience under metabolic or ischemic stress.",
         studiesFindings: "Improves mitochondrial respiration and ATP production efficiency across multiple tissue types (context dependent). Stabilizes cardiolipin-dependent electron transport chain organization and cristae architecture. Reduces mitochondrial ROS production and oxidative stress markers in experimental models. Improves cardiac function endpoints in heart failure research (study dependent). Demonstrates renoprotective effects in acute kidney injury and ischemia-reperfusion models. Supports neuronal energetics and neuroprotective signaling in CNS research contexts. Improves exercise tolerance and skeletal muscle function in mitochondrial myopathy studies. Reduces ischemia-reperfusion injury across multiple organ systems. Supports cellular survival under metabolic stress conditions. Provides a reference peptide for studying cardiolipin-targeted bioenergetic interventions.",
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=elamipretide+SS-31+mitochondrial"
-      },
-      {
-        name: "ARA-290",
-        displayName: "ARA-290",
-        slug: "ara-290",
-        variations: [
-          { strength: "10mg", moq: 10 },
-        ],
-        description: "ARA-290 (cibinetide) is a synthetic 11-amino acid peptide derived from the erythropoietin (EPO) molecule, specifically engineered to selectively activate tissue-protective signaling through the innate repair receptor (IRR) complex without stimulating erythropoiesis or thrombopoiesis. The IRR is a heteromeric receptor involving EPOR and βcR (CD131) subunits, distinct from the classical hematopoietic EPO receptor. Mechanistically, ARA-290 activates anti-inflammatory, anti-apoptotic, and tissue-protective pathways while avoiding the cardiovascular risks associated with erythropoiesis-stimulating agents. It is studied in neuropathy research, inflammatory conditions, and tissue injury models for its cytoprotective effects.",
-        scientificPurpose: "Designed to study non-hematopoietic EPO-pathway signaling through the innate repair receptor, tissue-protective and anti-apoptotic mechanisms, anti-inflammatory pathway modulation, neuropathy and neuroregeneration endpoints, and metabolic tissue protection without erythropoietic stimulation.",
-        studiesFindings: "Activates innate repair receptor signaling without increasing red blood cell production (context dependent). Reduces inflammatory signaling markers and pro-inflammatory cytokine levels in experimental contexts. Demonstrates neuroprotective effects and improves functional endpoints in diabetic neuropathy studies (study dependent). Supports tissue-protective signaling in models of cardiac, renal, and neural injury. Improves corneal nerve regeneration in small fiber neuropathy research. Reduces pain-associated endpoints in neuropathic pain models. Demonstrates metabolic protective effects in type 2 diabetes research contexts. Supports wound healing and tissue repair signaling without vascular risk factors. Provides a tool for separating EPO's tissue-protective from hematopoietic effects. Enables investigation of innate repair receptor biology and therapeutic applications.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=ARA-290+cibinetide+innate+repair+receptor"
       },
       {
         name: "THYMALIN",
@@ -283,18 +259,6 @@ export const productCategories: ProductCategory[] = [
         scientificPurpose: "Designed to study anxiolytic neuropeptide mechanisms, GABAergic system modulation, serotonergic and dopaminergic neurotransmission, stress adaptation signaling, cognitive and memory-associated endpoints, and immune-neuroendocrine pathway interactions in experimental contexts.",
         studiesFindings: "Reduces anxiety-related behavioral endpoints in preclinical stress models (context dependent). Modulates GABAergic neurotransmission and enhances inhibitory signaling tone. Influences serotonin and dopamine metabolism in CNS models (study dependent). Supports cognitive performance and memory consolidation endpoints in animal research. Affects gene expression patterns related to neuroplasticity and synaptic function. Demonstrates immunomodulatory signaling through tuftsin-related pathways. Supports stress adaptation and HPA axis regulation in experimental frameworks. Enhances attention and reduces stress-induced cognitive impairment in some models. Provides a tool for studying tuftsin-derived neuropeptide pharmacology and CNS signaling.",
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Selank+tuftsin+peptide"
-      },
-      {
-        name: "CEREBROLYSIN",
-        displayName: "CEREBROLYSIN",
-        slug: "cerebrolysin",
-        variations: [
-          { strength: "60mg", moq: 6 },
-        ],
-        description: "Cerebrolysin is a porcine brain–derived peptide preparation containing a standardized mixture of low-molecular-weight neuropeptides and amino acids with neurotrophic factor–like activity. It is studied extensively in neurobiology research and clinical programs for its effects on neuroplasticity, synaptic remodeling, neuronal survival signaling, and functional recovery after CNS injury or neurodegenerative stress. Mechanistically, Cerebrolysin is reported to mimic endogenous neurotrophic factor signaling (BDNF-like, NGF-like effects), modulate synaptic protein expression, and influence neuroinflammatory and oxidative stress pathways. Research applications span stroke recovery, traumatic brain injury, Alzheimer's disease modeling, and general neuroprotection frameworks.",
-        scientificPurpose: "Designed to study neurotrophic-like signaling, neuroplasticity and synaptic remodeling, neuronal survival and anti-apoptotic pathways, functional neurorecovery after ischemic or traumatic insult, neuroinflammation modulation, and cognitive/behavioral outcome endpoints in experimental and clinical neuroscience contexts.",
-        studiesFindings: "Supports neuroplasticity-associated signaling and synaptic protein expression in experimental contexts (context dependent). Improves functional recovery and neurological outcome endpoints in stroke and TBI clinical research (study dependent). Modulates neuronal survival pathways and anti-apoptotic signaling in preclinical models. Influences neuroinflammation-related cytokine and oxidative stress markers. Demonstrates cognitive improvement endpoints in Alzheimer's disease research frameworks (context dependent). Supports dendritic branching and synaptogenesis signaling in developmental models. Enhances memory and learning-associated endpoints in animal cognition studies. Provides a complex-peptide tool for studying multi-pathway neurotrophic interventions. Used as a reference preparation for evaluating peptide-based neurorepair strategies.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Cerebrolysin+neurotrophic+peptide+recovery"
       },
       {
         name: "DSIP",
@@ -699,18 +663,6 @@ export const productCategories: ProductCategory[] = [
         scientificPurpose: "Designed to study multi-peptide synergy for tissue repair, anti-inflammatory effects, and skin regeneration.",
         studiesFindings: "Combines tissue repair with anti-inflammatory signaling. Supports collagen synthesis and wound healing. Modulates inflammatory pathways. Used in aesthetic and regenerative research.",
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=KPV+anti-inflammatory+peptide"
-      },
-      {
-        name: "HYALURONIC ACID",
-        displayName: "HYALURONIC ACID",
-        slug: "hyaluronic-acid",
-        variations: [
-          { strength: "2ml", moq: 10 },
-        ],
-        description: "Hyaluronic Acid is a naturally occurring glycosaminoglycan found throughout connective tissue. It is studied for its roles in skin hydration, joint lubrication, and tissue engineering applications.",
-        scientificPurpose: "Designed to study tissue hydration, extracellular matrix function, wound healing, and dermal filler applications.",
-        studiesFindings: "Provides tissue hydration and lubrication. Supports wound healing and tissue repair. Used in dermal filler and joint health applications. Influences extracellular matrix organization.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=hyaluronic+acid+skin+hydration"
       },
     ]
   },
