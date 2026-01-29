@@ -1,5 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock } from "lucide-react";
+import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2, Building2 } from "lucide-react";
+
+const certifications = [
+  { icon: FlaskConical, label: "GMP Compliant" },
+  { icon: Award, label: "ISO 9001" },
+  { icon: CheckCircle2, label: "Lab Verified" },
+  { icon: Shield, label: "COA Certified" },
+  { icon: Building2, label: "FDA Registered" },
+];
+
+const partnerPlaceholders = ["Partner 1", "Partner 2", "Partner 3", "Partner 4"];
 
 const trustPoints = [
   {
@@ -84,6 +94,54 @@ export const TrustSection = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Certification Badges */}
+        <div className={`mt-16 transition-all duration-700 delay-500 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
+          <h3 className="font-heading text-lg font-medium text-center mb-8 text-muted-foreground">
+            Quality & Compliance Standards
+          </h3>
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+            {certifications.map((cert, index) => (
+              <div
+                key={cert.label}
+                className="flex flex-col items-center gap-2 group"
+              >
+                <div className="w-16 h-16 rounded-full border border-border/50 bg-card/50 flex items-center justify-center group-hover:border-foreground/30 transition-colors">
+                  <cert.icon className="w-7 h-7 text-foreground/70" strokeWidth={1.5} />
+                </div>
+                <span className="font-body text-xs text-muted-foreground text-center max-w-[80px]">
+                  {cert.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Partner Logos Placeholder */}
+        <div className={`mt-16 pt-12 border-t border-border/30 transition-all duration-700 delay-700 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
+          <h3 className="font-heading text-lg font-medium text-center mb-8 text-muted-foreground">
+            Trusted Partners
+          </h3>
+          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+            {partnerPlaceholders.map((partner, index) => (
+              <div
+                key={index}
+                className="w-24 h-12 md:w-32 md:h-14 rounded border border-dashed border-border/40 bg-card/20 flex items-center justify-center"
+              >
+                <span className="font-body text-[10px] text-muted-foreground/50 uppercase tracking-wider">
+                  {partner}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="font-body text-xs text-muted-foreground/50 text-center mt-6">
+            Partner logos coming soon
+          </p>
         </div>
       </div>
     </section>
