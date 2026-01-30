@@ -48,22 +48,27 @@ const AnimatedDollarSymbol = ({ isVisible }: { isVisible: boolean }) => {
   const x = 5 + 85 * progress;
   const y = 85 - 70 * progress;
   
-  // Color transition: red -> green after 25%
-  const colorProgress = progress >= 0.25 ? Math.min((progress - 0.25) / 0.5, 1) : 0;
-  const r = Math.round(239 - (239 - 34) * colorProgress);
-  const g = Math.round(68 + (197 - 68) * colorProgress);
-  const b = Math.round(68 + (94 - 68) * colorProgress);
+  // Color transition: starts pure red, transitions to bright green
+  // Red at 0%, transitions through orange/yellow, ends green at 100%
+  const r = Math.round(239 - 205 * progress); // 239 -> 34
+  const g = Math.round(68 + 129 * progress);  // 68 -> 197
+  const b = Math.round(68 + 26 * progress);   // 68 -> 94
   const color = `rgb(${r}, ${g}, ${b})`;
+  
+  // Glow intensity increases as it goes up (stronger green glow at top)
+  const glowSize = 8 + 16 * progress;
+  const glowOpacity = 0.6 + 0.4 * progress;
   
   return (
     <div
-      className="absolute pointer-events-none font-heading font-bold text-lg"
+      className="absolute pointer-events-none font-heading font-bold text-xl"
       style={{
         left: `${x}%`,
         top: `${y}%`,
         transform: 'translate(-50%, -50%)',
         color: color,
-        textShadow: `0 0 8px ${color}`,
+        textShadow: `0 0 ${glowSize}px rgba(${r}, ${g}, ${b}, ${glowOpacity}), 0 0 ${glowSize * 2}px rgba(${r}, ${g}, ${b}, ${glowOpacity * 0.5})`,
+        fontSize: `${18 + 4 * progress}px`,
       }}
     >
       $
