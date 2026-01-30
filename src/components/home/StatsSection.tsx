@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 const stats = [
   { value: "99.9%", label: "Purity Standard" },
   { value: "50+", label: "Research Compounds" },
-  { value: "24-72h", label: "Quote Turnaround" },
+  { value: "24-72h", label: "Order Turnaround" },
   { value: "300-500%", label: "Margin Potential" },
 ];
 
