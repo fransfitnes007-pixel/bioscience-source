@@ -14,8 +14,8 @@ const steps = [
   },
   {
     icon: MessageSquare,
-    title: "Submit Inquiry / Receive Quote",
-    description: "Request a personalized quote for your order and our team will respond promptly.",
+    title: "Place Order / Receive Tracking Details",
+    description: "Complete your order and receive tracking details once your shipment is on its way.",
   },
 ];
 
