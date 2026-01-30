@@ -11,7 +11,7 @@ const growthData = [
   { month: "Jun", revenue: 120 },
 ];
 
-// Animated $ symbol component for the mountain chart
+// Animated $ symbol overlay for the mountain chart
 const AnimatedDollarSymbol = ({ isVisible }: { isVisible: boolean }) => {
   const [progress, setProgress] = useState(0);
   
@@ -27,7 +27,6 @@ const AnimatedDollarSymbol = ({ isVisible }: { isVisible: boolean }) => {
     const animate = () => {
       const elapsed = Date.now() - startTime;
       const p = Math.min(elapsed / totalDuration, 1);
-      // Ease-out cubic for smooth deceleration
       const eased = 1 - Math.pow(1 - p, 3);
       setProgress(eased);
       
@@ -43,16 +42,11 @@ const AnimatedDollarSymbol = ({ isVisible }: { isVisible: boolean }) => {
     return () => clearTimeout(timeout);
   }, [isVisible]);
   
-  if (!isVisible) return null;
+  if (!isVisible || progress === 0) return null;
   
-  // Calculate position along the path (bottom-left to top-right)
-  const startX = 8;
-  const endX = 92;
-  const startY = 85;
-  const endY = 15;
-  
-  const x = startX + (endX - startX) * progress;
-  const y = startY + (endY - startY) * progress;
+  // Position: bottom-left to top-right
+  const x = 5 + 85 * progress;
+  const y = 85 - 70 * progress;
   
   // Color transition: red -> green after 25%
   const colorProgress = progress >= 0.25 ? Math.min((progress - 0.25) / 0.5, 1) : 0;
@@ -62,24 +56,18 @@ const AnimatedDollarSymbol = ({ isVisible }: { isVisible: boolean }) => {
   const color = `rgb(${r}, ${g}, ${b})`;
   
   return (
-    <g style={{ pointerEvents: 'none' }}>
-      <text
-        x={`${x}%`}
-        y={`${y}%`}
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={color}
-        fontSize="18"
-        fontWeight="700"
-        fontFamily="var(--font-heading)"
-        style={{
-          filter: `drop-shadow(0 0 6px ${color})`,
-          transition: 'fill 0.05s ease-out'
-        }}
-      >
-        $
-      </text>
-    </g>
+    <div
+      className="absolute pointer-events-none font-heading font-bold text-lg"
+      style={{
+        left: `${x}%`,
+        top: `${y}%`,
+        transform: 'translate(-50%, -50%)',
+        color: color,
+        textShadow: `0 0 8px ${color}`,
+      }}
+    >
+      $
+    </div>
   );
 };
 
@@ -287,7 +275,7 @@ export const TrustSection = () => {
                 <h4 className="font-heading text-lg font-medium text-foreground">Revenue Growth</h4>
               </div>
               <p className="font-body text-sm text-muted-foreground mb-6">Average partner revenue trajectory (indexed)</p>
-              <div className="h-48">
+              <div className="h-48 relative">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={isVisible ? growthData : []}>
                     <defs>
@@ -323,9 +311,9 @@ export const TrustSection = () => {
                       animationEasing="ease-out"
                       baseValue={0}
                     />
-                    <AnimatedDollarSymbol isVisible={isVisible} />
                   </AreaChart>
                 </ResponsiveContainer>
+                <AnimatedDollarSymbol isVisible={isVisible} />
               </div>
               <div className="mt-4 flex items-center justify-between">
                 <span className="font-body text-sm text-muted-foreground">6-month average</span>
