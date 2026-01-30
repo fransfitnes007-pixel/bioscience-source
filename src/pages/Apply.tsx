@@ -84,6 +84,18 @@ const Apply = () => {
 
       if (error) throw error;
 
+      // Send confirmation email (non-blocking)
+      supabase.functions.invoke("send-application-email", {
+        body: {
+          type: "confirmation",
+          email: formData.email,
+          contactName: formData.contactName,
+          businessName: formData.businessName,
+        },
+      }).catch((emailError) => {
+        console.error("Failed to send confirmation email:", emailError);
+      });
+
       toast.success("Application submitted successfully! We'll respond within 24 hours.");
       navigate("/");
     } catch (error: any) {
