@@ -2,6 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2, TrendingUp, Quote } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, ReferenceDot } from "recharts";
 
+const growthData = [
+  { month: "Jan", revenue: 45 },
+  { month: "Feb", revenue: 52 },
+  { month: "Mar", revenue: 61 },
+  { month: "Apr", revenue: 78 },
+  { month: "May", revenue: 95 },
+  { month: "Jun", revenue: 120 },
+];
+
 // Animated dot component for the mountain chart
 const AnimatedChartDot = ({ isVisible, data }: { isVisible: boolean; data: typeof growthData }) => {
   const [dotIndex, setDotIndex] = useState(0);
@@ -61,15 +70,6 @@ const AnimatedChartDot = ({ isVisible, data }: { isVisible: boolean; data: typeo
     />
   );
 };
-
-const growthData = [
-  { month: "Jan", revenue: 45 },
-  { month: "Feb", revenue: 52 },
-  { month: "Mar", revenue: 61 },
-  { month: "Apr", revenue: 78 },
-  { month: "May", revenue: 95 },
-  { month: "Jun", revenue: 120 },
-];
 
 const profitData = [
   { month: "Jan", profit: 30 },
