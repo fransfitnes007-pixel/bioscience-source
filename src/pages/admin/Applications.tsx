@@ -128,43 +128,81 @@ const Applications = () => {
     const wasApproved = selectedApp.status !== "approved" && newStatus === "approved";
     
     try {
-      const { error } = await supabase
-        .from("applications")
-        .update({
-          status: newStatus as "pending" | "approved" | "denied",
-          notes,
-          reviewed_at: new Date().toISOString(),
-        })
-        .eq("id", selectedApp.id);
-
-      if (error) throw error;
-
-      // Send approval email if status changed to approved
+      // If approving, first create the partner account
       if (wasApproved) {
+        // Create partner account via edge function
+        const { data: accountData, error: accountError } = await supabase.functions.invoke("create-partner-account", {
+          body: {
+            applicationId: selectedApp.id,
+            email: selectedApp.email,
+            contactName: selectedApp.contact_name,
+            businessName: selectedApp.business_name,
+            phone: selectedApp.phone,
+            website: selectedApp.website,
+            country: selectedApp.country,
+          },
+        });
+
+        if (accountError || !accountData?.success) {
+          console.error("Failed to create partner account:", accountError || accountData?.error);
+          toast({
+            title: "Error",
+            description: accountData?.error || "Failed to create partner account",
+            variant: "destructive",
+          });
+          setIsSaving(false);
+          return;
+        }
+
+        // Update application status
+        const { error: updateError } = await supabase
+          .from("applications")
+          .update({
+            status: "approved" as const,
+            notes,
+            reviewed_at: new Date().toISOString(),
+          })
+          .eq("id", selectedApp.id);
+
+        if (updateError) throw updateError;
+
+        // Send welcome email with setup link
         const { error: emailError } = await supabase.functions.invoke("send-application-email", {
           body: {
             type: "approved",
             email: selectedApp.email,
             contactName: selectedApp.contact_name,
             businessName: selectedApp.business_name,
-            approvalLink: "https://pointbiosciences.com/access",
+            setupLink: accountData.setupLink,
           },
         });
 
         if (emailError) {
           console.error("Failed to send approval email:", emailError);
           toast({
-            title: "Saved with Warning",
-            description: "Application approved but email failed to send",
+            title: "Account Created",
+            description: "Partner account created but welcome email failed to send. Please resend manually.",
             variant: "destructive",
           });
         } else {
           toast({
             title: "Approved",
-            description: "Application approved and welcome email sent",
+            description: "Partner account created and setup email sent",
           });
         }
       } else {
+        // Just update status without creating account
+        const { error } = await supabase
+          .from("applications")
+          .update({
+            status: newStatus as "pending" | "approved" | "denied",
+            notes,
+            reviewed_at: new Date().toISOString(),
+          })
+          .eq("id", selectedApp.id);
+
+        if (error) throw error;
+
         toast({
           title: "Saved",
           description: "Application updated successfully",

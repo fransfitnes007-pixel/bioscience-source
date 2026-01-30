@@ -17,6 +17,7 @@ import Access from "./pages/Access";
 import Apply from "./pages/Apply";
 import NotFound from "./pages/NotFound";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import SetPassword from "./pages/SetPassword";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminApplications from "./pages/admin/Applications";
@@ -45,6 +46,7 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/access" element={<Access />} />
             <Route path="/apply" element={<Apply />} />
+            <Route path="/set-password" element={<SetPassword />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
