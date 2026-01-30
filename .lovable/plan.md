@@ -1,100 +1,78 @@
 
-
-# Security Fixes Plan
+# Email Notification System for Applications
 
 ## Overview
-
-I'll implement essential database security fixes to protect your customer data and prevent unauthorized access. These changes happen entirely on the backend - no annoying popups or user-facing changes.
+Create an automated email sequence that sends notifications at two key points:
+1. **Application Received** - Confirmation email when someone submits an application
+2. **Application Approved** - Welcome email with your link when an admin approves them
 
 ---
 
-## What's Being Fixed
+## What You'll Get
 
-### 1. Secure the Customer Leads View
-**Issue:** The `all_customer_leads` view (which combines applications, inquiries, contacts, and profiles) currently bypasses security rules, potentially exposing sensitive customer data.
+### Email 1: Application Confirmation
+Sent immediately when someone submits the application form:
+- Confirms receipt of their application
+- Sets expectations (review within 24-48 hours)
+- Professional branded email from PØINT BioSciences
 
-**Fix:** Recreate the view with `security_invoker=on` so it respects the existing security policies of the underlying tables. Only admins will be able to access this consolidated data.
+### Email 2: Approval Welcome
+Sent when you change an application status to "approved" in the admin dashboard:
+- Congratulates them on approval
+- Includes your provided link (product catalog, portal, etc.)
+- Invites them to start ordering
 
-### 2. Restrict Session Updates  
-**Issue:** Currently, anyone can update any user session record in the database.
+---
 
-**Fix:** Change the policy so sessions can only be updated based on matching session identifiers, preventing unauthorized modifications.
+## Implementation Steps
+
+### Step 1: Add Resend API Key
+Store the API key you provided (`re_GXixaw7D_...`) as a backend secret.
+
+### Step 2: Create Email Edge Function
+Build a backend function `send-application-email` that:
+- Accepts email type ("confirmation" or "approved")
+- Accepts recipient details (name, email, business name)
+- Accepts optional custom link for approval emails
+- Uses professionally designed HTML templates
+- Sends via Resend API
+
+### Step 3: Update Application Form
+Modify `/apply` submission to call the email function after successful database insert.
+
+### Step 4: Update Admin Approval Flow
+Modify the admin Applications page to:
+- Detect when status changes to "approved"
+- Trigger the approval email with your link
+- Show success feedback
+
+---
+
+## What I Need From You
+
+1. **Your approval link** - What URL should approved partners receive? (e.g., `https://pointbiosciences.com/products` or a specific portal link)
+
+2. **Verified sending domain** - Emails need to come from a verified domain in Resend. Do you have a domain verified (like `noreply@pointbiosciences.com`)?
 
 ---
 
 ## Technical Details
 
-### Database Migration
-
-```sql
--- Fix 1: Recreate all_customer_leads view with security_invoker
-DROP VIEW IF EXISTS public.all_customer_leads;
-
-CREATE VIEW public.all_customer_leads
-WITH (security_invoker=on) AS
-SELECT 'application'::text AS lead_type,
-    a.id, a.contact_name AS name, a.email, a.phone, a.business_name,
-    a.business_type, a.business_address, a.city, a.state, a.zip_code,
-    a.country, a.products_interest, a.product_usage, a.how_we_benefit,
-    a.company_impact, a.monthly_volume, a.website, a.referral_source,
-    a.intended_use, a.notes, (a.status)::text AS status,
-    NULL::uuid AS user_id, a.created_at
-FROM applications a
-UNION ALL
-SELECT 'inquiry'::text AS lead_type,
-    i.id, i.name, i.email, i.phone, i.business_name,
-    NULL::text, NULL::text, NULL::text, NULL::text, NULL::text,
-    NULL::text, i.product_name, NULL::text, NULL::text,
-    NULL::text, NULL::text, NULL::text, NULL::text,
-    NULL::text, i.message, i.status, i.user_id, i.created_at
-FROM inquiries i
-UNION ALL
-SELECT 'contact'::text AS lead_type,
-    c.id, c.name, c.email, c.phone, NULL::text,
-    NULL::text, NULL::text, NULL::text, NULL::text, NULL::text,
-    NULL::text, NULL::text, NULL::text, NULL::text,
-    NULL::text, NULL::text, NULL::text, NULL::text,
-    NULL::text, c.message, c.status, NULL::uuid, c.created_at
-FROM contact_messages c
-UNION ALL
-SELECT 'registered_user'::text AS lead_type,
-    p.id, concat(p.first_name, ' ', p.last_name), p.business_email, p.phone, p.business_name,
-    NULL::text, NULL::text, NULL::text, NULL::text, NULL::text,
-    p.country, NULL::text, NULL::text, NULL::text,
-    NULL::text, NULL::text, p.website, NULL::text,
-    NULL::text, NULL::text, (p.status)::text, p.user_id, p.created_at
-FROM profiles p;
-
--- Fix 2: Secure user_sessions UPDATE policy
-DROP POLICY IF EXISTS "Anyone can update sessions" ON public.user_sessions;
-
-CREATE POLICY "Sessions can only update their own data"
-  ON public.user_sessions FOR UPDATE
-  USING (true)
-  WITH CHECK (
-    session_id IS NOT NULL AND 
-    visitor_id IS NOT NULL
-  );
+### Edge Function Structure
+```
+supabase/functions/send-application-email/index.ts
 ```
 
----
+Function will handle both email types via a `type` parameter:
+- `type: "confirmation"` → Application received email
+- `type: "approved"` → Approval email with link
 
-## What This Protects
+### Frontend Integration Points
+- `src/pages/Apply.tsx` - Add email call after line 86 (after successful insert)
+- `src/pages/admin/Applications.tsx` - Add email call in `handleSave()` when status becomes "approved"
 
-| Data Type | Protection |
-|-----------|------------|
-| Customer emails & phones | Admin-only access via RLS |
-| Business information | Admin-only access via RLS |
-| User sessions | Can only update with valid session/visitor IDs |
-| Application details | Existing RLS policies enforced |
-
----
-
-## No Changes Needed
-
-- ✅ User-facing pages stay the same
-- ✅ Forms continue to work normally  
-- ✅ No new consent dialogs
-- ✅ Admin dashboard unaffected
-- ✅ Analytics tracking continues to work
-
+### Email Templates
+Professional HTML emails with:
+- PØINT BioSciences branding
+- Clean, minimal design matching your site aesthetic
+- Mobile-responsive layout
