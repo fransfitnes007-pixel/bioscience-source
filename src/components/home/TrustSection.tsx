@@ -137,7 +137,7 @@ const trustPoints = [
   {
     icon: Clock,
     title: "Fast Turnaround",
-    description: "Quotes within 24-72 hours. Streamlined fulfillment for approved partners.",
+    description: "Tracking information sent within 24-72 hours. Streamlined fulfillment for approved partners.",
   },
   {
     icon: Globe,
