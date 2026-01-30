@@ -17,6 +17,8 @@ interface EmailRequest {
   approvalLink?: string; // Deprecated, kept for backward compatibility
 }
 
+const LOGO_URL = "https://nunwpsiixyqmbgvvokmq.supabase.co/storage/v1/object/public/email-assets/logo-white.png";
+
 const getConfirmationEmailHTML = (contactName: string, businessName: string) => `
 <!DOCTYPE html>
 <html>
@@ -33,8 +35,7 @@ const getConfirmationEmailHTML = (contactName: string, businessName: string) => 
           <!-- Header -->
           <tr>
             <td style="padding: 40px 40px 20px; text-align: center; border-bottom: 1px solid #222;">
-              <h1 style="margin: 0; font-size: 28px; font-weight: 300; color: #ffffff; letter-spacing: 2px;">PØINT</h1>
-              <p style="margin: 4px 0 0; font-size: 11px; color: #888; letter-spacing: 3px; text-transform: uppercase;">BioSciences</p>
+              <img src="${LOGO_URL}" alt="PØINT BioSciences" width="180" style="max-width: 180px; height: auto;" />
             </td>
           </tr>
           
@@ -96,8 +97,7 @@ const getApprovalEmailHTML = (contactName: string, businessName: string, setupLi
           <!-- Header -->
           <tr>
             <td style="padding: 40px 40px 20px; text-align: center; border-bottom: 1px solid #222;">
-              <h1 style="margin: 0; font-size: 28px; font-weight: 300; color: #ffffff; letter-spacing: 2px;">PØINT</h1>
-              <p style="margin: 4px 0 0; font-size: 11px; color: #888; letter-spacing: 3px; text-transform: uppercase;">BioSciences</p>
+              <img src="${LOGO_URL}" alt="PØINT BioSciences" width="180" style="max-width: 180px; height: auto;" />
             </td>
           </tr>
           
