@@ -3,31 +3,21 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MolecularAnimation } from "./MolecularAnimation";
 import { ArrowRight } from "lucide-react";
-
-const taglines = [
-  "Precision, Defined at the Source.",
-  "B2B Research Supply.",
-  "Built for qualified partners.",
-];
-
+const taglines = ["Precision, Defined at the Source.", "B2B Research Supply.", "Built for qualified partners."];
 export const HeroSection = () => {
   const [currentTagline, setCurrentTagline] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
-        setCurrentTagline((prev) => (prev + 1) % taglines.length);
+        setCurrentTagline(prev => (prev + 1) % taglines.length);
         setIsVisible(true);
       }, 300);
     }, 4000);
-
     return () => clearInterval(interval);
   }, []);
-
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <MolecularAnimation />
       
       {/* Gradient overlay */}
@@ -45,11 +35,7 @@ export const HeroSection = () => {
 
           {/* Rotating tagline */}
           <div className="h-12 mb-12">
-            <p
-              className={`font-body text-lg md:text-xl text-muted-foreground transition-all duration-300 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-              }`}
-            >
+            <p className={`font-body text-lg md:text-xl text-muted-foreground transition-all duration-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}>
               {taglines[currentTagline]}
             </p>
           </div>
@@ -78,10 +64,7 @@ export const HeroSection = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-500">
-        <div className="w-6 h-10 border border-foreground/20 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-2 bg-foreground/40 rounded-full animate-bounce" />
-        </div>
+        
       </div>
-    </section>
-  );
+    </section>;
 };

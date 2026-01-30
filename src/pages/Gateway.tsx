@@ -19,14 +19,12 @@ const Gateway = () => {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
     const handleTimeUpdate = () => {
       // Show overlay when video is near the end (last 3 seconds)
       if (video.duration - video.currentTime <= 3) {
         setShowLogoOverlay(true);
       }
     };
-
     const handleEnded = () => {
       setShowLogoOverlay(true);
       // Restart video after a delay
@@ -36,35 +34,33 @@ const Gateway = () => {
         video.play();
       }, 4000);
     };
-
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('ended', handleEnded);
-
     return () => {
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('ended', handleEnded);
     };
   }, []);
-
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: ""
+  });
   const [contactData, setContactData] = useState({
     name: "",
     email: "",
-    message: "",
+    message: ""
   });
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const {
+        error
+      } = await supabase.auth.signInWithPassword({
         email: loginData.email,
-        password: loginData.password,
+        password: loginData.password
       });
-
       if (error) throw error;
-
       toast.success("Logged in successfully");
       navigate("/home");
     } catch (error: any) {
@@ -73,56 +69,42 @@ const Gateway = () => {
       setIsLoading(false);
     }
   };
-
   const handleContact = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
       toast.success("Message sent! We'll get back to you shortly.");
       setShowContactModal(false);
-      setContactData({ name: "", email: "", message: "" });
+      setContactData({
+        name: "",
+        email: "",
+        message: ""
+      });
     } catch (error: any) {
       toast.error(error.message || "Failed to send message");
     } finally {
       setIsLoading(false);
     }
   };
-
   const inputClassName = "w-full px-4 py-3 bg-secondary/30 border border-border rounded-lg font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30";
   const labelClassName = "font-heading text-sm font-medium text-foreground block mb-2";
-
-  return (
-    <div className="min-h-screen bg-background flex flex-col">
+  return <div className="min-h-screen bg-background flex flex-col">
       <AgeVerification />
       {/* Main Content */}
       <div className="flex-1 flex flex-col lg:flex-row">
         {/* Left side - Video */}
         <div className="lg:w-1/2 h-64 lg:h-auto relative bg-background overflow-hidden">
           {/* Lab facility video with blur effect */}
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover blur-sm scale-105"
-            autoPlay
-            loop
-            muted
-            playsInline
-            src={labVideo}
-          />
+          <video ref={videoRef} className="w-full h-full object-cover blur-sm scale-105" autoPlay loop muted playsInline src={labVideo} />
           
           {/* Dark overlay for better contrast */}
           <div className="absolute inset-0 bg-background/40 pointer-events-none" />
           
           {/* Logo overlay - drops in from above */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <img 
-              src={pointLogo} 
-              alt="PØINT BioSciences" 
-              className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up"
-              style={{ 
-                filter: 'invert(1) brightness(2)',
-              }}
-            />
+            <img src={pointLogo} alt="PØINT BioSciences" className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up" style={{
+            filter: 'invert(1) brightness(2)'
+          }} />
           </div>
         </div>
 
@@ -130,9 +112,8 @@ const Gateway = () => {
         <div className="lg:w-1/2 flex flex-col justify-center p-8 lg:p-12 xl:p-16">
           <div className="w-full max-w-md mx-auto">
             {/* Welcome heading */}
-            <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-2">
-              Welcome to PØINT BioSciences
-            </h1>
+            <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-2">Welcome to
+PØINT BioSciences</h1>
             <p className="font-body text-muted-foreground mb-8">
               Sign in below to access our B2B platform.
             </p>
@@ -141,42 +122,25 @@ const Gateway = () => {
             <form onSubmit={handleLogin} className="space-y-5">
               <div>
                 <label className={labelClassName}>Email</label>
-                <input
-                  type="email"
-                  required
-                  placeholder="example@mail.com"
-                  value={loginData.email}
-                  onChange={(e) => setLoginData((prev) => ({ ...prev, email: e.target.value }))}
-                  className={inputClassName}
-                />
+                <input type="email" required placeholder="example@mail.com" value={loginData.email} onChange={e => setLoginData(prev => ({
+                ...prev,
+                email: e.target.value
+              }))} className={inputClassName} />
               </div>
               
               <div>
                 <label className={labelClassName}>Password</label>
-                <input
-                  type="password"
-                  required
-                  placeholder="Enter your password"
-                  value={loginData.password}
-                  onChange={(e) => setLoginData((prev) => ({ ...prev, password: e.target.value }))}
-                  className={inputClassName}
-                />
+                <input type="password" required placeholder="Enter your password" value={loginData.password} onChange={e => setLoginData(prev => ({
+                ...prev,
+                password: e.target.value
+              }))} className={inputClassName} />
               </div>
 
-              <button
-                type="button"
-                className="font-body text-sm text-foreground/70 hover:text-foreground transition-colors underline"
-              >
+              <button type="button" className="font-body text-sm text-foreground/70 hover:text-foreground transition-colors underline">
                 Forgot password?
               </button>
 
-              <Button
-                type="submit"
-                variant="hero"
-                size="lg"
-                disabled={isLoading}
-                className="w-full"
-              >
+              <Button type="submit" variant="hero" size="lg" disabled={isLoading} className="w-full">
                 {isLoading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
@@ -191,18 +155,10 @@ const Gateway = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  onClick={() => navigate("/apply")}
-                  variant="hero"
-                  className="flex-1"
-                >
+                <Button onClick={() => navigate("/apply")} variant="hero" className="flex-1">
                   Apply for an account
                 </Button>
-                <Button
-                  onClick={() => setShowContactModal(true)}
-                  variant="heroOutline"
-                  className="flex-1"
-                >
+                <Button onClick={() => setShowContactModal(true)} variant="heroOutline" className="flex-1">
                   Questions? Contact us!
                 </Button>
               </div>
@@ -210,9 +166,7 @@ const Gateway = () => {
 
             {/* Benefits link */}
             <div className="mt-8 text-center">
-              <button className="font-body text-sm text-muted-foreground hover:text-foreground transition-colors underline">
-                Explore the benefits of the B2B experience
-              </button>
+              
             </div>
           </div>
         </div>
@@ -224,10 +178,7 @@ const Gateway = () => {
           <h3 className="font-heading text-lg font-semibold text-background text-center sm:text-left">
             Interested in becoming a distributor?
           </h3>
-          <Button
-            onClick={() => navigate("/apply")}
-            className="bg-background text-foreground hover:bg-background/90 font-body font-medium rounded-lg px-8 transition-colors"
-          >
+          <Button onClick={() => navigate("/apply")} className="bg-background text-foreground hover:bg-background/90 font-body font-medium rounded-lg px-8 transition-colors">
             Apply Now
           </Button>
         </div>
@@ -248,52 +199,34 @@ const Gateway = () => {
           <form onSubmit={handleContact} className="space-y-4 mt-4">
             <div>
               <label className={labelClassName}>Your Name *</label>
-              <input
-                type="text"
-                required
-                value={contactData.name}
-                onChange={(e) => setContactData((prev) => ({ ...prev, name: e.target.value }))}
-                className={inputClassName}
-              />
+              <input type="text" required value={contactData.name} onChange={e => setContactData(prev => ({
+              ...prev,
+              name: e.target.value
+            }))} className={inputClassName} />
             </div>
             
             <div>
               <label className={labelClassName}>Email *</label>
-              <input
-                type="email"
-                required
-                value={contactData.email}
-                onChange={(e) => setContactData((prev) => ({ ...prev, email: e.target.value }))}
-                className={inputClassName}
-              />
+              <input type="email" required value={contactData.email} onChange={e => setContactData(prev => ({
+              ...prev,
+              email: e.target.value
+            }))} className={inputClassName} />
             </div>
             
             <div>
               <label className={labelClassName}>Message *</label>
-              <textarea
-                rows={4}
-                required
-                value={contactData.message}
-                onChange={(e) => setContactData((prev) => ({ ...prev, message: e.target.value }))}
-                className={inputClassName}
-                placeholder="How can we help you?"
-              />
+              <textarea rows={4} required value={contactData.message} onChange={e => setContactData(prev => ({
+              ...prev,
+              message: e.target.value
+            }))} className={inputClassName} placeholder="How can we help you?" />
             </div>
 
-            <Button
-              type="submit"
-              variant="hero"
-              size="lg"
-              disabled={isLoading}
-              className="w-full mt-6"
-            >
+            <Button type="submit" variant="hero" size="lg" disabled={isLoading} className="w-full mt-6">
               {isLoading ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>;
 };
-
 export default Gateway;
