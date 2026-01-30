@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2, TrendingUp, Quote } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area, ReferenceDot } from "recharts";
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from "recharts";
 
 const growthData = [
   { month: "Jan", revenue: 45 },
@@ -11,15 +11,13 @@ const growthData = [
   { month: "Jun", revenue: 120 },
 ];
 
-// Animated dot component for the mountain chart
-const AnimatedChartDot = ({ isVisible, data }: { isVisible: boolean; data: typeof growthData }) => {
-  const [dotIndex, setDotIndex] = useState(0);
-  const [animationProgress, setAnimationProgress] = useState(0);
+// Animated $ symbol component for the mountain chart
+const AnimatedDollarSymbol = ({ isVisible }: { isVisible: boolean }) => {
+  const [progress, setProgress] = useState(0);
   
   useEffect(() => {
     if (!isVisible) {
-      setDotIndex(0);
-      setAnimationProgress(0);
+      setProgress(0);
       return;
     }
     
@@ -28,46 +26,60 @@ const AnimatedChartDot = ({ isVisible, data }: { isVisible: boolean; data: typeo
     
     const animate = () => {
       const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / totalDuration, 1);
-      setAnimationProgress(progress);
+      const p = Math.min(elapsed / totalDuration, 1);
+      // Ease-out cubic for smooth deceleration
+      const eased = 1 - Math.pow(1 - p, 3);
+      setProgress(eased);
       
-      const currentIndex = Math.min(Math.floor(progress * data.length), data.length - 1);
-      setDotIndex(currentIndex);
-      
-      if (progress < 1) {
+      if (p < 1) {
         requestAnimationFrame(animate);
       }
     };
     
     const timeout = setTimeout(() => {
       requestAnimationFrame(animate);
-    }, 300);
+    }, 400);
     
     return () => clearTimeout(timeout);
-  }, [isVisible, data.length]);
+  }, [isVisible]);
   
-  if (!isVisible || data.length === 0) return null;
+  if (!isVisible) return null;
   
-  const currentData = data[dotIndex];
-  // Color transitions from red to green at 25% mark
-  const colorProgress = animationProgress >= 0.25 ? Math.min((animationProgress - 0.25) / 0.25, 1) : 0;
-  const dotColor = animationProgress < 0.25 
-    ? '#ef4444' 
-    : `rgb(${Math.round(239 - (239 - 34) * colorProgress)}, ${Math.round(68 + (197 - 68) * colorProgress)}, ${Math.round(68 + (94 - 68) * colorProgress)})`;
+  // Calculate position along the path (bottom-left to top-right)
+  const startX = 8;
+  const endX = 92;
+  const startY = 85;
+  const endY = 15;
+  
+  const x = startX + (endX - startX) * progress;
+  const y = startY + (endY - startY) * progress;
+  
+  // Color transition: red -> green after 25%
+  const colorProgress = progress >= 0.25 ? Math.min((progress - 0.25) / 0.5, 1) : 0;
+  const r = Math.round(239 - (239 - 34) * colorProgress);
+  const g = Math.round(68 + (197 - 68) * colorProgress);
+  const b = Math.round(68 + (94 - 68) * colorProgress);
+  const color = `rgb(${r}, ${g}, ${b})`;
   
   return (
-    <ReferenceDot
-      x={currentData?.month}
-      y={currentData?.revenue}
-      r={8}
-      fill={dotColor}
-      stroke="white"
-      strokeWidth={2}
-      style={{
-        filter: `drop-shadow(0 0 8px ${dotColor})`,
-        transition: 'fill 0.1s ease-out'
-      }}
-    />
+    <g style={{ pointerEvents: 'none' }}>
+      <text
+        x={`${x}%`}
+        y={`${y}%`}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fill={color}
+        fontSize="18"
+        fontWeight="700"
+        fontFamily="var(--font-heading)"
+        style={{
+          filter: `drop-shadow(0 0 6px ${color})`,
+          transition: 'fill 0.05s ease-out'
+        }}
+      >
+        $
+      </text>
+    </g>
   );
 };
 
@@ -311,7 +323,7 @@ export const TrustSection = () => {
                       animationEasing="ease-out"
                       baseValue={0}
                     />
-                    <AnimatedChartDot isVisible={isVisible} data={growthData} />
+                    <AnimatedDollarSymbol isVisible={isVisible} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
