@@ -1144,37 +1144,38 @@ export type Database = {
       }
     }
     Views: {
-      all_customer_leads: {
-        Row: {
-          business_address: string | null
-          business_name: string | null
-          business_type: string | null
-          city: string | null
-          company_impact: string | null
-          country: string | null
-          created_at: string | null
-          email: string | null
-          how_we_benefit: string | null
-          id: string | null
-          intended_use: string | null
-          lead_type: string | null
-          monthly_volume: string | null
-          name: string | null
-          notes: string | null
-          phone: string | null
-          product_usage: string | null
-          products_interest: string | null
-          referral_source: string | null
-          state: string | null
-          status: string | null
-          user_id: string | null
-          website: string | null
-          zip_code: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
+      get_all_customer_leads: {
+        Args: never
+        Returns: {
+          business_address: string
+          business_name: string
+          business_type: string
+          city: string
+          company_impact: string
+          country: string
+          created_at: string
+          email: string
+          how_we_benefit: string
+          id: string
+          intended_use: string
+          lead_type: string
+          monthly_volume: string
+          name: string
+          notes: string
+          phone: string
+          product_usage: string
+          products_interest: string
+          referral_source: string
+          state: string
+          status: string
+          user_id: string
+          website: string
+          zip_code: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
