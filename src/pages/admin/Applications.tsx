@@ -125,6 +125,8 @@ const Applications = () => {
     if (!selectedApp) return;
 
     setIsSaving(true);
+    const wasApproved = selectedApp.status !== "approved" && newStatus === "approved";
+    
     try {
       const { error } = await supabase
         .from("applications")
@@ -137,10 +139,37 @@ const Applications = () => {
 
       if (error) throw error;
 
-      toast({
-        title: "Saved",
-        description: "Application updated successfully",
-      });
+      // Send approval email if status changed to approved
+      if (wasApproved) {
+        const { error: emailError } = await supabase.functions.invoke("send-application-email", {
+          body: {
+            type: "approved",
+            email: selectedApp.email,
+            contactName: selectedApp.contact_name,
+            businessName: selectedApp.business_name,
+            approvalLink: "https://pointbiosciences.com/access",
+          },
+        });
+
+        if (emailError) {
+          console.error("Failed to send approval email:", emailError);
+          toast({
+            title: "Saved with Warning",
+            description: "Application approved but email failed to send",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Approved",
+            description: "Application approved and welcome email sent",
+          });
+        }
+      } else {
+        toast({
+          title: "Saved",
+          description: "Application updated successfully",
+        });
+      }
 
       setIsDialogOpen(false);
       fetchApplications();
