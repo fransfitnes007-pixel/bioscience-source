@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Footer } from "@/components/layout/Footer";
+import { AgeVerification } from "@/components/AgeVerification";
 import labVideo from "@/assets/lab-facility-video.mp4";
 import pointLogo from "@/assets/point-logo-transparent.png";
 const Gateway = () => {
@@ -93,6 +94,7 @@ const Gateway = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <AgeVerification />
       {/* Main Content */}
       <div className="flex-1 flex flex-col lg:flex-row">
         {/* Left side - Video */}
