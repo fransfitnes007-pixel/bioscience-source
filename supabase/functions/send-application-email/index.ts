@@ -13,7 +13,8 @@ interface EmailRequest {
   email: string;
   contactName: string;
   businessName: string;
-  approvalLink?: string;
+  setupLink?: string;
+  approvalLink?: string; // Deprecated, kept for backward compatibility
 }
 
 const getConfirmationEmailHTML = (contactName: string, businessName: string) => `
@@ -53,7 +54,7 @@ const getConfirmationEmailHTML = (contactName: string, businessName: string) => 
               <div style="background-color: #1a1a1a; border-left: 3px solid #6366f1; padding: 20px; margin: 30px 0; border-radius: 0 8px 8px 0;">
                 <p style="margin: 0; font-size: 14px; color: #aaaaaa;">
                   <strong style="color: #ffffff;">What happens next?</strong><br><br>
-                  Our team will review your application within 24-48 hours. Once approved, you'll receive an email with access to our partner portal.
+                  Our team will review your application within 24-48 hours. Once approved, you'll receive an email with a link to set up your account password.
                 </p>
               </div>
               
@@ -79,13 +80,13 @@ const getConfirmationEmailHTML = (contactName: string, businessName: string) => 
 </html>
 `;
 
-const getApprovalEmailHTML = (contactName: string, businessName: string, approvalLink: string) => `
+const getApprovalEmailHTML = (contactName: string, businessName: string, setupLink: string) => `
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Application Approved</title>
+  <title>Application Approved - Set Up Your Account</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #0a0a0a;">
@@ -116,18 +117,25 @@ const getApprovalEmailHTML = (contactName: string, businessName: string, approva
               </p>
               
               <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: #cccccc;">
-                Great news! Your application for <strong style="color: #ffffff;">${businessName}</strong> has been approved. You now have full access to our partner portal.
+                Great news! Your application for <strong style="color: #ffffff;">${businessName}</strong> has been approved. To get started, please set up your account password by clicking the button below.
               </p>
               
               <div style="text-align: center; margin: 40px 0;">
-                <a href="${approvalLink}" style="display: inline-block; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-size: 16px; font-weight: 500;">
-                  Access Partner Portal
+                <a href="${setupLink}" style="display: inline-block; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-size: 16px; font-weight: 500;">
+                  Set Up Your Password
                 </a>
+              </div>
+              
+              <div style="background-color: #1a1a1a; border-left: 3px solid #f59e0b; padding: 20px; margin: 30px 0; border-radius: 0 8px 8px 0;">
+                <p style="margin: 0; font-size: 14px; color: #aaaaaa;">
+                  <strong style="color: #ffffff;">⚠️ Important:</strong><br><br>
+                  This is a one-time link to set up your password. After setting your password, you can sign in anytime at <a href="https://pointbiosciences.com" style="color: #6366f1;">pointbiosciences.com</a>
+                </p>
               </div>
               
               <div style="background-color: #1a1a1a; border-left: 3px solid #6366f1; padding: 20px; margin: 30px 0; border-radius: 0 8px 8px 0;">
                 <p style="margin: 0; font-size: 14px; color: #aaaaaa;">
-                  <strong style="color: #ffffff;">What you can do now:</strong><br><br>
+                  <strong style="color: #ffffff;">What you can do once signed in:</strong><br><br>
                   • Browse our complete product catalog<br>
                   • Place orders directly through the portal<br>
                   • Access exclusive partner pricing<br>
@@ -167,7 +175,7 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY is not configured");
     }
 
-    const { type, email, contactName, businessName, approvalLink }: EmailRequest = await req.json();
+    const { type, email, contactName, businessName, setupLink, approvalLink }: EmailRequest = await req.json();
 
     if (!type || !email || !contactName || !businessName) {
       throw new Error("Missing required fields: type, email, contactName, businessName");
@@ -180,8 +188,9 @@ const handler = async (req: Request): Promise<Response> => {
       subject = "Application Received - PØINT BioSciences";
       html = getConfirmationEmailHTML(contactName, businessName);
     } else if (type === "approved") {
-      const link = approvalLink || "https://pointbiosciences.com/access";
-      subject = "Application Approved - Welcome to PØINT BioSciences!";
+      // Use setupLink if provided, fall back to approvalLink for backward compatibility
+      const link = setupLink || approvalLink || "https://pointbiosciences.com/access";
+      subject = "Application Approved - Set Up Your Account";
       html = getApprovalEmailHTML(contactName, businessName, link);
     } else {
       throw new Error("Invalid email type. Must be 'confirmation' or 'approved'");

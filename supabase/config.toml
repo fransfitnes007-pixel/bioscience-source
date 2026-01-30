@@ -1,1 +1,4 @@
 project_id = "nunwpsiixyqmbgvvokmq"
+
+[functions.create-partner-account]
+verify_jwt = false
