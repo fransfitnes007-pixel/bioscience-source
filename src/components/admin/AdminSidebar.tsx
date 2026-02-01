@@ -9,6 +9,7 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -36,9 +37,19 @@ const navItems = [
     icon: MessageSquare,
   },
   {
-    title: "Messages",
+    title: "Contact Messages",
     href: "/admin/messages",
     icon: Mail,
+  },
+  {
+    title: "Businesses",
+    href: "/admin/businesses",
+    icon: Building2,
+  },
+  {
+    title: "Client Messages",
+    href: "/admin/messages-center",
+    icon: MessageSquare,
   },
 ];
 
