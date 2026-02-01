@@ -260,6 +260,42 @@ export type Database = {
           },
         ]
       }
+      client_messages: {
+        Row: {
+          client_id: string
+          conversation_id: string
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          read_at: string | null
+          sender_type: string
+          sender_user_id: string
+        }
+        Insert: {
+          client_id: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          read_at?: string | null
+          sender_type: string
+          sender_user_id: string
+        }
+        Update: {
+          client_id?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          read_at?: string | null
+          sender_type?: string
+          sender_user_id?: string
+        }
+        Relationships: []
+      }
       coa_documents: {
         Row: {
           created_at: string

@@ -23,6 +23,12 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminApplications from "./pages/admin/Applications";
 import AdminInquiries from "./pages/admin/Inquiries";
 import AdminContactMessages from "./pages/admin/ContactMessages";
+import AdminBusinesses from "./pages/admin/Businesses";
+import AdminMessagesCenter from "./pages/admin/MessagesCenter";
+import PortalDashboard from "./pages/portal/Dashboard";
+import PortalOrders from "./pages/portal/Orders";
+import PortalMessages from "./pages/portal/Messages";
+import PortalProfile from "./pages/portal/Profile";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +59,13 @@ const App = () => (
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />
+            <Route path="/admin/businesses" element={<AdminBusinesses />} />
+            <Route path="/admin/messages-center" element={<AdminMessagesCenter />} />
+            {/* Client Portal Routes */}
+            <Route path="/portal" element={<PortalDashboard />} />
+            <Route path="/portal/orders" element={<PortalOrders />} />
+            <Route path="/portal/messages" element={<PortalMessages />} />
+            <Route path="/portal/profile" element={<PortalProfile />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
