@@ -26,6 +26,7 @@ import AdminContactMessages from "./pages/admin/ContactMessages";
 import AdminBusinesses from "./pages/admin/Businesses";
 import AdminMessagesCenter from "./pages/admin/MessagesCenter";
 import PortalDashboard from "./pages/portal/Dashboard";
+import PortalProducts from "./pages/portal/Products";
 import PortalOrders from "./pages/portal/Orders";
 import PortalMessages from "./pages/portal/Messages";
 import PortalProfile from "./pages/portal/Profile";
@@ -63,6 +64,7 @@ const App = () => (
             <Route path="/admin/messages-center" element={<AdminMessagesCenter />} />
             {/* Client Portal Routes */}
             <Route path="/portal" element={<PortalDashboard />} />
+            <Route path="/portal/products" element={<PortalProducts />} />
             <Route path="/portal/orders" element={<PortalOrders />} />
             <Route path="/portal/messages" element={<PortalMessages />} />
             <Route path="/portal/profile" element={<PortalProfile />} />

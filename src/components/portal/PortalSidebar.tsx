@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   Package,
+  ShoppingBag,
   MessageSquare,
   User,
   LogOut,
@@ -28,6 +29,11 @@ const navItems = [
     title: "Dashboard",
     href: "/portal",
     icon: LayoutDashboard,
+  },
+  {
+    title: "Products",
+    href: "/portal/products",
+    icon: ShoppingBag,
   },
   {
     title: "Orders",
@@ -58,7 +64,7 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
       title: "Logged out",
       description: "You have been logged out successfully.",
     });
-    navigate("/access");
+    navigate("/");
   };
 
   // Mobile sidebar
