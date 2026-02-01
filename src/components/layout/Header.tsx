@@ -1,72 +1,219 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartIcon } from "@/components/layout/CartIcon";
-import logo from "@/assets/logo.png";
-const navLinks = [{
-  name: "Home",
-  path: "/home"
-}, {
-  name: "Products",
-  path: "/products"
-}, {
-  name: "About",
-  path: "/about"
-}, {
-  name: "Terms",
-  path: "/terms"
-}];
+import { supabase } from "@/integrations/supabase/client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+const navLinks = [
+  { name: "Home", path: "/home" },
+  { name: "Products", path: "/products" },
+  { name: "About", path: "/about" },
+  { name: "Terms", path: "/terms" },
+];
+
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [isApproved, setIsApproved] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
-  return <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user || null);
+      
+      if (session?.user) {
+        // Check admin status
+        const { data: adminData } = await supabase
+          .rpc('has_role', { _user_id: session.user.id, _role: 'admin' });
+        setIsAdmin(!!adminData);
+        
+        // Check approved status
+        const { data: approvedData } = await supabase
+          .rpc('is_approved', { _user_id: session.user.id });
+        setIsApproved(!!approvedData);
+      }
+    };
+
+    checkUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setUser(session?.user || null);
+      if (session?.user) {
+        const { data: adminData } = await supabase
+          .rpc('has_role', { _user_id: session.user.id, _role: 'admin' });
+        setIsAdmin(!!adminData);
+        
+        const { data: approvedData } = await supabase
+          .rpc('is_approved', { _user_id: session.user.id });
+        setIsApproved(!!approvedData);
+      } else {
+        setIsAdmin(false);
+        setIsApproved(false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img alt="PØINT BioSciences" className="h-10 lg:h-12 w-auto" src="/lovable-uploads/84c304af-556c-4932-b0d2-97a43b8c6c10.png" />
+            <img
+              alt="PØINT BioSciences"
+              className="h-10 lg:h-12 w-auto"
+              src="/lovable-uploads/84c304af-556c-4932-b0d2-97a43b8c6c10.png"
+            />
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map(link => <Link key={link.path} to={link.path} className={`font-heading text-sm font-medium tracking-wide transition-colors duration-300 ${location.pathname === link.path ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`font-heading text-sm font-medium tracking-wide transition-colors duration-300 ${
+                  location.pathname === link.path
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
                 {link.name}
-              </Link>)}
+              </Link>
+            ))}
           </nav>
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
             <CartIcon />
-            <Link to="/access">
-              <Button variant="heroOutline" size="default">
-                B2B Access
-              </Button>
-            </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="heroOutline" size="default">
+                    <User className="h-4 w-4 mr-2" />
+                    My Account
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  {isAdmin && (
+                    <DropdownMenuItem onClick={() => navigate("/admin")}>
+                      Admin Dashboard
+                    </DropdownMenuItem>
+                  )}
+                  {isApproved && (
+                    <DropdownMenuItem onClick={() => navigate("/portal")}>
+                      My Portal
+                    </DropdownMenuItem>
+                  )}
+                  {(isAdmin || isApproved) && <DropdownMenuSeparator />}
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link to="/">
+                <Button variant="heroOutline" size="default">
+                  B2B Access
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center gap-2">
             <CartIcon />
-            <button className="p-2 text-foreground" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+            <button
+              className="p-2 text-foreground"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && <div className="lg:hidden py-6 border-t border-border/50 animate-fade-in">
+        {isMenuOpen && (
+          <div className="lg:hidden py-6 border-t border-border/50 animate-fade-in">
             <nav className="flex flex-col gap-4">
-              {navLinks.map(link => <Link key={link.path} to={link.path} className={`font-heading text-lg font-medium tracking-wide py-2 transition-colors duration-300 ${location.pathname === link.path ? "text-foreground" : "text-muted-foreground"}`} onClick={() => setIsMenuOpen(false)}>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`font-heading text-lg font-medium tracking-wide py-2 transition-colors duration-300 ${
+                    location.pathname === link.path
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   {link.name}
-                </Link>)}
-              <Link to="/access" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="hero" size="lg" className="w-full mt-4">
-                  B2B Access
-                </Button>
-              </Link>
+                </Link>
+              ))}
+              {user ? (
+                <>
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="font-heading text-lg font-medium tracking-wide py-2 text-muted-foreground"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
+                  {isApproved && (
+                    <Link
+                      to="/portal"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="font-heading text-lg font-medium tracking-wide py-2 text-muted-foreground"
+                    >
+                      My Portal
+                    </Link>
+                  )}
+                  <Button
+                    variant="hero"
+                    size="lg"
+                    className="w-full mt-4"
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Link to="/" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="hero" size="lg" className="w-full mt-4">
+                    B2B Access
+                  </Button>
+                </Link>
+              )}
             </nav>
-          </div>}
+          </div>
+        )}
       </div>
-    </header>;
+    </header>
+  );
 };
