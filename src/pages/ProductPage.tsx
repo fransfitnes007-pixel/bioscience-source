@@ -87,6 +87,7 @@ const ProductPage = () => {
     }
 
     setIsAddingToCart(true);
+    const productImage = getProductImage(product.slug);
     await addToCart({
       productId: product.slug,
       variationId: `${product.slug}-${selectedVariation.strength}-${selectedQuantity}`,
@@ -94,6 +95,7 @@ const ProductPage = () => {
       variationName: `${selectedVariation.strength} × ${selectedQuantity} vials`,
       quantity: 1, // Each tier is sold as a single unit (10/20/30 vials)
       price,
+      image: productImage || undefined,
     });
     setIsAddingToCart(false);
   };

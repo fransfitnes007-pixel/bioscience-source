@@ -207,29 +207,41 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          image_url: string | null
           product_id: string | null
+          product_name: string | null
           quantity: number
+          unit_price: number | null
           updated_at: string
           user_id: string
           variation_id: string | null
+          variation_name: string | null
         }
         Insert: {
           created_at?: string
           id?: string
+          image_url?: string | null
           product_id?: string | null
+          product_name?: string | null
           quantity?: number
+          unit_price?: number | null
           updated_at?: string
           user_id: string
           variation_id?: string | null
+          variation_name?: string | null
         }
         Update: {
           created_at?: string
           id?: string
+          image_url?: string | null
           product_id?: string | null
+          product_name?: string | null
           quantity?: number
+          unit_price?: number | null
           updated_at?: string
           user_id?: string
           variation_id?: string | null
+          variation_name?: string | null
         }
         Relationships: [
           {

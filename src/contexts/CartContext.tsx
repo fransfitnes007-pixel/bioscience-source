@@ -142,8 +142,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         quantity,
         product_id,
         variation_id,
-        products (name, display_name, slug, image_url),
-        product_variations (strength, price)
+        product_name,
+        variation_name,
+        unit_price,
+        image_url
       `)
       .eq("user_id", userId);
 
@@ -151,13 +153,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       setItems(
         data.map((item: any) => ({
           id: item.id,
-          productId: item.product_id,
-          variationId: item.variation_id,
-          productName: item.products?.display_name || item.products?.name || "Unknown",
-          variationName: item.product_variations?.strength || "",
+          productId: item.product_id || "",
+          variationId: item.variation_id || "",
+          productName: item.product_name || "Unknown",
+          variationName: item.variation_name || "",
           quantity: item.quantity,
-          price: Number(item.product_variations?.price || 0),
-          image: item.products?.image_url,
+          price: Number(item.unit_price || 0),
+          image: item.image_url,
         }))
       );
     }
@@ -182,10 +184,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         user_id: userId,
         product_id: item.productId,
         variation_id: item.variationId,
+        product_name: item.productName,
+        variation_name: item.variationName,
+        unit_price: item.price,
+        image_url: item.image,
         quantity: item.quantity,
       });
 
       if (error) {
+        console.error("Cart insert error:", error);
         toast.error("Failed to add to cart");
       } else {
         toast.success("Added to cart!");

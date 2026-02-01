@@ -89,9 +89,8 @@ const Cart = () => {
               {/* Cart Items */}
               <div className="lg:col-span-2 space-y-4">
                 {items.map((item) => {
-                  // Try to find product image by slug from the productName
-                  const slug = item.productName.toLowerCase().replace(/\s+/g, "-");
-                  const productImage = getProductImage(slug);
+                  // Use stored image or try to find product image by productId (which is the slug)
+                  const productImage = item.image || getProductImage(item.productId);
                   
                   return (
                     <div
