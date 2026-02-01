@@ -18,7 +18,7 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
         const { data: { session } } = await supabase.auth.getSession();
 
         if (!session) {
-          navigate("/access");
+          navigate("/");
           return;
         }
 
@@ -28,12 +28,12 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
 
         if (error) {
           console.error("Error checking approval status:", error);
-          navigate("/access");
+          navigate("/");
           return;
         }
 
         if (!isApproved) {
-          navigate("/access");
+          navigate("/");
           return;
         }
 
@@ -50,7 +50,7 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_OUT" || !session) {
-        navigate("/access");
+        navigate("/");
       }
     });
 

@@ -54,15 +54,33 @@ const Gateway = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const {
-        error
-      } = await supabase.auth.signInWithPassword({
+      const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: loginData.email,
         password: loginData.password
       });
       if (error) throw error;
-      toast.success("Logged in successfully");
-      navigate("/home");
+      
+      // Check if user is admin
+      const { data: isAdmin } = await supabase
+        .rpc('has_role', { _user_id: authData.user.id, _role: 'admin' });
+      
+      if (isAdmin) {
+        toast.success("Welcome back, Admin!");
+        navigate("/admin");
+        return;
+      }
+      
+      // Check if user is approved client
+      const { data: isApproved } = await supabase
+        .rpc('is_approved', { _user_id: authData.user.id });
+      
+      if (isApproved) {
+        toast.success("Logged in successfully");
+        navigate("/portal");
+      } else {
+        toast.success("Logged in - Your account is pending approval");
+        navigate("/home");
+      }
     } catch (error: any) {
       toast.error(error.message || "Login failed");
     } finally {
