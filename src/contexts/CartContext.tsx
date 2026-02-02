@@ -172,18 +172,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    // Check if item already exists
+    // Check if item already exists by matching product name and variation
     const existingItem = items.find(
-      (i) => i.productId === item.productId && i.variationId === item.variationId
+      (i) => i.productName === item.productName && i.variationName === item.variationName
     );
 
     if (existingItem) {
       await updateQuantity(existingItem.id, existingItem.quantity + item.quantity);
     } else {
+      // Note: product_id and variation_id are not passed since our static catalog
+      // uses string slugs, not database UUIDs. The cart stores all needed info
+      // (name, price, image) directly for display and checkout.
       const { error } = await supabase.from("cart_items").insert({
         user_id: userId,
-        product_id: item.productId,
-        variation_id: item.variationId,
         product_name: item.productName,
         variation_name: item.variationName,
         unit_price: item.price,
