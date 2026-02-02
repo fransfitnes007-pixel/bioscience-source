@@ -27,10 +27,16 @@ export const WhatWeDoSection = () => {
           <h2 className="font-heading text-3xl md:text-4xl font-semibold mb-6 text-foreground">
             What We Do
           </h2>
+          <p className="font-body text-lg text-muted-foreground leading-relaxed mb-6">
+            Point Biosciences is your direct B2B peptide supplier. We manufacture and distribute 
+            research-grade peptides directly to qualified businesses—no middlemen, no markups. 
+            Our wholesale pricing is designed to help you maintain or lower your prices while 
+            significantly increasing your profit margins.
+          </p>
           <p className="font-body text-lg text-muted-foreground leading-relaxed">
-            Point Biosciences is a B2B research supply facilitator connecting qualified businesses 
-            to vetted third-party peptide suppliers. We streamline wholesale sourcing, documentation, 
-            and fulfillment—offering pricing structures that actually make sense for your business.
+            With industry-leading purity standards, comprehensive documentation, and Certificates 
+            of Analysis for every product, we give you the competitive edge to outperform 
+            competitors who can't match our quality, pricing, or certifications.
           </p>
         </div>
       </div>

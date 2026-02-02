@@ -31,8 +31,8 @@ export const FinalCTASection = () => {
             Ready to Get Started?
           </h2>
           <p className="font-body text-lg text-muted-foreground mb-10">
-            Apply for wholesale access and discover how Point Biosciences can transform 
-            your research supply chain.
+            Apply for wholesale access and start ordering directly from Point Biosciences. 
+            Better margins, better quality, better results for your business.
           </p>
           <Link to="/access">
             <Button variant="hero" size="lg" className="group">

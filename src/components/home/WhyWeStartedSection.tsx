@@ -41,7 +41,8 @@ export const WhyWeStartedSection = () => {
 
             <div className="space-y-6 max-w-2xl mx-auto">
               <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                We built the only B2B peptide wholesaler with pricing that actually makes sense.
+                We built a B2B peptide supply company with pricing that actually makes sense—so you can 
+                keep your prices competitive while dramatically increasing your margins.
               </p>
               
               <div className="p-6 border border-border/50 rounded-lg bg-card/30">
@@ -49,7 +50,8 @@ export const WhyWeStartedSection = () => {
                   300–500%
                 </p>
                 <p className="font-body text-muted-foreground">
-                  Increase your profit margins through smarter wholesale sourcing and streamlined fulfillment.
+                  Increase your profit margins by ordering directly from us. Better quality, better 
+                  prices, better documentation—giving you the edge to outperform your competition.
                 </p>
               </div>
             </div>

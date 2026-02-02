@@ -47,7 +47,7 @@ export const HowItWorksSection = () => {
             How It Works
           </h2>
           <p className="font-body text-muted-foreground max-w-xl mx-auto">
-            A streamlined process from application to quote.
+            A streamlined process from application to order fulfillment.
           </p>
         </div>
 
