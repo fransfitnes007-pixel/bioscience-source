@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MolecularAnimation } from "./MolecularAnimation";
 import { ArrowRight } from "lucide-react";
-const taglines = ["Precision, Defined at the Source.", "B2B Research Supply.", "Built for qualified partners."];
+const taglines = ["Your Direct B2B Peptide Supplier.", "Premium Quality. Unbeatable Prices.", "Built for qualified partners."];
 export const HeroSection = () => {
   const [currentTagline, setCurrentTagline] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
