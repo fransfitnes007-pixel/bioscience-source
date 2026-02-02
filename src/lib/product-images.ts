@@ -119,7 +119,9 @@ export const productImages: Record<string, string> = {
   
   "follistatin": follistatin,
   "glow": glowStack,
+  "glow-stack": glowStack,
   "klow": klowStack,
+  "klow-stack": klowStack,
   "kpv": kpv,
 };
 
