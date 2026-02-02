@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Building2,
+  Store,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -52,6 +53,12 @@ const navItems = [
     icon: MessageSquare,
   },
 ];
+
+const storeLink = {
+  title: "Go to Store",
+  href: "/home",
+  icon: Store,
+};
 
 const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
   const navigate = useNavigate();
@@ -115,6 +122,22 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
               {!isCollapsed && <span className="font-medium">{item.title}</span>}
             </NavLink>
           ))}
+          
+          {/* Divider */}
+          <div className="my-2 border-t border-border" />
+          
+          {/* Store Link */}
+          <NavLink
+            to={storeLink.href}
+            className={cn(
+              "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors",
+              "hover:bg-accent hover:text-accent-foreground text-muted-foreground",
+              isCollapsed && "justify-center px-2"
+            )}
+          >
+            <storeLink.icon className="h-5 w-5 shrink-0" />
+            {!isCollapsed && <span className="font-medium">{storeLink.title}</span>}
+          </NavLink>
         </nav>
 
         {/* Footer */}
