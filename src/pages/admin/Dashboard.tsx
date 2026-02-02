@@ -6,7 +6,7 @@ import StatsCard from "@/components/admin/StatsCard";
 import StatusBadge from "@/components/admin/StatusBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, MessageSquare, Mail, ArrowRight, Users } from "lucide-react";
+import { FileText, MessageSquare, Mail, ArrowRight, Users, Package, DollarSign } from "lucide-react";
 import { format } from "date-fns";
 
 interface Stats {
@@ -14,11 +14,13 @@ interface Stats {
   newInquiries: number;
   newMessages: number;
   totalApproved: number;
+  pendingOrders: number;
+  totalRevenue: number;
 }
 
 interface RecentItem {
   id: string;
-  type: "application" | "inquiry" | "message";
+  type: "application" | "inquiry" | "message" | "order";
   title: string;
   subtitle: string;
   status: string;
@@ -31,6 +33,8 @@ const AdminDashboard = () => {
     newInquiries: 0,
     newMessages: 0,
     totalApproved: 0,
+    pendingOrders: 0,
+    totalRevenue: 0,
   });
   const [recentItems, setRecentItems] = useState<RecentItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,18 +49,26 @@ const AdminDashboard = () => {
           { count: newInq },
           { count: newMsg },
           { count: approvedApps },
+          { count: pendingOrds },
+          { data: paidOrders },
         ] = await Promise.all([
           supabase.from("applications").select("*", { count: "exact", head: true }).eq("status", "pending"),
           supabase.from("inquiries").select("*", { count: "exact", head: true }).eq("status", "new"),
           supabase.from("contact_messages").select("*", { count: "exact", head: true }).eq("status", "new"),
           supabase.from("applications").select("*", { count: "exact", head: true }).eq("status", "approved"),
+          supabase.from("orders").select("*", { count: "exact", head: true }).eq("status", "pending"),
+          supabase.from("orders").select("total").eq("payment_status", "paid"),
         ]);
+
+        const totalRevenue = paidOrders?.reduce((sum, o) => sum + Number(o.total), 0) || 0;
 
         setStats({
           pendingApplications: pendingApps || 0,
           newInquiries: newInq || 0,
           newMessages: newMsg || 0,
           totalApproved: approvedApps || 0,
+          pendingOrders: pendingOrds || 0,
+          totalRevenue,
         });
 
         // Fetch recent items
@@ -138,6 +150,8 @@ const AdminDashboard = () => {
         return <MessageSquare className="h-4 w-4 text-purple-500" />;
       case "message":
         return <Mail className="h-4 w-4 text-green-500" />;
+      case "order":
+        return <Package className="h-4 w-4 text-orange-500" />;
     }
   };
 
@@ -149,6 +163,8 @@ const AdminDashboard = () => {
         return "/admin/inquiries";
       case "message":
         return "/admin/messages";
+      case "order":
+        return "/admin/orders";
     }
   };
 
@@ -164,7 +180,19 @@ const AdminDashboard = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          <StatsCard
+            title="Pending Orders"
+            value={stats.pendingOrders}
+            icon={Package}
+            description="Awaiting fulfillment"
+          />
+          <StatsCard
+            title="Total Revenue"
+            value={`$${stats.totalRevenue.toLocaleString()}`}
+            icon={DollarSign}
+            description="From paid orders"
+          />
           <StatsCard
             title="Pending Applications"
             value={stats.pendingApplications}
@@ -192,7 +220,27 @@ const AdminDashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card
+            className="cursor-pointer hover:border-primary/50 transition-colors"
+            onClick={() => navigate("/admin/orders")}
+          >
+            <CardContent className="flex items-center justify-between p-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-orange-500/10">
+                  <Package className="h-5 w-5 text-orange-500" />
+                </div>
+                <div>
+                  <p className="font-medium">Manage Orders</p>
+                  <p className="text-sm text-muted-foreground">
+                    {stats.pendingOrders} pending
+                  </p>
+                </div>
+              </div>
+              <ArrowRight className="h-5 w-5 text-muted-foreground" />
+            </CardContent>
+          </Card>
+
           <Card
             className="cursor-pointer hover:border-primary/50 transition-colors"
             onClick={() => navigate("/admin/applications")}
