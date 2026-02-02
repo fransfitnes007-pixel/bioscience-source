@@ -35,7 +35,7 @@ const Cart = () => {
   const getDiscount = () => {
     if (!currentTier) return 0;
     
-    if (currentTier.rewardType === "percent_off" && currentTier.rewardValue) {
+    if ((currentTier.rewardType === "percent_off" || currentTier.rewardType === "percent_off_shipping") && currentTier.rewardValue) {
       return subtotal * (currentTier.rewardValue / 100);
     }
     if (currentTier.rewardType === "fixed_off" && currentTier.rewardValue) {
@@ -43,6 +43,9 @@ const Cart = () => {
     }
     return 0;
   };
+
+  // Check if free shipping is included
+  const hasFreeShipping = currentTier?.rewardType === "percent_off_shipping" || currentTier?.rewardType === "free_shipping";
 
   const discount = getDiscount();
   const discountedSubtotal = subtotal - discount;
@@ -187,7 +190,7 @@ const Cart = () => {
                       <div className="flex justify-between font-body">
                         <span className="text-muted-foreground">Shipping</span>
                         <span className="text-foreground">
-                          {currentTier?.rewardType === "free_shipping" ? (
+                          {hasFreeShipping ? (
                             <span className="text-green-500">FREE</span>
                           ) : (
                             "Calculated at checkout"
