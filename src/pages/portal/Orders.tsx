@@ -14,9 +14,11 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Package, RefreshCw, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
@@ -38,11 +40,17 @@ interface Order {
 
 interface OrderItem {
   id: string;
+  product_id?: string | null;
+  variation_id?: string | null;
   product_name: string;
   variation_name: string | null;
   quantity: number;
   unit_price: number;
   total_price: number;
+}
+
+interface ReorderItem extends OrderItem {
+  selected: boolean;
 }
 
 const PortalOrders = () => {
@@ -54,6 +62,13 @@ const PortalOrders = () => {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [loadingItems, setLoadingItems] = useState(false);
   const [reordering, setReordering] = useState<string | null>(null);
+  
+  // Reorder confirmation dialog state
+  const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
+  const [reorderItems, setReorderItems] = useState<ReorderItem[]>([]);
+  const [reorderOrderNumber, setReorderOrderNumber] = useState("");
+  const [processingReorder, setProcessingReorder] = useState(false);
+  
   const { addToCart } = useCart();
   const { toast } = useToast();
   useEffect(() => {
@@ -99,10 +114,10 @@ const PortalOrders = () => {
     fetchOrderItems(order.id);
   };
 
-  const handleReorder = async (orderId: string) => {
+  const handleReorder = async (orderId: string, orderNumber: string) => {
     setReordering(orderId);
     
-    // Fetch order items if not already loaded
+    // Fetch order items
     const { data: items } = await supabase
       .from('order_items')
       .select('*')
@@ -118,8 +133,40 @@ const PortalOrders = () => {
       return;
     }
 
-    let addedCount = 0;
-    for (const item of items) {
+    // Open confirmation dialog with items
+    setReorderItems(items.map(item => ({ ...item, selected: true })));
+    setReorderOrderNumber(orderNumber);
+    setReorderDialogOpen(true);
+    setReordering(null);
+  };
+
+  const toggleItemSelection = (itemId: string) => {
+    setReorderItems(prev => 
+      prev.map(item => 
+        item.id === itemId ? { ...item, selected: !item.selected } : item
+      )
+    );
+  };
+
+  const toggleAllItems = (selected: boolean) => {
+    setReorderItems(prev => prev.map(item => ({ ...item, selected })));
+  };
+
+  const confirmReorder = async () => {
+    const selectedItems = reorderItems.filter(item => item.selected);
+    
+    if (selectedItems.length === 0) {
+      toast({
+        title: "No items selected",
+        description: "Please select at least one item to reorder.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setProcessingReorder(true);
+
+    for (const item of selectedItems) {
       await addToCart({
         productId: item.product_id || item.product_name,
         productName: item.product_name,
@@ -129,14 +176,16 @@ const PortalOrders = () => {
         price: Number(item.unit_price),
         image: getProductImage(item.product_id || item.product_name),
       });
-      addedCount++;
     }
 
     toast({
       title: "Items added to cart",
-      description: `${addedCount} item${addedCount !== 1 ? 's' : ''} from your previous order have been added to your cart.`,
+      description: `${selectedItems.length} item${selectedItems.length !== 1 ? 's' : ''} have been added to your cart.`,
     });
-    setReordering(null);
+
+    setProcessingReorder(false);
+    setReorderDialogOpen(false);
+    setReorderItems([]);
   };
 
   const formatCurrency = (amount: number) => {
@@ -223,7 +272,7 @@ const PortalOrders = () => {
                       <Button 
                         variant="default" 
                         size="sm"
-                        onClick={() => handleReorder(order.id)}
+                        onClick={() => handleReorder(order.id, order.order_number)}
                         disabled={reordering === order.id}
                       >
                         {reordering === order.id ? (
@@ -321,7 +370,7 @@ const PortalOrders = () => {
                 className="w-full" 
                 onClick={() => {
                   if (selectedOrder) {
-                    handleReorder(selectedOrder.id);
+                    handleReorder(selectedOrder.id, selectedOrder.order_number);
                     setSelectedOrder(null);
                   }
                 }}
@@ -335,6 +384,75 @@ const PortalOrders = () => {
                 Reorder All Items
               </Button>
             </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Reorder Confirmation Dialog */}
+        <Dialog open={reorderDialogOpen} onOpenChange={setReorderDialogOpen}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle>Reorder from {reorderOrderNumber}</DialogTitle>
+              <DialogDescription>
+                Select which items you'd like to add to your cart
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4 max-h-[400px] overflow-y-auto">
+              {/* Select All */}
+              <div className="flex items-center gap-2 pb-2 border-b">
+                <Checkbox
+                  id="select-all"
+                  checked={reorderItems.length > 0 && reorderItems.every(item => item.selected)}
+                  onCheckedChange={(checked) => toggleAllItems(!!checked)}
+                />
+                <label htmlFor="select-all" className="text-sm font-medium cursor-pointer">
+                  Select All ({reorderItems.length} items)
+                </label>
+              </div>
+
+              {/* Items List */}
+              {reorderItems.map((item) => (
+                <div
+                  key={item.id}
+                  className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+                    item.selected ? 'bg-primary/5 border-primary/20' : 'bg-muted/30'
+                  }`}
+                >
+                  <Checkbox
+                    id={item.id}
+                    checked={item.selected}
+                    onCheckedChange={() => toggleItemSelection(item.id)}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm">{item.product_name}</p>
+                    {item.variation_name && (
+                      <p className="text-xs text-muted-foreground">{item.variation_name}</p>
+                    )}
+                  </div>
+                  <div className="text-right text-sm">
+                    <p className="font-medium">{formatCurrency(Number(item.unit_price))}</p>
+                    <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <DialogFooter className="gap-2 sm:gap-0">
+              <Button variant="outline" onClick={() => setReorderDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button 
+                onClick={confirmReorder} 
+                disabled={processingReorder || reorderItems.filter(i => i.selected).length === 0}
+              >
+                {processingReorder ? (
+                  <RefreshCw className="h-4 w-4 animate-spin mr-2" />
+                ) : (
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                )}
+                Add {reorderItems.filter(i => i.selected).length} to Cart
+              </Button>
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
