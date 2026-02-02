@@ -160,8 +160,8 @@ const Checkout = () => {
       // Create order items
       const orderItems = items.map((item) => ({
         order_id: order.id,
-        product_id: item.productId,
-        variation_id: item.variationId,
+        product_id: item.productId || null,
+        variation_id: item.variationId || null,
         product_name: item.productName,
         variation_name: item.variationName,
         quantity: item.quantity,
