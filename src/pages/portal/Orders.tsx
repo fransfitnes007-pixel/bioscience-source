@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import PortalLayout from "@/components/portal/PortalLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -18,7 +18,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Package } from "lucide-react";
+import { Package, RefreshCw, ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
+import { getProductImage } from "@/lib/product-images";
 
 interface Order {
   id: string;
@@ -50,7 +53,9 @@ const PortalOrders = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [loadingItems, setLoadingItems] = useState(false);
-
+  const [reordering, setReordering] = useState<string | null>(null);
+  const { addToCart } = useCart();
+  const { toast } = useToast();
   useEffect(() => {
     const fetchOrders = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -92,6 +97,46 @@ const PortalOrders = () => {
   const handleViewOrder = (order: Order) => {
     setSelectedOrder(order);
     fetchOrderItems(order.id);
+  };
+
+  const handleReorder = async (orderId: string) => {
+    setReordering(orderId);
+    
+    // Fetch order items if not already loaded
+    const { data: items } = await supabase
+      .from('order_items')
+      .select('*')
+      .eq('order_id', orderId);
+
+    if (!items || items.length === 0) {
+      toast({
+        title: "No items found",
+        description: "This order has no items to reorder.",
+        variant: "destructive",
+      });
+      setReordering(null);
+      return;
+    }
+
+    let addedCount = 0;
+    for (const item of items) {
+      await addToCart({
+        productId: item.product_id || item.product_name,
+        productName: item.product_name,
+        variationId: item.variation_id || item.variation_name || '',
+        variationName: item.variation_name || '',
+        quantity: item.quantity,
+        price: Number(item.unit_price),
+        image: getProductImage(item.product_id || item.product_name),
+      });
+      addedCount++;
+    }
+
+    toast({
+      title: "Items added to cart",
+      description: `${addedCount} item${addedCount !== 1 ? 's' : ''} from your previous order have been added to your cart.`,
+    });
+    setReordering(null);
   };
 
   const formatCurrency = (amount: number) => {
@@ -171,11 +216,24 @@ const PortalOrders = () => {
                       </div>
                       <p className="text-sm text-muted-foreground">{formatDate(order.created_at)}</p>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 sm:gap-4">
                       <div className="text-right">
                         <p className="font-semibold text-lg">{formatCurrency(Number(order.total))}</p>
                       </div>
-                      <Button variant="outline" onClick={() => handleViewOrder(order)}>
+                      <Button 
+                        variant="default" 
+                        size="sm"
+                        onClick={() => handleReorder(order.id)}
+                        disabled={reordering === order.id}
+                      >
+                        {reordering === order.id ? (
+                          <RefreshCw className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <ShoppingCart className="h-4 w-4" />
+                        )}
+                        <span className="hidden sm:inline ml-1">Reorder</span>
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => handleViewOrder(order)}>
                         View Details
                       </Button>
                     </div>
@@ -241,7 +299,7 @@ const PortalOrders = () => {
                   <span>{formatCurrency(Number(selectedOrder?.subtotal || 0))}</span>
                 </div>
                 {selectedOrder?.discount_amount && Number(selectedOrder.discount_amount) > 0 && (
-                  <div className="flex justify-between text-sm text-green-500">
+                  <div className="flex justify-between text-sm text-primary">
                     <span>Discount</span>
                     <span>-{formatCurrency(Number(selectedOrder.discount_amount))}</span>
                   </div>
@@ -257,6 +315,25 @@ const PortalOrders = () => {
                   <span>{formatCurrency(Number(selectedOrder?.total || 0))}</span>
                 </div>
               </div>
+
+              {/* Reorder Button */}
+              <Button 
+                className="w-full" 
+                onClick={() => {
+                  if (selectedOrder) {
+                    handleReorder(selectedOrder.id);
+                    setSelectedOrder(null);
+                  }
+                }}
+                disabled={reordering === selectedOrder?.id}
+              >
+                {reordering === selectedOrder?.id ? (
+                  <RefreshCw className="h-4 w-4 animate-spin mr-2" />
+                ) : (
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                )}
+                Reorder All Items
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
