@@ -30,8 +30,8 @@ export const COASection = () => {
               COAs & Purity Documentation
             </h2>
             <p className="font-body text-muted-foreground max-w-2xl mx-auto">
-              Every product we facilitate comes with comprehensive documentation from verified 
-              third-party suppliers, ensuring transparency and quality assurance for your research.
+              Every product we supply comes with comprehensive 3rd party testing documentation, 
+              ensuring 99.9% purity verification and complete transparency for your business.
             </p>
           </div>
 
@@ -46,7 +46,7 @@ export const COASection = () => {
                 Certificates of Analysis
               </h3>
               <p className="font-body text-sm text-muted-foreground">
-                Third-party lab testing documentation for every batch
+                Independent 3rd party lab testing for every batch we supply
               </p>
             </div>
 
@@ -55,10 +55,10 @@ export const COASection = () => {
                 <Shield className="w-7 h-7 text-foreground/80" strokeWidth={1.5} />
               </div>
               <h3 className="font-heading text-lg font-medium mb-2 text-foreground">
-                Purity Verification
+                99.9% Purity Verified
               </h3>
               <p className="font-body text-sm text-muted-foreground">
-                Rigorous purity testing and verification standards
+                Rigorous 3rd party purity testing on all products
               </p>
             </div>
 
@@ -70,7 +70,7 @@ export const COASection = () => {
                 Quality Assurance
               </h3>
               <p className="font-body text-sm text-muted-foreground">
-                Consistent quality through vetted supplier partnerships
+                Industry-leading quality standards you can trust
               </p>
             </div>
           </div>
