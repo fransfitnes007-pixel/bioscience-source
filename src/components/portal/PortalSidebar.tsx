@@ -12,12 +12,14 @@ import {
   ChevronRight,
   Menu,
   X,
+  Bell,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/point-logo-white.png";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUnreadMessages } from "@/hooks/useUnreadMessages";
 
 interface PortalSidebarProps {
   isCollapsed: boolean;
@@ -57,6 +59,15 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserId(session?.user?.id || null);
+    });
+  }, []);
+
+  const unreadCount = useUnreadMessages(userId);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -67,18 +78,36 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
     navigate("/");
   };
 
+  const NotificationBell = () => (
+    <NavLink to="/portal/messages" className="relative">
+      <Button variant="ghost" size="icon" className="relative">
+        <Bell className="h-5 w-5" />
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium">
+            {unreadCount > 9 ? "9+" : unreadCount}
+          </span>
+        )}
+      </Button>
+    </NavLink>
+  );
+
   // Mobile sidebar
   if (isMobile) {
     return (
       <>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="fixed top-4 left-4 z-50"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </Button>
+        <div className="fixed top-4 left-4 z-50 flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
+        
+        <div className="fixed top-4 right-4 z-50">
+          <NotificationBell />
+        </div>
 
         {mobileOpen && (
           <div className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm" onClick={() => setMobileOpen(false)}>
@@ -145,18 +174,21 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
           {!isCollapsed && (
             <img src={logo} alt="Point Peptides" className="h-8" />
           )}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onToggle}
-            className={cn("shrink-0", isCollapsed && "mx-auto")}
-          >
-            {isCollapsed ? (
-              <ChevronRight className="h-4 w-4" />
-            ) : (
-              <ChevronLeft className="h-4 w-4" />
-            )}
-          </Button>
+          <div className={cn("flex items-center gap-1", isCollapsed && "mx-auto")}>
+            <NotificationBell />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onToggle}
+              className="shrink-0"
+            >
+              {isCollapsed ? (
+                <ChevronRight className="h-4 w-4" />
+              ) : (
+                <ChevronLeft className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
         </div>
 
         <nav className="flex-1 p-2 space-y-1">
