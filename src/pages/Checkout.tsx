@@ -78,7 +78,7 @@ const Checkout = () => {
   // Calculate totals
   const getDiscount = () => {
     if (!currentTier) return 0;
-    if (currentTier.rewardType === "percent_off" && currentTier.rewardValue) {
+    if ((currentTier.rewardType === "percent_off" || currentTier.rewardType === "percent_off_shipping") && currentTier.rewardValue) {
       return subtotal * (currentTier.rewardValue / 100);
     }
     if (currentTier.rewardType === "fixed_off" && currentTier.rewardValue) {
@@ -89,7 +89,7 @@ const Checkout = () => {
 
   const discount = getDiscount();
   const freeShipping = currentTier?.rewardType === "free_shipping" || 
-                       currentTier?.name === "Elite";
+                       currentTier?.rewardType === "percent_off_shipping";
   const shippingCost = freeShipping ? 0 : 25.00;
   const protectionCost = buyerProtection ? BUYER_PROTECTION_COST : 0;
   const total = subtotal - discount + shippingCost + protectionCost;
