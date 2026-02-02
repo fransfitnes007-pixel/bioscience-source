@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import logo from "@/assets/point-logo-white.png";
 
 interface AdminSidebarProps {
   isCollapsed: boolean;
@@ -84,7 +83,7 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           {!isCollapsed && (
-            <img src={logo} alt="Point Peptides" className="h-8" />
+            <img src="/lovable-uploads/84c304af-556c-4932-b0d2-97a43b8c6c10.png" alt="PØINT BioSciences" className="h-8" />
           )}
           <Button
             variant="ghost"
