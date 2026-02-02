@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Building2,
   Store,
+  Package,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -25,6 +26,11 @@ const navItems = [
     title: "Dashboard",
     href: "/admin",
     icon: LayoutDashboard,
+  },
+  {
+    title: "Orders & Payments",
+    href: "/admin/orders",
+    icon: Package,
   },
   {
     title: "Applications",
