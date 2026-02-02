@@ -1,33 +1,81 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Gift, Truck, Percent, Star, Crown, Trophy } from "lucide-react";
+import confetti from "canvas-confetti";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { ChevronRight, Gift, Check } from "lucide-react";
 
-const tierIcons: Record<string, any> = {
-  Bronze: Gift,
-  Silver: Truck,
-  Gold: Percent,
-  Platinum: Star,
-  Diamond: Crown,
-  Elite: Trophy,
+const tierEmojis: Record<string, string> = {
+  Starter: "🎖️",
+  Bronze: "🥉",
+  Silver: "🥈",
+  Gold: "🥇",
+  Platinum: "🏆",
+  Diamond: "💎",
+};
+
+const tierColors: Record<string, string> = {
+  Starter: "from-amber-600 to-amber-400",
+  Bronze: "from-orange-700 to-orange-500",
+  Silver: "from-slate-400 to-slate-300",
+  Gold: "from-yellow-500 to-yellow-300",
+  Platinum: "from-purple-600 to-purple-400",
+  Diamond: "from-cyan-400 to-blue-500",
 };
 
 export const DealProgress = () => {
   const { subtotal, dealTiers, currentTier, nextTier, progressToNextTier } = useCart();
   const [showCelebration, setShowCelebration] = useState(false);
-  const [celebrationText, setCelebrationText] = useState("");
+  const [celebrationTier, setCelebrationTier] = useState<typeof currentTier>(null);
   const [lastTierNumber, setLastTierNumber] = useState(0);
+
+  const fireConfetti = useCallback(() => {
+    const duration = 3000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+    const randomInRange = (min: number, max: number) =>
+      Math.random() * (max - min) + min;
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+      
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        colors: ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#9370DB'],
+      });
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        colors: ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#9370DB'],
+      });
+    }, 250);
+  }, []);
 
   // Watch for tier changes
   useEffect(() => {
     if (currentTier && currentTier.tierNumber > lastTierNumber) {
-      setCelebrationText(currentTier.celebrationText);
+      setCelebrationTier(currentTier);
       setShowCelebration(true);
       setLastTierNumber(currentTier.tierNumber);
+      fireConfetti();
       
-      setTimeout(() => setShowCelebration(false), 3000);
+      setTimeout(() => setShowCelebration(false), 4000);
     }
-  }, [currentTier, lastTierNumber]);
+  }, [currentTier, lastTierNumber, fireConfetti]);
 
   if (dealTiers.length === 0) return null;
 
@@ -40,46 +88,61 @@ export const DealProgress = () => {
     }).format(amount);
   };
 
+  const unlockedTiers = dealTiers.filter((tier) => subtotal >= tier.minSpend);
+  const lockedTiers = dealTiers.filter((tier) => subtotal < tier.minSpend);
+
   return (
     <>
       {/* Celebration Modal */}
       <AnimatePresence>
-        {showCelebration && (
+        {showCelebration && celebrationTier && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
           >
             <motion.div
-              initial={{ y: 50 }}
-              animate={{ y: 0 }}
-              className="bg-gradient-to-br from-foreground to-foreground/80 text-background px-12 py-8 rounded-2xl shadow-2xl text-center"
+              initial={{ y: 50, scale: 0.8, opacity: 0 }}
+              animate={{ y: 0, scale: 1, opacity: 1 }}
+              exit={{ y: -50, scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", damping: 15 }}
+              className={`bg-gradient-to-br ${tierColors[celebrationTier.name] || "from-foreground to-foreground/80"} text-white px-12 py-8 rounded-2xl shadow-2xl text-center max-w-md mx-4`}
             >
               <motion.div
                 initial={{ rotate: -10, scale: 0 }}
                 animate={{ rotate: 0, scale: 1 }}
-                transition={{ delay: 0.2, type: "spring" }}
-                className="text-6xl mb-4"
+                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                className="text-7xl mb-4"
               >
-                🎉
+                {tierEmojis[celebrationTier.name] || "🎉"}
               </motion.div>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="font-heading text-2xl font-bold mb-2"
+                className="font-heading text-2xl font-bold mb-2 drop-shadow-lg"
               >
-                {currentTier?.name} Tier Unlocked!
+                {celebrationTier.name} Unlocked!
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="font-body text-lg opacity-90"
+                className="font-body text-lg opacity-95 mb-4"
               >
-                {celebrationText}
+                {celebrationTier.celebrationText}
               </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2 inline-block"
+              >
+                <span className="font-heading font-bold">
+                  {celebrationTier.rewardDescription}
+                </span>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
@@ -88,9 +151,85 @@ export const DealProgress = () => {
       {/* Progress Bar Component */}
       <div className="bg-card border border-border rounded-xl p-4">
         <div className="flex items-center justify-between mb-3">
-          <span className="font-heading text-sm font-medium text-foreground">
-            {currentTier ? `${currentTier.name} Status` : "Unlock Rewards"}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="font-heading text-sm font-medium text-foreground">
+              {currentTier ? (
+                <span className="flex items-center gap-1">
+                  {tierEmojis[currentTier.name]} {currentTier.name} Status
+                </span>
+              ) : (
+                "Unlock Rewards"
+              )}
+            </span>
+            
+            {/* Unlocked Rewards Hover */}
+            {unlockedTiers.length > 0 && (
+              <HoverCard openDelay={100}>
+                <HoverCardTrigger asChild>
+                  <button className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full hover:bg-primary/20 transition-colors flex items-center gap-1">
+                    <Gift className="w-3 h-3" />
+                    {unlockedTiers.length} reward{unlockedTiers.length > 1 ? "s" : ""}
+                    <ChevronRight className="w-3 h-3" />
+                  </button>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80 p-0" align="start">
+                  <div className="p-3 border-b border-border bg-muted/50">
+                    <h4 className="font-heading font-semibold text-sm flex items-center gap-2">
+                      <Gift className="w-4 h-4 text-primary" />
+                      Your Unlocked Rewards
+                    </h4>
+                  </div>
+                  <div className="p-2 space-y-1 max-h-64 overflow-y-auto">
+                    {unlockedTiers.map((tier) => (
+                      <div
+                        key={tier.id}
+                        className={`flex items-center gap-3 p-2 rounded-lg bg-gradient-to-r ${tierColors[tier.name]} bg-opacity-10`}
+                      >
+                        <span className="text-xl">{tierEmojis[tier.name]}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-heading text-sm font-semibold text-foreground">
+                            {tier.name}
+                          </div>
+                          <div className="font-body text-xs text-muted-foreground truncate">
+                            {tier.rewardDescription}
+                          </div>
+                        </div>
+                        <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      </div>
+                    ))}
+                  </div>
+                  {lockedTiers.length > 0 && (
+                    <>
+                      <div className="p-3 border-t border-border bg-muted/30">
+                        <h4 className="font-heading font-semibold text-xs text-muted-foreground">
+                          Next Rewards
+                        </h4>
+                      </div>
+                      <div className="p-2 space-y-1">
+                        {lockedTiers.slice(0, 2).map((tier) => (
+                          <div
+                            key={tier.id}
+                            className="flex items-center gap-3 p-2 rounded-lg bg-muted/30 opacity-60"
+                          >
+                            <span className="text-xl grayscale">{tierEmojis[tier.name]}</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="font-heading text-sm font-medium text-foreground">
+                                {tier.name} — {formatCurrency(tier.minSpend)}
+                              </div>
+                              <div className="font-body text-xs text-muted-foreground truncate">
+                                {tier.rewardDescription}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </HoverCardContent>
+              </HoverCard>
+            )}
+          </div>
+          
           <span className="font-body text-sm text-muted-foreground">
             Cart: {formatCurrency(subtotal)}
           </span>
@@ -107,27 +246,48 @@ export const DealProgress = () => {
           
           {/* Tier markers */}
           {dealTiers.map((tier) => {
-            const maxSpend = dealTiers[dealTiers.length - 1]?.minSpend || 10000;
+            const maxSpend = dealTiers[dealTiers.length - 1]?.minSpend || 100000;
             const position = (tier.minSpend / maxSpend) * 100;
-            const Icon = tierIcons[tier.name] || Gift;
             const isUnlocked = subtotal >= tier.minSpend;
             
             return (
-              <div
-                key={tier.id}
-                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
-                style={{ left: `${Math.min(position, 98)}%` }}
-              >
-                <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
-                    isUnlocked
-                      ? "bg-foreground text-background"
-                      : "bg-secondary border border-border text-muted-foreground"
-                  }`}
-                >
-                  <Icon className="w-3 h-3" />
-                </div>
-              </div>
+              <HoverCard key={tier.id} openDelay={200}>
+                <HoverCardTrigger asChild>
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 cursor-pointer"
+                    style={{ left: `${Math.min(position, 98)}%` }}
+                  >
+                    <motion.div
+                      initial={{ scale: 0.8 }}
+                      animate={{ scale: isUnlocked ? 1.1 : 1 }}
+                      className={`w-6 h-6 rounded-full flex items-center justify-center transition-all text-xs ${
+                        isUnlocked
+                          ? `bg-gradient-to-br ${tierColors[tier.name]} shadow-lg`
+                          : "bg-secondary border border-border"
+                      }`}
+                    >
+                      {isUnlocked ? tierEmojis[tier.name] : ""}
+                    </motion.div>
+                  </div>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-56 p-3" side="top">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">{tierEmojis[tier.name]}</span>
+                    <div>
+                      <h4 className="font-heading font-semibold">{tier.name}</h4>
+                      <p className="text-xs text-muted-foreground">
+                        {formatCurrency(tier.minSpend)} spend
+                      </p>
+                    </div>
+                  </div>
+                  <p className="font-body text-sm">{tier.rewardDescription}</p>
+                  {!isUnlocked && (
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {formatCurrency(tier.minSpend - subtotal)} more to unlock
+                    </p>
+                  )}
+                </HoverCardContent>
+              </HoverCard>
             );
           })}
         </div>
@@ -136,9 +296,12 @@ export const DealProgress = () => {
         {nextTier && (
           <div className="flex items-center justify-between text-sm">
             <span className="font-body text-muted-foreground">
-              {formatCurrency(nextTier.minSpend - subtotal)} to {nextTier.name}
+              <span className="text-foreground font-medium">
+                {formatCurrency(nextTier.minSpend - subtotal)}
+              </span>{" "}
+              to unlock {tierEmojis[nextTier.name]} {nextTier.name}
             </span>
-            <span className="font-heading text-foreground font-medium">
+            <span className="font-heading text-foreground font-medium text-xs bg-muted px-2 py-1 rounded">
               {nextTier.rewardDescription}
             </span>
           </div>
@@ -147,7 +310,7 @@ export const DealProgress = () => {
         {!nextTier && currentTier && (
           <div className="text-center">
             <span className="font-heading text-sm font-medium text-foreground">
-              🏆 Elite Status Achieved! Maximum rewards unlocked.
+              💎 Diamond Status! You've unlocked ALL rewards!
             </span>
           </div>
         )}
