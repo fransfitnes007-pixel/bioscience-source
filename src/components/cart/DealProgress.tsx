@@ -7,7 +7,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { ChevronRight, Gift, Check } from "lucide-react";
+import { ChevronRight, Gift, Check, X, Copy } from "lucide-react";
 
 const tierEmojis: Record<string, string> = {
   Starter: "🎖️",
@@ -33,13 +33,17 @@ export const DealProgress = () => {
   const [celebrationTier, setCelebrationTier] = useState<typeof currentTier>(null);
   const [lastTierNumber, setLastTierNumber] = useState(0);
 
-  const fireConfetti = useCallback(() => {
-    const duration = 3000;
+  const fireConfetti = useCallback((isBogo: boolean = false) => {
+    const duration = isBogo ? 5000 : 3000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
 
     const randomInRange = (min: number, max: number) =>
       Math.random() * (max - min) + min;
+
+    // BOGO celebration - extra intense with gold/green colors
+    const bogoColors = ['#FFD700', '#32CD32', '#FFD700', '#00FF00', '#FFDF00'];
+    const regularColors = ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#9370DB'];
 
     const interval = setInterval(() => {
       const timeLeft = animationEnd - Date.now();
@@ -48,21 +52,36 @@ export const DealProgress = () => {
         return clearInterval(interval);
       }
 
-      const particleCount = 50 * (timeLeft / duration);
+      const particleCount = (isBogo ? 80 : 50) * (timeLeft / duration);
       
       confetti({
         ...defaults,
         particleCount,
         origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-        colors: ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#9370DB'],
+        colors: isBogo ? bogoColors : regularColors,
       });
       confetti({
         ...defaults,
         particleCount,
         origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-        colors: ['#FFD700', '#FFA500', '#FF6347', '#00CED1', '#9370DB'],
+        colors: isBogo ? bogoColors : regularColors,
       });
-    }, 250);
+
+      // Extra center burst for BOGO
+      if (isBogo) {
+        confetti({
+          ...defaults,
+          particleCount: particleCount / 2,
+          origin: { x: 0.5, y: 0.5 },
+          colors: bogoColors,
+          shapes: ['star'],
+        });
+      }
+    }, isBogo ? 150 : 250);
+  }, []);
+
+  const closeCelebration = useCallback(() => {
+    setShowCelebration(false);
   }, []);
 
   // Watch for tier changes
@@ -71,9 +90,13 @@ export const DealProgress = () => {
       setCelebrationTier(currentTier);
       setShowCelebration(true);
       setLastTierNumber(currentTier.tierNumber);
-      fireConfetti();
       
-      setTimeout(() => setShowCelebration(false), 4000);
+      // Check if this is a BOGO tier (Platinum = $50k)
+      const isBogo = currentTier.name === "Platinum" || currentTier.name === "Diamond";
+      fireConfetti(isBogo);
+      
+      // Auto-hide after delay (but user can close early with X)
+      setTimeout(() => setShowCelebration(false), isBogo ? 6000 : 4000);
     }
   }, [currentTier, lastTierNumber, fireConfetti]);
 
@@ -100,15 +123,39 @@ export const DealProgress = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+            onClick={closeCelebration}
           >
             <motion.div
               initial={{ y: 50, scale: 0.8, opacity: 0 }}
               animate={{ y: 0, scale: 1, opacity: 1 }}
               exit={{ y: -50, scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", damping: 15 }}
-              className={`bg-gradient-to-br ${tierColors[celebrationTier.name] || "from-foreground to-foreground/80"} text-white px-12 py-8 rounded-2xl shadow-2xl text-center max-w-md mx-4`}
+              className={`relative bg-gradient-to-br ${tierColors[celebrationTier.name] || "from-foreground to-foreground/80"} text-white px-12 py-8 rounded-2xl shadow-2xl text-center max-w-md mx-4 pointer-events-auto`}
+              onClick={(e) => e.stopPropagation()}
             >
+              {/* Close button - always visible */}
+              <button
+                onClick={closeCelebration}
+                className="absolute top-3 right-3 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                aria-label="Close celebration"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* BOGO Special Animation */}
+              {(celebrationTier.name === "Platinum" || celebrationTier.name === "Diamond") && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.1, type: "spring", stiffness: 300 }}
+                  className="absolute -top-4 -left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg flex items-center gap-1"
+                >
+                  <Copy className="w-4 h-4" />
+                  BOGO FREE!
+                </motion.div>
+              )}
+
               <motion.div
                 initial={{ rotate: -10, scale: 0 }}
                 animate={{ rotate: 0, scale: 1 }}
@@ -117,6 +164,41 @@ export const DealProgress = () => {
               >
                 {tierEmojis[celebrationTier.name] || "🎉"}
               </motion.div>
+
+              {/* BOGO Double Icon Animation */}
+              {(celebrationTier.name === "Platinum" || celebrationTier.name === "Diamond") && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4, type: "spring" }}
+                  className="flex justify-center gap-4 mb-4"
+                >
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                    className="bg-white/20 rounded-lg p-3"
+                  >
+                    <span className="text-2xl">📦</span>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                    className="flex items-center text-3xl font-bold"
+                  >
+                    ×2
+                  </motion.div>
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}
+                    className="relative bg-green-500/30 rounded-lg p-3 border-2 border-green-400"
+                  >
+                    <span className="text-2xl">📦</span>
+                    <span className="absolute -top-1 -right-1 text-xs bg-green-500 rounded-full px-1">FREE</span>
+                  </motion.div>
+                </motion.div>
+              )}
+
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -143,6 +225,18 @@ export const DealProgress = () => {
                   {celebrationTier.rewardDescription}
                 </span>
               </motion.div>
+
+              {/* BOGO Highlight Text */}
+              {(celebrationTier.name === "Platinum" || celebrationTier.name === "Diamond") && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                  className="mt-4 text-sm bg-green-500/30 border border-green-400 rounded-lg px-4 py-2"
+                >
+                  🎁 Every item in your cart will be <strong>DOUBLED</strong> at checkout — FREE!
+                </motion.div>
+              )}
             </motion.div>
           </motion.div>
         )}
