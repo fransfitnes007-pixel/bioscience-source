@@ -583,6 +583,105 @@ export type Database = {
           },
         ]
       }
+      order_activity_log: {
+        Row: {
+          action: string
+          created_at: string
+          details: Json | null
+          id: string
+          order_id: string
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          order_id: string
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          order_id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_activity_log_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_activity_log_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_item_fulfillment: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          order_item_id: string
+          shipped_at: string | null
+          shipping_carrier: string | null
+          status: Database["public"]["Enums"]["fulfillment_status"]
+          supplier_id: string
+          tracking_number: string | null
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          order_item_id: string
+          shipped_at?: string | null
+          shipping_carrier?: string | null
+          status?: Database["public"]["Enums"]["fulfillment_status"]
+          supplier_id: string
+          tracking_number?: string | null
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          order_item_id?: string
+          shipped_at?: string | null
+          shipping_carrier?: string | null
+          status?: Database["public"]["Enums"]["fulfillment_status"]
+          supplier_id?: string
+          tracking_number?: string | null
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_item_fulfillment_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: true
+            referencedRelation: "order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_item_fulfillment_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           created_at: string
@@ -629,6 +728,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "order_items_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
@@ -663,12 +769,16 @@ export type Database = {
           discount_amount: number | null
           discount_code: string | null
           discount_tier: string | null
+          estimated_delivery_date: string | null
+          fulfillment_carrier: string | null
+          fulfillment_tracking_number: string | null
           id: string
           internal_notes: string | null
           notes: string | null
           order_number: string
           paid_at: string | null
           payment_status: string | null
+          shipped_at: string | null
           shipping_address: string | null
           shipping_address_2: string | null
           shipping_city: string | null
@@ -707,12 +817,16 @@ export type Database = {
           discount_amount?: number | null
           discount_code?: string | null
           discount_tier?: string | null
+          estimated_delivery_date?: string | null
+          fulfillment_carrier?: string | null
+          fulfillment_tracking_number?: string | null
           id?: string
           internal_notes?: string | null
           notes?: string | null
           order_number: string
           paid_at?: string | null
           payment_status?: string | null
+          shipped_at?: string | null
           shipping_address?: string | null
           shipping_address_2?: string | null
           shipping_city?: string | null
@@ -751,12 +865,16 @@ export type Database = {
           discount_amount?: number | null
           discount_code?: string | null
           discount_tier?: string | null
+          estimated_delivery_date?: string | null
+          fulfillment_carrier?: string | null
+          fulfillment_tracking_number?: string | null
           id?: string
           internal_notes?: string | null
           notes?: string | null
           order_number?: string
           paid_at?: string | null
           payment_status?: string | null
+          shipped_at?: string | null
           shipping_address?: string | null
           shipping_address_2?: string | null
           shipping_city?: string | null
@@ -1061,6 +1179,149 @@ export type Database = {
         }
         Relationships: []
       }
+      supplier_messages: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          order_id: string
+          sender_type: string
+          sender_user_id: string
+          supplier_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          order_id: string
+          sender_type: string
+          sender_user_id: string
+          supplier_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          order_id?: string
+          sender_type?: string
+          sender_user_id?: string
+          supplier_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_messages_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supplier_messages_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supplier_messages_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supplier_order_assignments: {
+        Row: {
+          assigned_at: string
+          assigned_by: string
+          id: string
+          notes: string | null
+          order_id: string
+          supplier_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          assigned_by: string
+          id?: string
+          notes?: string | null
+          order_id: string
+          supplier_id: string
+        }
+        Update: {
+          assigned_at?: string
+          assigned_by?: string
+          id?: string
+          notes?: string | null
+          order_id?: string
+          supplier_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_order_assignments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supplier_order_assignments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supplier_order_assignments_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      suppliers: {
+        Row: {
+          address: string | null
+          company_name: string
+          contact_email: string
+          contact_name: string
+          created_at: string
+          id: string
+          is_active: boolean
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          company_name: string
+          contact_email: string
+          contact_name: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          company_name?: string
+          contact_email?: string
+          contact_name?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -1192,7 +1453,78 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      supplier_order_view: {
+        Row: {
+          created_at: string | null
+          estimated_delivery_date: string | null
+          fulfillment_carrier: string | null
+          fulfillment_tracking_number: string | null
+          id: string | null
+          notes: string | null
+          order_number: string | null
+          shipped_at: string | null
+          shipping_address: string | null
+          shipping_address_2: string | null
+          shipping_city: string | null
+          shipping_company: string | null
+          shipping_country: string | null
+          shipping_first_name: string | null
+          shipping_last_name: string | null
+          shipping_state: string | null
+          shipping_zip: string | null
+          status: string | null
+          subtotal: number | null
+          total: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          estimated_delivery_date?: string | null
+          fulfillment_carrier?: string | null
+          fulfillment_tracking_number?: string | null
+          id?: string | null
+          notes?: string | null
+          order_number?: string | null
+          shipped_at?: string | null
+          shipping_address?: string | null
+          shipping_address_2?: string | null
+          shipping_city?: string | null
+          shipping_company?: string | null
+          shipping_country?: string | null
+          shipping_first_name?: string | null
+          shipping_last_name?: string | null
+          shipping_state?: string | null
+          shipping_zip?: string | null
+          status?: string | null
+          subtotal?: number | null
+          total?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          estimated_delivery_date?: string | null
+          fulfillment_carrier?: string | null
+          fulfillment_tracking_number?: string | null
+          id?: string | null
+          notes?: string | null
+          order_number?: string | null
+          shipped_at?: string | null
+          shipping_address?: string | null
+          shipping_address_2?: string | null
+          shipping_city?: string | null
+          shipping_company?: string | null
+          shipping_country?: string | null
+          shipping_first_name?: string | null
+          shipping_last_name?: string | null
+          shipping_state?: string | null
+          shipping_zip?: string | null
+          status?: string | null
+          subtotal?: number | null
+          total?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_all_customer_leads: {
@@ -1224,6 +1556,7 @@ export type Database = {
           zip_code: string
         }[]
       }
+      get_supplier_id: { Args: { _user_id: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1232,9 +1565,16 @@ export type Database = {
         Returns: boolean
       }
       is_approved: { Args: { _user_id: string }; Returns: boolean }
+      is_supplier: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      app_role: "admin" | "user"
+      app_role: "admin" | "user" | "supplier"
+      fulfillment_status:
+        | "pending"
+        | "in_production"
+        | "packed"
+        | "shipped"
+        | "completed"
       user_status: "pending" | "approved" | "denied"
     }
     CompositeTypes: {
@@ -1363,7 +1703,14 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "user"],
+      app_role: ["admin", "user", "supplier"],
+      fulfillment_status: [
+        "pending",
+        "in_production",
+        "packed",
+        "shipped",
+        "completed",
+      ],
       user_status: ["pending", "approved", "denied"],
     },
   },

@@ -2,3 +2,9 @@ project_id = "nunwpsiixyqmbgvvokmq"
 
 [functions.create-partner-account]
 verify_jwt = false
+
+[functions.create-supplier-account]
+verify_jwt = false
+
+[functions.send-shipping-notification]
+verify_jwt = false
