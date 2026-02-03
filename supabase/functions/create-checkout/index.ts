@@ -66,18 +66,20 @@ serve(async (req) => {
       customerId = customers.data[0].id;
     }
 
-    // Build line items from order
-    const lineItems = order.order_items.map((item: any) => ({
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: item.product_name,
-          description: item.variation_name || undefined,
+    // Build line items from order (filter out BOGO FREE items with $0 price for Stripe)
+    const lineItems = order.order_items
+      .filter((item: any) => item.unit_price > 0) // Exclude BOGO free items
+      .map((item: any) => ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.product_name,
+            description: item.variation_name || undefined,
+          },
+          unit_amount: Math.round(item.unit_price * 100),
         },
-        unit_amount: Math.round(item.unit_price * 100),
-      },
-      quantity: item.quantity,
-    }));
+        quantity: item.quantity,
+      }));
 
     // Add shipping if applicable
     if (order.shipping_cost && order.shipping_cost > 0) {
