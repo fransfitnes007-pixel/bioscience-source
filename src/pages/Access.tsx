@@ -12,7 +12,7 @@ const Access = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [loginData, setLoginData] = useState({ identifier: "", password: "" });
   const [signupData, setSignupData] = useState({
     firstName: "",
     lastName: "",
@@ -40,15 +40,39 @@ const Access = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: loginData.email,
+      // Check if identifier is an email or username
+      let email = loginData.identifier;
+      
+      // If it doesn't contain @, treat it as a supplier username
+      if (!loginData.identifier.includes("@")) {
+        email = `${loginData.identifier.toLowerCase()}@supplier.pointbiosciences.com`;
+      }
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
         password: loginData.password,
       });
 
       if (error) throw error;
 
+      // Check user role to redirect appropriately
+      const { data: roleData } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", data.user.id);
+
+      const roles = roleData?.map(r => r.role) || [];
+
       toast.success("Logged in successfully");
-      navigate("/");
+      
+      // Redirect based on role
+      if (roles.includes("supplier")) {
+        navigate("/supplier");
+      } else if (roles.includes("admin")) {
+        navigate("/admin");
+      } else {
+        navigate("/portal");
+      }
     } catch (error: any) {
       toast.error(error.message || "Login failed");
     } finally {
@@ -202,13 +226,14 @@ const Access = () => {
             <form onSubmit={handleLogin} className="space-y-5 animate-fade-in">
               <div>
                 <label className="font-heading text-sm font-medium text-foreground block mb-2">
-                  Email
+                  Email or Username
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   required
-                  value={loginData.email}
-                  onChange={(e) => setLoginData((prev) => ({ ...prev, email: e.target.value }))}
+                  value={loginData.identifier}
+                  onChange={(e) => setLoginData((prev) => ({ ...prev, identifier: e.target.value }))}
+                  placeholder="Email or supplier username"
                   className="w-full px-4 py-3 bg-secondary/30 border border-border rounded-lg font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30"
                 />
               </div>
