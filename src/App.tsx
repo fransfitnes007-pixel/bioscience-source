@@ -26,11 +26,16 @@ import AdminContactMessages from "./pages/admin/ContactMessages";
 import AdminBusinesses from "./pages/admin/Businesses";
 import AdminMessagesCenter from "./pages/admin/MessagesCenter";
 import AdminOrders from "./pages/admin/Orders";
+import AdminSuppliers from "./pages/admin/Suppliers";
 import PortalDashboard from "./pages/portal/Dashboard";
 import PortalProducts from "./pages/portal/Products";
 import PortalOrders from "./pages/portal/Orders";
 import PortalMessages from "./pages/portal/Messages";
 import PortalProfile from "./pages/portal/Profile";
+import SupplierDashboard from "./pages/supplier/Dashboard";
+import SupplierOrders from "./pages/supplier/Orders";
+import SupplierOrderFulfillment from "./pages/supplier/OrderFulfillment";
+import SupplierMessages from "./pages/supplier/Messages";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +69,12 @@ const App = () => (
             <Route path="/admin/messages" element={<AdminContactMessages />} />
             <Route path="/admin/businesses" element={<AdminBusinesses />} />
             <Route path="/admin/messages-center" element={<AdminMessagesCenter />} />
+            <Route path="/admin/suppliers" element={<AdminSuppliers />} />
+            {/* Supplier Portal Routes */}
+            <Route path="/supplier" element={<SupplierDashboard />} />
+            <Route path="/supplier/orders" element={<SupplierOrders />} />
+            <Route path="/supplier/orders/:id" element={<SupplierOrderFulfillment />} />
+            <Route path="/supplier/messages" element={<SupplierMessages />} />
             {/* Client Portal Routes */}
             <Route path="/portal" element={<PortalDashboard />} />
             <Route path="/portal/products" element={<PortalProducts />} />
