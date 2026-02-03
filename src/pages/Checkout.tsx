@@ -17,7 +17,19 @@ import {
   Loader2,
 } from "lucide-react";
 
-const BUYER_PROTECTION_COST = 29.99;
+// Buyer protection pricing scales with order tier
+const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
+  if (!tierNumber) return 30; // Base price
+  switch (tierNumber) {
+    case 1: return 30;   // $2k tier
+    case 2: return 60;   // $5k tier
+    case 3: return 120;  // $10k tier
+    case 4: return 240;  // $20k tier
+    case 5: return 480;  // $50k tier
+    case 6: return 960;  // $100k tier
+    default: return 30;
+  }
+};
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -75,23 +87,38 @@ const Checkout = () => {
     }
   }, [items, navigate, isSubmitting]);
 
-  // Calculate totals
+  // Check if current tier is BOGO
+  const isBogo = currentTier?.rewardType === "bogo_shipping" || 
+                 currentTier?.rewardType === "bogo_shipping_next_order";
+
+  // Calculate totals with proper tier alignment
   const getDiscount = () => {
     if (!currentTier) return 0;
-    if ((currentTier.rewardType === "percent_off" || currentTier.rewardType === "percent_off_shipping") && currentTier.rewardValue) {
+    
+    // Percentage discounts (tiers 1-4)
+    if (currentTier.rewardType === "percentage_discount" && currentTier.rewardValue) {
       return subtotal * (currentTier.rewardValue / 100);
     }
-    if (currentTier.rewardType === "fixed_off" && currentTier.rewardValue) {
-      return currentTier.rewardValue;
+    if (currentTier.rewardType === "percentage_discount_shipping" && currentTier.rewardValue) {
+      return subtotal * (currentTier.rewardValue / 100);
     }
+    
+    // BOGO tiers (5-6) - the "discount" is effectively the full subtotal (customer gets double for free)
+    // But we don't charge extra, so no monetary discount shown - value is in the doubled items
+    if (isBogo) {
+      return 0; // BOGO value shown in items, not as discount
+    }
+    
     return 0;
   };
 
   const discount = getDiscount();
-  const freeShipping = currentTier?.rewardType === "free_shipping" || 
-                       currentTier?.rewardType === "percent_off_shipping";
+  const freeShipping = currentTier?.rewardType === "percentage_discount_shipping" || 
+                       currentTier?.rewardType === "bogo_shipping" ||
+                       currentTier?.rewardType === "bogo_shipping_next_order";
   const shippingCost = freeShipping ? 0 : 25.00;
-  const protectionCost = buyerProtection ? BUYER_PROTECTION_COST : 0;
+  const buyerProtectionCost = getBuyerProtectionCost(currentTier?.tierNumber);
+  const protectionCost = buyerProtection ? buyerProtectionCost : 0;
   const total = subtotal - discount + shippingCost + protectionCost;
 
   const formatCurrency = (amount: number) => {
@@ -157,17 +184,36 @@ const Checkout = () => {
 
       if (orderError) throw orderError;
 
-      // Create order items
-      const orderItems = items.map((item) => ({
-        order_id: order.id,
-        product_id: item.productId || null,
-        variation_id: item.variationId || null,
-        product_name: item.productName,
-        variation_name: item.variationName,
-        quantity: item.quantity,
-        unit_price: item.price,
-        total_price: item.price * item.quantity,
-      }));
+      // Create order items - for BOGO, add both paid and free items
+      const orderItems: any[] = [];
+      
+      items.forEach((item) => {
+        // Add the paid item
+        orderItems.push({
+          order_id: order.id,
+          product_id: item.productId || null,
+          variation_id: item.variationId || null,
+          product_name: item.productName,
+          variation_name: item.variationName,
+          quantity: item.quantity,
+          unit_price: item.price,
+          total_price: item.price * item.quantity,
+        });
+        
+        // For BOGO tiers, add the same item again as FREE
+        if (isBogo) {
+          orderItems.push({
+            order_id: order.id,
+            product_id: item.productId || null,
+            variation_id: item.variationId || null,
+            product_name: `${item.productName} (BOGO FREE)`,
+            variation_name: item.variationName,
+            quantity: item.quantity,
+            unit_price: 0,
+            total_price: 0,
+          });
+        }
+      });
 
       const { error: itemsError } = await supabase
         .from("order_items")
@@ -574,9 +620,9 @@ const Checkout = () => {
                         </p>
                         <div className="flex items-center justify-between">
                           <span className="font-heading text-2xl font-bold text-foreground">
-                            ${BUYER_PROTECTION_COST.toFixed(2)}
+                            ${buyerProtectionCost.toFixed(2)}
                           </span>
-                          <span className="font-body text-xs text-green-500 font-medium">
+                          <span className="font-body text-xs text-emerald-500 font-medium">
                             RECOMMENDED
                           </span>
                         </div>
@@ -594,13 +640,26 @@ const Checkout = () => {
                     {/* Items */}
                     <div className="space-y-3 mb-6 max-h-48 overflow-y-auto">
                       {items.map((item) => (
-                        <div key={item.id} className="flex justify-between text-sm">
-                          <span className="font-body text-muted-foreground truncate flex-1 mr-2">
-                            {item.productName} × {item.quantity}
-                          </span>
-                          <span className="font-heading text-foreground">
-                            {formatCurrency(item.price * item.quantity)}
-                          </span>
+                        <div key={item.id}>
+                          <div className="flex justify-between text-sm">
+                            <span className="font-body text-muted-foreground truncate flex-1 mr-2">
+                              {item.productName} × {item.quantity}
+                            </span>
+                            <span className="font-heading text-foreground">
+                              {formatCurrency(item.price * item.quantity)}
+                            </span>
+                          </div>
+                          {/* Show BOGO bonus item */}
+                          {isBogo && (
+                            <div className="flex justify-between text-sm mt-1 pl-4">
+                              <span className="font-body text-emerald-500 truncate flex-1 mr-2">
+                                + {item.productName} × {item.quantity} (BOGO FREE)
+                              </span>
+                              <span className="font-heading text-emerald-500">
+                                FREE
+                              </span>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -612,15 +671,22 @@ const Checkout = () => {
                       </div>
 
                       {discount > 0 && (
-                        <div className="flex justify-between font-body text-green-500">
+                        <div className="flex justify-between font-body text-emerald-500">
                           <span>{currentTier?.name} Discount</span>
                           <span>-{formatCurrency(discount)}</span>
                         </div>
                       )}
 
+                      {isBogo && (
+                        <div className="flex justify-between font-body text-emerald-500">
+                          <span>🎁 {currentTier?.name} BOGO Bonus</span>
+                          <span>+{items.reduce((sum, item) => sum + item.quantity, 0)} FREE items</span>
+                        </div>
+                      )}
+
                       <div className="flex justify-between font-body">
                         <span className="text-muted-foreground">Shipping</span>
-                        <span className={freeShipping ? "text-green-500" : "text-foreground"}>
+                        <span className={freeShipping ? "text-emerald-500" : "text-foreground"}>
                           {freeShipping ? "FREE" : formatCurrency(shippingCost)}
                         </span>
                       </div>
