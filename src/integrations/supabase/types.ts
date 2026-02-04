@@ -126,6 +126,7 @@ export type Database = {
           business_type: string | null
           city: string | null
           company_impact: string | null
+          company_logo_url: string | null
           contact_name: string
           country: string | null
           created_at: string
@@ -153,6 +154,7 @@ export type Database = {
           business_type?: string | null
           city?: string | null
           company_impact?: string | null
+          company_logo_url?: string | null
           contact_name: string
           country?: string | null
           created_at?: string
@@ -180,6 +182,7 @@ export type Database = {
           business_type?: string | null
           city?: string | null
           company_impact?: string | null
+          company_logo_url?: string | null
           contact_name?: string
           country?: string | null
           created_at?: string
@@ -766,6 +769,9 @@ export type Database = {
           buyer_protection: boolean | null
           buyer_protection_cost: number | null
           created_at: string
+          custom_labeling: boolean | null
+          custom_labeling_cost: number | null
+          custom_labeling_logo_url: string | null
           discount_amount: number | null
           discount_code: string | null
           discount_tier: string | null
@@ -814,6 +820,9 @@ export type Database = {
           buyer_protection?: boolean | null
           buyer_protection_cost?: number | null
           created_at?: string
+          custom_labeling?: boolean | null
+          custom_labeling_cost?: number | null
+          custom_labeling_logo_url?: string | null
           discount_amount?: number | null
           discount_code?: string | null
           discount_tier?: string | null
@@ -862,6 +871,9 @@ export type Database = {
           buyer_protection?: boolean | null
           buyer_protection_cost?: number | null
           created_at?: string
+          custom_labeling?: boolean | null
+          custom_labeling_cost?: number | null
+          custom_labeling_logo_url?: string | null
           discount_amount?: number | null
           discount_code?: string | null
           discount_tier?: string | null
@@ -1117,6 +1129,7 @@ export type Database = {
         Row: {
           business_email: string | null
           business_name: string | null
+          company_logo_url: string | null
           country: string | null
           created_at: string
           first_name: string | null
@@ -1131,6 +1144,7 @@ export type Database = {
         Insert: {
           business_email?: string | null
           business_name?: string | null
+          company_logo_url?: string | null
           country?: string | null
           created_at?: string
           first_name?: string | null
@@ -1145,6 +1159,7 @@ export type Database = {
         Update: {
           business_email?: string | null
           business_name?: string | null
+          company_logo_url?: string | null
           country?: string | null
           created_at?: string
           first_name?: string | null

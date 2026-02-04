@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Building2, Mail, Phone, Globe, Package, MessageSquare, Eye } from "lucide-react";
+import { Building2, Mail, Phone, Globe, Package, MessageSquare, Eye, FileImage, Tags } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Business {
@@ -36,6 +36,7 @@ interface Business {
   country: string | null;
   status: string;
   created_at: string;
+  company_logo_url: string | null;
   order_count?: number;
   total_spent?: number;
 }
@@ -182,6 +183,7 @@ const AdminBusinesses = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Business</TableHead>
+                    <TableHead>Logo</TableHead>
                     <TableHead>Contact</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Orders</TableHead>
@@ -200,6 +202,23 @@ const AdminBusinesses = () => {
                             {business.first_name} {business.last_name}
                           </p>
                         </div>
+                      </TableCell>
+                      <TableCell>
+                        {business.company_logo_url ? (
+                          <div className="w-10 h-10 rounded border border-border overflow-hidden bg-secondary/30 flex items-center justify-center">
+                            {business.company_logo_url.toLowerCase().endsWith('.pdf') ? (
+                              <FileImage className="w-5 h-5 text-muted-foreground" />
+                            ) : (
+                              <img
+                                src={business.company_logo_url}
+                                alt="Logo"
+                                className="w-full h-full object-contain p-1"
+                              />
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
                       </TableCell>
                       <TableCell>
                         <p className="text-sm">{business.business_email}</p>
@@ -276,6 +295,26 @@ const AdminBusinesses = () => {
                     <p className="font-medium">{selectedBusiness.website || "N/A"}</p>
                   </div>
                 </div>
+
+                {/* Company Logo */}
+                {selectedBusiness.company_logo_url && (
+                  <div className="p-4 bg-muted/50 rounded-lg">
+                    <p className="text-sm text-muted-foreground mb-2 flex items-center gap-1">
+                      <Tags className="h-3 w-3" /> Company Logo
+                    </p>
+                    <div className="w-24 h-24 rounded-lg border border-border overflow-hidden bg-background flex items-center justify-center">
+                      {selectedBusiness.company_logo_url.toLowerCase().endsWith('.pdf') ? (
+                        <FileImage className="w-12 h-12 text-muted-foreground" />
+                      ) : (
+                        <img
+                          src={selectedBusiness.company_logo_url}
+                          alt="Company logo"
+                          className="w-full h-full object-contain p-2"
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 {/* Stats */}
                 <div className="grid gap-4 sm:grid-cols-3 p-4 bg-muted/50 rounded-lg">

@@ -23,7 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, FileImage, Tags } from "lucide-react";
 
 interface Application {
   id: string;
@@ -45,6 +45,7 @@ interface Application {
   product_usage: string | null;
   how_we_benefit: string | null;
   company_impact: string | null;
+  company_logo_url: string | null;
   status: string;
   notes: string | null;
   created_at: string;
@@ -418,6 +419,26 @@ const Applications = () => {
                     <div>
                       <Label className="text-muted-foreground">Company Impact</Label>
                       <p className="font-medium">{selectedApp.company_impact}</p>
+                    </div>
+                  )}
+
+                  {/* Company Logo */}
+                  {selectedApp.company_logo_url && (
+                    <div className="p-4 bg-muted/50 rounded-lg">
+                      <Label className="text-muted-foreground mb-2 flex items-center gap-1">
+                        <Tags className="h-3 w-3" /> Uploaded Company Logo
+                      </Label>
+                      <div className="w-24 h-24 rounded-lg border border-border overflow-hidden bg-background flex items-center justify-center mt-2">
+                        {selectedApp.company_logo_url.toLowerCase().endsWith('.pdf') ? (
+                          <FileImage className="w-12 h-12 text-muted-foreground" />
+                        ) : (
+                          <img
+                            src={selectedApp.company_logo_url}
+                            alt="Company logo"
+                            className="w-full h-full object-contain p-2"
+                          />
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
