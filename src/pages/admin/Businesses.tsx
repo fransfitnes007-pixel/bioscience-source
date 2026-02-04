@@ -21,7 +21,8 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Building2, Mail, Phone, Globe, Package, MessageSquare, Eye, FileImage, Tags } from "lucide-react";
+import { Building2, Mail, Phone, Globe, Package, MessageSquare, Eye, FileImage, Tags, Download } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
 interface Business {
@@ -48,6 +49,37 @@ const AdminBusinesses = () => {
   const [searchValue, setSearchValue] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(null);
+  const { toast } = useToast();
+
+  const handleDownloadLogo = async (logoUrl: string, businessName: string) => {
+    try {
+      const response = await fetch(logoUrl);
+      const blob = await response.blob();
+      const extension = logoUrl.toLowerCase().endsWith('.pdf') ? 'pdf' : 'png';
+      const fileName = `${businessName?.replace(/[^a-z0-9]/gi, '_') || 'company'}_logo.${extension}`;
+      
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      toast({
+        title: "Download Started",
+        description: `Downloading ${fileName}`,
+      });
+    } catch (error) {
+      console.error("Download error:", error);
+      toast({
+        title: "Download Failed",
+        description: "Unable to download the logo. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchBusinesses = async () => {
@@ -299,9 +331,19 @@ const AdminBusinesses = () => {
                 {/* Company Logo */}
                 {selectedBusiness.company_logo_url && (
                   <div className="p-4 bg-muted/50 rounded-lg">
-                    <p className="text-sm text-muted-foreground mb-2 flex items-center gap-1">
-                      <Tags className="h-3 w-3" /> Company Logo
-                    </p>
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm text-muted-foreground flex items-center gap-1">
+                        <Tags className="h-3 w-3" /> Company Logo
+                      </p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDownloadLogo(selectedBusiness.company_logo_url!, selectedBusiness.business_name || '')}
+                      >
+                        <Download className="h-4 w-4 mr-1" />
+                        Download
+                      </Button>
+                    </div>
                     <div className="w-24 h-24 rounded-lg border border-border overflow-hidden bg-background flex items-center justify-center">
                       {selectedBusiness.company_logo_url.toLowerCase().endsWith('.pdf') ? (
                         <FileImage className="w-12 h-12 text-muted-foreground" />

@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import PortalLayout from "@/components/portal/PortalLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Package, MessageSquare, Clock, DollarSign } from "lucide-react";
+import { Package, MessageSquare, Clock, DollarSign, Tags, FileImage } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -25,7 +25,7 @@ interface RecentOrder {
 const PortalDashboard = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([]);
-  const [profile, setProfile] = useState<{ first_name: string; business_name: string } | null>(null);
+  const [profile, setProfile] = useState<{ first_name: string; business_name: string; company_logo_url: string | null } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const PortalDashboard = () => {
       // Fetch profile
       const { data: profileData } = await supabase
         .from('profiles')
-        .select('first_name, business_name')
+        .select('first_name, business_name, company_logo_url')
         .eq('user_id', userId)
         .single();
 
@@ -112,6 +112,39 @@ const PortalDashboard = () => {
           </h1>
           <p className="text-muted-foreground">Here's an overview of your account</p>
         </div>
+
+        {/* Company Logo Card - if logo exists */}
+        {profile?.company_logo_url && (
+          <Card>
+            <CardHeader className="pb-2">
+              <div className="flex items-center gap-2">
+                <Tags className="h-5 w-5 text-muted-foreground" />
+                <CardTitle className="text-lg">Your Company Logo</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-4">
+                <div className="w-20 h-20 rounded-lg border border-border overflow-hidden bg-secondary/30 flex items-center justify-center">
+                  {profile.company_logo_url.toLowerCase().endsWith('.pdf') ? (
+                    <FileImage className="w-10 h-10 text-muted-foreground" />
+                  ) : (
+                    <img
+                      src={profile.company_logo_url}
+                      alt="Company logo"
+                      className="w-full h-full object-contain p-2"
+                    />
+                  )}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  <p>This logo will be used for custom vial labeling on your orders.</p>
+                  <Button variant="link" className="p-0 h-auto" asChild>
+                    <Link to="/portal/profile">Update Logo</Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Stats Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

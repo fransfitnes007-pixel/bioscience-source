@@ -8,7 +8,7 @@ import { SupplierChat } from "@/components/supplier/SupplierChat";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Package } from "lucide-react";
+import { ArrowLeft, MapPin, Package, Tags, Download, FileImage } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 
@@ -27,6 +27,8 @@ interface OrderDetails {
   fulfillment_carrier: string | null;
   fulfillment_tracking_number: string | null;
   estimated_delivery_date: string | null;
+  custom_labeling?: boolean;
+  custom_labeling_logo_url?: string | null;
 }
 
 interface FulfillmentItem {
@@ -100,7 +102,18 @@ const SupplierOrderFulfillment = () => {
         .single();
 
       if (orderData) {
-        setOrder(orderData);
+        // Also fetch custom labeling info from orders table (suppliers have SELECT access)
+        const { data: fullOrderData } = await supabase
+          .from("orders")
+          .select("custom_labeling, custom_labeling_logo_url")
+          .eq("id", id)
+          .single();
+
+        setOrder({
+          ...orderData,
+          custom_labeling: fullOrderData?.custom_labeling || false,
+          custom_labeling_logo_url: fullOrderData?.custom_labeling_logo_url || null,
+        });
       }
 
       // Fetch order items
@@ -258,6 +271,36 @@ const SupplierOrderFulfillment = () => {
     (item) => item.status === "shipped" || item.status === "completed"
   );
 
+  const handleDownloadLogo = async (logoUrl: string) => {
+    try {
+      const response = await fetch(logoUrl);
+      const blob = await response.blob();
+      const extension = logoUrl.toLowerCase().endsWith('.pdf') ? 'pdf' : 'png';
+      const fileName = `order_${order?.order_number || 'unknown'}_logo.${extension}`;
+      
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      toast({
+        title: "Download Started",
+        description: `Downloading ${fileName}`,
+      });
+    } catch (error) {
+      console.error("Download error:", error);
+      toast({
+        title: "Download Failed",
+        description: "Unable to download the logo. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (isLoading) {
     return (
       <SupplierLayout>
@@ -316,6 +359,48 @@ const SupplierOrderFulfillment = () => {
                 <p>{order.shipping_country}</p>
               </CardContent>
             </Card>
+
+            {/* Custom Labeling Info - only show if custom labeling selected */}
+            {order.custom_labeling && (
+              <Card className="border-primary/50 bg-primary/5">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Tags className="h-5 w-5 text-primary" />
+                    Custom Logo Labeling Required
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    This order requires custom logo labeling on vials. Download the customer's logo below.
+                  </p>
+                  {order.custom_labeling_logo_url ? (
+                    <div className="flex items-center gap-4">
+                      <div className="w-20 h-20 rounded-lg border border-border overflow-hidden bg-background flex items-center justify-center">
+                        {order.custom_labeling_logo_url.toLowerCase().endsWith('.pdf') ? (
+                          <FileImage className="w-10 h-10 text-muted-foreground" />
+                        ) : (
+                          <img
+                            src={order.custom_labeling_logo_url}
+                            alt="Customer logo"
+                            className="w-full h-full object-contain p-2"
+                          />
+                        )}
+                      </div>
+                      <Button
+                        onClick={() => handleDownloadLogo(order.custom_labeling_logo_url!)}
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download Logo
+                      </Button>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-destructive">
+                      ⚠️ No logo file uploaded for this order. Contact admin.
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+            )}
 
             {/* Fulfillment Checklist */}
             <Card>
