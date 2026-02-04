@@ -6,6 +6,9 @@ verify_jwt = false
 [functions.create-supplier-account]
 verify_jwt = false
 
+[functions.send-application-email]
+verify_jwt = false
+
 [functions.send-shipping-notification]
 verify_jwt = false
 
