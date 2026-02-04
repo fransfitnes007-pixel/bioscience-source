@@ -137,7 +137,14 @@ const handler = async (req: Request): Promise<Response> => {
     const firstName = nameParts[0] || "";
     const lastName = nameParts.slice(1).join(" ") || "";
 
-    // Update or create profile
+    // Fetch the application to get the company logo URL
+    const { data: applicationData } = await supabaseAdmin
+      .from("applications")
+      .select("company_logo_url")
+      .eq("id", applicationId)
+      .single();
+
+    // Update or create profile (include company_logo_url from application)
     const { error: profileError } = await supabaseAdmin
       .from("profiles")
       .upsert({
@@ -150,6 +157,7 @@ const handler = async (req: Request): Promise<Response> => {
         website: website || null,
         country: country || null,
         status: "approved",
+        company_logo_url: applicationData?.company_logo_url || null,
       }, {
         onConflict: "user_id",
       });
