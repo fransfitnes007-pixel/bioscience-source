@@ -42,6 +42,8 @@ import {
   CheckCircle,
   XCircle,
   AlertCircle,
+  Tags,
+  FileImage,
 } from "lucide-react";
 
 interface Order {
@@ -80,6 +82,9 @@ interface Order {
   internal_notes: string;
   tracking_number?: string;
   shipping_carrier?: string;
+  custom_labeling?: boolean;
+  custom_labeling_logo_url?: string;
+  custom_labeling_cost?: number;
   created_at: string;
   paid_at: string;
 }
@@ -464,6 +469,7 @@ const AdminOrders = () => {
                     <TableHead>Total</TableHead>
                     <TableHead>Payment</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Label</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -491,6 +497,16 @@ const AdminOrders = () => {
                       </TableCell>
                       <TableCell>{getPaymentBadge(order.payment_status || "pending")}</TableCell>
                       <TableCell>{getStatusBadge(order.status)}</TableCell>
+                      <TableCell>
+                        {order.custom_labeling ? (
+                          <Badge className="bg-foreground/10 text-foreground border-foreground/20">
+                            <Tags className="w-3 h-3 mr-1" />
+                            Custom
+                          </Badge>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">Standard</span>
+                        )}
+                      </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Button
@@ -614,6 +630,41 @@ const AdminOrders = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Custom Labeling Info */}
+                {selectedOrder.custom_labeling && (
+                  <div className="p-4 bg-muted/50 rounded-lg">
+                    <h3 className="font-semibold mb-3 flex items-center gap-2">
+                      <Tags className="h-4 w-4" />
+                      Custom Labeling
+                    </h3>
+                    <div className="flex items-center gap-4">
+                      {selectedOrder.custom_labeling_logo_url ? (
+                        <div className="w-16 h-16 rounded-lg border border-border overflow-hidden bg-background flex items-center justify-center">
+                          {selectedOrder.custom_labeling_logo_url.toLowerCase().endsWith('.pdf') ? (
+                            <FileImage className="w-8 h-8 text-muted-foreground" />
+                          ) : (
+                            <img
+                              src={selectedOrder.custom_labeling_logo_url}
+                              alt="Custom label logo"
+                              className="w-full h-full object-contain p-2"
+                            />
+                          )}
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 rounded-lg border border-border bg-background flex items-center justify-center">
+                          <Tags className="w-6 h-6 text-muted-foreground" />
+                        </div>
+                      )}
+                      <div>
+                        <p className="text-sm font-medium">Custom logo requested</p>
+                        <p className="text-sm text-muted-foreground">
+                          Cost: ${Number(selectedOrder.custom_labeling_cost || 0).toFixed(2)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Addresses */}
                 <div className="grid md:grid-cols-2 gap-6">

@@ -15,7 +15,11 @@ import {
   Truck,
   Package,
   Loader2,
+  Tags,
+  FileImage,
+  Upload,
 } from "lucide-react";
+import LogoUploader from "@/components/shared/LogoUploader";
 
 // Buyer protection pricing scales with order tier
 const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
@@ -41,6 +45,11 @@ const Checkout = () => {
   // Form state
   const [buyerProtection, setBuyerProtection] = useState(false);
   const [sameAsBilling, setSameAsBilling] = useState(true);
+  const [customLabeling, setCustomLabeling] = useState(false);
+  const [customLabelingLogoUrl, setCustomLabelingLogoUrl] = useState<string | null>(null);
+  const [savedLogoUrl, setSavedLogoUrl] = useState<string | null>(null);
+  const [useSavedLogo, setUseSavedLogo] = useState(false);
+  const [orderTempId] = useState(() => crypto.randomUUID());
   
   const [billing, setBilling] = useState({
     firstName: "",
@@ -68,15 +77,26 @@ const Checkout = () => {
     country: "United States",
   });
 
-  // Check auth
+  // Check auth and fetch saved logo
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) {
         navigate("/");
         return;
       }
       setUserId(session.user.id);
       setBilling(prev => ({ ...prev, email: session.user.email || "" }));
+
+      // Fetch profile to check for saved logo
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('company_logo_url')
+        .eq('user_id', session.user.id)
+        .single();
+
+      if (profile?.company_logo_url) {
+        setSavedLogoUrl(profile.company_logo_url);
+      }
     });
   }, [navigate]);
 
@@ -119,7 +139,15 @@ const Checkout = () => {
   const shippingCost = freeShipping ? 0 : 25.00;
   const buyerProtectionCost = getBuyerProtectionCost(currentTier?.tierNumber);
   const protectionCost = buyerProtection ? buyerProtectionCost : 0;
-  const total = subtotal - discount + shippingCost + protectionCost;
+  const customLabelingCost = 0; // $0 for now as specified
+  const total = subtotal - discount + shippingCost + protectionCost + customLabelingCost;
+
+  // Get the logo URL to use for this order
+  const getOrderLogoUrl = () => {
+    if (!customLabeling) return null;
+    if (useSavedLogo && savedLogoUrl) return savedLogoUrl;
+    return customLabelingLogoUrl;
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -178,6 +206,9 @@ const Checkout = () => {
           shipping_country: sameAsBilling ? null : shipping.country,
           status: "pending",
           payment_status: "pending",
+          custom_labeling: customLabeling,
+          custom_labeling_logo_url: getOrderLogoUrl(),
+          custom_labeling_cost: customLabelingCost,
         })
         .select()
         .single();
@@ -563,6 +594,149 @@ const Checkout = () => {
                       </div>
                     </div>
                   )}
+                </div>
+
+                {/* Vial Labeling Options */}
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <h2 className="font-heading text-xl font-semibold text-foreground mb-6 flex items-center gap-2">
+                    <Tags className="w-5 h-5" />
+                    Vial Labeling Options
+                  </h2>
+
+                  <div className="space-y-4">
+                    {/* Standard White Label */}
+                    <div
+                      onClick={() => {
+                        setCustomLabeling(false);
+                        setUseSavedLogo(false);
+                      }}
+                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                        !customLabeling
+                          ? "border-foreground bg-foreground/5"
+                          : "border-border hover:border-foreground/50"
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                            !customLabeling
+                              ? "border-foreground bg-foreground"
+                              : "border-border"
+                          }`}
+                        >
+                          {!customLabeling && <Check className="w-3 h-3 text-background" />}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <span className="font-heading font-medium text-foreground">
+                              Standard White Label
+                            </span>
+                            <span className="font-heading font-semibold text-foreground">FREE</span>
+                          </div>
+                          <p className="font-body text-sm text-muted-foreground mt-1">
+                            Clean, professional blank white labels on your vials
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Custom Logo Labeling */}
+                    <div
+                      onClick={() => setCustomLabeling(true)}
+                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                        customLabeling
+                          ? "border-foreground bg-foreground/5"
+                          : "border-border hover:border-foreground/50"
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                            customLabeling
+                              ? "border-foreground bg-foreground"
+                              : "border-border"
+                          }`}
+                        >
+                          {customLabeling && <Check className="w-3 h-3 text-background" />}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <span className="font-heading font-medium text-foreground">
+                              Custom Logo Labeling
+                            </span>
+                            <span className="font-heading font-semibold text-foreground">$0.00</span>
+                          </div>
+                          <p className="font-body text-sm text-muted-foreground mt-1">
+                            Your company logo on every vial
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Logo upload section (only visible when custom labeling is selected) */}
+                    {customLabeling && (
+                      <div className="mt-4 p-4 bg-secondary/30 rounded-lg border border-border space-y-4">
+                        {savedLogoUrl && (
+                          <div className="space-y-3">
+                            <label className="flex items-center gap-3 cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={useSavedLogo}
+                                onChange={(e) => {
+                                  setUseSavedLogo(e.target.checked);
+                                  if (e.target.checked) {
+                                    setCustomLabelingLogoUrl(null);
+                                  }
+                                }}
+                                className="w-4 h-4 rounded border-border"
+                              />
+                              <span className="font-body text-sm text-foreground">
+                                Use my saved company logo
+                              </span>
+                            </label>
+                            {useSavedLogo && (
+                              <div className="flex items-center gap-3 p-3 bg-background rounded-lg border border-border">
+                                <div className="w-12 h-12 rounded border border-border overflow-hidden bg-secondary/30 flex items-center justify-center">
+                                  {savedLogoUrl.toLowerCase().endsWith('.pdf') ? (
+                                    <FileImage className="w-6 h-6 text-muted-foreground" />
+                                  ) : (
+                                    <img
+                                      src={savedLogoUrl}
+                                      alt="Saved logo"
+                                      className="w-full h-full object-contain p-1"
+                                    />
+                                  )}
+                                </div>
+                                <span className="font-body text-sm text-foreground">
+                                  Your saved logo will be used
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {(!savedLogoUrl || !useSavedLogo) && (
+                          <div className="space-y-3">
+                            <p className="font-heading text-sm font-medium text-foreground">
+                              {savedLogoUrl ? "Or upload a different logo for this order:" : "Upload your company logo:"}
+                            </p>
+                            {userId && (
+                              <LogoUploader
+                                bucketPath={`orders/${orderTempId}`}
+                                existingLogoUrl={customLabelingLogoUrl}
+                                onUploadComplete={(url) => setCustomLabelingLogoUrl(url)}
+                                onRemove={() => setCustomLabelingLogoUrl(null)}
+                                compact
+                              />
+                            )}
+                            <p className="font-body text-xs text-muted-foreground">
+                              PNG or PDF • Transparent background required
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Secure Payment Notice */}

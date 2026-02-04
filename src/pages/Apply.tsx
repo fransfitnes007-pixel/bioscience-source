@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Check, Building2, MapPin, Phone, Package, Target, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Building2, MapPin, Phone, Package, Target, Sparkles, Tags } from "lucide-react";
 import pointLogo from "@/assets/point-logo-transparent.png";
+import LogoUploader from "@/components/shared/LogoUploader";
 
-type Step = 1 | 2 | 3 | 4 | 5 | 6;
+type Step = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 const Apply = () => {
   const [currentStep, setCurrentStep] = useState<Step>(1);
@@ -43,6 +44,9 @@ const Apply = () => {
     monthlyVolume: "",
     referralSource: "",
     notes: "",
+    // Step 7: Company Logo
+    companyLogoUrl: "",
+    wantsCustomLabeling: false,
   });
 
   const updateField = (field: string, value: string) => {
@@ -50,12 +54,15 @@ const Apply = () => {
   };
 
   const nextStep = () => {
-    if (currentStep < 6) setCurrentStep((currentStep + 1) as Step);
+    if (currentStep < 7) setCurrentStep((currentStep + 1) as Step);
   };
 
   const prevStep = () => {
     if (currentStep > 1) setCurrentStep((currentStep - 1) as Step);
   };
+
+  // Generate a unique ID for the application (used for logo upload path)
+  const [applicationTempId] = useState(() => crypto.randomUUID());
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -80,6 +87,7 @@ const Apply = () => {
         monthly_volume: formData.monthlyVolume || null,
         referral_source: formData.referralSource || null,
         notes: formData.notes || null,
+        company_logo_url: formData.companyLogoUrl || null,
       });
 
       if (error) throw error;
@@ -122,6 +130,7 @@ const Apply = () => {
       case 4: return isStep4Valid;
       case 5: return isStep5Valid;
       case 6: return true;
+      case 7: return true; // Logo is optional
       default: return false;
     }
   };
@@ -132,7 +141,8 @@ const Apply = () => {
     { num: 3, label: "Location", icon: MapPin },
     { num: 4, label: "Products", icon: Package },
     { num: 5, label: "Partnership", icon: Target },
-    { num: 6, label: "Finish", icon: Sparkles },
+    { num: 6, label: "Details", icon: Sparkles },
+    { num: 7, label: "Logo", icon: Tags },
   ];
 
   return (
@@ -464,10 +474,10 @@ const Apply = () => {
             <div className="space-y-6 animate-fade-in">
               <div className="text-center mb-8">
                 <h1 className="font-heading text-2xl lg:text-3xl font-bold text-foreground mb-2">
-                  Almost there!
+                  Additional Details
                 </h1>
                 <p className="font-body text-muted-foreground">
-                  Just a few more optional details to complete your application.
+                  A few more optional details to help us serve you better.
                 </p>
               </div>
 
@@ -515,6 +525,42 @@ const Apply = () => {
                   className={inputClassName}
                 />
               </div>
+            </div>
+          )}
+
+          {/* Step 7: Company Logo Upload */}
+          {currentStep === 7 && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="text-center mb-8">
+                <h1 className="font-heading text-2xl lg:text-3xl font-bold text-foreground mb-2">
+                  Upload Your Company Logo
+                </h1>
+                <p className="font-body text-muted-foreground">
+                  Want your brand on our vials? Upload your logo for custom labeling.
+                </p>
+              </div>
+
+              <LogoUploader
+                bucketPath={`applications/${applicationTempId}`}
+                existingLogoUrl={formData.companyLogoUrl || null}
+                onUploadComplete={(url) => updateField("companyLogoUrl", url)}
+                onRemove={() => updateField("companyLogoUrl", "")}
+              />
+
+              <div className="p-4 bg-secondary/30 rounded-lg border border-border">
+                <p className="font-heading text-sm font-medium text-foreground mb-2">
+                  Why upload your logo?
+                </p>
+                <ul className="font-body text-sm text-muted-foreground space-y-1">
+                  <li>• Your company logo will appear on vial labels</li>
+                  <li>• Reinforce your brand with every product</li>
+                  <li>• Professional appearance for your clients</li>
+                </ul>
+              </div>
+
+              <p className="font-body text-sm text-muted-foreground text-center">
+                This step is optional. You can skip it and add your logo later from your dashboard.
+              </p>
 
               {/* Summary */}
               <div className="mt-8 p-6 bg-secondary/30 rounded-xl border border-border">
@@ -536,6 +582,12 @@ const Apply = () => {
                     <span className="text-muted-foreground">Location:</span>
                     <span className="text-foreground">{formData.city}, {formData.country}</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Company Logo:</span>
+                    <span className="text-foreground">
+                      {formData.companyLogoUrl ? "✓ Uploaded" : "Not uploaded"}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -554,7 +606,7 @@ const Apply = () => {
               Back
             </Button>
 
-            {currentStep < 6 ? (
+            {currentStep < 7 ? (
               <Button
                 type="button"
                 variant="hero"

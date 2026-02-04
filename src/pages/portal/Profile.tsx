@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { User, Building2, Mail, Phone, Globe, Lock } from "lucide-react";
+import { User, Building2, Mail, Phone, Globe, Lock, Tags, FileImage, Trash2 } from "lucide-react";
+import LogoUploader from "@/components/shared/LogoUploader";
 
 interface Profile {
   first_name: string | null;
@@ -17,6 +18,7 @@ interface Profile {
   phone: string | null;
   website: string | null;
   country: string | null;
+  company_logo_url: string | null;
 }
 
 const PortalProfile = () => {
@@ -24,6 +26,7 @@ const PortalProfile = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -32,10 +35,11 @@ const PortalProfile = () => {
       if (!session) return;
 
       setEmail(session.user.email || "");
+      setUserId(session.user.id);
 
       const { data } = await supabase
         .from('profiles')
-        .select('first_name, last_name, business_name, business_email, phone, website, country')
+        .select('first_name, last_name, business_name, business_email, phone, website, country, company_logo_url')
         .eq('user_id', session.user.id)
         .single();
 
@@ -63,6 +67,7 @@ const PortalProfile = () => {
         phone: profile.phone,
         website: profile.website,
         country: profile.country,
+        company_logo_url: profile.company_logo_url,
         updated_at: new Date().toISOString(),
       })
       .eq('user_id', session.user.id);
@@ -227,6 +232,82 @@ const PortalProfile = () => {
                     onChange={(e) => updateField('country', e.target.value)}
                     placeholder="United States"
                   />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Company Logo Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Tags className="h-5 w-5" />
+                  Company Logo
+                </CardTitle>
+                <CardDescription>
+                  Upload your company logo for custom vial labeling on your orders
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {profile?.company_logo_url ? (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 p-4 bg-secondary/30 rounded-lg border border-border">
+                      <div className="w-20 h-20 rounded-lg border border-border overflow-hidden bg-background flex items-center justify-center">
+                        {profile.company_logo_url.toLowerCase().endsWith('.pdf') ? (
+                          <FileImage className="w-10 h-10 text-muted-foreground" />
+                        ) : (
+                          <img
+                            src={profile.company_logo_url}
+                            alt="Company logo"
+                            className="w-full h-full object-contain p-2"
+                          />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-foreground">Logo uploaded</p>
+                        <p className="text-sm text-muted-foreground">
+                          Your logo will be used for custom vial labeling
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          if (profile) {
+                            setProfile({ ...profile, company_logo_url: null });
+                          }
+                        }}
+                      >
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        Remove Logo
+                      </Button>
+                    </div>
+                  </div>
+                ) : userId ? (
+                  <LogoUploader
+                    bucketPath={`profiles/${userId}`}
+                    existingLogoUrl={null}
+                    onUploadComplete={(url) => {
+                      if (profile) {
+                        setProfile({ ...profile, company_logo_url: url });
+                      }
+                    }}
+                    compact
+                  />
+                ) : (
+                  <div className="p-4 bg-secondary/30 rounded-lg text-center">
+                    <p className="text-sm text-muted-foreground">Loading...</p>
+                  </div>
+                )}
+
+                <div className="p-4 bg-secondary/30 rounded-lg">
+                  <p className="font-heading text-sm font-medium text-foreground mb-2">Requirements:</p>
+                  <ul className="font-body text-sm text-muted-foreground space-y-1">
+                    <li>• PNG or PDF format</li>
+                    <li>• Transparent background</li>
+                    <li>• Recommended: 300x100px minimum</li>
+                  </ul>
                 </div>
               </CardContent>
             </Card>
