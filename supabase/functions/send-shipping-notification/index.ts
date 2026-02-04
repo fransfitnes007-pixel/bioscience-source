@@ -26,10 +26,46 @@ serve(async (req) => {
     
     const supabaseClient = createClient(supabaseUrl, serviceRoleKey);
 
+    // Authenticate the request - require admin or supplier role
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - Authentication required" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
+
+    if (userError || !userData.user) {
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Check if user is admin or supplier
+    const { data: roles, error: rolesError } = await supabaseClient
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userData.user.id)
+      .in("role", ["admin", "supplier"]);
+
+    if (rolesError || !roles || roles.length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Admin or supplier access required" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { order_id, items_shipped, carrier, tracking_number, estimated_delivery } = await req.json();
 
     if (!order_id) {
-      throw new Error("Order ID is required");
+      return new Response(
+        JSON.stringify({ error: "Order ID is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Fetch order details (including customer email)
@@ -40,7 +76,10 @@ serve(async (req) => {
       .single();
 
     if (orderError || !order) {
-      throw new Error("Order not found");
+      return new Response(
+        JSON.stringify({ error: "Order not found" }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Fetch order items
@@ -61,7 +100,7 @@ serve(async (req) => {
 
     // Format items list
     const itemsList = (items_shipped || orderItems || [])
-      .map((item: any) => {
+      .map((item: { product_name: string; variation_name?: string; quantity: number }) => {
         const variation = item.variation_name ? ` (${item.variation_name})` : "";
         return `<li>${item.product_name}${variation} x ${item.quantity}</li>`;
       })
@@ -195,13 +234,13 @@ serve(async (req) => {
       }
     );
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error sending shipping notification:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Failed to process shipping notification" }),
       { 
         headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 400 
+        status: 500 
       }
     );
   }

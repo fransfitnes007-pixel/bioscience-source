@@ -1,6 +1,9 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -175,10 +178,95 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY is not configured");
     }
 
+    const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
     const { type, email, contactName, businessName, setupLink, approvalLink }: EmailRequest = await req.json();
 
     if (!type || !email || !contactName || !businessName) {
       throw new Error("Missing required fields: type, email, contactName, businessName");
+    }
+
+    // Security: Validate based on email type
+    if (type === "confirmation") {
+      // For confirmation emails: Verify the email exists in a recent application (within last 10 minutes)
+      const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+      
+      const { data: recentApplication, error: appError } = await supabaseAdmin
+        .from("applications")
+        .select("id, email, contact_name, business_name")
+        .eq("email", email)
+        .gte("created_at", tenMinutesAgo)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (appError || !recentApplication) {
+        console.error("No recent application found for email:", email);
+        return new Response(
+          JSON.stringify({ success: false, error: "No recent application found for this email" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Verify the contact name and business name match
+      if (recentApplication.contact_name !== contactName || recentApplication.business_name !== businessName) {
+        console.error("Application details mismatch for email:", email);
+        return new Response(
+          JSON.stringify({ success: false, error: "Application details do not match" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+    } else if (type === "approved") {
+      // For approval emails: Require admin authentication
+      const authHeader = req.headers.get("Authorization");
+      if (!authHeader?.startsWith("Bearer ")) {
+        return new Response(
+          JSON.stringify({ success: false, error: "Unauthorized - Admin authentication required" }),
+          { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const token = authHeader.replace("Bearer ", "");
+      const { data: userData, error: userError } = await supabaseAdmin.auth.getUser(token);
+
+      if (userError || !userData.user) {
+        return new Response(
+          JSON.stringify({ success: false, error: "Invalid authentication token" }),
+          { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Verify admin role
+      const { data: roles, error: rolesError } = await supabaseAdmin
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userData.user.id)
+        .eq("role", "admin");
+
+      if (rolesError || !roles || roles.length === 0) {
+        console.error("Non-admin user attempted to send approval email:", userData.user.id);
+        return new Response(
+          JSON.stringify({ success: false, error: "Admin access required" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Also verify the email exists in applications table
+      const { data: application, error: appError } = await supabaseAdmin
+        .from("applications")
+        .select("id")
+        .eq("email", email)
+        .limit(1)
+        .single();
+
+      if (appError || !application) {
+        return new Response(
+          JSON.stringify({ success: false, error: "No application found for this email" }),
+          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+    } else {
+      throw new Error("Invalid email type. Must be 'confirmation' or 'approved'");
     }
 
     let subject: string;
@@ -187,13 +275,11 @@ const handler = async (req: Request): Promise<Response> => {
     if (type === "confirmation") {
       subject = "Application Received - PØINT BioSciences";
       html = getConfirmationEmailHTML(contactName, businessName);
-    } else if (type === "approved") {
+    } else {
       // Use setupLink if provided, fall back to approvalLink for backward compatibility
       const link = setupLink || approvalLink || "https://pointbiosciences.com/access";
       subject = "Application Approved - Set Up Your Account";
       html = getApprovalEmailHTML(contactName, businessName, link);
-    } else {
-      throw new Error("Invalid email type. Must be 'confirmation' or 'approved'");
     }
 
     const res = await fetch("https://api.resend.com/emails", {
@@ -213,7 +299,7 @@ const handler = async (req: Request): Promise<Response> => {
     if (!res.ok) {
       const errorData = await res.text();
       console.error("Resend API error:", errorData);
-      throw new Error(`Failed to send email: ${errorData}`);
+      throw new Error("Failed to send email");
     }
 
     const data = await res.json();
@@ -225,9 +311,9 @@ const handler = async (req: Request): Promise<Response> => {
     });
   } catch (error: unknown) {
     console.error("Error in send-application-email function:", error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    // Return generic error message to avoid information leakage
     return new Response(
-      JSON.stringify({ success: false, error: errorMessage }),
+      JSON.stringify({ success: false, error: "Failed to process email request" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
