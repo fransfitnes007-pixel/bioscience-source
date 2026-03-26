@@ -28,7 +28,6 @@ const About = () => {
       
       if (data) setCoaDocuments(data);
     };
-
     fetchCOAs();
   }, []);
 
@@ -43,11 +42,9 @@ const About = () => {
       },
       { threshold: 0.1 }
     );
-
     Object.values(sectionRefs.current).forEach((ref) => {
       if (ref) observer.observe(ref);
     });
-
     return () => observer.disconnect();
   }, []);
 
@@ -58,14 +55,14 @@ const About = () => {
           {/* Header */}
           <div className="text-center mb-16 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-foreground">
-              About Point Biosciences
+              About Resurrected
             </h1>
             <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-              A B2B wholesale facilitator built for qualified research partners.
+              Premium research peptides with uncompromising quality standards.
             </p>
           </div>
 
-          {/* Why We Started */}
+          {/* Our Mission */}
           <section
             id="why"
             ref={(el: HTMLDivElement | null) => { sectionRefs.current["why"] = el; }}
@@ -74,24 +71,21 @@ const About = () => {
             }`}
           >
             <h2 className="font-heading text-2xl md:text-3xl font-semibold mb-6 text-foreground">
-              Why We Started
+              Our Mission
             </h2>
             <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
               <p>
-                Many businesses operating in the research supply space are overcharged by suppliers 
-                without realizing it. Hidden markups, inefficient supply chains, and lack of transparent 
-                pricing have become the norm—and most companies simply accept it.
+                The research peptide market has long been plagued by inconsistent quality, opaque pricing, 
+                and unreliable suppliers. We founded Resurrected to change that — delivering premium products 
+                with full transparency at prices that make sense.
               </p>
               <p>
-                We built Point Biosciences as a B2B-only wholesale facilitator with a fundamentally 
-                different approach: pricing that actually makes sense. By streamlining the connection 
-                between qualified businesses and vetted third-party suppliers, we eliminate unnecessary 
-                intermediaries and their associated costs.
+                Every product we sell is backed by third-party testing and Certificates of Analysis. 
+                We believe you shouldn't have to guess about what you're getting — you should know.
               </p>
               <p className="text-foreground font-medium">
-                Our partners have seen profit margin improvements of 300–500% through smarter wholesale 
-                sourcing and our streamlined fulfillment process. That's not a marketing claim—it's the 
-                natural result of removing inefficiency from the supply chain.
+                Our commitment: 99.9% purity, honest pricing, fast shipping, and documentation 
+                you can trust. Every time.
               </p>
             </div>
           </section>
@@ -105,26 +99,22 @@ const About = () => {
             }`}
           >
             <h2 className="font-heading text-2xl md:text-3xl font-semibold mb-6 text-foreground">
-              How We Operate
+              Quality You Can Count On
             </h2>
             <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
               <p>
-                Point Biosciences functions as a distributor and facilitator, connecting qualified 
-                businesses to vetted third-party peptide suppliers. We do not manufacture, produce, 
-                or own any products listed on our platform.
-              </p>
-              <p>
-                Our role is to provide comprehensive support throughout the procurement process:
+                We source from vetted, certified suppliers and verify every batch through independent 
+                third-party laboratories. Our quality assurance process includes:
               </p>
               <ul className="list-disc list-inside space-y-2 pl-4">
-                <li>Documentation coordination and verification</li>
-                <li>Communication between partners and suppliers</li>
-                <li>Streamlined order coordination and fulfillment tracking</li>
-                <li>Quality assurance through COA verification</li>
+                <li>Third-party purity testing on every batch</li>
+                <li>Full Certificates of Analysis available for all products</li>
+                <li>Secure, climate-controlled storage and shipping</li>
+                <li>Rigorous supplier vetting and ongoing quality monitoring</li>
               </ul>
               <p>
-                This model allows us to focus entirely on what matters: ensuring our B2B partners 
-                receive quality products at fair wholesale pricing with minimal friction.
+                When you order from Resurrected, you're getting products that meet the highest 
+                standards in the industry — guaranteed.
               </p>
             </div>
           </section>
@@ -141,9 +131,8 @@ const About = () => {
               COAs & Purity Documentation
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed mb-8">
-              Transparency and quality assurance are foundational to our operation. All products 
-              facilitated through Point Biosciences come with Certificates of Analysis from 
-              third-party laboratories.
+              Transparency is fundamental to who we are. All products come with Certificates of 
+              Analysis from independent third-party laboratories.
             </p>
 
             {coaDocuments.length > 0 ? (
@@ -178,30 +167,29 @@ const About = () => {
               <div className="p-8 border border-border/50 rounded-lg text-center">
                 <FileText className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
                 <p className="font-body text-muted-foreground">
-                  COA documents are available to approved B2B partners.
+                  COA documents will be available here soon.
                 </p>
               </div>
             )}
           </section>
 
-          {/* Apply CTA */}
+          {/* CTA */}
           <section
-            id="apply"
-            ref={(el: HTMLDivElement | null) => { sectionRefs.current["apply"] = el; }}
+            id="cta"
+            ref={(el: HTMLDivElement | null) => { sectionRefs.current["cta"] = el; }}
             className={`max-w-2xl mx-auto text-center transition-all duration-700 ${
-              visibleSections.has("apply") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              visibleSections.has("cta") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
             <h2 className="font-heading text-2xl md:text-3xl font-semibold mb-6 text-foreground">
-              Apply for Wholesale Access
+              Ready to Order?
             </h2>
             <p className="font-body text-muted-foreground mb-8">
-              Qualified businesses can apply for B2B wholesale access to our complete catalog 
-              with transparent pricing.
+              Browse our full catalog of premium research peptides.
             </p>
-            <Link to="/access">
+            <Link to="/products">
               <Button variant="hero" size="lg" className="group">
-                Apply Now
+                Shop Products
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
