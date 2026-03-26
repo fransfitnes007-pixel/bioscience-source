@@ -3,10 +3,18 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MolecularAnimation } from "./MolecularAnimation";
 import { ArrowRight } from "lucide-react";
-const taglines = ["Your Direct B2B Peptide Supplier.", "Premium Quality. Unbeatable Prices.", "Built for qualified partners."];
+import resurrectedLogo from "@/assets/resurrected-logo.png";
+
+const taglines = [
+  "Premium Peptides. Unmatched Purity.",
+  "99.9% Pure. Third-Party Tested.",
+  "Fast Shipping. No Compromises.",
+];
+
 export const HeroSection = () => {
   const [currentTagline, setCurrentTagline] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsVisible(false);
@@ -17,7 +25,9 @@ export const HeroSection = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <MolecularAnimation />
       
       {/* Gradient overlay */}
@@ -25,13 +35,14 @@ export const HeroSection = () => {
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Wordmark */}
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 animate-fade-up">
-            <span className="text-gradient">PØINT</span>
-            <span className="text-foreground/90 block text-3xl md:text-4xl lg:text-5xl font-medium mt-2">
-              BioSciences
-            </span>
-          </h1>
+          {/* Logo */}
+          <div className="mb-8 animate-fade-up">
+            <img 
+              src={resurrectedLogo} 
+              alt="Resurrected" 
+              className="h-20 md:h-28 lg:h-36 w-auto mx-auto"
+            />
+          </div>
 
           {/* Rotating tagline */}
           <div className="h-12 mb-12">
@@ -44,18 +55,13 @@ export const HeroSection = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up animation-delay-300">
             <Link to="/products">
               <Button variant="hero" size="lg" className="min-w-[180px] group">
-                View Products
+                Shop Now
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link to="/access">
+            <Link to="/about">
               <Button variant="heroOutline" size="lg" className="min-w-[180px]">
-                Apply for Wholesale Access
-              </Button>
-            </Link>
-            <Link to="/access">
-              <Button variant="ghost" size="lg" className="text-muted-foreground hover:text-foreground">
-                Inquire / Contact
+                Learn More
               </Button>
             </Link>
           </div>
@@ -66,5 +72,6 @@ export const HeroSection = () => {
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-500">
         
       </div>
-    </section>;
+    </section>
+  );
 };

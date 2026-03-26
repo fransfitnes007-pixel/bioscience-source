@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from "react";
-import { ClipboardCheck, Search, MessageSquare } from "lucide-react";
+import { Search, ShoppingCart, Truck } from "lucide-react";
 
 const steps = [
   {
-    icon: ClipboardCheck,
-    title: "Apply / Get Verified",
-    description: "Submit your business credentials for verification and approval to access our B2B catalog.",
-  },
-  {
     icon: Search,
-    title: "Browse Products / Select Variations",
-    description: "Explore our comprehensive catalog and select the specific variations you need.",
+    title: "Browse & Choose",
+    description: "Explore our catalog of premium peptides and select the products and variations you need.",
   },
   {
-    icon: MessageSquare,
-    title: "Place Order / Receive Tracking Details",
-    description: "Complete your order and receive tracking details once your shipment is on its way.",
+    icon: ShoppingCart,
+    title: "Add to Cart & Checkout",
+    description: "Add your selections to your cart, create an account or sign in, and complete your secure checkout.",
+  },
+  {
+    icon: Truck,
+    title: "Fast Shipping & Tracking",
+    description: "Your order ships quickly with tracking details so you know exactly when to expect delivery.",
   },
 ];
 
@@ -25,14 +25,9 @@ export const HowItWorksSection = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
       { threshold: 0.1 }
     );
-
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -47,7 +42,7 @@ export const HowItWorksSection = () => {
             How It Works
           </h2>
           <p className="font-body text-muted-foreground max-w-xl mx-auto">
-            A streamlined process from application to order fulfillment.
+            Getting started is simple — browse, order, and receive.
           </p>
         </div>
 
@@ -60,17 +55,13 @@ export const HowItWorksSection = () => {
               }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              {/* Step number */}
               <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-foreground text-background flex items-center justify-center font-heading font-semibold text-sm">
                 {index + 1}
               </div>
-
               <step.icon className="w-10 h-10 text-foreground/80 mb-6" strokeWidth={1.5} />
-              
               <h3 className="font-heading text-xl font-medium mb-3 text-foreground">
                 {step.title}
               </h3>
-              
               <p className="font-body text-muted-foreground text-sm leading-relaxed">
                 {step.description}
               </p>

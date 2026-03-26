@@ -8,36 +8,36 @@ import {
 
 const faqs = [
   {
-    question: "Who can apply for wholesale access?",
-    answer: "We work exclusively with verified B2B partners including licensed clinics, research institutions, medical spas, compounding pharmacies, and established resellers. All applicants undergo a verification process to ensure compliance with our quality and business standards.",
+    question: "How do I place an order?",
+    answer: "Simply browse our product catalog, add items to your cart, and proceed to checkout. Create a free account during checkout to track your orders and receive shipping updates.",
   },
   {
     question: "What documentation do you provide?",
-    answer: "Every product comes with comprehensive documentation including Certificates of Analysis (COAs) from third-party labs, purity verification reports, and batch-specific testing data. Documentation is available upon request and included with all orders.",
+    answer: "Every product comes with comprehensive documentation including Certificates of Analysis (COAs) from third-party labs, purity verification reports, and batch-specific testing data.",
   },
   {
     question: "What are your minimum order quantities?",
-    answer: "Minimum orders start at 10 units per variation. We offer tiered pricing at 10, 20, and 30 unit quantities with progressive discounts for larger orders. Custom bulk pricing is available for qualified high-volume partners.",
+    answer: "Our products have varying minimum quantities starting as low as 10 units per variation. We also offer quantity-based discounts — the more you order, the more you save.",
   },
   {
-    question: "How long does the verification process take?",
-    answer: "Most applications are reviewed within 24-72 hours. Once approved, you'll have immediate access to our full catalog and wholesale pricing. The verification process includes business documentation review and compliance verification.",
+    question: "How fast is shipping?",
+    answer: "Most orders ship within 24-72 hours. You'll receive tracking information via email as soon as your order is dispatched. Delivery times vary by location.",
   },
   {
     question: "What payment methods do you accept?",
-    answer: "We accept major credit cards, wire transfers, and ACH payments for approved partners. All transactions are processed through secure, encrypted payment systems. Net terms may be available for established accounts.",
+    answer: "We accept all major credit cards processed through our secure payment system. All transactions are encrypted and protected.",
   },
   {
-    question: "Do you offer international shipping?",
-    answer: "Yes, we ship to qualified partners globally. International orders include proper documentation and are processed through established logistics networks. Shipping costs and delivery times vary by destination.",
+    question: "Do you ship internationally?",
+    answer: "Yes! We ship worldwide. International shipping costs and delivery times vary by destination. All orders include proper documentation.",
   },
   {
     question: "What is your return policy?",
-    answer: "We stand behind our product quality. If there are any issues with purity or documentation, we work directly with partners to resolve them. All returns must be initiated within 30 days of receipt with proper documentation.",
+    answer: "We stand behind our product quality. If there are any issues with purity or documentation, we'll work with you to resolve them. Returns must be initiated within 30 days of receipt.",
   },
   {
-    question: "How do I request a custom quote?",
-    answer: "Once verified, you can request quotes directly through our catalog by selecting products and quantities. For custom bulk orders or special requirements, contact our team through the inquiry form for personalized pricing.",
+    question: "How can I contact support?",
+    answer: "You can reach us anytime via email. Once you have an account, you can also message us directly through your order dashboard for order-specific questions.",
   },
 ];
 
@@ -47,14 +47,9 @@ export const FAQSection = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
       { threshold: 0.1 }
     );
-
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -69,7 +64,7 @@ export const FAQSection = () => {
             Frequently Asked Questions
           </h2>
           <p className="font-body text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to know about partnering with Point Biosciences.
+            Everything you need to know about ordering from Resurrected.
           </p>
         </div>
 
