@@ -311,7 +311,7 @@ const ProductPage = () => {
                       COA Photo & Lab Testing
                     </AccordionTrigger>
                     <AccordionContent className="font-body text-muted-foreground text-base">
-                      <p className="italic">COA documentation available for approved B2B partners.</p>
+                      <p className="italic">COA documentation available upon request.</p>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
