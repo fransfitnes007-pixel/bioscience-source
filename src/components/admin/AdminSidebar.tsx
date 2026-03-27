@@ -19,6 +19,8 @@ import {
   Gift,
   Megaphone,
   TicketPercent,
+  DollarSign,
+  BarChart3,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
