@@ -158,10 +158,9 @@ const Apply = () => {
             <span className="font-body text-sm">Back to Home</span>
           </button>
           <img 
-            src={pointLogo} 
-            alt="PØINT BioSciences" 
+            src={resurrectedLogo} 
+            alt="Resurrected" 
             className="h-8 w-auto"
-            style={{ filter: 'invert(1)' }}
           />
         </div>
       </header>

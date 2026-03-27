@@ -120,9 +120,7 @@ const Gateway = () => {
           
           {/* Logo overlay - drops in from above */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <img src={pointLogo} alt="PØINT BioSciences" className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up" style={{
-            filter: 'invert(1) brightness(2)'
-          }} />
+            <img src={resurrectedLogo} alt="Resurrected" className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up" />
           </div>
         </div>
 
