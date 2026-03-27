@@ -35,6 +35,18 @@ const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
   }
 };
 
+interface ShippingRate {
+  carrier: string;
+  service: string;
+  label: string;
+  cost: number;
+  estimatedDaysMin: number;
+  estimatedDaysMax: number;
+  recommended: boolean;
+  freeShipping?: boolean;
+  freeShippingReason?: string | null;
+}
+
 const Checkout = () => {
   const navigate = useNavigate();
   const { items, subtotal, currentTier, clearCart } = useCart();
@@ -50,6 +62,12 @@ const Checkout = () => {
   const [savedLogoUrl, setSavedLogoUrl] = useState<string | null>(null);
   const [useSavedLogo, setUseSavedLogo] = useState(false);
   const [orderTempId] = useState(() => crypto.randomUUID());
+
+  // Shipping rate state
+  const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
+  const [selectedShippingRate, setSelectedShippingRate] = useState<ShippingRate | null>(null);
+  const [isLoadingShipping, setIsLoadingShipping] = useState(false);
+  const [selectedCarrier, setSelectedCarrier] = useState<string | null>(null);
   
   const [billing, setBilling] = useState({
     firstName: "",
