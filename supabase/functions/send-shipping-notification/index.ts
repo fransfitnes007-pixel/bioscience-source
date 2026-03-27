@@ -185,7 +185,7 @@ serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Point Bio Sciences <noreply@pointbiosciences.com>",
+          from: "Resurrected <noreply@resurrected.com>",
           to: [order.billing_email],
           subject: `Your Order #${order.order_number} Has Shipped!`,
           html: emailHtml,
