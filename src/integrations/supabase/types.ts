@@ -14,6 +14,124 @@ export type Database = {
   }
   public: {
     Tables: {
+      affiliate_earnings: {
+        Row: {
+          affiliate_id: string
+          commission_amount: number
+          commission_rate: number
+          created_at: string
+          id: string
+          order_id: string | null
+          order_number: string | null
+          order_total: number
+          paid_at: string | null
+          status: string
+        }
+        Insert: {
+          affiliate_id: string
+          commission_amount: number
+          commission_rate: number
+          created_at?: string
+          id?: string
+          order_id?: string | null
+          order_number?: string | null
+          order_total?: number
+          paid_at?: string | null
+          status?: string
+        }
+        Update: {
+          affiliate_id?: string
+          commission_amount?: number
+          commission_rate?: number
+          created_at?: string
+          id?: string
+          order_id?: string | null
+          order_number?: string | null
+          order_total?: number
+          paid_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_earnings_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_earnings_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_earnings_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliates: {
+        Row: {
+          commission_rate: number
+          created_at: string
+          discount_code: string | null
+          email: string
+          id: string
+          instagram: string | null
+          is_active: boolean
+          name: string
+          notes: string | null
+          phone: string | null
+          sport: string | null
+          tiktok: string | null
+          total_earnings: number
+          total_orders: number
+          updated_at: string
+          youtube: string | null
+        }
+        Insert: {
+          commission_rate?: number
+          created_at?: string
+          discount_code?: string | null
+          email: string
+          id?: string
+          instagram?: string | null
+          is_active?: boolean
+          name: string
+          notes?: string | null
+          phone?: string | null
+          sport?: string | null
+          tiktok?: string | null
+          total_earnings?: number
+          total_orders?: number
+          updated_at?: string
+          youtube?: string | null
+        }
+        Update: {
+          commission_rate?: number
+          created_at?: string
+          discount_code?: string | null
+          email?: string
+          id?: string
+          instagram?: string | null
+          is_active?: boolean
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          sport?: string | null
+          tiktok?: string | null
+          total_earnings?: number
+          total_orders?: number
+          updated_at?: string
+          youtube?: string | null
+        }
+        Relationships: []
+      }
       analytics_daily: {
         Row: {
           applications_submitted: number | null
@@ -423,6 +541,92 @@ export type Database = {
             columns: ["reward_product_id"]
             isOneToOne: false
             referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discounts: {
+        Row: {
+          affiliate_id: string | null
+          applies_to: string
+          code: string
+          combine_with_order_discounts: boolean | null
+          combine_with_product_discounts: boolean | null
+          combine_with_shipping_discounts: boolean | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          discount_type: string
+          discount_value: number
+          ends_at: string | null
+          id: string
+          is_active: boolean
+          is_affiliate: boolean
+          max_uses: number | null
+          max_uses_per_customer: number | null
+          method: string
+          minimum_purchase_amount: number | null
+          minimum_quantity: number | null
+          starts_at: string
+          updated_at: string
+          usage_count: number
+        }
+        Insert: {
+          affiliate_id?: string | null
+          applies_to?: string
+          code: string
+          combine_with_order_discounts?: boolean | null
+          combine_with_product_discounts?: boolean | null
+          combine_with_shipping_discounts?: boolean | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          discount_type?: string
+          discount_value?: number
+          ends_at?: string | null
+          id?: string
+          is_active?: boolean
+          is_affiliate?: boolean
+          max_uses?: number | null
+          max_uses_per_customer?: number | null
+          method?: string
+          minimum_purchase_amount?: number | null
+          minimum_quantity?: number | null
+          starts_at?: string
+          updated_at?: string
+          usage_count?: number
+        }
+        Update: {
+          affiliate_id?: string | null
+          applies_to?: string
+          code?: string
+          combine_with_order_discounts?: boolean | null
+          combine_with_product_discounts?: boolean | null
+          combine_with_shipping_discounts?: boolean | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          discount_type?: string
+          discount_value?: number
+          ends_at?: string | null
+          id?: string
+          is_active?: boolean
+          is_affiliate?: boolean
+          max_uses?: number | null
+          max_uses_per_customer?: number | null
+          method?: string
+          minimum_purchase_amount?: number | null
+          minimum_quantity?: number | null
+          starts_at?: string
+          updated_at?: string
+          usage_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discounts_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
             referencedColumns: ["id"]
           },
         ]
