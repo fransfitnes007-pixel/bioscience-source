@@ -132,10 +132,10 @@ const AdminDashboard = () => {
         {/* Stats */}
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {statCards.map((stat, i) => (
-            <div key={i} className="bg-card rounded-xl border border-border p-4">
+            <div key={i} className="bg-card rounded-2xl border border-border p-4">
               <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-                  <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
+                <div className="p-2.5 rounded-full bg-foreground">
+                  <stat.icon className="h-4 w-4 text-background" />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">{stat.label}</p>
