@@ -113,6 +113,23 @@ const navSections = [
     ],
   },
   {
+    label: "Sales channels",
+    items: [
+      { title: "Online Store", href: "/admin/channels/online-store", icon: Globe },
+      {
+        title: "Shop",
+        href: "/admin/channels/shop",
+        icon: ShoppingBag,
+        children: [
+          { title: "Catalog", href: "/admin/channels/shop" },
+          { title: "Reviews", href: "/admin/channels/shop" },
+          { title: "Settings", href: "/admin/channels/shop" },
+        ],
+      },
+      { title: "TikTok", href: "/admin/channels/tiktok", icon: Music },
+    ],
+  },
+  {
     items: [
       { title: "Applications", href: "/admin/applications", icon: FileText },
       { title: "Inquiries", href: "/admin/inquiries", icon: MessageSquare },
