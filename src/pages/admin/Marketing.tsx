@@ -28,6 +28,16 @@ const Marketing = () => {
     { name: "Direct", type: "direct", sessions: 19, sales: "$0.00", orders: 0, conversion: "0%" },
     { name: "Bing", type: "organic", sessions: 1, sales: "$0.00", orders: 0, conversion: "0%" },
     { name: "Instagram", type: "organic", sessions: 1, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "TikTok", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "Yahoo", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "DuckDuckGo", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "Baidu", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "Yandex", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "Ecosia", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "Facebook", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "YouTube", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "Pinterest", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
+    { name: "X (Twitter)", type: "organic", sessions: 0, sales: "$0.00", orders: 0, conversion: "0%" },
   ];
 
   return (
