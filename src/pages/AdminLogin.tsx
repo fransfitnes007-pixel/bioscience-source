@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Shield } from "lucide-react";
-import logo from "@/assets/point-logo-white.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
