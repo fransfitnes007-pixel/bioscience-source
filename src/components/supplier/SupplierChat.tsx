@@ -139,21 +139,14 @@ export const SupplierChat = ({ orderId, supplierId }: SupplierChatProps) => {
                 >
                   <div
                     className={cn(
-                      "max-w-[80%] rounded-lg px-3 py-2",
+                      "max-w-[80%] rounded-2xl px-3 py-2",
                       msg.sender_type === "supplier"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted"
+                        ? "bg-accent text-accent-foreground border border-border"
+                        : "bg-secondary text-secondary-foreground"
                     )}
                   >
                     <p className="text-sm">{msg.message}</p>
-                    <p
-                      className={cn(
-                        "text-xs mt-1",
-                        msg.sender_type === "supplier"
-                          ? "text-primary-foreground/70"
-                          : "text-muted-foreground"
-                      )}
-                    >
+                    <p className="text-xs mt-1 text-muted-foreground">
                       {format(new Date(msg.created_at), "MMM d, h:mm a")}
                     </p>
                   </div>
