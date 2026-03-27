@@ -17,6 +17,7 @@ import {
   ArrowRightLeft,
   Gift,
   Megaphone,
+  TicketPercent,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
