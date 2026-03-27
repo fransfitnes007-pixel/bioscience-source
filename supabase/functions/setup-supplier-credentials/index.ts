@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 serve(async (req) => {
@@ -18,15 +18,21 @@ serve(async (req) => {
 
     // Verify caller is admin
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      throw new Error("No authorization header");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const token = authHeader.replace("Bearer ", "");
     const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
 
     if (authError || !user) {
-      throw new Error("Unauthorized");
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Check admin role
@@ -38,16 +44,38 @@ serve(async (req) => {
       .single();
 
     if (!roleData) {
-      throw new Error("Admin access required");
+      return new Response(
+        JSON.stringify({ error: "Admin access required" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const { username, password, company_name, contact_name } = await req.json();
 
+    // Input validation
     if (!username || !password) {
-      throw new Error("Missing required fields");
+      return new Response(
+        JSON.stringify({ error: "Username and password are required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
-    // Create email from username (supplier.local domain for internal use)
+    // Username validation - alphanumeric only
+    if (!/^[a-zA-Z0-9_-]+$/.test(username) || username.length > 50) {
+      return new Response(
+        JSON.stringify({ error: "Username must be alphanumeric and under 50 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Password strength validation
+    if (password.length < 8) {
+      return new Response(
+        JSON.stringify({ error: "Password must be at least 8 characters" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const email = `${username.toLowerCase()}@supplier.resurrected.com`;
 
     // Check if user already exists
@@ -55,13 +83,26 @@ serve(async (req) => {
     const existingUser = existingUsers?.users?.find(u => u.email === email);
 
     if (existingUser) {
-      // Update password for existing user
       const { error: updateError } = await supabaseClient.auth.admin.updateUserById(
         existingUser.id,
         { password }
       );
       
-      if (updateError) throw updateError;
+      if (updateError) {
+        console.error("Update error:", updateError);
+        return new Response(
+          JSON.stringify({ error: "Failed to update credentials" }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      // Audit log
+      await supabaseClient.from("security_audit_log").insert({
+        user_id: user.id,
+        action: "supplier_credentials_updated",
+        resource_type: "supplier",
+        resource_id: existingUser.id,
+      });
 
       return new Response(
         JSON.stringify({ 
@@ -70,14 +111,11 @@ serve(async (req) => {
           user_id: existingUser.id,
           login_username: username
         }),
-        { 
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-          status: 200 
-        }
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
       );
     }
 
-    // Create new user account with specified password
+    // Create new user account
     const { data: newUser, error: createError } = await supabaseClient.auth.admin.createUser({
       email,
       password,
@@ -85,20 +123,25 @@ serve(async (req) => {
     });
 
     if (createError) {
-      throw createError;
+      console.error("Create error:", createError);
+      return new Response(
+        JSON.stringify({ error: "Failed to create supplier account" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Add supplier role
     const { error: roleError } = await supabaseClient
       .from("user_roles")
-      .insert({
-        user_id: newUser.user.id,
-        role: "supplier",
-      });
+      .insert({ user_id: newUser.user.id, role: "supplier" });
 
     if (roleError) {
       await supabaseClient.auth.admin.deleteUser(newUser.user.id);
-      throw roleError;
+      console.error("Role error:", roleError);
+      return new Response(
+        JSON.stringify({ error: "Failed to assign supplier role" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Create supplier record
@@ -106,16 +149,29 @@ serve(async (req) => {
       .from("suppliers")
       .insert({
         user_id: newUser.user.id,
-        company_name: company_name || "Point Peptide Supplier",
-        contact_name: contact_name || "Supplier Partner",
+        company_name: company_name || "Supplier Partner",
+        contact_name: contact_name || "Supplier",
         contact_email: email,
         is_active: true,
       });
 
     if (supplierError) {
       await supabaseClient.auth.admin.deleteUser(newUser.user.id);
-      throw supplierError;
+      console.error("Supplier error:", supplierError);
+      return new Response(
+        JSON.stringify({ error: "Failed to create supplier record" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
+
+    // Audit log
+    await supabaseClient.from("security_audit_log").insert({
+      user_id: user.id,
+      action: "supplier_credentials_created",
+      resource_type: "supplier",
+      resource_id: newUser.user.id,
+      metadata: { company_name, username },
+    });
 
     return new Response(
       JSON.stringify({ 
@@ -124,20 +180,13 @@ serve(async (req) => {
         user_id: newUser.user.id,
         login_username: username
       }),
-      { 
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200 
-      }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
     );
-
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error setting up supplier:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
-      { 
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 400 
-      }
+      JSON.stringify({ error: "Failed to set up supplier credentials" }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
     );
   }
 });
