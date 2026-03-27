@@ -64,6 +64,11 @@ const navSections = [
         ],
       },
       {
+        title: "Discounts",
+        href: "/admin/discounts",
+        icon: TicketPercent,
+      },
+      {
         title: "Marketing",
         href: "/admin/marketing",
         icon: Megaphone,

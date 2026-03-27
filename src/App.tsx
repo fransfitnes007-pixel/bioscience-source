@@ -101,6 +101,9 @@ const App = () => (
             <Route path="/admin/marketing" element={<AdminMarketing />} />
             <Route path="/admin/marketing/campaigns" element={<AdminCampaigns />} />
             <Route path="/admin/marketing/campaigns/new" element={<AdminCreateCampaign />} />
+            <Route path="/admin/discounts" element={<AdminDiscounts />} />
+            <Route path="/admin/discounts/new" element={<AdminCreateDiscount />} />
+            <Route path="/admin/affiliates" element={<AdminAffiliates />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />
