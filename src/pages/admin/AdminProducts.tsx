@@ -158,7 +158,7 @@ const AdminProducts = () => {
                   <tr
                     key={product.id}
                     className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] cursor-pointer transition-colors"
-                    onClick={() => navigate(`/products/${product.slug}`)}
+                    onClick={() => navigate(`/admin/products/${product.slug}`)}
                   >
                     <td className="py-3 px-4" onClick={e => e.stopPropagation()}>
                       <Checkbox />
