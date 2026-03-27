@@ -184,6 +184,11 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
         {navSections.map((section, si) => (
           <div key={si}>
             {si > 0 && <div className="mx-3 my-2 border-t border-[#333]" />}
+            {!isCollapsed && section.label && (
+              <p className="px-5 pt-2 pb-1 text-xs font-medium text-[#999] flex items-center gap-1">
+                {section.label} <ChevronDown className="h-3 w-3" />
+              </p>
+            )}
             <ul className="space-y-0.5 px-2">
               {section.items.map((item) => {
                 const active = isActive(item.href, item.end);
