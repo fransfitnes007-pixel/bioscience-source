@@ -216,7 +216,7 @@ const Checkout = () => {
   const freeShipping = currentTier?.rewardType === "percentage_discount_shipping" || 
                        currentTier?.rewardType === "bogo_shipping" ||
                        currentTier?.rewardType === "bogo_shipping_next_order";
-  const shippingCost = freeShipping ? 0 : 25.00;
+  const shippingCost = freeShipping ? 0 : (selectedShippingRate?.freeShipping ? 0 : (selectedShippingRate?.cost ?? 25.00));
   const buyerProtectionCost = getBuyerProtectionCost(currentTier?.tierNumber);
   const protectionCost = buyerProtection ? buyerProtectionCost : 0;
   const customLabelingCost = 0; // $0 for now as specified
