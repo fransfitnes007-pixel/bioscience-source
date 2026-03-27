@@ -89,7 +89,7 @@ const Customers = () => {
             <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">Export</Button>
             <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">Import</Button>
             <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">More actions</Button>
-            <Button size="sm" className="bg-primary text-white hover:bg-primary/90">Add customer</Button>
+            <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">Add customer</Button>
           </div>
         </div>
 

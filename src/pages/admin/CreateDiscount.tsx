@@ -387,7 +387,7 @@ const CreateDiscount = () => {
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="bg-primary text-white hover:bg-accent"
+            className="bg-foreground text-background hover:bg-foreground/90"
           >
             {saving ? "Saving..." : "Save discount"}
           </Button>

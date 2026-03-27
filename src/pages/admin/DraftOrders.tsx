@@ -47,7 +47,7 @@ const DraftOrders = () => {
           </div>
           <Button
             size="sm"
-            className="bg-primary text-white hover:bg-primary/90"
+            className="bg-foreground text-background hover:bg-foreground/90"
             onClick={() => navigate("/admin/orders/new")}
           >
             Create order
@@ -67,7 +67,7 @@ const DraftOrders = () => {
                 Use draft orders to take orders over the phone, email invoices to customers, and collect payments.
               </p>
               <Button
-                className="bg-primary text-white hover:bg-primary/90"
+                className="bg-foreground text-background hover:bg-foreground/90"
                 onClick={() => navigate("/admin/orders/new")}
               >
                 Create draft order

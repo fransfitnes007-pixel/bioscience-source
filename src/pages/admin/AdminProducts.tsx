@@ -76,7 +76,7 @@ const AdminProducts = () => {
             <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">
               Import
             </Button>
-            <Button size="sm" className="bg-primary text-white hover:bg-primary/90">
+            <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">
               <Plus className="h-4 w-4 mr-1" /> Add product
             </Button>
           </div>

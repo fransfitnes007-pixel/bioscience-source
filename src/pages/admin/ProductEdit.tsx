@@ -359,7 +359,7 @@ const ProductEdit = () => {
 
             {/* Save bar */}
             <div className="flex justify-end">
-              <Button size="sm" className="bg-primary text-white hover:bg-primary/90">
+              <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">
                 Save
               </Button>
             </div>

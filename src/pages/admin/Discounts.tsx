@@ -75,7 +75,7 @@ const Discounts = () => {
               Affiliates
             </Button>
             <Button
-              className="bg-primary text-white hover:bg-accent text-sm"
+              className="bg-foreground text-background hover:bg-foreground/90 text-sm"
               onClick={() => navigate("/admin/discounts/new")}
             >
               Create discount

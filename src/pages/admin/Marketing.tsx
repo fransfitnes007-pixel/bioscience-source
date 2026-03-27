@@ -124,7 +124,7 @@ const Marketing = () => {
               Create campaigns to evaluate how marketing initiatives drive business goals. Capture online and offline touchpoints,
               add campaign activities from multiple marketing channels, and monitor results.
             </p>
-            <Button size="sm" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate("/admin/marketing/campaigns")}>
+            <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90" onClick={() => navigate("/admin/marketing/campaigns")}>
               Create campaign
             </Button>
           </div>

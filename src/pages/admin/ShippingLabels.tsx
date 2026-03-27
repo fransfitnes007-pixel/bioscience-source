@@ -109,7 +109,7 @@ const ShippingLabels = () => {
                 <DropdownMenuItem>Hide analytics bar</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button size="sm" className="bg-primary text-white hover:bg-primary/90">
+            <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">
               <Package className="h-4 w-4 mr-1" /> 0 orders to ship
             </Button>
           </div>
