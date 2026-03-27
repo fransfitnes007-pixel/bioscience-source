@@ -81,9 +81,9 @@ const ShippingLabels = () => {
   });
 
   const getDeliveryBadge = (status: string) => {
-    if (status === "delivered") return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Delivered</span>;
-    if (status === "shipped") return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">In transit</span>;
-    return <span className="text-xs text-[#6d7175]">No status yet</span>;
+    if (status === "delivered") return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-900/30 text-green-400">Delivered</span>;
+    if (status === "shipped") return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-900/30 text-blue-400">In transit</span>;
+    return <span className="text-xs text-muted-foreground">No status yet</span>;
   };
 
   return (
@@ -92,37 +92,37 @@ const ShippingLabels = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Truck className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Shipping labels</h1>
+            <Truck className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Shipping labels</h1>
           </div>
           <div className="flex items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">
+                <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">
                   More actions
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white border-[#e1e3e5] text-[#202223]">
+              <DropdownMenuContent className="bg-card border-border text-foreground">
                 <DropdownMenuItem>Create manifest</DropdownMenuItem>
                 <DropdownMenuItem>Schedule USPS pickup <ExternalLink className="h-3 w-3 ml-2" /></DropdownMenuItem>
                 <DropdownMenuItem>Manage preferred services</DropdownMenuItem>
                 <DropdownMenuItem>Hide analytics bar</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button size="sm" className="bg-[#303030] text-white hover:bg-[#1a1a1a]">
+            <Button size="sm" className="bg-primary text-white hover:bg-primary/90">
               <Package className="h-4 w-4 mr-1" /> 0 orders to ship
             </Button>
           </div>
         </div>
 
         {/* Delivery Performance */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-          <div className="px-5 py-3 border-b border-[#e1e3e5] flex items-center gap-2">
-            <span className="text-sm text-[#202223] font-medium">🇺🇸 US domestic delivery performance</span>
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="px-5 py-3 border-b border-border flex items-center gap-2">
+            <span className="text-sm text-foreground font-medium">🇺🇸 US domestic delivery performance</span>
           </div>
-          <div className="flex divide-x divide-[#e1e3e5]">
+          <div className="flex divide-x divide-border">
             <div className="px-5 py-4 flex items-center gap-3">
-              <span className="text-sm text-[#202223]">📅 30 days</span>
+              <span className="text-sm text-foreground">📅 30 days</span>
             </div>
             {[
               { label: "Delivered within 5 days", value: "0%" },
@@ -130,8 +130,8 @@ const ShippingLabels = () => {
               { label: "Tracking included", value: "0%" },
             ].map((stat, i) => (
               <div key={i} className="flex-1 px-5 py-4">
-                <p className="text-sm font-semibold text-[#202223]">{stat.label}</p>
-                <p className="text-sm text-[#6d7175] mt-1">{stat.value} —</p>
+                <p className="text-sm font-semibold text-foreground">{stat.label}</p>
+                <p className="text-sm text-muted-foreground mt-1">{stat.value} —</p>
               </div>
             ))}
           </div>
@@ -139,15 +139,15 @@ const ShippingLabels = () => {
 
         {/* Tabs */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-0 border-b border-[#e1e3e5]">
+          <div className="flex items-center gap-0 border-b border-border">
             {TABS.map(tab => (
               <button
                 key={tab.value}
                 onClick={() => setActiveTab(tab.value)}
                 className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.value
-                    ? "border-[#202223] text-[#202223]"
-                    : "border-transparent text-[#6d7175] hover:text-[#202223]"
+                    ? "border-foreground text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {tab.label}
@@ -157,11 +157,11 @@ const ShippingLabels = () => {
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           {isLoading ? (
-            <div className="text-center py-16 text-[#6d7175]">Loading...</div>
+            <div className="text-center py-16 text-muted-foreground">Loading...</div>
           ) : filtered.length === 0 ? (
-            <div className="text-center py-16 text-[#6d7175]">
+            <div className="text-center py-16 text-muted-foreground">
               <Truck className="h-10 w-10 mx-auto mb-3 opacity-40" />
               <p className="font-medium">No shipping labels yet</p>
               <p className="text-sm mt-1">Shipping labels will appear here when orders are fulfilled</p>
@@ -169,31 +169,31 @@ const ShippingLabels = () => {
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left">
+                <tr className="border-b border-border text-left">
                   <th className="py-3 px-4 w-10"><Checkbox /></th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Order</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Items</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Weight</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Cost</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Shipping service</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Delivery status</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Order</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Items</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Weight</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Cost</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Shipping service</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Delivery status</th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.map(s => (
-                  <tr key={s.id} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] transition-colors">
+                  <tr key={s.id} className="border-b border-border hover:bg-secondary transition-colors">
                     <td className="py-3 px-4"><Checkbox /></td>
                     <td className="py-3 px-4">
-                      <p className="font-medium text-[#005bd3]">#{s.order_number} · {s.customer_name}</p>
-                      <p className="text-xs text-[#6d7175]">{s.customer_city}</p>
+                      <p className="font-medium text-primary">#{s.order_number} · {s.customer_name}</p>
+                      <p className="text-xs text-muted-foreground">{s.customer_city}</p>
                     </td>
-                    <td className="py-3 px-4 text-[#202223]">{s.items_count}</td>
-                    <td className="py-3 px-4 text-[#202223]">{s.weight ? `${s.weight} lb` : "—"}</td>
-                    <td className="py-3 px-4 text-[#202223]">{s.shipping_cost ? `$${Number(s.shipping_cost).toFixed(2)}` : "—"}</td>
+                    <td className="py-3 px-4 text-foreground">{s.items_count}</td>
+                    <td className="py-3 px-4 text-foreground">{s.weight ? `${s.weight} lb` : "—"}</td>
+                    <td className="py-3 px-4 text-foreground">{s.shipping_cost ? `$${Number(s.shipping_cost).toFixed(2)}` : "—"}</td>
                     <td className="py-3 px-4">
                       <div>
-                        <p className="text-sm text-[#202223]">{s.carrier || "—"}</p>
-                        {s.tracking_number && <p className="text-xs text-[#6d7175] font-mono">{s.tracking_number}</p>}
+                        <p className="text-sm text-foreground">{s.carrier || "—"}</p>
+                        {s.tracking_number && <p className="text-xs text-muted-foreground font-mono">{s.tracking_number}</p>}
                       </div>
                     </td>
                     <td className="py-3 px-4">{getDeliveryBadge(s.status)}</td>

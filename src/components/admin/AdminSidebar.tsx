@@ -189,7 +189,7 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
           <div key={si}>
             {si > 0 && <div className="mx-3 my-2 border-t border-[#333]" />}
             {!isCollapsed && section.label && (
-              <p className="px-5 pt-2 pb-1 text-xs font-medium text-[#999] flex items-center gap-1">
+              <p className="px-5 pt-2 pb-1 text-xs font-medium text-muted-foreground flex items-center gap-1">
                 {section.label} <ChevronDown className="h-3 w-3" />
               </p>
             )}
@@ -223,7 +223,7 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
                                 "block px-3 py-1.5 rounded text-sm transition-colors",
                                 location.pathname === child.href
                                   ? "text-white"
-                                  : "text-[#999] hover:text-white"
+                                  : "text-muted-foreground hover:text-white"
                               )}
                             >
                               {child.title}

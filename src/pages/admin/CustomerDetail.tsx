@@ -58,10 +58,10 @@ const CustomerDetail = () => {
   }, [userId]);
 
   if (isLoading) {
-    return <AdminLayout><div className="text-center py-20 text-[#6d7175]">Loading...</div></AdminLayout>;
+    return <AdminLayout><div className="text-center py-20 text-muted-foreground">Loading...</div></AdminLayout>;
   }
   if (!customer) {
-    return <AdminLayout><div className="text-center py-20 text-[#6d7175]">Customer not found</div></AdminLayout>;
+    return <AdminLayout><div className="text-center py-20 text-muted-foreground">Customer not found</div></AdminLayout>;
   }
 
   const displayName = customer.first_name || customer.last_name
@@ -75,37 +75,37 @@ const CustomerDetail = () => {
       <div className="space-y-4">
         {/* Breadcrumb */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm text-[#6d7175]">
-            <button onClick={() => navigate("/admin/customers")} className="hover:text-[#202223] flex items-center gap-1">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <button onClick={() => navigate("/admin/customers")} className="hover:text-foreground flex items-center gap-1">
               <ChevronLeft className="h-4 w-4" />
               <Users className="h-4 w-4" />
             </button>
             <span>›</span>
-            <span className="text-[#202223] font-semibold">{displayName}</span>
+            <span className="text-foreground font-semibold">{displayName}</span>
           </div>
-          <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">
+          <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">
             More actions
           </Button>
         </div>
 
         {/* Stats bar */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-          <div className="flex divide-x divide-[#e1e3e5]">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="flex divide-x divide-border">
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Amount spent</p>
-              <p className="text-lg font-semibold text-[#202223]">${customer.total_spent.toFixed(2)}</p>
+              <p className="text-sm text-muted-foreground">Amount spent</p>
+              <p className="text-lg font-semibold text-foreground">${customer.total_spent.toFixed(2)}</p>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Orders</p>
-              <p className="text-lg font-semibold text-[#202223]">{customer.order_count}</p>
+              <p className="text-sm text-muted-foreground">Orders</p>
+              <p className="text-lg font-semibold text-foreground">{customer.order_count}</p>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Customer since</p>
-              <p className="text-lg font-semibold text-[#202223]">{daysSince} days</p>
+              <p className="text-sm text-muted-foreground">Customer since</p>
+              <p className="text-lg font-semibold text-foreground">{daysSince} days</p>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">RFM group</p>
-              <p className="text-lg font-semibold text-[#202223]">—</p>
+              <p className="text-sm text-muted-foreground">RFM group</p>
+              <p className="text-lg font-semibold text-foreground">—</p>
             </div>
           </div>
         </div>
@@ -114,41 +114,41 @@ const CustomerDetail = () => {
           {/* Left */}
           <div className="col-span-8 space-y-4">
             {/* Last order */}
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5">
-              <h2 className="font-semibold text-[#202223] mb-2">Last order placed</h2>
+            <div className="bg-card rounded-xl border border-border p-5">
+              <h2 className="font-semibold text-foreground mb-2">Last order placed</h2>
               {customer.order_count === 0 ? (
                 <div>
-                  <p className="text-sm text-[#6d7175] mb-3">This customer hasn't placed any orders yet</p>
-                  <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">
+                  <p className="text-sm text-muted-foreground mb-3">This customer hasn't placed any orders yet</p>
+                  <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">
                     Create order
                   </Button>
                 </div>
               ) : (
-                <p className="text-sm text-[#6d7175]">{customer.order_count} order(s) placed</p>
+                <p className="text-sm text-muted-foreground">{customer.order_count} order(s) placed</p>
               )}
             </div>
 
             {/* Timeline */}
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-4">
-              <h2 className="font-semibold text-[#202223]">Timeline</h2>
-              <div className="flex items-start gap-3 p-3 rounded-lg border border-[#e1e3e5]">
+            <div className="bg-card rounded-xl border border-border p-5 space-y-4">
+              <h2 className="font-semibold text-foreground">Timeline</h2>
+              <div className="flex items-start gap-3 p-3 rounded-lg border border-border">
                 <div className="w-8 h-8 rounded-full bg-[#50b83c] flex items-center justify-center text-white text-xs font-bold shrink-0">
                   {(customer.first_name?.[0] || "C").toUpperCase()}
                 </div>
                 <input
                   type="text"
                   placeholder="Leave a comment..."
-                  className="flex-1 text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none"
+                  className="flex-1 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
                 />
               </div>
-              <p className="text-xs text-[#6d7175]">Only you and other staff can see comments</p>
+              <p className="text-xs text-muted-foreground">Only you and other staff can see comments</p>
 
-              <div className="border-t border-[#e1e3e5] pt-4">
-                <p className="text-xs text-[#6d7175] mb-2">{format(new Date(customer.created_at), "MMMM d")}</p>
+              <div className="border-t border-border pt-4">
+                <p className="text-xs text-muted-foreground mb-2">{format(new Date(customer.created_at), "MMMM d")}</p>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-[#6d7175]" />
-                  <p className="text-sm text-[#202223]">Online Store created this customer.</p>
-                  <span className="text-xs text-[#6d7175] ml-auto">{format(new Date(customer.created_at), "h:mm a")}</span>
+                  <div className="w-2 h-2 rounded-full bg-muted-foreground" />
+                  <p className="text-sm text-foreground">Online Store created this customer.</p>
+                  <span className="text-xs text-muted-foreground ml-auto">{format(new Date(customer.created_at), "h:mm a")}</span>
                 </div>
               </div>
             </div>
@@ -156,63 +156,63 @@ const CustomerDetail = () => {
 
           {/* Right */}
           <div className="col-span-4 space-y-4">
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-4">
-              <h2 className="font-semibold text-[#202223]">Customer</h2>
+            <div className="bg-card rounded-xl border border-border p-5 space-y-4">
+              <h2 className="font-semibold text-foreground">Customer</h2>
               <div>
-                <p className="text-xs text-[#6d7175] mb-1">Contact information</p>
+                <p className="text-xs text-muted-foreground mb-1">Contact information</p>
                 <div className="flex items-center justify-between">
-                  <a href={`mailto:${customer.email}`} className="text-sm text-[#005bd3] hover:underline">{customer.email}</a>
-                  <Copy className="h-3.5 w-3.5 text-[#6d7175] cursor-pointer hover:text-[#202223]" />
+                  <a href={`mailto:${customer.email}`} className="text-sm text-primary hover:underline">{customer.email}</a>
+                  <Copy className="h-3.5 w-3.5 text-muted-foreground cursor-pointer hover:text-foreground" />
                 </div>
-                {customer.phone && <p className="text-sm text-[#202223] mt-1">{customer.phone}</p>}
+                {customer.phone && <p className="text-sm text-foreground mt-1">{customer.phone}</p>}
               </div>
               <div>
-                <p className="text-xs text-[#6d7175] mb-1">Default address</p>
-                <p className="text-sm text-[#202223]">{customer.country}</p>
+                <p className="text-xs text-muted-foreground mb-1">Default address</p>
+                <p className="text-sm text-foreground">{customer.country}</p>
               </div>
               <div>
-                <p className="text-xs text-[#6d7175] mb-1">Marketing</p>
+                <p className="text-xs text-muted-foreground mb-1">Marketing</p>
                 <div className="flex items-center gap-3">
-                  <span className="flex items-center gap-1 text-sm text-[#202223]">
+                  <span className="flex items-center gap-1 text-sm text-foreground">
                     <span className="w-2 h-2 rounded-full bg-[#50b83c]" /> Email
                   </span>
-                  <span className="flex items-center gap-1 text-sm text-[#202223]">
-                    <span className="w-2 h-2 rounded-full border border-[#c9cccf]" /> SMS
+                  <span className="flex items-center gap-1 text-sm text-foreground">
+                    <span className="w-2 h-2 rounded-full border border-border" /> SMS
                   </span>
                 </div>
               </div>
               <div>
-                <p className="text-xs text-[#6d7175] mb-1">Tax details</p>
-                <p className="text-sm text-[#202223]">Collect tax</p>
+                <p className="text-xs text-muted-foreground mb-1">Tax details</p>
+                <p className="text-sm text-foreground">Collect tax</p>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-2">
+            <div className="bg-card rounded-xl border border-border p-5 space-y-2">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold text-[#202223]">Store credit</h2>
-                <Pencil className="h-4 w-4 text-[#6d7175]" />
+                <h2 className="font-semibold text-foreground">Store credit</h2>
+                <Pencil className="h-4 w-4 text-muted-foreground" />
               </div>
-              <p className="text-sm text-[#6d7175]">None</p>
+              <p className="text-sm text-muted-foreground">None</p>
             </div>
 
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-3">
+            <div className="bg-card rounded-xl border border-border p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold text-[#202223]">Tags</h2>
-                <Pencil className="h-4 w-4 text-[#6d7175]" />
+                <h2 className="font-semibold text-foreground">Tags</h2>
+                <Pencil className="h-4 w-4 text-muted-foreground" />
               </div>
               <input
                 type="text"
                 placeholder="Add tags..."
-                className="w-full h-9 px-3 rounded-lg border border-[#c9cccf] text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                className="w-full h-9 px-3 rounded-lg border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
 
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-2">
+            <div className="bg-card rounded-xl border border-border p-5 space-y-2">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold text-[#202223]">Notes</h2>
-                <Pencil className="h-4 w-4 text-[#6d7175]" />
+                <h2 className="font-semibold text-foreground">Notes</h2>
+                <Pencil className="h-4 w-4 text-muted-foreground" />
               </div>
-              <p className="text-sm text-[#6d7175]">None</p>
+              <p className="text-sm text-muted-foreground">None</p>
             </div>
           </div>
         </div>

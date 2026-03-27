@@ -36,7 +36,7 @@ const SettingsCheckout = () => {
           <p className="text-sm text-muted-foreground">Customize Checkout, Thank you, and Order status pages</p>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between p-4 border-2 border-green-500/30 rounded-lg bg-green-50/5">
+          <div className="flex items-center justify-between p-4 border-2 border-green-500/30 rounded-lg bg-green-900/20/5">
             <div>
               <div className="flex items-center gap-2">
                 <p className="font-medium">My Store configuration</p>
@@ -212,7 +212,7 @@ const SettingsCheckout = () => {
               </div>
               <p className="text-xs text-muted-foreground">Protects your available inventory quantities from being revealed</p>
             </div>
-            <Badge className="bg-green-100 text-green-800 border-green-300">On</Badge>
+            <Badge className="bg-green-900/30 text-green-400 border-green-300">On</Badge>
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
           </div>
         </CardContent>

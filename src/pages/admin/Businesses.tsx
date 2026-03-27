@@ -154,11 +154,11 @@ const AdminBusinesses = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'approved':
-        return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">Approved</Badge>;
+        return <Badge className="bg-green-900/200/10 text-green-500 border-green-500/20">Approved</Badge>;
       case 'pending':
-        return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Pending</Badge>;
+        return <Badge className="bg-yellow-900/200/10 text-yellow-500 border-yellow-500/20">Pending</Badge>;
       case 'denied':
-        return <Badge className="bg-red-500/10 text-red-500 border-red-500/20">Denied</Badge>;
+        return <Badge className="bg-red-900/200/10 text-red-500 border-red-500/20">Denied</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }

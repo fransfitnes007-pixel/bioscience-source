@@ -53,7 +53,7 @@ const OnlineStore = () => {
           <div className="flex items-center gap-3">
             <Globe className="h-5 w-5 text-muted-foreground" />
             <h1 className="text-xl font-semibold">Online Store</h1>
-            <Badge variant="outline" className="text-green-600 border-green-600">Active</Badge>
+            <Badge variant="outline" className="text-green-400 border-green-600">Active</Badge>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" asChild>

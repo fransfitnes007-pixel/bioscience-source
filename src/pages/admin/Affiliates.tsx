@@ -33,10 +33,10 @@ import { useNavigate } from "react-router-dom";
 
 const commissionTiers = [
   { value: "10", label: "10% Commission", color: "bg-gray-100 text-gray-700" },
-  { value: "15", label: "15% Commission", color: "bg-blue-100 text-blue-700" },
-  { value: "20", label: "20% Commission", color: "bg-green-100 text-green-700" },
-  { value: "25", label: "25% Commission", color: "bg-orange-100 text-orange-700" },
-  { value: "30", label: "30% Commission", color: "bg-purple-100 text-purple-700" },
+  { value: "15", label: "15% Commission", color: "bg-blue-900/30 text-blue-400" },
+  { value: "20", label: "20% Commission", color: "bg-green-900/30 text-green-400" },
+  { value: "25", label: "25% Commission", color: "bg-orange-900/30 text-orange-400" },
+  { value: "30", label: "30% Commission", color: "bg-purple-900/30 text-purple-400" },
 ];
 
 const Affiliates = () => {
@@ -135,11 +135,11 @@ const Affiliates = () => {
     <AdminLayout>
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate("/admin/discounts")} className="p-1 hover:bg-[#f1f1f1] rounded">
-            <ArrowLeft className="h-5 w-5 text-[#202223]" />
+          <button onClick={() => navigate("/admin/discounts")} className="p-1 hover:bg-secondary rounded">
+            <ArrowLeft className="h-5 w-5 text-foreground" />
           </button>
-          <Users className="h-5 w-5 text-[#202223]" />
-          <h1 className="text-xl font-semibold text-[#202223]">Athletes & Affiliates</h1>
+          <Users className="h-5 w-5 text-foreground" />
+          <h1 className="text-xl font-semibold text-foreground">Athletes & Affiliates</h1>
         </div>
 
         {/* Stats */}
@@ -150,26 +150,26 @@ const Affiliates = () => {
             { label: "Total Earnings", value: `$${affiliates?.reduce((s, a) => s + Number(a.total_earnings || 0), 0).toFixed(2) || "0.00"}`, icon: DollarSign },
             { label: "Total Orders", value: affiliates?.reduce((s, a) => s + (a.total_orders || 0), 0) || 0, icon: ShoppingCart },
           ].map((stat) => (
-            <div key={stat.label} className="bg-white rounded-xl border border-[#e1e3e5] p-4">
-              <div className="flex items-center gap-2 text-[#6d7175] text-sm">
+            <div key={stat.label} className="bg-card rounded-xl border border-border p-4">
+              <div className="flex items-center gap-2 text-muted-foreground text-sm">
                 <stat.icon className="h-4 w-4" />
                 {stat.label}
               </div>
-              <p className="text-2xl font-semibold text-[#202223] mt-1">{stat.value}</p>
+              <p className="text-2xl font-semibold text-foreground mt-1">{stat.value}</p>
             </div>
           ))}
         </div>
 
         {/* List */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-[#e1e3e5]">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border">
             <Input
               placeholder="Search affiliates..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="max-w-sm border-[#c9cccf] bg-[#f6f6f7] h-9 text-sm"
+              className="max-w-sm border-border bg-secondary h-9 text-sm"
             />
-            <Button className="bg-[#202223] text-white hover:bg-[#333] text-sm" onClick={() => setShowCreate(true)}>
+            <Button className="bg-primary text-white hover:bg-accent text-sm" onClick={() => setShowCreate(true)}>
               <Plus className="h-4 w-4 mr-2" />
               Add Athlete
             </Button>
@@ -177,23 +177,23 @@ const Affiliates = () => {
 
           {isLoading ? (
             <div className="flex justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-[#6d7175]" />
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : !filtered?.length ? (
             <div className="text-center py-12">
-              <Users className="h-12 w-12 text-[#c9cccf] mx-auto mb-3" />
-              <h3 className="font-semibold text-[#202223]">No affiliates yet</h3>
-              <p className="text-sm text-[#6d7175] mt-1">
+              <Users className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
+              <h3 className="font-semibold text-foreground">No affiliates yet</h3>
+              <p className="text-sm text-muted-foreground mt-1">
                 Add athletes who will promote your products and earn commission.
               </p>
-              <Button className="mt-4 bg-[#202223] text-white hover:bg-[#333]" onClick={() => setShowCreate(true)}>
+              <Button className="mt-4 bg-primary text-white hover:bg-accent" onClick={() => setShowCreate(true)}>
                 Add your first athlete
               </Button>
             </div>
           ) : (
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left text-xs font-medium text-[#6d7175] uppercase">
+                <tr className="border-b border-border text-left text-xs font-medium text-muted-foreground uppercase">
                   <th className="px-4 py-3">Athlete</th>
                   <th className="px-4 py-3">Code</th>
                   <th className="px-4 py-3">Commission</th>
@@ -204,18 +204,18 @@ const Affiliates = () => {
               </thead>
               <tbody>
                 {filtered?.map((affiliate) => (
-                  <tr key={affiliate.id} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7]">
+                  <tr key={affiliate.id} className="border-b border-border hover:bg-secondary">
                     <td className="px-4 py-3">
                       <div>
-                        <p className="text-sm font-medium text-[#202223]">{affiliate.name}</p>
-                        <p className="text-xs text-[#6d7175]">{affiliate.email}</p>
+                        <p className="text-sm font-medium text-foreground">{affiliate.name}</p>
+                        <p className="text-xs text-muted-foreground">{affiliate.email}</p>
                         {affiliate.sport && (
-                          <p className="text-xs text-[#6d7175]">{affiliate.sport}</p>
+                          <p className="text-xs text-muted-foreground">{affiliate.sport}</p>
                         )}
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <code className="text-sm bg-[#f6f6f7] px-2 py-1 rounded font-mono">
+                      <code className="text-sm bg-secondary px-2 py-1 rounded font-mono">
                         {affiliate.discount_code}
                       </code>
                     </td>
@@ -224,12 +224,12 @@ const Affiliates = () => {
                         {affiliate.commission_rate}%
                       </Badge>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#202223]">{affiliate.total_orders}</td>
-                    <td className="px-4 py-3 text-sm font-medium text-[#202223]">
+                    <td className="px-4 py-3 text-sm text-foreground">{affiliate.total_orders}</td>
+                    <td className="px-4 py-3 text-sm font-medium text-foreground">
                       ${Number(affiliate.total_earnings || 0).toFixed(2)}
                     </td>
                     <td className="px-4 py-3">
-                      <Badge className={affiliate.is_active ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}>
+                      <Badge className={affiliate.is_active ? "bg-green-900/30 text-green-400" : "bg-muted text-muted-foreground"}>
                         {affiliate.is_active ? "Active" : "Inactive"}
                       </Badge>
                     </td>
@@ -305,7 +305,7 @@ const Affiliates = () => {
                   onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
                   placeholder="Auto-generated if empty"
                 />
-                <p className="text-xs text-[#6d7175] mt-1">Gives customers 10% off</p>
+                <p className="text-xs text-muted-foreground mt-1">Gives customers 10% off</p>
               </div>
             </div>
             <div>
@@ -315,7 +315,7 @@ const Affiliates = () => {
             <div className="flex justify-end gap-2 pt-2">
               <Button variant="outline" onClick={() => setShowCreate(false)}>Cancel</Button>
               <Button
-                className="bg-[#202223] text-white hover:bg-[#333]"
+                className="bg-primary text-white hover:bg-accent"
                 onClick={() => createAffiliate.mutate()}
                 disabled={!form.name || !form.email || createAffiliate.isPending}
               >

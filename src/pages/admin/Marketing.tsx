@@ -45,71 +45,71 @@ const Marketing = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Megaphone className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Marketing</h1>
+            <Megaphone className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Marketing</h1>
           </div>
         </div>
 
         {/* Date range */}
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1.5 rounded-lg border border-[#c9cccf] text-sm text-[#202223] bg-white">📅 Last 30 days</span>
-          <span className="px-3 py-1.5 rounded-lg border border-[#c9cccf] text-sm text-[#6d7175] bg-white">No comparison</span>
+          <span className="px-3 py-1.5 rounded-lg border border-border text-sm text-foreground bg-card">📅 Last 30 days</span>
+          <span className="px-3 py-1.5 rounded-lg border border-border text-sm text-muted-foreground bg-card">No comparison</span>
         </div>
 
         {/* Stats */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-          <div className="flex divide-x divide-[#e1e3e5]">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="flex divide-x divide-border">
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Sessions</p>
-              <p className="text-lg font-semibold text-[#202223]">{stats.sessions}</p>
+              <p className="text-sm text-muted-foreground">Sessions</p>
+              <p className="text-lg font-semibold text-foreground">{stats.sessions}</p>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Sales attributed to marketing</p>
-              <p className="text-lg font-semibold text-[#202223]">${stats.sales.toFixed(2)}</p>
+              <p className="text-sm text-muted-foreground">Sales attributed to marketing</p>
+              <p className="text-lg font-semibold text-foreground">${stats.sales.toFixed(2)}</p>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Orders attributed to marketing</p>
-              <p className="text-lg font-semibold text-[#202223]">{stats.orders}</p>
+              <p className="text-sm text-muted-foreground">Orders attributed to marketing</p>
+              <p className="text-lg font-semibold text-foreground">{stats.orders}</p>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Conversion rate</p>
-              <p className="text-lg font-semibold text-[#202223]">0%</p>
+              <p className="text-sm text-muted-foreground">Conversion rate</p>
+              <p className="text-lg font-semibold text-foreground">0%</p>
             </div>
           </div>
         </div>
 
         {/* Top marketing channels */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-4">
+        <div className="bg-card rounded-xl border border-border p-5 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-[#202223]">Top marketing channels</h2>
-            <a href="#" className="text-sm text-[#005bd3] hover:underline">View report</a>
+            <h2 className="font-semibold text-foreground">Top marketing channels</h2>
+            <a href="#" className="text-sm text-primary hover:underline">View report</a>
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#e1e3e5] text-left">
-                <th className="py-2 text-[#6d7175] font-medium">Channel</th>
-                <th className="py-2 text-[#6d7175] font-medium">Type</th>
-                <th className="py-2 text-[#6d7175] font-medium text-right">Sessions</th>
-                <th className="py-2 text-[#6d7175] font-medium text-right">Sales</th>
-                <th className="py-2 text-[#6d7175] font-medium text-right">Orders</th>
-                <th className="py-2 text-[#6d7175] font-medium text-right">Conversion rate</th>
-                <th className="py-2 text-[#6d7175] font-medium text-right">ROAS</th>
-                <th className="py-2 text-[#6d7175] font-medium text-right">CPA</th>
-                <th className="py-2 text-[#6d7175] font-medium text-right">CTR</th>
+              <tr className="border-b border-border text-left">
+                <th className="py-2 text-muted-foreground font-medium">Channel</th>
+                <th className="py-2 text-muted-foreground font-medium">Type</th>
+                <th className="py-2 text-muted-foreground font-medium text-right">Sessions</th>
+                <th className="py-2 text-muted-foreground font-medium text-right">Sales</th>
+                <th className="py-2 text-muted-foreground font-medium text-right">Orders</th>
+                <th className="py-2 text-muted-foreground font-medium text-right">Conversion rate</th>
+                <th className="py-2 text-muted-foreground font-medium text-right">ROAS</th>
+                <th className="py-2 text-muted-foreground font-medium text-right">CPA</th>
+                <th className="py-2 text-muted-foreground font-medium text-right">CTR</th>
               </tr>
             </thead>
             <tbody>
               {channels.map((ch, i) => (
-                <tr key={i} className="border-b border-[#e1e3e5]">
-                  <td className="py-3 text-[#202223] font-medium">{ch.name}</td>
-                  <td className="py-3 text-[#6d7175]">{ch.type}</td>
-                  <td className="py-3 text-[#202223] text-right">{ch.sessions}</td>
-                  <td className="py-3 text-[#202223] text-right">{ch.sales}</td>
-                  <td className="py-3 text-[#202223] text-right">{ch.orders}</td>
-                  <td className="py-3 text-[#202223] text-right">{ch.conversion}</td>
-                  <td className="py-3 text-[#6d7175] text-right">—</td>
-                  <td className="py-3 text-[#6d7175] text-right">—</td>
-                  <td className="py-3 text-[#6d7175] text-right">—</td>
+                <tr key={i} className="border-b border-border">
+                  <td className="py-3 text-foreground font-medium">{ch.name}</td>
+                  <td className="py-3 text-muted-foreground">{ch.type}</td>
+                  <td className="py-3 text-foreground text-right">{ch.sessions}</td>
+                  <td className="py-3 text-foreground text-right">{ch.sales}</td>
+                  <td className="py-3 text-foreground text-right">{ch.orders}</td>
+                  <td className="py-3 text-foreground text-right">{ch.conversion}</td>
+                  <td className="py-3 text-muted-foreground text-right">—</td>
+                  <td className="py-3 text-muted-foreground text-right">—</td>
+                  <td className="py-3 text-muted-foreground text-right">—</td>
                 </tr>
               ))}
             </tbody>
@@ -117,14 +117,14 @@ const Marketing = () => {
         </div>
 
         {/* Campaign tracking CTA */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] p-8 flex items-center justify-between">
+        <div className="bg-card rounded-xl border border-border p-8 flex items-center justify-between">
           <div className="max-w-lg">
-            <h2 className="font-semibold text-[#202223] text-lg mb-2">Centralize your campaign tracking</h2>
-            <p className="text-sm text-[#6d7175] mb-4">
+            <h2 className="font-semibold text-foreground text-lg mb-2">Centralize your campaign tracking</h2>
+            <p className="text-sm text-muted-foreground mb-4">
               Create campaigns to evaluate how marketing initiatives drive business goals. Capture online and offline touchpoints,
               add campaign activities from multiple marketing channels, and monitor results.
             </p>
-            <Button size="sm" className="bg-[#303030] text-white hover:bg-[#1a1a1a]" onClick={() => navigate("/admin/marketing/campaigns")}>
+            <Button size="sm" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate("/admin/marketing/campaigns")}>
               Create campaign
             </Button>
           </div>
@@ -134,33 +134,33 @@ const Marketing = () => {
         </div>
 
         {/* Marketing app activities */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-3">
+        <div className="bg-card rounded-xl border border-border p-5 space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-[#202223]">Marketing app activities</h2>
-            <a href="#" className="text-sm text-[#005bd3] hover:underline">Explore apps</a>
+            <h2 className="font-semibold text-foreground">Marketing app activities</h2>
+            <a href="#" className="text-sm text-primary hover:underline">Explore apps</a>
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#e1e3e5] text-left">
-                <th className="py-2 text-[#6d7175] font-medium">App</th>
-                <th className="py-2 text-[#6d7175] font-medium">Activities in progress</th>
-                <th className="py-2 text-[#6d7175] font-medium">Last activity</th>
+              <tr className="border-b border-border text-left">
+                <th className="py-2 text-muted-foreground font-medium">App</th>
+                <th className="py-2 text-muted-foreground font-medium">Activities in progress</th>
+                <th className="py-2 text-muted-foreground font-medium">Last activity</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-[#e1e3e5]">
-                <td className="py-3 text-[#202223]">Messaging</td>
+              <tr className="border-b border-border">
+                <td className="py-3 text-foreground">Messaging</td>
                 <td className="py-3">
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Sending (1)</span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-900/30 text-green-400">Sending (1)</span>
                 </td>
-                <td className="py-3 text-[#6d7175]">Nov 9, 2024</td>
+                <td className="py-3 text-muted-foreground">Nov 9, 2024</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div className="text-center text-sm text-[#6d7175]">
-          Learn more about <a href="#" className="text-[#005bd3] hover:underline">marketing campaigns</a>
+        <div className="text-center text-sm text-muted-foreground">
+          Learn more about <a href="#" className="text-primary hover:underline">marketing campaigns</a>
         </div>
       </div>
     </AdminLayout>

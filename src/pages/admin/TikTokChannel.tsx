@@ -52,7 +52,7 @@ const TikTokChannel = () => {
             <Music className="h-5 w-5 text-muted-foreground" />
             <h1 className="text-xl font-semibold">TikTok</h1>
             {isConnected ? (
-              <Badge variant="outline" className="text-green-600 border-green-600">Connected</Badge>
+              <Badge variant="outline" className="text-green-400 border-green-600">Connected</Badge>
             ) : (
               <Badge variant="outline" className="text-amber-600 border-amber-600">Not connected</Badge>
             )}

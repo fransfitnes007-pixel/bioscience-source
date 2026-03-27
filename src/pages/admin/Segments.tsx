@@ -45,56 +45,56 @@ const Segments = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Segments</h1>
+            <Users className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Segments</h1>
           </div>
-          <Button size="sm" className="bg-[#303030] text-white hover:bg-[#1a1a1a]" onClick={() => setShowTemplates(true)}>
+          <Button size="sm" className="bg-primary text-white hover:bg-primary/90" onClick={() => setShowTemplates(true)}>
             Create segment
           </Button>
         </div>
 
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6d7175]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search segments"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-10 pl-9 pr-4 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+            className="w-full h-10 pl-9 pr-4 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#e1e3e5] text-left">
+              <tr className="border-b border-border text-left">
                 <th className="py-3 px-4 w-10"><Checkbox /></th>
-                <th className="py-3 px-4 text-[#6d7175] font-medium">Name</th>
-                <th className="py-3 px-4 text-[#6d7175] font-medium text-right">% of customers</th>
-                <th className="py-3 px-4 text-[#6d7175] font-medium">Last activity</th>
-                <th className="py-3 px-4 text-[#6d7175] font-medium">Created by</th>
+                <th className="py-3 px-4 text-muted-foreground font-medium">Name</th>
+                <th className="py-3 px-4 text-muted-foreground font-medium text-right">% of customers</th>
+                <th className="py-3 px-4 text-muted-foreground font-medium">Last activity</th>
+                <th className="py-3 px-4 text-muted-foreground font-medium">Created by</th>
                 <th className="py-3 px-4 w-10"></th>
               </tr>
             </thead>
             <tbody>
               {filteredSegments.map((seg, i) => (
-                <tr key={i} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] cursor-pointer transition-colors">
+                <tr key={i} className="border-b border-border hover:bg-secondary cursor-pointer transition-colors">
                   <td className="py-3 px-4" onClick={(e) => e.stopPropagation()}><Checkbox /></td>
-                  <td className="py-3 px-4 text-[#202223] font-medium">{seg.name}</td>
-                  <td className="py-3 px-4 text-[#202223] text-right">{seg.pct}</td>
-                  <td className="py-3 px-4 text-[#6d7175]">{seg.lastActivity}</td>
+                  <td className="py-3 px-4 text-foreground font-medium">{seg.name}</td>
+                  <td className="py-3 px-4 text-foreground text-right">{seg.pct}</td>
+                  <td className="py-3 px-4 text-muted-foreground">{seg.lastActivity}</td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-1.5">
                       <div className="w-5 h-5 rounded bg-[#95bf47] flex items-center justify-center">
                         <span className="text-white text-[10px] font-bold">R</span>
                       </div>
-                      <span className="text-[#202223]">{seg.createdBy}</span>
+                      <span className="text-foreground">{seg.createdBy}</span>
                     </div>
                   </td>
                   <td className="py-3 px-4">
-                    <MoreHorizontal className="h-4 w-4 text-[#6d7175]" />
+                    <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
                   </td>
                 </tr>
               ))}
@@ -106,38 +106,38 @@ const Segments = () => {
       {/* Segment Templates Modal */}
       {showTemplates && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col">
-            <div className="flex items-center justify-between p-5 border-b border-[#e1e3e5]">
+          <div className="bg-card rounded-xl w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col">
+            <div className="flex items-center justify-between p-5 border-b border-border">
               <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-[#202223]" />
-                <h2 className="text-lg font-semibold text-[#202223]">Segment templates</h2>
+                <Users className="h-5 w-5 text-foreground" />
+                <h2 className="text-lg font-semibold text-foreground">Segment templates</h2>
               </div>
-              <Button variant="outline" size="sm" onClick={() => setShowTemplates(false)} className="bg-white border-[#c9cccf] text-[#202223]">
+              <Button variant="outline" size="sm" onClick={() => setShowTemplates(false)} className="bg-card border-border text-foreground">
                 Close
               </Button>
             </div>
-            <div className="p-4 border-b border-[#e1e3e5]">
+            <div className="p-4 border-b border-border">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6d7175]" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Searching all templates"
                   value={templateSearch}
                   onChange={(e) => setTemplateSearch(e.target.value)}
-                  className="w-full h-10 pl-9 pr-4 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                  className="w-full h-10 pl-9 pr-4 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
             </div>
             <div className="flex-1 overflow-y-auto p-5">
               <div className="grid grid-cols-3 gap-3">
                 {filteredTemplates.map((t, i) => (
-                  <div key={i} className="border border-[#e1e3e5] rounded-xl p-4 hover:border-[#005bd3] cursor-pointer transition-colors flex flex-col justify-between">
+                  <div key={i} className="border border-border rounded-xl p-4 hover:border-primary cursor-pointer transition-colors flex flex-col justify-between">
                     <div>
-                      <h3 className="font-semibold text-sm text-[#202223] mb-1">{t.title}</h3>
-                      <p className="text-xs text-[#6d7175] leading-relaxed">{t.desc}</p>
+                      <h3 className="font-semibold text-sm text-foreground mb-1">{t.title}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{t.desc}</p>
                     </div>
-                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-[#e1e3e5]">
-                      <span className="text-xs text-[#6d7175]">{t.category}</span>
+                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-border">
+                      <span className="text-xs text-muted-foreground">{t.category}</span>
                       <div className="w-5 h-5 rounded bg-[#95bf47] flex items-center justify-center">
                         <span className="text-white text-[10px] font-bold">R</span>
                       </div>

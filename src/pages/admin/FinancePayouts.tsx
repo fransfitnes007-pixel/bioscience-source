@@ -154,35 +154,35 @@ const FinancePayouts = () => {
     <AdminLayout>
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate("/admin/finance")} className="p-1 hover:bg-[#f1f1f1] rounded">
-            <ArrowLeft className="h-5 w-5 text-[#202223]" />
+          <button onClick={() => navigate("/admin/finance")} className="p-1 hover:bg-secondary rounded">
+            <ArrowLeft className="h-5 w-5 text-foreground" />
           </button>
-          <DollarSign className="h-5 w-5 text-[#202223]" />
-          <h1 className="text-xl font-semibold text-[#202223]">Payouts</h1>
+          <DollarSign className="h-5 w-5 text-foreground" />
+          <h1 className="text-xl font-semibold text-foreground">Payouts</h1>
         </div>
 
         {/* Summary */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] p-5">
+        <div className="bg-card rounded-xl border border-border p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-[#6d7175]">To be paid</p>
-              <p className="text-2xl font-semibold text-[#202223]">${totalPending.toFixed(2)}</p>
+              <p className="text-sm text-muted-foreground">To be paid</p>
+              <p className="text-2xl font-semibold text-foreground">${totalPending.toFixed(2)}</p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-[#6d7175]">Total paid out</p>
-              <p className="text-2xl font-semibold text-[#202223]">${totalPaid.toFixed(2)}</p>
+              <p className="text-sm text-muted-foreground">Total paid out</p>
+              <p className="text-2xl font-semibold text-foreground">${totalPaid.toFixed(2)}</p>
             </div>
           </div>
         </div>
 
         {/* Pending payouts by affiliate */}
         {Object.keys(pendingByAffiliate).length > 0 && (
-          <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-            <div className="px-4 py-3 border-b border-[#e1e3e5] flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-[#202223]">Pending payouts by affiliate</h2>
+          <div className="bg-card rounded-xl border border-border overflow-hidden">
+            <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+              <h2 className="text-sm font-semibold text-foreground">Pending payouts by affiliate</h2>
               <Button
                 size="sm"
-                className="bg-[#202223] text-white hover:bg-[#333] text-xs"
+                className="bg-primary text-white hover:bg-accent text-xs"
                 onClick={() => payAllMutation.mutate()}
                 disabled={payAllMutation.isPending}
               >
@@ -191,7 +191,7 @@ const FinancePayouts = () => {
             </div>
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left text-xs text-[#6d7175] uppercase">
+                <tr className="border-b border-border text-left text-xs text-muted-foreground uppercase">
                   <th className="px-4 py-2">Affiliate</th>
                   <th className="px-4 py-2">Orders</th>
                   <th className="px-4 py-2">Amount</th>
@@ -200,13 +200,13 @@ const FinancePayouts = () => {
               </thead>
               <tbody>
                 {Object.entries(pendingByAffiliate).map(([affId, group]) => (
-                  <tr key={affId} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7]">
+                  <tr key={affId} className="border-b border-border hover:bg-secondary">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-[#202223]">{group.name}</p>
-                      <p className="text-xs text-[#6d7175]">{group.email}</p>
+                      <p className="font-medium text-foreground">{group.name}</p>
+                      <p className="text-xs text-muted-foreground">{group.email}</p>
                     </td>
-                    <td className="px-4 py-3 text-[#202223]">{group.count}</td>
-                    <td className="px-4 py-3 font-semibold text-[#202223]">${group.total.toFixed(2)}</td>
+                    <td className="px-4 py-3 text-foreground">{group.count}</td>
+                    <td className="px-4 py-3 font-semibold text-foreground">${group.total.toFixed(2)}</td>
                     <td className="px-4 py-3 text-right">
                       <Button
                         size="sm"
@@ -225,16 +225,16 @@ const FinancePayouts = () => {
         )}
 
         {/* All payout transactions */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-          <div className="px-4 py-3 border-b border-[#e1e3e5] flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-[#202223]">Payout transactions</h2>
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-foreground">Payout transactions</h2>
             <div className="flex gap-1">
               {["all", "pending", "paid"].map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                    filter === f ? "bg-[#202223] text-white" : "bg-[#f6f6f7] text-[#6d7175] hover:bg-[#e1e3e5]"
+                    filter === f ? "bg-primary text-white" : "bg-secondary text-muted-foreground hover:bg-accent"
                   }`}
                 >
                   {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -245,18 +245,18 @@ const FinancePayouts = () => {
 
           {isLoading ? (
             <div className="flex justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-[#6d7175]" />
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : !earnings?.length ? (
             <div className="text-center py-12">
-              <Users className="h-12 w-12 text-[#c9cccf] mx-auto mb-3" />
-              <h3 className="font-semibold text-[#202223]">No payout transactions</h3>
-              <p className="text-sm text-[#6d7175] mt-1">When affiliate codes are used on orders, earnings will appear here.</p>
+              <Users className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
+              <h3 className="font-semibold text-foreground">No payout transactions</h3>
+              <p className="text-sm text-muted-foreground mt-1">When affiliate codes are used on orders, earnings will appear here.</p>
             </div>
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left text-xs text-[#6d7175] uppercase">
+                <tr className="border-b border-border text-left text-xs text-muted-foreground uppercase">
                   <th className="px-4 py-2">Date</th>
                   <th className="px-4 py-2">Affiliate</th>
                   <th className="px-4 py-2">Order</th>
@@ -268,25 +268,25 @@ const FinancePayouts = () => {
               </thead>
               <tbody>
                 {earnings.map((e) => (
-                  <tr key={e.id} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7]">
-                    <td className="px-4 py-2.5 text-[#202223]">
+                  <tr key={e.id} className="border-b border-border hover:bg-secondary">
+                    <td className="px-4 py-2.5 text-foreground">
                       {format(new Date(e.created_at), "MMM d, yyyy")}
                     </td>
                     <td className="px-4 py-2.5">
-                      <p className="text-[#202223]">{(e as any).affiliates?.name || "—"}</p>
-                      <p className="text-xs text-[#6d7175]">{(e as any).affiliates?.discount_code}</p>
+                      <p className="text-foreground">{(e as any).affiliates?.name || "—"}</p>
+                      <p className="text-xs text-muted-foreground">{(e as any).affiliates?.discount_code}</p>
                     </td>
-                    <td className="px-4 py-2.5 text-blue-600">{e.order_number || "—"}</td>
-                    <td className="px-4 py-2.5 text-[#202223]">${Number(e.order_total).toFixed(2)}</td>
+                    <td className="px-4 py-2.5 text-blue-400">{e.order_number || "—"}</td>
+                    <td className="px-4 py-2.5 text-foreground">${Number(e.order_total).toFixed(2)}</td>
                     <td className="px-4 py-2.5">
-                      <Badge className="bg-blue-100 text-blue-700">{e.commission_rate}%</Badge>
+                      <Badge className="bg-blue-900/30 text-blue-400">{e.commission_rate}%</Badge>
                     </td>
                     <td className="px-4 py-2.5">
-                      <Badge className={e.status === "paid" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}>
+                      <Badge className={e.status === "paid" ? "bg-green-900/30 text-green-400" : "bg-yellow-900/30 text-yellow-400"}>
                         {e.status === "paid" ? "Paid" : "Pending"}
                       </Badge>
                     </td>
-                    <td className="px-4 py-2.5 text-right font-semibold text-[#202223]">
+                    <td className="px-4 py-2.5 text-right font-semibold text-foreground">
                       ${Number(e.commission_amount).toFixed(2)}
                     </td>
                   </tr>
@@ -305,23 +305,23 @@ const FinancePayouts = () => {
           </DialogHeader>
           {selectedAffiliate && pendingByAffiliate[selectedAffiliate] && (
             <div className="space-y-4 mt-2">
-              <div className="bg-[#f6f6f7] rounded-lg p-4">
-                <p className="text-sm text-[#6d7175]">Paying</p>
-                <p className="text-lg font-semibold text-[#202223]">{pendingByAffiliate[selectedAffiliate].name}</p>
-                <p className="text-2xl font-bold text-[#202223] mt-1">
+              <div className="bg-secondary rounded-lg p-4">
+                <p className="text-sm text-muted-foreground">Paying</p>
+                <p className="text-lg font-semibold text-foreground">{pendingByAffiliate[selectedAffiliate].name}</p>
+                <p className="text-2xl font-bold text-foreground mt-1">
                   ${pendingByAffiliate[selectedAffiliate].total.toFixed(2)}
                 </p>
-                <p className="text-xs text-[#6d7175] mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {pendingByAffiliate[selectedAffiliate].count} order{pendingByAffiliate[selectedAffiliate].count !== 1 ? "s" : ""}
                 </p>
               </div>
-              <p className="text-sm text-[#6d7175]">
+              <p className="text-sm text-muted-foreground">
                 This will mark all pending commissions for this affiliate as paid. Make sure you've sent the payment externally first.
               </p>
               <div className="flex justify-end gap-2">
                 <Button variant="outline" onClick={() => setShowPayDialog(false)}>Cancel</Button>
                 <Button
-                  className="bg-[#202223] text-white hover:bg-[#333]"
+                  className="bg-primary text-white hover:bg-accent"
                   onClick={() => payoutMutation.mutate(selectedAffiliate)}
                   disabled={payoutMutation.isPending}
                 >

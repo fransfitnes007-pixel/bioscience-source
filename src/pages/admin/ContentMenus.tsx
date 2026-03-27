@@ -143,15 +143,15 @@ const ContentMenus = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Menu className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Menus</h1>
+            <Menu className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Menus</h1>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" className="border-[#c9cccf] text-sm text-[#202223]">
+            <Button variant="outline" className="border-border text-sm text-foreground">
               URL redirects
             </Button>
             <Button
-              className="bg-[#202223] text-white hover:bg-[#333] text-sm"
+              className="bg-primary text-white hover:bg-accent text-sm"
               onClick={() => setShowCreate(true)}
             >
               Create menu
@@ -159,15 +159,15 @@ const ContentMenus = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           {isLoading ? (
             <div className="flex justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-[#6d7175]" />
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : (
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left text-xs font-medium text-[#6d7175] uppercase">
+                <tr className="border-b border-border text-left text-xs font-medium text-muted-foreground uppercase">
                   <th className="px-4 py-3">Menu</th>
                   <th className="px-4 py-3">Menu items</th>
                   <th className="px-4 py-3 w-20"></th>
@@ -177,21 +177,21 @@ const ContentMenus = () => {
                 {menus?.map((menu) => (
                   <tr
                     key={menu.id}
-                    className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] cursor-pointer"
+                    className="border-b border-border hover:bg-secondary cursor-pointer"
                     onClick={() => setEditingMenu(menu)}
                   >
                     <td className="px-4 py-3">
-                      <span className="text-sm font-medium text-[#005bd3] hover:underline">
+                      <span className="text-sm font-medium text-primary hover:underline">
                         {menu.title}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#202223]">
+                    <td className="px-4 py-3 text-sm text-foreground">
                       {getMenuItemNames(menu.id)}
                     </td>
                     <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                       <button
                         onClick={() => deleteMenu.mutate(menu.id)}
-                        className="p-1 hover:bg-red-50 rounded text-[#6d7175] hover:text-red-600"
+                        className="p-1 hover:bg-red-900/20 rounded text-muted-foreground hover:text-red-400"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -222,7 +222,7 @@ const ContentMenus = () => {
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={() => setShowCreate(false)}>Cancel</Button>
               <Button
-                className="bg-[#202223] text-white hover:bg-[#333]"
+                className="bg-primary text-white hover:bg-accent"
                 onClick={() => createMenu.mutate()}
                 disabled={!newMenuTitle || createMenu.isPending}
               >
@@ -241,28 +241,28 @@ const ContentMenus = () => {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <h3 className="text-sm font-semibold text-[#202223]">Menu items</h3>
+              <h3 className="text-sm font-semibold text-foreground">Menu items</h3>
               {menuItems?.map((item) => (
-                <div key={item.id} className="flex items-center gap-2 p-2 bg-[#f6f6f7] rounded-lg">
-                  <GripVertical className="h-4 w-4 text-[#6d7175]" />
+                <div key={item.id} className="flex items-center gap-2 p-2 bg-secondary rounded-lg">
+                  <GripVertical className="h-4 w-4 text-muted-foreground" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-[#202223]">{item.title}</p>
-                    <p className="text-xs text-[#6d7175]">{item.url}</p>
+                    <p className="text-sm font-medium text-foreground">{item.title}</p>
+                    <p className="text-xs text-muted-foreground">{item.url}</p>
                   </div>
                   <button
                     onClick={() => deleteMenuItem.mutate(item.id)}
-                    className="p-1 hover:bg-red-50 rounded"
+                    className="p-1 hover:bg-red-900/20 rounded"
                   >
-                    <Trash2 className="h-4 w-4 text-[#6d7175] hover:text-red-600" />
+                    <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-400" />
                   </button>
                 </div>
               ))}
               {!menuItems?.length && (
-                <p className="text-sm text-[#6d7175] py-4 text-center">No items in this menu</p>
+                <p className="text-sm text-muted-foreground py-4 text-center">No items in this menu</p>
               )}
             </div>
-            <div className="border-t border-[#e1e3e5] pt-4 space-y-3">
-              <h3 className="text-sm font-semibold text-[#202223]">Add menu item</h3>
+            <div className="border-t border-border pt-4 space-y-3">
+              <h3 className="text-sm font-semibold text-foreground">Add menu item</h3>
               <div className="grid grid-cols-2 gap-2">
                 <div>
                   <Label className="text-xs">Title</Label>

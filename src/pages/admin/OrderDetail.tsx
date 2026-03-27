@@ -355,17 +355,17 @@ const OrderDetail = () => {
               <div className="flex items-center gap-3">
                 <h1 className="text-xl font-bold">#{order.order_number}</h1>
                 <Badge variant="outline" className={
-                  order.payment_status === "paid" ? "bg-green-500/10 text-green-600 border-green-500/20" :
+                  order.payment_status === "paid" ? "bg-green-900/200/10 text-green-400 border-green-500/20" :
                   order.payment_status === "refunded" ? "bg-muted text-muted-foreground" :
-                  "bg-yellow-500/10 text-yellow-600 border-yellow-500/20"
+                  "bg-yellow-900/200/10 text-yellow-600 border-yellow-500/20"
                 }>
                   {order.payment_status === "paid" ? "Paid" : order.payment_status === "refunded" ? "Refunded" : "Payment pending"}
                 </Badge>
                 <Badge variant="outline" className={
-                  order.status === "delivered" ? "bg-green-500/10 text-green-600 border-green-500/20" :
-                  order.status === "shipped" ? "bg-blue-500/10 text-blue-600 border-blue-500/20" :
-                  order.status === "cancelled" ? "bg-red-500/10 text-red-600 border-red-500/20" :
-                  "bg-yellow-500/10 text-yellow-600 border-yellow-500/20"
+                  order.status === "delivered" ? "bg-green-900/200/10 text-green-400 border-green-500/20" :
+                  order.status === "shipped" ? "bg-blue-900/200/10 text-blue-400 border-blue-500/20" :
+                  order.status === "cancelled" ? "bg-red-900/200/10 text-red-400 border-red-500/20" :
+                  "bg-yellow-900/200/10 text-yellow-600 border-yellow-500/20"
                 }>
                   {order.status === "delivered" ? "Fulfilled" :
                    order.status === "shipped" ? "In transit" :
@@ -465,8 +465,8 @@ const OrderDetail = () => {
                         <div className="flex items-center gap-2">
                           <span className="font-mono text-sm font-medium">{shipment.shipment_number}</span>
                           <Badge variant="outline" className={
-                            shipment.status === "delivered" ? "bg-green-500/10 text-green-600" :
-                            "bg-blue-500/10 text-blue-600"
+                            shipment.status === "delivered" ? "bg-green-900/200/10 text-green-400" :
+                            "bg-blue-900/200/10 text-blue-400"
                           }>
                             {shipment.status}
                           </Badge>
@@ -512,8 +512,8 @@ const OrderDetail = () => {
                         <p className="text-xs text-muted-foreground">{format(new Date(refund.created_at), "MMM d, yyyy")}</p>
                       </div>
                       <Badge variant="outline" className={
-                        refund.status === "completed" ? "bg-green-500/10 text-green-600" :
-                        "bg-yellow-500/10 text-yellow-600"
+                        refund.status === "completed" ? "bg-green-900/200/10 text-green-400" :
+                        "bg-yellow-900/200/10 text-yellow-600"
                       }>
                         {refund.status}
                       </Badge>
@@ -537,7 +537,7 @@ const OrderDetail = () => {
                     <span>${Number(order.subtotal).toFixed(2)}</span>
                   </div>
                   {Number(order.discount_amount) > 0 && (
-                    <div className="flex justify-between text-green-600">
+                    <div className="flex justify-between text-green-400">
                       <span>Discount {order.discount_code && `(${order.discount_code})`}</span>
                       <span>-${Number(order.discount_amount).toFixed(2)}</span>
                     </div>

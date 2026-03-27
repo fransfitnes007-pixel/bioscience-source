@@ -136,7 +136,7 @@ const ShopChannel = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <CardTitle className="text-base font-medium">Store</CardTitle>
-                <Badge variant="outline" className="text-green-600 border-green-600">Active</Badge>
+                <Badge variant="outline" className="text-green-400 border-green-600">Active</Badge>
                 <span className="text-sm text-muted-foreground">{followers} followers</span>
               </div>
               <Button variant="outline" size="sm">Customize</Button>
@@ -154,7 +154,7 @@ const ShopChannel = () => {
                     <span className="text-white text-xs font-bold">RES</span>
                   </div>
                   <p className="text-white text-sm font-semibold tracking-wider">RESURRECTED</p>
-                  <Button variant="outline" size="sm" className="text-xs h-6 border-[#444] text-[#999]">Follow</Button>
+                  <Button variant="outline" size="sm" className="text-xs h-6 border-[#444] text-muted-foreground">Follow</Button>
                 </div>
               </div>
               {/* Store details */}
