@@ -14,6 +14,8 @@ import {
   Truck,
   Tag,
   Store,
+  ArrowRightLeft,
+  Gift,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
