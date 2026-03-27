@@ -11,7 +11,7 @@ import { subMinutes } from "date-fns";
 
 // ─── 3D Globe component ───
 const GlobeMesh = ({ points }: { points: { lat: number; lng: number; size: number }[] }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Group>(null);
   const dotsRef = useRef<THREE.Group>(null);
 
   useFrame((_, delta) => {

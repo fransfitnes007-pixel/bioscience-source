@@ -97,6 +97,15 @@ const navSections = [
           { title: "Payouts", href: "/admin/finance/payouts" },
         ],
       },
+      {
+        title: "Analytics",
+        href: "/admin/analytics",
+        icon: BarChart3,
+        children: [
+          { title: "Reports", href: "/admin/analytics/reports" },
+          { title: "Live View", href: "/admin/analytics/live" },
+        ],
+      },
     ],
   },
   {
