@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Check, Loader2 } from "lucide-react";
-import pointLogo from "@/assets/point-logo-white.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 const SetPassword = () => {
   const [password, setPassword] = useState("");
