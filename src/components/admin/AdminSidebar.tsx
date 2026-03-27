@@ -34,8 +34,11 @@ const navSections = [
         icon: Package,
         children: [
           { title: "Drafts", href: "/admin/orders/drafts" },
+          { title: "Shipping labels", href: "/admin/shipping-labels" },
+          { title: "Abandoned checkouts", href: "/admin/abandoned-checkouts" },
         ],
       },
+      { title: "Products", href: "/admin/products", icon: Tag },
     ],
   },
   {
