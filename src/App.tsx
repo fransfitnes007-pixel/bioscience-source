@@ -94,6 +94,10 @@ const App = () => (
             <Route path="/admin/gift-cards/new" element={<AdminCreateGiftCard />} />
             <Route path="/admin/customers" element={<AdminCustomers />} />
             <Route path="/admin/customers/:userId" element={<AdminCustomerDetail />} />
+            <Route path="/admin/segments" element={<AdminSegments />} />
+            <Route path="/admin/marketing" element={<AdminMarketing />} />
+            <Route path="/admin/marketing/campaigns" element={<AdminCampaigns />} />
+            <Route path="/admin/marketing/campaigns/new" element={<AdminCreateCampaign />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />
