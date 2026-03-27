@@ -151,7 +151,7 @@ const ContentMenus = () => {
               URL redirects
             </Button>
             <Button
-              className="bg-primary text-white hover:bg-accent text-sm"
+              className="bg-foreground text-background hover:bg-foreground/90 text-sm"
               onClick={() => setShowCreate(true)}
             >
               Create menu
@@ -222,7 +222,7 @@ const ContentMenus = () => {
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={() => setShowCreate(false)}>Cancel</Button>
               <Button
-                className="bg-primary text-white hover:bg-accent"
+                className="bg-foreground text-background hover:bg-foreground/90"
                 onClick={() => createMenu.mutate()}
                 disabled={!newMenuTitle || createMenu.isPending}
               >

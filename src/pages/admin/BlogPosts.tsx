@@ -148,7 +148,7 @@ const BlogPosts = () => {
             <h1 className="text-xl font-semibold text-foreground">Blog posts</h1>
           </div>
           <Button
-            className="bg-primary text-white hover:bg-accent text-sm"
+            className="bg-foreground text-background hover:bg-foreground/90 text-sm"
             onClick={() => openEditor()}
           >
             Create blog post
@@ -169,7 +169,7 @@ const BlogPosts = () => {
               Blog posts are a great way to build a community around your products and your brand.
             </p>
             <Button
-              className="mt-4 bg-primary text-white hover:bg-accent"
+              className="mt-4 bg-foreground text-background hover:bg-foreground/90"
               onClick={() => openEditor()}
             >
               Create blog post
@@ -353,7 +353,7 @@ const BlogPosts = () => {
                 Cancel
               </Button>
               <Button
-                className="bg-primary text-white hover:bg-accent"
+                className="bg-foreground text-background hover:bg-foreground/90"
                 onClick={() => savePost.mutate()}
                 disabled={!form.title || savePost.isPending}
               >

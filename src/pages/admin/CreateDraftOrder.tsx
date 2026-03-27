@@ -303,7 +303,7 @@ const CreateDraftOrder = () => {
             Discard
           </Button>
           <Button
-            className="bg-primary text-white hover:bg-primary/90"
+            className="bg-foreground text-background hover:bg-foreground/90"
             onClick={saveDraft}
             disabled={isLoading}
           >
@@ -387,7 +387,7 @@ const CreateDraftOrder = () => {
             <Button variant="outline" className="bg-card border-border text-foreground" onClick={() => setShowCustomItem(false)}>
               Cancel
             </Button>
-            <Button className="bg-primary text-white hover:bg-primary/90" onClick={addCustomItem}>
+            <Button className="bg-foreground text-background hover:bg-foreground/90" onClick={addCustomItem}>
               Add item
             </Button>
           </DialogFooter>

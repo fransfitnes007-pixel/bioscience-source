@@ -175,7 +175,7 @@ const AdminOrders = () => {
             </DropdownMenu>
             <Button
               size="sm"
-              className="bg-primary text-white hover:bg-primary/90"
+              className="bg-foreground text-background hover:bg-foreground/90"
               onClick={() => navigate("/admin/orders/new")}
             >
               Create order

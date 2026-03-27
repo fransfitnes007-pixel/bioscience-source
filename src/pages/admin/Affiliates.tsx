@@ -169,7 +169,7 @@ const Affiliates = () => {
               onChange={(e) => setSearch(e.target.value)}
               className="max-w-sm border-border bg-secondary h-9 text-sm"
             />
-            <Button className="bg-primary text-white hover:bg-accent text-sm" onClick={() => setShowCreate(true)}>
+            <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm" onClick={() => setShowCreate(true)}>
               <Plus className="h-4 w-4 mr-2" />
               Add Athlete
             </Button>
@@ -186,7 +186,7 @@ const Affiliates = () => {
               <p className="text-sm text-muted-foreground mt-1">
                 Add athletes who will promote your products and earn commission.
               </p>
-              <Button className="mt-4 bg-primary text-white hover:bg-accent" onClick={() => setShowCreate(true)}>
+              <Button className="mt-4 bg-foreground text-background hover:bg-foreground/90" onClick={() => setShowCreate(true)}>
                 Add your first athlete
               </Button>
             </div>
@@ -315,7 +315,7 @@ const Affiliates = () => {
             <div className="flex justify-end gap-2 pt-2">
               <Button variant="outline" onClick={() => setShowCreate(false)}>Cancel</Button>
               <Button
-                className="bg-primary text-white hover:bg-accent"
+                className="bg-foreground text-background hover:bg-foreground/90"
                 onClick={() => createAffiliate.mutate()}
                 disabled={!form.name || !form.email || createAffiliate.isPending}
               >

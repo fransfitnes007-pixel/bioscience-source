@@ -35,7 +35,7 @@ const Transfers = () => {
           </div>
           <h2 className="text-lg font-semibold text-foreground mb-2">Move inventory between locations</h2>
           <p className="text-sm text-muted-foreground mb-6">Move and track inventory between your business locations.</p>
-          <Button size="sm" className="bg-primary text-white hover:bg-primary/90">
+          <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">
             Create transfer
           </Button>
         </div>

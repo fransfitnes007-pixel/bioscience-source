@@ -126,7 +126,7 @@ const ContentFiles = () => {
               </Button>
             )}
             <Button
-              className="bg-primary text-white hover:bg-accent text-sm"
+              className="bg-foreground text-background hover:bg-foreground/90 text-sm"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading}
             >
@@ -172,7 +172,7 @@ const ContentFiles = () => {
                 Upload images, videos, and documents to manage your content.
               </p>
               <Button
-                className="mt-4 bg-primary text-white hover:bg-accent"
+                className="mt-4 bg-foreground text-background hover:bg-foreground/90"
                 onClick={() => fileInputRef.current?.click()}
               >
                 Upload files

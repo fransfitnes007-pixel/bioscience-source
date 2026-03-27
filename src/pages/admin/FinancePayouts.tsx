@@ -182,7 +182,7 @@ const FinancePayouts = () => {
               <h2 className="text-sm font-semibold text-foreground">Pending payouts by affiliate</h2>
               <Button
                 size="sm"
-                className="bg-primary text-white hover:bg-accent text-xs"
+                className="bg-foreground text-background hover:bg-foreground/90 text-xs"
                 onClick={() => payAllMutation.mutate()}
                 disabled={payAllMutation.isPending}
               >
@@ -234,7 +234,7 @@ const FinancePayouts = () => {
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                    filter === f ? "bg-primary text-white" : "bg-secondary text-muted-foreground hover:bg-accent"
+                    filter === f ? "bg-foreground text-background" : "bg-secondary text-muted-foreground hover:bg-accent"
                   }`}
                 >
                   {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -321,7 +321,7 @@ const FinancePayouts = () => {
               <div className="flex justify-end gap-2">
                 <Button variant="outline" onClick={() => setShowPayDialog(false)}>Cancel</Button>
                 <Button
-                  className="bg-primary text-white hover:bg-accent"
+                  className="bg-foreground text-background hover:bg-foreground/90"
                   onClick={() => payoutMutation.mutate(selectedAffiliate)}
                   disabled={payoutMutation.isPending}
                 >
