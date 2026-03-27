@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      abandoned_checkouts: {
+        Row: {
+          abandoned_at: string
+          cart_items: Json
+          created_at: string
+          customer_name: string | null
+          email: string | null
+          id: string
+          recovered: boolean
+          recovered_order_id: string | null
+          recovery_email_sent: boolean
+          recovery_email_sent_at: string | null
+          subtotal: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          abandoned_at?: string
+          cart_items?: Json
+          created_at?: string
+          customer_name?: string | null
+          email?: string | null
+          id?: string
+          recovered?: boolean
+          recovered_order_id?: string | null
+          recovery_email_sent?: boolean
+          recovery_email_sent_at?: string | null
+          subtotal?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          abandoned_at?: string
+          cart_items?: Json
+          created_at?: string
+          customer_name?: string | null
+          email?: string | null
+          id?: string
+          recovered?: boolean
+          recovered_order_id?: string | null
+          recovery_email_sent?: boolean
+          recovery_email_sent_at?: string | null
+          subtotal?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       affiliate_earnings: {
         Row: {
           affiliate_id: string
@@ -378,6 +426,60 @@ export type Database = {
         }
         Relationships: []
       }
+      campaigns: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string | null
+          id: string
+          name: string
+          starts_at: string | null
+          status: string
+          total_orders: number
+          total_sales: number
+          total_sessions: number
+          updated_at: string
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          name: string
+          starts_at?: string | null
+          status?: string
+          total_orders?: number
+          total_sales?: number
+          total_sessions?: number
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          name?: string
+          starts_at?: string | null
+          status?: string
+          total_orders?: number
+          total_sales?: number
+          total_sessions?: number
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: []
+      }
       cart_items: {
         Row: {
           created_at: string
@@ -543,6 +645,48 @@ export type Database = {
           status?: string
           subject?: string | null
           visitor_id?: string | null
+        }
+        Relationships: []
+      }
+      customer_segments: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          customer_count: number
+          customer_percentage: number
+          description: string | null
+          filter_rules: Json
+          id: string
+          is_template: boolean
+          name: string
+          template_category: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          customer_count?: number
+          customer_percentage?: number
+          description?: string | null
+          filter_rules?: Json
+          id?: string
+          is_template?: boolean
+          name: string
+          template_category?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          customer_count?: number
+          customer_percentage?: number
+          description?: string | null
+          filter_rules?: Json
+          id?: string
+          is_template?: boolean
+          name?: string
+          template_category?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -900,6 +1044,57 @@ export type Database = {
         }
         Relationships: []
       }
+      gift_cards: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          currency: string
+          current_balance: number
+          customer_email: string | null
+          customer_id: string | null
+          customer_name: string | null
+          expires_at: string | null
+          id: string
+          initial_value: number
+          notes: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          current_balance?: number
+          customer_email?: string | null
+          customer_id?: string | null
+          customer_name?: string | null
+          expires_at?: string | null
+          id?: string
+          initial_value?: number
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          current_balance?: number
+          customer_email?: string | null
+          customer_id?: string | null
+          customer_name?: string | null
+          expires_at?: string | null
+          id?: string
+          initial_value?: number
+          notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       inquiries: {
         Row: {
           business_name: string
@@ -965,6 +1160,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      inventory: {
+        Row: {
+          available: number
+          committed: number
+          id: string
+          on_hand: number
+          product_id: string | null
+          sku: string | null
+          unavailable: number
+          updated_at: string
+          variation_id: string
+        }
+        Insert: {
+          available?: number
+          committed?: number
+          id?: string
+          on_hand?: number
+          product_id?: string | null
+          sku?: string | null
+          unavailable?: number
+          updated_at?: string
+          variation_id: string
+        }
+        Update: {
+          available?: number
+          committed?: number
+          id?: string
+          on_hand?: number
+          product_id?: string | null
+          sku?: string | null
+          unavailable?: number
+          updated_at?: string
+          variation_id?: string
+        }
+        Relationships: []
       }
       media_files: {
         Row: {
