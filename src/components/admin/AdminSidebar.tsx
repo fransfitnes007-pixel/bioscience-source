@@ -12,8 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Truck,
-  BarChart3,
-  Settings,
+  Tag,
   Store,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
