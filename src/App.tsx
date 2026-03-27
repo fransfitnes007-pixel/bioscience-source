@@ -46,6 +46,9 @@ import AdminCreateCampaign from "./pages/admin/CreateCampaign";
 import AdminDiscounts from "./pages/admin/Discounts";
 import AdminCreateDiscount from "./pages/admin/CreateDiscount";
 import AdminAffiliates from "./pages/admin/Affiliates";
+import AdminContentFiles from "./pages/admin/ContentFiles";
+import AdminContentMenus from "./pages/admin/ContentMenus";
+import AdminBlogPosts from "./pages/admin/BlogPosts";
 import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
 import PortalProducts from "./pages/portal/Products";
@@ -104,6 +107,9 @@ const App = () => (
             <Route path="/admin/discounts" element={<AdminDiscounts />} />
             <Route path="/admin/discounts/new" element={<AdminCreateDiscount />} />
             <Route path="/admin/affiliates" element={<AdminAffiliates />} />
+            <Route path="/admin/content/files" element={<AdminContentFiles />} />
+            <Route path="/admin/content/menus" element={<AdminContentMenus />} />
+            <Route path="/admin/content/blog" element={<AdminBlogPosts />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />

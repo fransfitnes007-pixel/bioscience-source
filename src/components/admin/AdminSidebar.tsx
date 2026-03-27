@@ -5,6 +5,7 @@ import {
   Home,
   Package,
   FileText,
+  FileImage,
   Users,
   MessageSquare,
   Mail,
@@ -74,6 +75,16 @@ const navSections = [
         icon: Megaphone,
         children: [
           { title: "Campaigns", href: "/admin/marketing/campaigns" },
+        ],
+      },
+      {
+        title: "Content",
+        href: "/admin/content/files",
+        icon: FileImage,
+        children: [
+          { title: "Files", href: "/admin/content/files" },
+          { title: "Menus", href: "/admin/content/menus" },
+          { title: "Blog posts", href: "/admin/content/blog" },
         ],
       },
     ],
