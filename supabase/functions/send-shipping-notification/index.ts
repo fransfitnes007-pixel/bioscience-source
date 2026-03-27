@@ -166,7 +166,7 @@ serve(async (req) => {
           
           <p style="color: #666;">
             Best regards,<br>
-            Point Bio Sciences Team
+            The Resurrected Team
           </p>
           
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
