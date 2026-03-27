@@ -5,6 +5,7 @@ import {
   Home,
   Package,
   FileText,
+  FileImage,
   Users,
   MessageSquare,
   Mail,
