@@ -37,7 +37,14 @@ const navSections = [
           { title: "Abandoned checkouts", href: "/admin/abandoned-checkouts" },
         ],
       },
-      { title: "Products", href: "/admin/products", icon: Tag },
+      {
+        title: "Products",
+        href: "/admin/products",
+        icon: Tag,
+        children: [
+          { title: "Inventory", href: "/admin/inventory" },
+        ],
+      },
     ],
   },
   {
