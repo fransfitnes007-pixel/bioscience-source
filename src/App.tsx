@@ -39,6 +39,10 @@ import AdminCreateGiftCard from "./pages/admin/CreateGiftCard";
 import AdminCustomers from "./pages/admin/Customers";
 import AdminCustomerDetail from "./pages/admin/CustomerDetail";
 import AdminSuppliers from "./pages/admin/Suppliers";
+import AdminSegments from "./pages/admin/Segments";
+import AdminMarketing from "./pages/admin/Marketing";
+import AdminCampaigns from "./pages/admin/Campaigns";
+import AdminCreateCampaign from "./pages/admin/CreateCampaign";
 import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
 import PortalProducts from "./pages/portal/Products";
@@ -90,6 +94,10 @@ const App = () => (
             <Route path="/admin/gift-cards/new" element={<AdminCreateGiftCard />} />
             <Route path="/admin/customers" element={<AdminCustomers />} />
             <Route path="/admin/customers/:userId" element={<AdminCustomerDetail />} />
+            <Route path="/admin/segments" element={<AdminSegments />} />
+            <Route path="/admin/marketing" element={<AdminMarketing />} />
+            <Route path="/admin/marketing/campaigns" element={<AdminCampaigns />} />
+            <Route path="/admin/marketing/campaigns/new" element={<AdminCreateCampaign />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />
