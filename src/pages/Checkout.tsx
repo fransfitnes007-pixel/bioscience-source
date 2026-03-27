@@ -289,11 +289,27 @@ const Checkout = () => {
           custom_labeling: customLabeling,
           custom_labeling_logo_url: getOrderLogoUrl(),
           custom_labeling_cost: customLabelingCost,
+          fulfillment_carrier: selectedShippingRate?.carrier || null,
+          estimated_delivery_date: selectedShippingRate ? 
+            new Date(Date.now() + selectedShippingRate.estimatedDaysMax * 86400000).toISOString().split('T')[0] : null,
         })
         .select()
         .single();
 
       if (orderError) throw orderError;
+
+      // Auto-create shipment record with selected carrier
+      const shipmentNumber = `SHP-${Date.now().toString(36).toUpperCase()}`;
+      await supabase.from("order_shipments").insert({
+        order_id: order.id,
+        shipment_number: shipmentNumber,
+        status: "pending",
+        carrier: selectedShippingRate?.carrier || "USPS",
+        shipping_cost: shippingCost,
+        estimated_delivery: selectedShippingRate ?
+          new Date(Date.now() + selectedShippingRate.estimatedDaysMax * 86400000).toISOString().split('T')[0] : null,
+        notes: `Auto-selected: ${selectedShippingRate?.label || "Standard Shipping"}`,
+      });
 
       // Create order items - for BOGO, add both paid and free items
       const orderItems: any[] = [];
