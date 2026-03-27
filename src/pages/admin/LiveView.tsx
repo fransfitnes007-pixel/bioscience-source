@@ -182,7 +182,7 @@ const LiveView = () => {
           <Globe className="h-5 w-5 text-muted-foreground" />
           <h1 className="text-xl font-semibold">Live View</h1>
           <span className="flex items-center gap-1.5 text-xs">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-green-900/200 animate-pulse" />
             Just now
           </span>
         </div>

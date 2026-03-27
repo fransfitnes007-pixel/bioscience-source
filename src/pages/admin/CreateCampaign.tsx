@@ -38,7 +38,7 @@ const CreateCampaign = () => {
           </button>
           <span>›</span>
           <span className="text-foreground font-semibold">Create campaign</span>
-          <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Draft</span>
+          <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-900/30 text-yellow-400">Draft</span>
         </div>
 
         {/* Date range */}

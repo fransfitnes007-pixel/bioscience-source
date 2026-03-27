@@ -145,7 +145,7 @@ const ProductEdit = () => {
                 </div>
                 <div>
                   <p className="font-medium text-foreground text-sm">{product.display_name}</p>
-                  <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium ${product.is_active ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                  <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium ${product.is_active ? 'bg-green-900/30 text-green-400' : 'bg-yellow-900/30 text-yellow-400'}`}>
                     {product.is_active ? 'Active' : 'Draft'}
                   </span>
                 </div>

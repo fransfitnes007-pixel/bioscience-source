@@ -81,7 +81,7 @@ const AdminDashboard = () => {
 
   const getTypeIcon = (type: RecentItem["type"]) => {
     const icons = { application: FileText, inquiry: MessageSquare, message: Mail, order: Package };
-    const colors = { application: "text-blue-600", inquiry: "text-purple-600", message: "text-green-600", order: "text-orange-600" };
+    const colors = { application: "text-blue-400", inquiry: "text-purple-400", message: "text-green-400", order: "text-orange-400" };
     const Icon = icons[type];
     return <Icon className={`h-4 w-4 ${colors[type]}`} />;
   };
@@ -93,32 +93,32 @@ const AdminDashboard = () => {
 
   const getStatusPill = (status: string) => {
     const colors: Record<string, string> = {
-      pending: "bg-yellow-100 text-yellow-800",
-      new: "bg-blue-100 text-blue-800",
-      approved: "bg-green-100 text-green-800",
-      denied: "bg-red-100 text-red-800",
+      pending: "bg-yellow-900/30 text-yellow-400",
+      new: "bg-blue-900/30 text-blue-400",
+      approved: "bg-green-900/30 text-green-400",
+      denied: "bg-red-900/30 text-red-400",
     };
     return (
-      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${colors[status] || "bg-gray-100 text-gray-800"}`}>
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${colors[status] || "bg-muted text-muted-foreground"}`}>
         {status}
       </span>
     );
   };
 
   const statCards = [
-    { label: "Pending Orders", value: stats.pendingOrders, icon: Package, bgColor: "bg-orange-50", iconColor: "text-orange-600" },
-    { label: "Total Revenue", value: `$${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, bgColor: "bg-green-50", iconColor: "text-green-600" },
-    { label: "Pending Applications", value: stats.pendingApplications, icon: FileText, bgColor: "bg-blue-50", iconColor: "text-blue-600" },
-    { label: "New Inquiries", value: stats.newInquiries, icon: MessageSquare, bgColor: "bg-purple-50", iconColor: "text-purple-600" },
-    { label: "Unread Messages", value: stats.newMessages, icon: Mail, bgColor: "bg-teal-50", iconColor: "text-teal-600" },
-    { label: "Approved Partners", value: stats.totalApproved, icon: Users, bgColor: "bg-indigo-50", iconColor: "text-indigo-600" },
+    { label: "Pending Orders", value: stats.pendingOrders, icon: Package, bgColor: "bg-orange-900/20", iconColor: "text-orange-400" },
+    { label: "Total Revenue", value: `$${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, bgColor: "bg-green-900/20", iconColor: "text-green-400" },
+    { label: "Pending Applications", value: stats.pendingApplications, icon: FileText, bgColor: "bg-blue-900/20", iconColor: "text-blue-400" },
+    { label: "New Inquiries", value: stats.newInquiries, icon: MessageSquare, bgColor: "bg-purple-900/20", iconColor: "text-purple-400" },
+    { label: "Unread Messages", value: stats.newMessages, icon: Mail, bgColor: "bg-teal-900/20", iconColor: "text-teal-400" },
+    { label: "Approved Partners", value: stats.totalApproved, icon: Users, bgColor: "bg-indigo-900/20", iconColor: "text-indigo-400" },
   ];
 
   const quickActions = [
-    { label: "Manage Orders", desc: `${stats.pendingOrders} pending`, route: "/admin/orders", icon: Package, bgColor: "bg-orange-50", iconColor: "text-orange-600" },
-    { label: "View Applications", desc: `${stats.pendingApplications} pending`, route: "/admin/applications", icon: FileText, bgColor: "bg-blue-50", iconColor: "text-blue-600" },
-    { label: "View Inquiries", desc: `${stats.newInquiries} new`, route: "/admin/inquiries", icon: MessageSquare, bgColor: "bg-purple-50", iconColor: "text-purple-600" },
-    { label: "View Messages", desc: `${stats.newMessages} unread`, route: "/admin/messages", icon: Mail, bgColor: "bg-green-50", iconColor: "text-green-600" },
+    { label: "Manage Orders", desc: `${stats.pendingOrders} pending`, route: "/admin/orders", icon: Package, bgColor: "bg-orange-900/20", iconColor: "text-orange-400" },
+    { label: "View Applications", desc: `${stats.pendingApplications} pending`, route: "/admin/applications", icon: FileText, bgColor: "bg-blue-900/20", iconColor: "text-blue-400" },
+    { label: "View Inquiries", desc: `${stats.newInquiries} new`, route: "/admin/inquiries", icon: MessageSquare, bgColor: "bg-purple-900/20", iconColor: "text-purple-400" },
+    { label: "View Messages", desc: `${stats.newMessages} unread`, route: "/admin/messages", icon: Mail, bgColor: "bg-green-900/20", iconColor: "text-green-400" },
   ];
 
   return (

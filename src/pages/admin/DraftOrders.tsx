@@ -97,7 +97,7 @@ const DraftOrders = () => {
                       {draft.customer_email && <p className="text-xs text-muted-foreground">{draft.customer_email}</p>}
                     </td>
                     <td className="py-3 px-4">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-900/30 text-yellow-400">
                         {draft.status}
                       </span>
                     </td>

@@ -121,8 +121,8 @@ const AdminOrders = () => {
   const getPaymentDot = (status: string) => {
     const colors: Record<string, string> = {
       paid: "bg-green-600",
-      pending: "bg-yellow-500",
-      failed: "bg-red-500",
+      pending: "bg-yellow-900/200",
+      failed: "bg-red-900/200",
       refunded: "bg-gray-400",
     };
     return (
@@ -136,8 +136,8 @@ const AdminOrders = () => {
   const getFulfillmentDot = (order: Order) => {
     if (order.status === "cancelled") return <span className="flex items-center gap-1.5 text-sm text-foreground"><span className="h-2 w-2 rounded-full bg-gray-400" />Cancelled</span>;
     if (order.status === "delivered") return <span className="flex items-center gap-1.5 text-sm text-foreground"><span className="h-2 w-2 rounded-full bg-green-600" />Fulfilled</span>;
-    if (order.status === "shipped") return <span className="flex items-center gap-1.5 text-sm text-foreground"><span className="h-2 w-2 rounded-full bg-blue-500" />In transit</span>;
-    return <span className="flex items-center gap-1.5 text-sm text-foreground"><span className="h-2 w-2 rounded-full bg-yellow-500" />Unfulfilled</span>;
+    if (order.status === "shipped") return <span className="flex items-center gap-1.5 text-sm text-foreground"><span className="h-2 w-2 rounded-full bg-blue-900/200" />In transit</span>;
+    return <span className="flex items-center gap-1.5 text-sm text-foreground"><span className="h-2 w-2 rounded-full bg-yellow-900/200" />Unfulfilled</span>;
   };
 
   const getDeliveryDot = (order: Order) => {
@@ -191,11 +191,11 @@ const AdminOrders = () => {
               <span className="text-sm text-foreground font-medium">Today</span>
             </div>
             {[
-              { label: "Orders", value: stats.total, color: "bg-blue-500" },
-              { label: "Items ordered", value: stats.itemsOrdered, color: "bg-blue-500" },
-              { label: "Returns", value: `$${stats.returns}`, color: "bg-yellow-500" },
-              { label: "Orders fulfilled", value: stats.fulfilled, color: "bg-green-500" },
-              { label: "Orders delivered", value: stats.delivered, color: "bg-green-500" },
+              { label: "Orders", value: stats.total, color: "bg-blue-900/200" },
+              { label: "Items ordered", value: stats.itemsOrdered, color: "bg-blue-900/200" },
+              { label: "Returns", value: `$${stats.returns}`, color: "bg-yellow-900/200" },
+              { label: "Orders fulfilled", value: stats.fulfilled, color: "bg-green-900/200" },
+              { label: "Orders delivered", value: stats.delivered, color: "bg-green-900/200" },
             ].map((stat, i) => (
               <div key={i} className="flex-1 px-5 py-4">
                 <p className="text-sm text-muted-foreground">{stat.label}</p>

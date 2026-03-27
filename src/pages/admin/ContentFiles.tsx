@@ -118,7 +118,7 @@ const ContentFiles = () => {
             {selected.length > 0 && (
               <Button
                 variant="outline"
-                className="text-red-600 border-red-200"
+                className="text-red-400 border-red-200"
                 onClick={() => deleteFiles.mutate(selected)}
               >
                 <Trash2 className="h-4 w-4 mr-2" />

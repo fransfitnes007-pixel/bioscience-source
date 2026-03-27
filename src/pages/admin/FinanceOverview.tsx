@@ -60,7 +60,7 @@ const FinanceOverview = () => {
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm text-foreground">Payouts</span>
                   </div>
-                  <Badge className="bg-green-100 text-green-800 text-xs">Active</Badge>
+                  <Badge className="bg-green-900/30 text-green-400 text-xs">Active</Badge>
                 </div>
                 <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-secondary">
                   <div className="flex items-center gap-3">
@@ -75,7 +75,7 @@ const FinanceOverview = () => {
             <div className="bg-card rounded-xl border border-border p-5">
               <div className="flex items-center justify-between mb-3">
                 <h2 className="text-base font-semibold text-foreground">Affiliate Payouts</h2>
-                <button onClick={() => navigate("/admin/finance/payouts")} className="text-sm text-blue-600 hover:underline flex items-center gap-1">
+                <button onClick={() => navigate("/admin/finance/payouts")} className="text-sm text-blue-400 hover:underline flex items-center gap-1">
                   Manage <ArrowRight className="h-3 w-3" />
                 </button>
               </div>
@@ -102,7 +102,7 @@ const FinanceOverview = () => {
               <div className="text-right">
                 <p className="text-xs text-muted-foreground">🇺🇸 USD</p>
                 <p className="text-sm text-foreground">${totalRevenue.toFixed(2)}</p>
-                <button onClick={() => navigate("/admin/finance/payouts")} className="text-sm text-blue-600 hover:underline mt-1">View payouts</button>
+                <button onClick={() => navigate("/admin/finance/payouts")} className="text-sm text-blue-400 hover:underline mt-1">View payouts</button>
               </div>
             </div>
 
@@ -131,7 +131,7 @@ const FinanceOverview = () => {
                     <tr key={e.id} className="border-b border-border hover:bg-secondary">
                       <td className="px-5 py-2.5 text-foreground">{format(new Date(e.created_at), "MMM d, yyyy")}</td>
                       <td className="px-5 py-2.5">
-                        <Badge className={e.status === "paid" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}>
+                        <Badge className={e.status === "paid" ? "bg-green-900/30 text-green-400" : "bg-yellow-900/30 text-yellow-400"}>
                           {e.status === "paid" ? "Paid" : "Pending"}
                         </Badge>
                       </td>

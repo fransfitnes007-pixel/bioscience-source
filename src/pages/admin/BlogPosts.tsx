@@ -215,10 +215,10 @@ const BlogPosts = () => {
                       <Badge
                         className={
                           post.status === "published"
-                            ? "bg-green-100 text-green-800"
+                            ? "bg-green-900/30 text-green-400"
                             : post.status === "draft"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : "bg-gray-100 text-gray-600"
+                            ? "bg-yellow-900/30 text-yellow-400"
+                            : "bg-muted text-muted-foreground"
                         }
                       >
                         {post.status}
@@ -240,9 +240,9 @@ const BlogPosts = () => {
                         </button>
                         <button
                           onClick={() => deletePost.mutate(post.id)}
-                          className="p-1 hover:bg-red-50 rounded"
+                          className="p-1 hover:bg-red-900/20 rounded"
                         >
-                          <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-600" />
+                          <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-400" />
                         </button>
                       </div>
                     </td>

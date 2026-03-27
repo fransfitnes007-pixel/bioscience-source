@@ -33,10 +33,10 @@ import { useNavigate } from "react-router-dom";
 
 const commissionTiers = [
   { value: "10", label: "10% Commission", color: "bg-gray-100 text-gray-700" },
-  { value: "15", label: "15% Commission", color: "bg-blue-100 text-blue-700" },
-  { value: "20", label: "20% Commission", color: "bg-green-100 text-green-700" },
-  { value: "25", label: "25% Commission", color: "bg-orange-100 text-orange-700" },
-  { value: "30", label: "30% Commission", color: "bg-purple-100 text-purple-700" },
+  { value: "15", label: "15% Commission", color: "bg-blue-900/30 text-blue-400" },
+  { value: "20", label: "20% Commission", color: "bg-green-900/30 text-green-400" },
+  { value: "25", label: "25% Commission", color: "bg-orange-900/30 text-orange-400" },
+  { value: "30", label: "30% Commission", color: "bg-purple-900/30 text-purple-400" },
 ];
 
 const Affiliates = () => {
@@ -229,7 +229,7 @@ const Affiliates = () => {
                       ${Number(affiliate.total_earnings || 0).toFixed(2)}
                     </td>
                     <td className="px-4 py-3">
-                      <Badge className={affiliate.is_active ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}>
+                      <Badge className={affiliate.is_active ? "bg-green-900/30 text-green-400" : "bg-muted text-muted-foreground"}>
                         {affiliate.is_active ? "Active" : "Inactive"}
                       </Badge>
                     </td>

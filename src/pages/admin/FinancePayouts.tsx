@@ -276,13 +276,13 @@ const FinancePayouts = () => {
                       <p className="text-foreground">{(e as any).affiliates?.name || "—"}</p>
                       <p className="text-xs text-muted-foreground">{(e as any).affiliates?.discount_code}</p>
                     </td>
-                    <td className="px-4 py-2.5 text-blue-600">{e.order_number || "—"}</td>
+                    <td className="px-4 py-2.5 text-blue-400">{e.order_number || "—"}</td>
                     <td className="px-4 py-2.5 text-foreground">${Number(e.order_total).toFixed(2)}</td>
                     <td className="px-4 py-2.5">
-                      <Badge className="bg-blue-100 text-blue-700">{e.commission_rate}%</Badge>
+                      <Badge className="bg-blue-900/30 text-blue-400">{e.commission_rate}%</Badge>
                     </td>
                     <td className="px-4 py-2.5">
-                      <Badge className={e.status === "paid" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}>
+                      <Badge className={e.status === "paid" ? "bg-green-900/30 text-green-400" : "bg-yellow-900/30 text-yellow-400"}>
                         {e.status === "paid" ? "Paid" : "Pending"}
                       </Badge>
                     </td>

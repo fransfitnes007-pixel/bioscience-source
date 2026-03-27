@@ -191,7 +191,7 @@ const ContentMenus = () => {
                     <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                       <button
                         onClick={() => deleteMenu.mutate(menu.id)}
-                        className="p-1 hover:bg-red-50 rounded text-muted-foreground hover:text-red-600"
+                        className="p-1 hover:bg-red-900/20 rounded text-muted-foreground hover:text-red-400"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -251,9 +251,9 @@ const ContentMenus = () => {
                   </div>
                   <button
                     onClick={() => deleteMenuItem.mutate(item.id)}
-                    className="p-1 hover:bg-red-50 rounded"
+                    className="p-1 hover:bg-red-900/20 rounded"
                   >
-                    <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-600" />
+                    <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-400" />
                   </button>
                 </div>
               ))}

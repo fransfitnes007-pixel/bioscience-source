@@ -136,7 +136,7 @@ const ShopChannel = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <CardTitle className="text-base font-medium">Store</CardTitle>
-                <Badge variant="outline" className="text-green-600 border-green-600">Active</Badge>
+                <Badge variant="outline" className="text-green-400 border-green-600">Active</Badge>
                 <span className="text-sm text-muted-foreground">{followers} followers</span>
               </div>
               <Button variant="outline" size="sm">Customize</Button>

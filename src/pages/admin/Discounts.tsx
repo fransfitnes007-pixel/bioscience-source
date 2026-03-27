@@ -138,7 +138,7 @@ const Discounts = () => {
                             {discount.code}
                           </span>
                           {discount.is_affiliate && (
-                            <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700 border-blue-200">
+                            <Badge variant="outline" className="text-xs bg-blue-900/30 text-blue-400 border-blue-200">
                               Affiliate
                             </Badge>
                           )}
@@ -159,8 +159,8 @@ const Discounts = () => {
                       <Badge
                         className={
                           discount.is_active
-                            ? "bg-green-100 text-green-800 hover:bg-green-100"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-100"
+                            ? "bg-green-900/30 text-green-400 hover:bg-green-100"
+                            : "bg-muted text-muted-foreground hover:bg-gray-100"
                         }
                       >
                         {discount.is_active ? "Active" : "Inactive"}

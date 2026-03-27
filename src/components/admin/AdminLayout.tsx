@@ -15,7 +15,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   return (
     <AdminAuthGuard>
-      <div className="admin-theme min-h-screen bg-secondary">
+      <div className="admin-theme min-h-screen bg-background">
         <AdminSidebar
           isCollapsed={isSidebarCollapsed}
           onToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)}

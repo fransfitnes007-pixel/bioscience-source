@@ -81,8 +81,8 @@ const ShippingLabels = () => {
   });
 
   const getDeliveryBadge = (status: string) => {
-    if (status === "delivered") return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Delivered</span>;
-    if (status === "shipped") return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">In transit</span>;
+    if (status === "delivered") return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-900/30 text-green-400">Delivered</span>;
+    if (status === "shipped") return <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-900/30 text-blue-400">In transit</span>;
     return <span className="text-xs text-muted-foreground">No status yet</span>;
   };
 
