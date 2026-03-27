@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 interface AdminSidebarProps {
   isCollapsed: boolean;
@@ -48,7 +49,7 @@ const navItems = [
     icon: Mail,
   },
   {
-    title: "Businesses",
+    title: "Customers",
     href: "/admin/businesses",
     icon: Building2,
   },
@@ -61,7 +62,7 @@ const navItems = [
 
 const storeLink = {
   title: "Go to Store",
-  href: "/home",
+  href: "/",
   icon: Store,
 };
 
@@ -89,7 +90,7 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           {!isCollapsed && (
-            <img src="/lovable-uploads/84c304af-556c-4932-b0d2-97a43b8c6c10.png" alt="PØINT BioSciences" className="h-8" />
+            <img src={resurrectedLogo} alt="Resurrected" className="h-8" />
           )}
           <Button
             variant="ghost"

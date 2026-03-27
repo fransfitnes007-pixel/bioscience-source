@@ -19,6 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState, useEffect } from "react";
 import { useUnreadMessages } from "@/hooks/useUnreadMessages";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 interface PortalSidebarProps {
   isCollapsed: boolean;
@@ -116,7 +117,7 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-4 border-b border-border">
-                  <img src="/lovable-uploads/84c304af-556c-4932-b0d2-97a43b8c6c10.png" alt="PØINT BioSciences" className="h-8" />
+                  <img src={resurrectedLogo} alt="Resurrected" className="h-8" />
                 </div>
 
                 <nav className="flex-1 p-2 space-y-1">
@@ -171,7 +172,7 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between p-4 border-b border-border">
           {!isCollapsed && (
-            <img src="/lovable-uploads/84c304af-556c-4932-b0d2-97a43b8c6c10.png" alt="PØINT BioSciences" className="h-8" />
+            <img src={resurrectedLogo} alt="Resurrected" className="h-8" />
           )}
           <div className={cn("flex items-center gap-1", isCollapsed && "mx-auto")}>
             <NotificationBell />

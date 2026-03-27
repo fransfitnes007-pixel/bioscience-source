@@ -4,7 +4,7 @@ import { LayoutDashboard, Package, MessageSquare, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/point-logo-white.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 const navItems = [
   { href: "/supplier", label: "Dashboard", icon: LayoutDashboard },
@@ -18,14 +18,14 @@ export const SupplierSidebar = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate("/access");
+    navigate("/account");
   };
 
   return (
     <aside className="w-64 bg-card border-r border-border min-h-screen flex flex-col">
       <div className="p-6 border-b border-border">
         <Link to="/supplier" className="flex items-center gap-2">
-          <img src={logo} alt="Point Bio" className="h-8" />
+          <img src={resurrectedLogo} alt="Resurrected" className="h-8" />
           <span className="text-sm text-muted-foreground">Supplier Portal</span>
         </Link>
       </div>

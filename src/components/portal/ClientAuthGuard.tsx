@@ -18,29 +18,15 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
         const { data: { session } } = await supabase.auth.getSession();
 
         if (!session) {
-          navigate("/");
+          navigate("/account");
           return;
         }
 
-        // Check if user has approved status
-        const { data: isApproved, error } = await supabase
-          .rpc('is_approved', { _user_id: session.user.id });
-
-        if (error) {
-          console.error("Error checking approval status:", error);
-          navigate("/");
-          return;
-        }
-
-        if (!isApproved) {
-          navigate("/");
-          return;
-        }
-
+        // For B2C, any authenticated user can access the portal
         setIsAuthorized(true);
       } catch (error) {
         console.error("Auth check error:", error);
-        navigate("/access");
+        navigate("/account");
       } finally {
         setIsLoading(false);
       }
@@ -64,7 +50,7 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">Verifying access...</p>
+          <p className="text-muted-foreground">Loading your account...</p>
         </div>
       </div>
     );
