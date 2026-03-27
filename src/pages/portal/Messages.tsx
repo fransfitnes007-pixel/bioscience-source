@@ -167,21 +167,18 @@ const PortalMessages = () => {
             ) : (
               <>
                 {messages.map((msg) => (
-                  <div
+                   <div
                     key={msg.id}
                     className={cn(
-                      "max-w-[80%] p-4 rounded-lg",
+                      "max-w-[80%] p-4 rounded-2xl",
                       msg.sender_type === 'client'
-                        ? "ml-auto bg-primary text-primary-foreground"
-                        : "bg-muted"
+                        ? "ml-auto bg-accent text-accent-foreground border border-border"
+                        : "bg-secondary text-secondary-foreground"
                     )}
                   >
                     <p className="whitespace-pre-wrap">{msg.message}</p>
                     <p className={cn(
-                      "text-xs mt-2",
-                      msg.sender_type === 'client'
-                        ? "text-primary-foreground/70"
-                        : "text-muted-foreground"
+                      "text-xs mt-2 text-muted-foreground"
                     )}>
                       {formatTime(msg.created_at)}
                     </p>
