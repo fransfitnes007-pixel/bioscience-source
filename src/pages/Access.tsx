@@ -70,6 +70,30 @@ const Access = () => {
       return;
     }
 
+    // Password strength validation
+    if (signupData.password.length < 8) {
+      toast.error("Password must be at least 8 characters");
+      return;
+    }
+
+    if (!/[A-Z]/.test(signupData.password) || !/[a-z]/.test(signupData.password) || !/[0-9]/.test(signupData.password)) {
+      toast.error("Password must include uppercase, lowercase, and a number");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(signupData.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // Name validation
+    if (signupData.firstName.trim().length < 1 || signupData.lastName.trim().length < 1) {
+      toast.error("First and last name are required");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
