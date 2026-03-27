@@ -128,10 +128,9 @@ const Gateway = () => {
         <div className="lg:w-1/2 flex flex-col justify-center p-8 lg:p-12 xl:p-16">
           <div className="w-full max-w-md mx-auto">
             {/* Welcome heading */}
-            <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-2">Welcome to
-PØINT BioSciences</h1>
+            <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-2">Welcome to Resurrected</h1>
             <p className="font-body text-muted-foreground mb-8">
-              Sign in below to access our B2B platform.
+              Sign in below to access your account.
             </p>
 
             {/* Login Form */}

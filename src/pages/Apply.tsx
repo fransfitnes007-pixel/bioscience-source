@@ -443,7 +443,7 @@ const Apply = () => {
               </div>
 
               <div>
-                <label className={labelClassName}>How can PØINT BioSciences benefit your business? *</label>
+                <label className={labelClassName}>How can Resurrected benefit your business? *</label>
                 <textarea
                   rows={4}
                   required

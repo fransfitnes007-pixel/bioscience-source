@@ -106,7 +106,7 @@ serve(async (req) => {
     // Send invitation email via Resend
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (resendApiKey) {
-      const siteUrl = Deno.env.get("SITE_URL") || "https://pointbiosciences.lovable.app";
+      const siteUrl = Deno.env.get("SITE_URL") || "https://resurrected.com";
       
       await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -115,12 +115,12 @@ serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Point Bio Sciences <noreply@pointbiosciences.com>",
+          from: "Resurrected <noreply@resurrected.com>",
           to: [email],
-          subject: "Welcome to Point Bio Sciences Supplier Portal",
+          subject: "Welcome to Resurrected Supplier Portal",
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h1 style="color: #333;">Welcome to Point Bio Sciences</h1>
+              <h1 style="color: #333;">Welcome to Resurrected</h1>
               <p>Hello ${contact_name},</p>
               <p>You have been added as a supplier partner for ${company_name}.</p>
               <p>To access your supplier portal, please set your password by clicking the link below:</p>
@@ -135,7 +135,7 @@ serve(async (req) => {
                 <li>Chat with our team</li>
               </ul>
               <p>If you have any questions, please contact our team.</p>
-              <p>Best regards,<br>Point Bio Sciences Team</p>
+              <p>Best regards,<br>Resurrected Team</p>
             </div>
           `,
         }),
