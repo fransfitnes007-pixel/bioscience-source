@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 export const AgeVerification = () => {
   const [showModal, setShowModal] = useState(false);
