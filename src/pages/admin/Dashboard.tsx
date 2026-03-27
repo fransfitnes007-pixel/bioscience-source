@@ -106,19 +106,19 @@ const AdminDashboard = () => {
   };
 
   const statCards = [
-    { label: "Pending Orders", value: stats.pendingOrders, icon: Package, bgColor: "bg-orange-900/20", iconColor: "text-orange-400" },
-    { label: "Total Revenue", value: `$${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, bgColor: "bg-green-900/20", iconColor: "text-green-400" },
-    { label: "Pending Applications", value: stats.pendingApplications, icon: FileText, bgColor: "bg-blue-900/20", iconColor: "text-blue-400" },
-    { label: "New Inquiries", value: stats.newInquiries, icon: MessageSquare, bgColor: "bg-purple-900/20", iconColor: "text-purple-400" },
-    { label: "Unread Messages", value: stats.newMessages, icon: Mail, bgColor: "bg-teal-900/20", iconColor: "text-teal-400" },
-    { label: "Approved Partners", value: stats.totalApproved, icon: Users, bgColor: "bg-indigo-900/20", iconColor: "text-indigo-400" },
+    { label: "Pending Orders", value: stats.pendingOrders, icon: Package },
+    { label: "Total Revenue", value: `$${stats.totalRevenue.toLocaleString()}`, icon: DollarSign },
+    { label: "Pending Applications", value: stats.pendingApplications, icon: FileText },
+    { label: "New Inquiries", value: stats.newInquiries, icon: MessageSquare },
+    { label: "Unread Messages", value: stats.newMessages, icon: Mail },
+    { label: "Approved Partners", value: stats.totalApproved, icon: Users },
   ];
 
   const quickActions = [
-    { label: "Manage Orders", desc: `${stats.pendingOrders} pending`, route: "/admin/orders", icon: Package, bgColor: "bg-orange-900/20", iconColor: "text-orange-400" },
-    { label: "View Applications", desc: `${stats.pendingApplications} pending`, route: "/admin/applications", icon: FileText, bgColor: "bg-blue-900/20", iconColor: "text-blue-400" },
-    { label: "View Inquiries", desc: `${stats.newInquiries} new`, route: "/admin/inquiries", icon: MessageSquare, bgColor: "bg-purple-900/20", iconColor: "text-purple-400" },
-    { label: "View Messages", desc: `${stats.newMessages} unread`, route: "/admin/messages", icon: Mail, bgColor: "bg-green-900/20", iconColor: "text-green-400" },
+    { label: "Manage Orders", desc: `${stats.pendingOrders} pending`, route: "/admin/orders", icon: Package },
+    { label: "View Applications", desc: `${stats.pendingApplications} pending`, route: "/admin/applications", icon: FileText },
+    { label: "View Inquiries", desc: `${stats.newInquiries} new`, route: "/admin/inquiries", icon: MessageSquare },
+    { label: "View Messages", desc: `${stats.newMessages} unread`, route: "/admin/messages", icon: Mail },
   ];
 
   return (
@@ -132,10 +132,10 @@ const AdminDashboard = () => {
         {/* Stats */}
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {statCards.map((stat, i) => (
-            <div key={i} className="bg-card rounded-xl border border-border p-4">
+            <div key={i} className="bg-card rounded-2xl border border-border p-4">
               <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-                  <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
+                <div className="p-2.5 rounded-full bg-foreground">
+                  <stat.icon className="h-4 w-4 text-background" />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">{stat.label}</p>
@@ -151,13 +151,13 @@ const AdminDashboard = () => {
           {quickActions.map((action, i) => (
             <div
               key={i}
-              className="bg-card rounded-xl border border-border p-5 cursor-pointer hover:border-primary transition-colors"
+              className="bg-card rounded-2xl border border-border p-5 cursor-pointer hover:border-primary transition-colors"
               onClick={() => navigate(action.route)}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${action.bgColor}`}>
-                    <action.icon className={`h-5 w-5 ${action.iconColor}`} />
+                  <div className="p-2.5 rounded-full bg-foreground">
+                    <action.icon className="h-5 w-5 text-background" />
                   </div>
                   <div>
                     <p className="font-medium text-foreground">{action.label}</p>
