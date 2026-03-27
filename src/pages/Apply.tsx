@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Check, Building2, MapPin, Phone, Package, Target, Sparkles, Tags } from "lucide-react";
-import pointLogo from "@/assets/point-logo-transparent.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 import LogoUploader from "@/components/shared/LogoUploader";
 
 type Step = 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -158,10 +158,9 @@ const Apply = () => {
             <span className="font-body text-sm">Back to Home</span>
           </button>
           <img 
-            src={pointLogo} 
-            alt="PØINT BioSciences" 
+            src={resurrectedLogo} 
+            alt="Resurrected" 
             className="h-8 w-auto"
-            style={{ filter: 'invert(1)' }}
           />
         </div>
       </header>
@@ -444,7 +443,7 @@ const Apply = () => {
               </div>
 
               <div>
-                <label className={labelClassName}>How can PØINT BioSciences benefit your business? *</label>
+                <label className={labelClassName}>How can Resurrected benefit your business? *</label>
                 <textarea
                   rows={4}
                   required

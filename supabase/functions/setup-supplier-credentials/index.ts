@@ -48,7 +48,7 @@ serve(async (req) => {
     }
 
     // Create email from username (supplier.local domain for internal use)
-    const email = `${username.toLowerCase()}@supplier.pointbiosciences.com`;
+    const email = `${username.toLowerCase()}@supplier.resurrected.com`;
 
     // Check if user already exists
     const { data: existingUsers } = await supabaseClient.auth.admin.listUsers();

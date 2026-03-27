@@ -1,7 +1,7 @@
 {
-  "name": "Point Biosciences",
-  "short_name": "Point Bio",
-  "description": "Point Biosciences Admin & Client Portal",
+  "name": "Resurrected",
+  "short_name": "Resurrected",
+  "description": "Resurrected — Premium Research Peptides",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
@@ -57,19 +57,19 @@
       "purpose": "maskable any"
     }
   ],
-  "categories": ["business", "productivity"],
+  "categories": ["shopping", "health"],
   "shortcuts": [
     {
-      "name": "Admin Dashboard",
-      "short_name": "Admin",
-      "description": "Open Admin Dashboard",
-      "url": "/admin",
+      "name": "Shop Products",
+      "short_name": "Shop",
+      "description": "Browse Products",
+      "url": "/products",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "Client Portal",
-      "short_name": "Portal",
-      "description": "Open Client Portal",
+      "name": "My Account",
+      "short_name": "Account",
+      "description": "Open My Account",
       "url": "/portal",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }

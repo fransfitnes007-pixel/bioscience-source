@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Footer } from "@/components/layout/Footer";
 import { AgeVerification } from "@/components/AgeVerification";
 import labVideo from "@/assets/lab-facility-video.mp4";
-import pointLogo from "@/assets/point-logo-transparent.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 const Gateway = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
@@ -120,9 +120,7 @@ const Gateway = () => {
           
           {/* Logo overlay - drops in from above */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <img src={pointLogo} alt="PØINT BioSciences" className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up" style={{
-            filter: 'invert(1) brightness(2)'
-          }} />
+            <img src={resurrectedLogo} alt="Resurrected" className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up" />
           </div>
         </div>
 
@@ -130,10 +128,9 @@ const Gateway = () => {
         <div className="lg:w-1/2 flex flex-col justify-center p-8 lg:p-12 xl:p-16">
           <div className="w-full max-w-md mx-auto">
             {/* Welcome heading */}
-            <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-2">Welcome to
-PØINT BioSciences</h1>
+            <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground mb-2">Welcome to Resurrected</h1>
             <p className="font-body text-muted-foreground mb-8">
-              Sign in below to access our B2B platform.
+              Sign in below to access your account.
             </p>
 
             {/* Login Form */}

@@ -29,7 +29,7 @@ const Access = () => {
     try {
       let email = loginData.identifier;
       if (!loginData.identifier.includes("@")) {
-        email = `${loginData.identifier.toLowerCase()}@supplier.pointbiosciences.com`;
+        email = `${loginData.identifier.toLowerCase()}@supplier.resurrected.com`;
       }
 
       const { data, error } = await supabase.auth.signInWithPassword({

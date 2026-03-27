@@ -87,7 +87,7 @@ const handler = async (req: Request): Promise<Response> => {
         type: "magiclink",
         email: email,
         options: {
-          redirectTo: `https://pointbiosciences.com/set-password`,
+          redirectTo: `https://resurrected.com/set-password`,
         },
       });
 
@@ -121,7 +121,7 @@ const handler = async (req: Request): Promise<Response> => {
         type: "magiclink",
         email: email,
         options: {
-          redirectTo: `https://pointbiosciences.com/set-password`,
+          redirectTo: `https://resurrected.com/set-password`,
         },
       });
 
