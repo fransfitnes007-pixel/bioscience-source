@@ -24,7 +24,11 @@ import AdminContactMessages from "./pages/admin/ContactMessages";
 import AdminBusinesses from "./pages/admin/Businesses";
 import AdminMessagesCenter from "./pages/admin/MessagesCenter";
 import AdminOrders from "./pages/admin/Orders";
+import AdminOrderDetail from "./pages/admin/OrderDetail";
+import AdminDraftOrders from "./pages/admin/DraftOrders";
+import AdminCreateDraftOrder from "./pages/admin/CreateDraftOrder";
 import AdminSuppliers from "./pages/admin/Suppliers";
+import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
 import PortalProducts from "./pages/portal/Products";
 import PortalOrders from "./pages/portal/Orders";
@@ -60,6 +64,10 @@ const App = () => (
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/orders" element={<AdminOrders />} />
+            <Route path="/admin/orders/new" element={<AdminCreateDraftOrder />} />
+            <Route path="/admin/orders/drafts" element={<AdminDraftOrders />} />
+            <Route path="/admin/orders/:id" element={<AdminOrderDetail />} />
+            <Route path="/track/:orderNumber" element={<TrackOrder />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />

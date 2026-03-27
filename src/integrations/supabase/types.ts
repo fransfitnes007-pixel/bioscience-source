@@ -427,6 +427,128 @@ export type Database = {
           },
         ]
       }
+      draft_order_items: {
+        Row: {
+          created_at: string
+          draft_order_id: string
+          id: string
+          product_id: string | null
+          product_name: string
+          quantity: number
+          total_price: number
+          unit_price: number
+          variation_id: string | null
+          variation_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          draft_order_id: string
+          id?: string
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+          total_price: number
+          unit_price: number
+          variation_id?: string | null
+          variation_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          draft_order_id?: string
+          id?: string
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          total_price?: number
+          unit_price?: number
+          variation_id?: string | null
+          variation_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "draft_order_items_draft_order_id_fkey"
+            columns: ["draft_order_id"]
+            isOneToOne: false
+            referencedRelation: "draft_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      draft_orders: {
+        Row: {
+          billing_address: Json | null
+          converted_order_id: string | null
+          created_at: string
+          created_by: string | null
+          customer_email: string | null
+          customer_name: string | null
+          discount_amount: number | null
+          draft_number: string
+          id: string
+          notes: string | null
+          shipping_address: Json | null
+          shipping_cost: number | null
+          status: string
+          subtotal: number
+          tax_amount: number | null
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          billing_address?: Json | null
+          converted_order_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          discount_amount?: number | null
+          draft_number: string
+          id?: string
+          notes?: string | null
+          shipping_address?: Json | null
+          shipping_cost?: number | null
+          status?: string
+          subtotal?: number
+          tax_amount?: number | null
+          total?: number
+          updated_at?: string
+        }
+        Update: {
+          billing_address?: Json | null
+          converted_order_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          discount_amount?: number | null
+          draft_number?: string
+          id?: string
+          notes?: string | null
+          shipping_address?: Json | null
+          shipping_cost?: number | null
+          status?: string
+          subtotal?: number
+          tax_amount?: number | null
+          total?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "draft_orders_converted_order_id_fkey"
+            columns: ["converted_order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "draft_orders_converted_order_id_fkey"
+            columns: ["converted_order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_logs: {
         Row: {
           bounced_at: string | null
@@ -749,6 +871,211 @@ export type Database = {
             columns: ["variation_id"]
             isOneToOne: false
             referencedRelation: "product_variations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_refunds: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          notes: string | null
+          order_id: string
+          reason: string | null
+          refund_type: string
+          refunded_by: string | null
+          status: string
+          stripe_refund_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          notes?: string | null
+          order_id: string
+          reason?: string | null
+          refund_type?: string
+          refunded_by?: string | null
+          status?: string
+          stripe_refund_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          notes?: string | null
+          order_id?: string
+          reason?: string | null
+          refund_type?: string
+          refunded_by?: string | null
+          status?: string
+          stripe_refund_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_refunds_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_refunds_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_returns: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          customer_notes: string | null
+          id: string
+          order_id: string
+          reason: string | null
+          received_at: string | null
+          refund_id: string | null
+          requested_at: string
+          resolved_at: string | null
+          return_number: string
+          return_shipping_carrier: string | null
+          return_tracking_number: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          customer_notes?: string | null
+          id?: string
+          order_id: string
+          reason?: string | null
+          received_at?: string | null
+          refund_id?: string | null
+          requested_at?: string
+          resolved_at?: string | null
+          return_number: string
+          return_shipping_carrier?: string | null
+          return_tracking_number?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          customer_notes?: string | null
+          id?: string
+          order_id?: string
+          reason?: string | null
+          received_at?: string | null
+          refund_id?: string | null
+          requested_at?: string
+          resolved_at?: string | null
+          return_number?: string
+          return_shipping_carrier?: string | null
+          return_tracking_number?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_returns_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_returns_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_returns_refund_id_fkey"
+            columns: ["refund_id"]
+            isOneToOne: false
+            referencedRelation: "order_refunds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_shipments: {
+        Row: {
+          carrier: string | null
+          created_at: string
+          created_by: string | null
+          delivered_at: string | null
+          estimated_delivery: string | null
+          id: string
+          notes: string | null
+          order_id: string
+          shipment_number: string
+          shipped_at: string | null
+          shipping_cost: number | null
+          status: string
+          tracking_number: string | null
+          tracking_url: string | null
+          updated_at: string
+          weight: number | null
+        }
+        Insert: {
+          carrier?: string | null
+          created_at?: string
+          created_by?: string | null
+          delivered_at?: string | null
+          estimated_delivery?: string | null
+          id?: string
+          notes?: string | null
+          order_id: string
+          shipment_number: string
+          shipped_at?: string | null
+          shipping_cost?: number | null
+          status?: string
+          tracking_number?: string | null
+          tracking_url?: string | null
+          updated_at?: string
+          weight?: number | null
+        }
+        Update: {
+          carrier?: string | null
+          created_at?: string
+          created_by?: string | null
+          delivered_at?: string | null
+          estimated_delivery?: string | null
+          id?: string
+          notes?: string | null
+          order_id?: string
+          shipment_number?: string
+          shipped_at?: string | null
+          shipping_cost?: number | null
+          status?: string
+          tracking_number?: string | null
+          tracking_url?: string | null
+          updated_at?: string
+          weight?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_shipments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_shipments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_order_view"
             referencedColumns: ["id"]
           },
         ]
@@ -1172,6 +1499,135 @@ export type Database = {
           website?: string | null
         }
         Relationships: []
+      }
+      refund_items: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          order_item_id: string
+          quantity: number
+          refund_id: string
+          restock: boolean
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          order_item_id: string
+          quantity?: number
+          refund_id: string
+          restock?: boolean
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          order_item_id?: string
+          quantity?: number
+          refund_id?: string
+          restock?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refund_items_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refund_items_refund_id_fkey"
+            columns: ["refund_id"]
+            isOneToOne: false
+            referencedRelation: "order_refunds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      return_items: {
+        Row: {
+          condition: string | null
+          created_at: string
+          id: string
+          order_item_id: string
+          quantity: number
+          reason: string | null
+          return_id: string
+        }
+        Insert: {
+          condition?: string | null
+          created_at?: string
+          id?: string
+          order_item_id: string
+          quantity?: number
+          reason?: string | null
+          return_id: string
+        }
+        Update: {
+          condition?: string | null
+          created_at?: string
+          id?: string
+          order_item_id?: string
+          quantity?: number
+          reason?: string | null
+          return_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "return_items_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "return_items_return_id_fkey"
+            columns: ["return_id"]
+            isOneToOne: false
+            referencedRelation: "order_returns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      shipment_items: {
+        Row: {
+          created_at: string
+          id: string
+          order_item_id: string
+          quantity: number
+          shipment_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          order_item_id: string
+          quantity?: number
+          shipment_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          order_item_id?: string
+          quantity?: number
+          shipment_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipment_items_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_items_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "order_shipments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       site_settings: {
         Row: {
