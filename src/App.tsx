@@ -51,6 +51,9 @@ import AdminContentMenus from "./pages/admin/ContentMenus";
 import AdminBlogPosts from "./pages/admin/BlogPosts";
 import AdminFinanceOverview from "./pages/admin/FinanceOverview";
 import AdminFinancePayouts from "./pages/admin/FinancePayouts";
+import AdminAnalytics from "./pages/admin/Analytics";
+import AdminAnalyticsReports from "./pages/admin/AnalyticsReports";
+import AdminLiveView from "./pages/admin/LiveView";
 import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
 import PortalProducts from "./pages/portal/Products";
@@ -114,6 +117,9 @@ const App = () => (
             <Route path="/admin/content/blog" element={<AdminBlogPosts />} />
             <Route path="/admin/finance" element={<AdminFinanceOverview />} />
             <Route path="/admin/finance/payouts" element={<AdminFinancePayouts />} />
+            <Route path="/admin/analytics" element={<AdminAnalytics />} />
+            <Route path="/admin/analytics/reports" element={<AdminAnalyticsReports />} />
+            <Route path="/admin/analytics/live" element={<AdminLiveView />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />
