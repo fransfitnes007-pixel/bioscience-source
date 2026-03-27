@@ -955,9 +955,24 @@ const Checkout = () => {
                       )}
 
                       <div className="flex justify-between font-body">
-                        <span className="text-muted-foreground">Shipping</span>
-                        <span className={freeShipping ? "text-emerald-500" : "text-foreground"}>
-                          {freeShipping ? "FREE" : formatCurrency(shippingCost)}
+                        <div className="text-muted-foreground">
+                          <span>Shipping</span>
+                          {selectedShippingRate && !freeShipping && (
+                            <p className="text-xs mt-0.5">
+                              {selectedShippingRate.label} ({selectedShippingRate.estimatedDaysMin}-{selectedShippingRate.estimatedDaysMax} days)
+                            </p>
+                          )}
+                          {(freeShipping || selectedShippingRate?.freeShipping) && (
+                            <p className="text-xs text-emerald-500 mt-0.5">
+                              {selectedShippingRate?.freeShippingReason || "Free with your tier!"}
+                            </p>
+                          )}
+                          {isLoadingShipping && (
+                            <p className="text-xs mt-0.5">Calculating...</p>
+                          )}
+                        </div>
+                        <span className={freeShipping || selectedShippingRate?.freeShipping ? "text-emerald-500" : "text-foreground"}>
+                          {freeShipping || selectedShippingRate?.freeShipping ? "FREE" : formatCurrency(shippingCost)}
                         </span>
                       </div>
 
