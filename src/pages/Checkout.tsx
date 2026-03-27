@@ -118,6 +118,68 @@ const Checkout = () => {
     });
   }, [navigate]);
 
+  // Fetch shipping rates when address/items change
+  useEffect(() => {
+    const destCountry = sameAsBilling ? billing.country : shipping.country;
+    const destState = sameAsBilling ? billing.state : shipping.state;
+    const destZip = sameAsBilling ? billing.zip : shipping.zip;
+    const destCity = sameAsBilling ? billing.city : shipping.city;
+
+    // Only fetch if we have minimum address info
+    if (!destCountry || items.length === 0) return;
+
+    const fetchRates = async () => {
+      setIsLoadingShipping(true);
+      try {
+        const { data, error } = await supabase.functions.invoke("calculate-shipping", {
+          body: {
+            items: items.map(item => ({
+              productName: item.productName,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+            destination: {
+              country: destCountry,
+              state: destState,
+              zip: destZip,
+              city: destCity,
+            },
+            subtotal,
+          },
+        });
+
+        if (error) throw error;
+
+        if (data?.rates) {
+          setShippingRates(data.rates);
+          // Auto-select recommended rate
+          const recommended = data.recommended;
+          if (recommended) {
+            setSelectedShippingRate(recommended);
+            setSelectedCarrier(recommended.service);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch shipping rates:", err);
+        // Fallback to flat rate
+        setSelectedShippingRate({
+          carrier: "USPS",
+          service: "usps_priority",
+          label: "Standard Shipping",
+          cost: 25.00,
+          estimatedDaysMin: 3,
+          estimatedDaysMax: 7,
+          recommended: true,
+        });
+      } finally {
+        setIsLoadingShipping(false);
+      }
+    };
+
+    const debounce = setTimeout(fetchRates, 500);
+    return () => clearTimeout(debounce);
+  }, [billing.country, billing.state, billing.zip, billing.city, shipping.country, shipping.state, shipping.zip, shipping.city, sameAsBilling, items, subtotal]);
+
   // Redirect if cart is empty
   useEffect(() => {
     if (items.length === 0 && !isSubmitting) {
