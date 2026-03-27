@@ -151,13 +151,13 @@ const AdminDashboard = () => {
           {quickActions.map((action, i) => (
             <div
               key={i}
-              className="bg-card rounded-xl border border-border p-5 cursor-pointer hover:border-primary transition-colors"
+              className="bg-card rounded-2xl border border-border p-5 cursor-pointer hover:border-primary transition-colors"
               onClick={() => navigate(action.route)}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${action.bgColor}`}>
-                    <action.icon className={`h-5 w-5 ${action.iconColor}`} />
+                  <div className="p-2.5 rounded-full bg-foreground">
+                    <action.icon className="h-5 w-5 text-background" />
                   </div>
                   <div>
                     <p className="font-medium text-foreground">{action.label}</p>
