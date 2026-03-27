@@ -21,6 +21,10 @@ import {
   TicketPercent,
   DollarSign,
   BarChart3,
+  Globe,
+  ShoppingBag,
+  Music,
+  ChevronDown,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
@@ -109,6 +113,23 @@ const navSections = [
     ],
   },
   {
+    label: "Sales channels",
+    items: [
+      { title: "Online Store", href: "/admin/channels/online-store", icon: Globe },
+      {
+        title: "Shop",
+        href: "/admin/channels/shop",
+        icon: ShoppingBag,
+        children: [
+          { title: "Catalog", href: "/admin/channels/shop" },
+          { title: "Reviews", href: "/admin/channels/shop" },
+          { title: "Settings", href: "/admin/channels/shop" },
+        ],
+      },
+      { title: "TikTok", href: "/admin/channels/tiktok", icon: Music },
+    ],
+  },
+  {
     items: [
       { title: "Applications", href: "/admin/applications", icon: FileText },
       { title: "Inquiries", href: "/admin/inquiries", icon: MessageSquare },
@@ -163,6 +184,11 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
         {navSections.map((section, si) => (
           <div key={si}>
             {si > 0 && <div className="mx-3 my-2 border-t border-[#333]" />}
+            {!isCollapsed && section.label && (
+              <p className="px-5 pt-2 pb-1 text-xs font-medium text-[#999] flex items-center gap-1">
+                {section.label} <ChevronDown className="h-3 w-3" />
+              </p>
+            )}
             <ul className="space-y-0.5 px-2">
               {section.items.map((item) => {
                 const active = isActive(item.href, item.end);
