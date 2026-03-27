@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "@/components/admin/AdminLayout";
-import StatsCard from "@/components/admin/StatsCard";
-import StatusBadge from "@/components/admin/StatusBadge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { FileText, MessageSquare, Mail, ArrowRight, Users, Package, DollarSign } from "lucide-react";
 import { format } from "date-fns";
 
@@ -29,12 +25,8 @@ interface RecentItem {
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState<Stats>({
-    pendingApplications: 0,
-    newInquiries: 0,
-    newMessages: 0,
-    totalApproved: 0,
-    pendingOrders: 0,
-    totalRevenue: 0,
+    pendingApplications: 0, newInquiries: 0, newMessages: 0,
+    totalApproved: 0, pendingOrders: 0, totalRevenue: 0,
   });
   const [recentItems, setRecentItems] = useState<RecentItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +35,6 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch stats
         const [
           { count: pendingApps },
           { count: newInq },
@@ -61,75 +52,22 @@ const AdminDashboard = () => {
         ]);
 
         const totalRevenue = paidOrders?.reduce((sum, o) => sum + Number(o.total), 0) || 0;
-
         setStats({
-          pendingApplications: pendingApps || 0,
-          newInquiries: newInq || 0,
-          newMessages: newMsg || 0,
-          totalApproved: approvedApps || 0,
-          pendingOrders: pendingOrds || 0,
-          totalRevenue,
+          pendingApplications: pendingApps || 0, newInquiries: newInq || 0,
+          newMessages: newMsg || 0, totalApproved: approvedApps || 0,
+          pendingOrders: pendingOrds || 0, totalRevenue,
         });
 
-        // Fetch recent items
-        const [
-          { data: recentApps },
-          { data: recentInquiries },
-          { data: recentMessages },
-        ] = await Promise.all([
-          supabase
-            .from("applications")
-            .select("id, business_name, contact_name, status, created_at")
-            .order("created_at", { ascending: false })
-            .limit(3),
-          supabase
-            .from("inquiries")
-            .select("id, business_name, name, product_name, status, created_at")
-            .order("created_at", { ascending: false })
-            .limit(3),
-          supabase
-            .from("contact_messages")
-            .select("id, name, email, subject, status, created_at")
-            .order("created_at", { ascending: false })
-            .limit(3),
+        const [{ data: recentApps }, { data: recentInquiries }, { data: recentMessages }] = await Promise.all([
+          supabase.from("applications").select("id, business_name, contact_name, status, created_at").order("created_at", { ascending: false }).limit(3),
+          supabase.from("inquiries").select("id, business_name, name, product_name, status, created_at").order("created_at", { ascending: false }).limit(3),
+          supabase.from("contact_messages").select("id, name, email, subject, status, created_at").order("created_at", { ascending: false }).limit(3),
         ]);
 
         const items: RecentItem[] = [];
-
-        recentApps?.forEach((app) => {
-          items.push({
-            id: app.id,
-            type: "application",
-            title: app.business_name,
-            subtitle: app.contact_name,
-            status: app.status,
-            date: app.created_at,
-          });
-        });
-
-        recentInquiries?.forEach((inq) => {
-          items.push({
-            id: inq.id,
-            type: "inquiry",
-            title: inq.product_name,
-            subtitle: `${inq.name} - ${inq.business_name}`,
-            status: inq.status,
-            date: inq.created_at,
-          });
-        });
-
-        recentMessages?.forEach((msg) => {
-          items.push({
-            id: msg.id,
-            type: "message",
-            title: msg.subject || "No Subject",
-            subtitle: `${msg.name} (${msg.email})`,
-            status: msg.status,
-            date: msg.created_at,
-          });
-        });
-
-        // Sort by date
+        recentApps?.forEach(app => items.push({ id: app.id, type: "application", title: app.business_name, subtitle: app.contact_name, status: app.status, date: app.created_at }));
+        recentInquiries?.forEach(inq => items.push({ id: inq.id, type: "inquiry", title: inq.product_name, subtitle: `${inq.name} - ${inq.business_name}`, status: inq.status, date: inq.created_at }));
+        recentMessages?.forEach(msg => items.push({ id: msg.id, type: "message", title: msg.subject || "No Subject", subtitle: `${msg.name} (${msg.email})`, status: msg.status, date: msg.created_at }));
         items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         setRecentItems(items.slice(0, 8));
       } catch (error) {
@@ -138,204 +76,128 @@ const AdminDashboard = () => {
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
   const getTypeIcon = (type: RecentItem["type"]) => {
-    switch (type) {
-      case "application":
-        return <FileText className="h-4 w-4 text-blue-500" />;
-      case "inquiry":
-        return <MessageSquare className="h-4 w-4 text-purple-500" />;
-      case "message":
-        return <Mail className="h-4 w-4 text-green-500" />;
-      case "order":
-        return <Package className="h-4 w-4 text-orange-500" />;
-    }
+    const icons = { application: FileText, inquiry: MessageSquare, message: Mail, order: Package };
+    const colors = { application: "text-blue-600", inquiry: "text-purple-600", message: "text-green-600", order: "text-orange-600" };
+    const Icon = icons[type];
+    return <Icon className={`h-4 w-4 ${colors[type]}`} />;
   };
 
   const getTypeRoute = (type: RecentItem["type"]) => {
-    switch (type) {
-      case "application":
-        return "/admin/applications";
-      case "inquiry":
-        return "/admin/inquiries";
-      case "message":
-        return "/admin/messages";
-      case "order":
-        return "/admin/orders";
-    }
+    const routes = { application: "/admin/applications", inquiry: "/admin/inquiries", message: "/admin/messages", order: "/admin/orders" };
+    return routes[type];
   };
+
+  const getStatusPill = (status: string) => {
+    const colors: Record<string, string> = {
+      pending: "bg-yellow-100 text-yellow-800",
+      new: "bg-blue-100 text-blue-800",
+      approved: "bg-green-100 text-green-800",
+      denied: "bg-red-100 text-red-800",
+    };
+    return (
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${colors[status] || "bg-gray-100 text-gray-800"}`}>
+        {status}
+      </span>
+    );
+  };
+
+  const statCards = [
+    { label: "Pending Orders", value: stats.pendingOrders, icon: Package, bgColor: "bg-orange-50", iconColor: "text-orange-600" },
+    { label: "Total Revenue", value: `$${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, bgColor: "bg-green-50", iconColor: "text-green-600" },
+    { label: "Pending Applications", value: stats.pendingApplications, icon: FileText, bgColor: "bg-blue-50", iconColor: "text-blue-600" },
+    { label: "New Inquiries", value: stats.newInquiries, icon: MessageSquare, bgColor: "bg-purple-50", iconColor: "text-purple-600" },
+    { label: "Unread Messages", value: stats.newMessages, icon: Mail, bgColor: "bg-teal-50", iconColor: "text-teal-600" },
+    { label: "Approved Partners", value: stats.totalApproved, icon: Users, bgColor: "bg-indigo-50", iconColor: "text-indigo-600" },
+  ];
+
+  const quickActions = [
+    { label: "Manage Orders", desc: `${stats.pendingOrders} pending`, route: "/admin/orders", icon: Package, bgColor: "bg-orange-50", iconColor: "text-orange-600" },
+    { label: "View Applications", desc: `${stats.pendingApplications} pending`, route: "/admin/applications", icon: FileText, bgColor: "bg-blue-50", iconColor: "text-blue-600" },
+    { label: "View Inquiries", desc: `${stats.newInquiries} new`, route: "/admin/inquiries", icon: MessageSquare, bgColor: "bg-purple-50", iconColor: "text-purple-600" },
+    { label: "View Messages", desc: `${stats.newMessages} unread`, route: "/admin/messages", icon: Mail, bgColor: "bg-green-50", iconColor: "text-green-600" },
+  ];
 
   return (
     <AdminLayout>
-      <div className="space-y-8">
-        {/* Header */}
+      <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground mt-1">
-            Overview of applications, inquiries, and messages
-          </p>
+          <h1 className="text-2xl font-semibold text-[#202223]">Dashboard</h1>
+          <p className="text-sm text-[#6d7175] mt-1">Overview of your store</p>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-          <StatsCard
-            title="Pending Orders"
-            value={stats.pendingOrders}
-            icon={Package}
-            description="Awaiting fulfillment"
-          />
-          <StatsCard
-            title="Total Revenue"
-            value={`$${stats.totalRevenue.toLocaleString()}`}
-            icon={DollarSign}
-            description="From paid orders"
-          />
-          <StatsCard
-            title="Pending Applications"
-            value={stats.pendingApplications}
-            icon={FileText}
-            description="Awaiting review"
-          />
-          <StatsCard
-            title="New Inquiries"
-            value={stats.newInquiries}
-            icon={MessageSquare}
-            description="Require attention"
-          />
-          <StatsCard
-            title="Unread Messages"
-            value={stats.newMessages}
-            icon={Mail}
-            description="Need response"
-          />
-          <StatsCard
-            title="Approved Partners"
-            value={stats.totalApproved}
-            icon={Users}
-            description="Total approved"
-          />
+        {/* Stats */}
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          {statCards.map((stat, i) => (
+            <div key={i} className="bg-white rounded-xl border border-[#e1e3e5] p-4">
+              <div className="flex items-center gap-3">
+                <div className={`p-2 rounded-lg ${stat.bgColor}`}>
+                  <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
+                </div>
+                <div>
+                  <p className="text-xs text-[#6d7175]">{stat.label}</p>
+                  <p className="text-lg font-semibold text-[#202223]">{stat.value}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Quick Actions */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card
-            className="cursor-pointer hover:border-primary/50 transition-colors"
-            onClick={() => navigate("/admin/orders")}
-          >
-            <CardContent className="flex items-center justify-between p-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-orange-500/10">
-                  <Package className="h-5 w-5 text-orange-500" />
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {quickActions.map((action, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-xl border border-[#e1e3e5] p-5 cursor-pointer hover:border-[#005bd3] transition-colors"
+              onClick={() => navigate(action.route)}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-lg ${action.bgColor}`}>
+                    <action.icon className={`h-5 w-5 ${action.iconColor}`} />
+                  </div>
+                  <div>
+                    <p className="font-medium text-[#202223]">{action.label}</p>
+                    <p className="text-sm text-[#6d7175]">{action.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium">Manage Orders</p>
-                  <p className="text-sm text-muted-foreground">
-                    {stats.pendingOrders} pending
-                  </p>
-                </div>
+                <ArrowRight className="h-5 w-5 text-[#b5b5b5]" />
               </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground" />
-            </CardContent>
-          </Card>
-
-          <Card
-            className="cursor-pointer hover:border-primary/50 transition-colors"
-            onClick={() => navigate("/admin/applications")}
-          >
-            <CardContent className="flex items-center justify-between p-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-blue-500/10">
-                  <FileText className="h-5 w-5 text-blue-500" />
-                </div>
-                <div>
-                  <p className="font-medium">View Applications</p>
-                  <p className="text-sm text-muted-foreground">
-                    {stats.pendingApplications} pending
-                  </p>
-                </div>
-              </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground" />
-            </CardContent>
-          </Card>
-
-          <Card
-            className="cursor-pointer hover:border-primary/50 transition-colors"
-            onClick={() => navigate("/admin/inquiries")}
-          >
-            <CardContent className="flex items-center justify-between p-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-purple-500/10">
-                  <MessageSquare className="h-5 w-5 text-purple-500" />
-                </div>
-                <div>
-                  <p className="font-medium">View Inquiries</p>
-                  <p className="text-sm text-muted-foreground">
-                    {stats.newInquiries} new
-                  </p>
-                </div>
-              </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground" />
-            </CardContent>
-          </Card>
-
-          <Card
-            className="cursor-pointer hover:border-primary/50 transition-colors"
-            onClick={() => navigate("/admin/messages")}
-          >
-            <CardContent className="flex items-center justify-between p-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-green-500/10">
-                  <Mail className="h-5 w-5 text-green-500" />
-                </div>
-                <div>
-                  <p className="font-medium">View Messages</p>
-                  <p className="text-sm text-muted-foreground">
-                    {stats.newMessages} unread
-                  </p>
-                </div>
-              </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground" />
-            </CardContent>
-          </Card>
+            </div>
+          ))}
         </div>
 
         {/* Recent Activity */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+          <div className="px-5 py-4 border-b border-[#e1e3e5]">
+            <h2 className="font-semibold text-[#202223]">Recent Activity</h2>
+          </div>
+          <div>
             {isLoading ? (
-              <div className="text-center py-8 text-muted-foreground">
-                Loading...
-              </div>
+              <div className="text-center py-12 text-[#6d7175]">Loading...</div>
             ) : recentItems.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                No recent activity
-              </div>
+              <div className="text-center py-12 text-[#6d7175]">No recent activity</div>
             ) : (
-              <div className="space-y-4">
-                {recentItems.map((item) => (
+              <div className="divide-y divide-[#e1e3e5]">
+                {recentItems.map(item => (
                   <div
                     key={`${item.type}-${item.id}`}
-                    className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-accent/50 cursor-pointer transition-colors"
+                    className="flex items-center justify-between px-5 py-3.5 hover:bg-[#f6f6f7] cursor-pointer transition-colors"
                     onClick={() => navigate(getTypeRoute(item.type))}
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       {getTypeIcon(item.type)}
                       <div>
-                        <p className="font-medium">{item.title}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {item.subtitle}
-                        </p>
+                        <p className="text-sm font-medium text-[#202223]">{item.title}</p>
+                        <p className="text-xs text-[#6d7175]">{item.subtitle}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <StatusBadge status={item.status} />
-                      <span className="text-sm text-muted-foreground">
+                    <div className="flex items-center gap-3">
+                      {getStatusPill(item.status)}
+                      <span className="text-xs text-[#6d7175]">
                         {format(new Date(item.date), "MMM d, yyyy")}
                       </span>
                     </div>
@@ -343,8 +205,8 @@ const AdminDashboard = () => {
                 ))}
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </AdminLayout>
   );
