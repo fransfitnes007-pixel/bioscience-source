@@ -30,6 +30,8 @@ import AdminCreateDraftOrder from "./pages/admin/CreateDraftOrder";
 import AdminShippingLabels from "./pages/admin/ShippingLabels";
 import AdminAbandonedCheckouts from "./pages/admin/AbandonedCheckouts";
 import AdminProducts from "./pages/admin/AdminProducts";
+import AdminInventory from "./pages/admin/Inventory";
+import AdminProductEdit from "./pages/admin/ProductEdit";
 import AdminSuppliers from "./pages/admin/Suppliers";
 import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
