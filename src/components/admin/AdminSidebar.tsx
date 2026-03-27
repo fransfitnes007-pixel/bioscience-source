@@ -89,6 +89,14 @@ const navSections = [
           { title: "Blog posts", href: "/admin/content/blog" },
         ],
       },
+      {
+        title: "Finance",
+        href: "/admin/finance",
+        icon: DollarSign,
+        children: [
+          { title: "Payouts", href: "/admin/finance/payouts" },
+        ],
+      },
     ],
   },
   {
