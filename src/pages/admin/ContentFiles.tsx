@@ -166,7 +166,7 @@ const ContentFiles = () => {
             </div>
           ) : !filtered?.length ? (
             <div className="text-center py-16">
-              <FileImage className="h-12 w-12 text-[#c9cccf] mx-auto mb-3" />
+              <FileImage className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
               <h3 className="font-semibold text-foreground">No files uploaded</h3>
               <p className="text-sm text-muted-foreground mt-1">
                 Upload images, videos, and documents to manage your content.

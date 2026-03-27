@@ -90,7 +90,7 @@ const CustomerDetail = () => {
 
         {/* Stats bar */}
         <div className="bg-card rounded-xl border border-border overflow-hidden">
-          <div className="flex divide-x divide-[#e1e3e5]">
+          <div className="flex divide-x divide-border">
             <div className="flex-1 px-5 py-4">
               <p className="text-sm text-muted-foreground">Amount spent</p>
               <p className="text-lg font-semibold text-foreground">${customer.total_spent.toFixed(2)}</p>
@@ -146,7 +146,7 @@ const CustomerDetail = () => {
               <div className="border-t border-border pt-4">
                 <p className="text-xs text-muted-foreground mb-2">{format(new Date(customer.created_at), "MMMM d")}</p>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-[#6d7175]" />
+                  <div className="w-2 h-2 rounded-full bg-muted-foreground" />
                   <p className="text-sm text-foreground">Online Store created this customer.</p>
                   <span className="text-xs text-muted-foreground ml-auto">{format(new Date(customer.created_at), "h:mm a")}</span>
                 </div>

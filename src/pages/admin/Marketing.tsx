@@ -58,7 +58,7 @@ const Marketing = () => {
 
         {/* Stats */}
         <div className="bg-card rounded-xl border border-border overflow-hidden">
-          <div className="flex divide-x divide-[#e1e3e5]">
+          <div className="flex divide-x divide-border">
             <div className="flex-1 px-5 py-4">
               <p className="text-sm text-muted-foreground">Sessions</p>
               <p className="text-lg font-semibold text-foreground">{stats.sessions}</p>

@@ -171,7 +171,7 @@ const ProductEdit = () => {
               </div>
 
               {/* Variant list */}
-              <ul className="divide-y divide-[#e1e3e5]">
+              <ul className="divide-y divide-border">
                 {filteredVariants.map((v) => (
                   <li key={v.id}>
                     <button

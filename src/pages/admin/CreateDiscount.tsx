@@ -209,7 +209,7 @@ const CreateDiscount = () => {
                       name="minReq"
                       checked={form.minRequirement === opt.value}
                       onChange={() => setForm({ ...form, minRequirement: opt.value })}
-                      className="accent-[#202223]"
+                      className="accent-foreground"
                     />
                     <span className="text-sm text-foreground">{opt.label}</span>
                   </label>

@@ -103,7 +103,7 @@ const DraftOrders = () => {
                     </td>
                     <td className="py-3 px-4 text-right font-medium text-foreground">${Number(draft.total).toFixed(2)}</td>
                     <td className="py-3 px-4">
-                      <button onClick={() => deleteDraft(draft.id)} className="p-1 rounded hover:bg-[#e1e3e5]">
+                      <button onClick={() => deleteDraft(draft.id)} className="p-1 rounded hover:bg-accent">
                         <Trash2 className="h-4 w-4 text-muted-foreground" />
                       </button>
                     </td>

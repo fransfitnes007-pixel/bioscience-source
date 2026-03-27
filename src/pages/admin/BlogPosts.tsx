@@ -162,7 +162,7 @@ const BlogPosts = () => {
         ) : !posts?.length ? (
           <div className="bg-card rounded-xl border border-border p-12 text-center">
             <div className="mx-auto w-24 h-24 mb-4 flex items-center justify-center">
-              <FileText className="h-16 w-16 text-[#c9cccf]" />
+              <FileText className="h-16 w-16 text-muted-foreground" />
             </div>
             <h3 className="font-semibold text-lg text-foreground">Write a blog post</h3>
             <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">

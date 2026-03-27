@@ -181,7 +181,7 @@ const Affiliates = () => {
             </div>
           ) : !filtered?.length ? (
             <div className="text-center py-12">
-              <Users className="h-12 w-12 text-[#c9cccf] mx-auto mb-3" />
+              <Users className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
               <h3 className="font-semibold text-foreground">No affiliates yet</h3>
               <p className="text-sm text-muted-foreground mt-1">
                 Add athletes who will promote your products and earn commission.

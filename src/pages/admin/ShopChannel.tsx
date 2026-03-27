@@ -154,7 +154,7 @@ const ShopChannel = () => {
                     <span className="text-white text-xs font-bold">RES</span>
                   </div>
                   <p className="text-white text-sm font-semibold tracking-wider">RESURRECTED</p>
-                  <Button variant="outline" size="sm" className="text-xs h-6 border-[#444] text-[#999]">Follow</Button>
+                  <Button variant="outline" size="sm" className="text-xs h-6 border-[#444] text-muted-foreground">Follow</Button>
                 </div>
               </div>
               {/* Store details */}

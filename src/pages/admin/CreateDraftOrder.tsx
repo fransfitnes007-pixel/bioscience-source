@@ -124,7 +124,7 @@ const CreateDraftOrder = () => {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate("/admin/orders")} className="p-1 rounded hover:bg-[#e1e3e5]">
+          <button onClick={() => navigate("/admin/orders")} className="p-1 rounded hover:bg-accent">
             <ArrowLeft className="h-5 w-5 text-muted-foreground" />
           </button>
           <h1 className="text-xl font-semibold text-foreground">Create order</h1>
@@ -149,7 +149,7 @@ const CreateDraftOrder = () => {
                         </div>
                         <div className="flex items-center gap-3">
                           <span className="text-sm font-medium text-foreground">${(item.unit_price * item.quantity).toFixed(2)}</span>
-                          <button onClick={() => removeItem(item.id)} className="p-1 rounded hover:bg-[#e1e3e5]">
+                          <button onClick={() => removeItem(item.id)} className="p-1 rounded hover:bg-accent">
                             <X className="h-4 w-4 text-muted-foreground" />
                           </button>
                         </div>
@@ -230,7 +230,7 @@ const CreateDraftOrder = () => {
             <div className="bg-card rounded-xl border border-border overflow-hidden">
               <div className="px-5 py-4 flex items-center justify-between border-b border-border">
                 <h2 className="font-semibold text-foreground">Notes</h2>
-                <button onClick={() => setShowNotes(!showNotes)} className="p-1 rounded hover:bg-[#e1e3e5]">
+                <button onClick={() => setShowNotes(!showNotes)} className="p-1 rounded hover:bg-accent">
                   <Pencil className="h-4 w-4 text-muted-foreground" />
                 </button>
               </div>
@@ -278,7 +278,7 @@ const CreateDraftOrder = () => {
             <div className="bg-card rounded-xl border border-border overflow-hidden">
               <div className="px-5 py-4 flex items-center justify-between border-b border-border">
                 <h2 className="font-semibold text-foreground">Tags</h2>
-                <button className="p-1 rounded hover:bg-[#e1e3e5]">
+                <button className="p-1 rounded hover:bg-accent">
                   <Pencil className="h-4 w-4 text-muted-foreground" />
                 </button>
               </div>

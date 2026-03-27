@@ -55,7 +55,7 @@ const CreateCampaign = () => {
           <div className="col-span-8 space-y-4">
             {/* Stats */}
             <div className="bg-card rounded-xl border border-border overflow-hidden">
-              <div className="flex divide-x divide-[#e1e3e5]">
+              <div className="flex divide-x divide-border">
                 {["Sessions", "Sales", "Orders", "Average order value"].map((label) => (
                   <div key={label} className="flex-1 px-4 py-3">
                     <p className="text-sm text-muted-foreground">{label}</p>

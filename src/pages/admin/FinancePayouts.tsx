@@ -234,7 +234,7 @@ const FinancePayouts = () => {
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                    filter === f ? "bg-primary text-white" : "bg-secondary text-muted-foreground hover:bg-[#e1e3e5]"
+                    filter === f ? "bg-primary text-white" : "bg-secondary text-muted-foreground hover:bg-accent"
                   }`}
                 >
                   {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -249,7 +249,7 @@ const FinancePayouts = () => {
             </div>
           ) : !earnings?.length ? (
             <div className="text-center py-12">
-              <Users className="h-12 w-12 text-[#c9cccf] mx-auto mb-3" />
+              <Users className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
               <h3 className="font-semibold text-foreground">No payout transactions</h3>
               <p className="text-sm text-muted-foreground mt-1">When affiliate codes are used on orders, earnings will appear here.</p>
             </div>

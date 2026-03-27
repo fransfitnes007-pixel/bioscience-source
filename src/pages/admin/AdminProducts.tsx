@@ -84,7 +84,7 @@ const AdminProducts = () => {
 
         {/* Stats Bar */}
         <div className="bg-card rounded-xl border border-border overflow-hidden">
-          <div className="flex divide-x divide-[#e1e3e5]">
+          <div className="flex divide-x divide-border">
             <div className="px-5 py-4 flex items-center gap-3">
               <span className="text-sm text-foreground">📅 30 days</span>
             </div>
@@ -112,7 +112,7 @@ const AdminProducts = () => {
                 onClick={() => setActiveTab(tab.value)}
                 className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.value
-                    ? "border-[#202223] text-foreground"
+                    ? "border-foreground text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >

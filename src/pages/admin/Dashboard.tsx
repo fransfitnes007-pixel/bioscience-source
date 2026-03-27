@@ -181,7 +181,7 @@ const AdminDashboard = () => {
             ) : recentItems.length === 0 ? (
               <div className="text-center py-12 text-muted-foreground">No recent activity</div>
             ) : (
-              <div className="divide-y divide-[#e1e3e5]">
+              <div className="divide-y divide-border">
                 {recentItems.map(item => (
                   <div
                     key={`${item.type}-${item.id}`}

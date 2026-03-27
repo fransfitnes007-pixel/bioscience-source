@@ -83,7 +83,7 @@ const Inventory = () => {
         {/* Tabs + Search */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-0 border-b border-border">
-            <button className="px-4 py-2.5 text-sm font-medium border-b-2 border-[#202223] text-foreground">All</button>
+            <button className="px-4 py-2.5 text-sm font-medium border-b-2 border-foreground text-foreground">All</button>
             <button className="px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground">+</button>
           </div>
           <div className="flex items-center gap-2">

@@ -29,7 +29,7 @@ const CreateTransfer = () => {
           <div className="col-span-8 space-y-4">
             {/* Origin / Destination */}
             <div className="bg-card rounded-xl border border-border overflow-hidden">
-              <div className="grid grid-cols-2 divide-x divide-[#e1e3e5]">
+              <div className="grid grid-cols-2 divide-x divide-border">
                 <div className="p-5">
                   <label className="block text-sm font-medium text-foreground mb-1">Origin ⓘ</label>
                   <select

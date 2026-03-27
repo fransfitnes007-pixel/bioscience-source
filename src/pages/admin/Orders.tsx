@@ -185,7 +185,7 @@ const AdminOrders = () => {
 
         {/* Stats Bar - Shopify style */}
         <div className="bg-card rounded-xl border border-border overflow-hidden">
-          <div className="flex divide-x divide-[#e1e3e5]">
+          <div className="flex divide-x divide-border">
             <div className="px-5 py-4 flex items-center gap-3">
               <Calendar className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm text-foreground font-medium">Today</span>
@@ -203,7 +203,7 @@ const AdminOrders = () => {
                   <span className="text-lg font-semibold text-foreground">{stat.value}</span>
                   <span className="text-xs text-muted-foreground">—</span>
                 </div>
-                <div className="mt-2 h-0.5 rounded-full bg-[#e1e3e5]">
+                <div className="mt-2 h-0.5 rounded-full bg-border">
                   <div className={`h-full rounded-full ${stat.color} w-0`} />
                 </div>
               </div>
@@ -220,7 +220,7 @@ const AdminOrders = () => {
                 onClick={() => setActiveTab(tab.value)}
                 className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.value
-                    ? "border-[#202223] text-foreground"
+                    ? "border-foreground text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -321,7 +321,7 @@ const AdminOrders = () => {
                     <td className="py-3 px-4" onClick={e => e.stopPropagation()}>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <button className="p-1 rounded hover:bg-[#e1e3e5]">
+                          <button className="p-1 rounded hover:bg-accent">
                             <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
                           </button>
                         </DropdownMenuTrigger>
