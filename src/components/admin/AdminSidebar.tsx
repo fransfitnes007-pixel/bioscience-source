@@ -242,6 +242,19 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
       {/* Footer */}
       <div className="px-2 py-3 border-t border-[#333] space-y-0.5">
         <RouterNavLink
+          to="/admin/settings"
+          className={cn(
+            "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+            isActive("/admin/settings")
+              ? "bg-[#333] text-white"
+              : "text-[#b5b5b5] hover:bg-[#2a2a2a] hover:text-white",
+            isCollapsed && "justify-center px-2"
+          )}
+        >
+          <Settings className="h-[18px] w-[18px] shrink-0" />
+          {!isCollapsed && <span>Settings</span>}
+        </RouterNavLink>
+        <RouterNavLink
           to="/"
           className={cn(
             "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-[#b5b5b5] hover:bg-[#2a2a2a] hover:text-white transition-colors",
