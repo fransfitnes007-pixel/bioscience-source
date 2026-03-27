@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Check, Building2, MapPin, Phone, Package, Target, Sparkles, Tags } from "lucide-react";
-import pointLogo from "@/assets/point-logo-transparent.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 import LogoUploader from "@/components/shared/LogoUploader";
 
 type Step = 1 | 2 | 3 | 4 | 5 | 6 | 7;

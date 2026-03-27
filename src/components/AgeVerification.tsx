@@ -27,8 +27,8 @@ export const AgeVerification = () => {
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 backdrop-blur-sm">
       <div className="bg-card border border-border rounded-xl p-8 md:p-12 max-w-md mx-4 text-center shadow-2xl animate-scale-in">
         <img 
-          src={logo} 
-          alt="PØINT BioSciences" 
+          src={resurrectedLogo} 
+          alt="Resurrected" 
           className="h-12 md:h-14 w-auto mx-auto mb-6"
         />
         <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6">

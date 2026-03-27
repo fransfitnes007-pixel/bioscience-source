@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Footer } from "@/components/layout/Footer";
 import { AgeVerification } from "@/components/AgeVerification";
 import labVideo from "@/assets/lab-facility-video.mp4";
-import pointLogo from "@/assets/point-logo-transparent.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 const Gateway = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
