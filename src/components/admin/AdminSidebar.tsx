@@ -123,6 +123,9 @@ const navSections = [
         children: [
           { title: "Catalog", href: "/admin/channels/shop" },
           { title: "Reviews", href: "/admin/channels/shop" },
+          { title: "Promise", href: "/admin/channels/shop" },
+          { title: "Advertising", href: "/admin/channels/shop" },
+          { title: "Marketing tools", href: "/admin/channels/shop" },
           { title: "Settings", href: "/admin/channels/shop" },
         ],
       },
