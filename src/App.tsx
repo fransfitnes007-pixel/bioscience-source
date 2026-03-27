@@ -49,6 +49,8 @@ import AdminAffiliates from "./pages/admin/Affiliates";
 import AdminContentFiles from "./pages/admin/ContentFiles";
 import AdminContentMenus from "./pages/admin/ContentMenus";
 import AdminBlogPosts from "./pages/admin/BlogPosts";
+import AdminFinanceOverview from "./pages/admin/FinanceOverview";
+import AdminFinancePayouts from "./pages/admin/FinancePayouts";
 import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
 import PortalProducts from "./pages/portal/Products";
