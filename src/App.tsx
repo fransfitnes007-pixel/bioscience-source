@@ -134,6 +134,8 @@ const App = () => (
             <Route path="/admin/businesses" element={<AdminBusinesses />} />
             <Route path="/admin/messages-center" element={<AdminMessagesCenter />} />
             <Route path="/admin/suppliers" element={<AdminSuppliers />} />
+            <Route path="/admin/settings" element={<AdminSettingsGeneral />} />
+            <Route path="/admin/settings/checkout" element={<AdminSettingsCheckout />} />
             {/* Supplier Portal Routes */}
             <Route path="/supplier" element={<SupplierDashboard />} />
             <Route path="/supplier/orders" element={<SupplierOrders />} />
