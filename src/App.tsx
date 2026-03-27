@@ -27,6 +27,9 @@ import AdminOrders from "./pages/admin/Orders";
 import AdminOrderDetail from "./pages/admin/OrderDetail";
 import AdminDraftOrders from "./pages/admin/DraftOrders";
 import AdminCreateDraftOrder from "./pages/admin/CreateDraftOrder";
+import AdminShippingLabels from "./pages/admin/ShippingLabels";
+import AdminAbandonedCheckouts from "./pages/admin/AbandonedCheckouts";
+import AdminProducts from "./pages/admin/AdminProducts";
 import AdminSuppliers from "./pages/admin/Suppliers";
 import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
@@ -68,6 +71,9 @@ const App = () => (
             <Route path="/admin/orders/drafts" element={<AdminDraftOrders />} />
             <Route path="/admin/orders/:id" element={<AdminOrderDetail />} />
             <Route path="/track/:orderNumber" element={<TrackOrder />} />
+            <Route path="/admin/shipping-labels" element={<AdminShippingLabels />} />
+            <Route path="/admin/abandoned-checkouts" element={<AdminAbandonedCheckouts />} />
+            <Route path="/admin/products" element={<AdminProducts />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />
