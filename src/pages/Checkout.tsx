@@ -35,6 +35,18 @@ const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
   }
 };
 
+interface ShippingRate {
+  carrier: string;
+  service: string;
+  label: string;
+  cost: number;
+  estimatedDaysMin: number;
+  estimatedDaysMax: number;
+  recommended: boolean;
+  freeShipping?: boolean;
+  freeShippingReason?: string | null;
+}
+
 const Checkout = () => {
   const navigate = useNavigate();
   const { items, subtotal, currentTier, clearCart } = useCart();
@@ -50,6 +62,12 @@ const Checkout = () => {
   const [savedLogoUrl, setSavedLogoUrl] = useState<string | null>(null);
   const [useSavedLogo, setUseSavedLogo] = useState(false);
   const [orderTempId] = useState(() => crypto.randomUUID());
+
+  // Shipping rate state
+  const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
+  const [selectedShippingRate, setSelectedShippingRate] = useState<ShippingRate | null>(null);
+  const [isLoadingShipping, setIsLoadingShipping] = useState(false);
+  const [selectedCarrier, setSelectedCarrier] = useState<string | null>(null);
   
   const [billing, setBilling] = useState({
     firstName: "",
@@ -100,6 +118,68 @@ const Checkout = () => {
     });
   }, [navigate]);
 
+  // Fetch shipping rates when address/items change
+  useEffect(() => {
+    const destCountry = sameAsBilling ? billing.country : shipping.country;
+    const destState = sameAsBilling ? billing.state : shipping.state;
+    const destZip = sameAsBilling ? billing.zip : shipping.zip;
+    const destCity = sameAsBilling ? billing.city : shipping.city;
+
+    // Only fetch if we have minimum address info
+    if (!destCountry || items.length === 0) return;
+
+    const fetchRates = async () => {
+      setIsLoadingShipping(true);
+      try {
+        const { data, error } = await supabase.functions.invoke("calculate-shipping", {
+          body: {
+            items: items.map(item => ({
+              productName: item.productName,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+            destination: {
+              country: destCountry,
+              state: destState,
+              zip: destZip,
+              city: destCity,
+            },
+            subtotal,
+          },
+        });
+
+        if (error) throw error;
+
+        if (data?.rates) {
+          setShippingRates(data.rates);
+          // Auto-select recommended rate
+          const recommended = data.recommended;
+          if (recommended) {
+            setSelectedShippingRate(recommended);
+            setSelectedCarrier(recommended.service);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch shipping rates:", err);
+        // Fallback to flat rate
+        setSelectedShippingRate({
+          carrier: "USPS",
+          service: "usps_priority",
+          label: "Standard Shipping",
+          cost: 25.00,
+          estimatedDaysMin: 3,
+          estimatedDaysMax: 7,
+          recommended: true,
+        });
+      } finally {
+        setIsLoadingShipping(false);
+      }
+    };
+
+    const debounce = setTimeout(fetchRates, 500);
+    return () => clearTimeout(debounce);
+  }, [billing.country, billing.state, billing.zip, billing.city, shipping.country, shipping.state, shipping.zip, shipping.city, sameAsBilling, items, subtotal]);
+
   // Redirect if cart is empty
   useEffect(() => {
     if (items.length === 0 && !isSubmitting) {
@@ -136,7 +216,7 @@ const Checkout = () => {
   const freeShipping = currentTier?.rewardType === "percentage_discount_shipping" || 
                        currentTier?.rewardType === "bogo_shipping" ||
                        currentTier?.rewardType === "bogo_shipping_next_order";
-  const shippingCost = freeShipping ? 0 : 25.00;
+  const shippingCost = freeShipping ? 0 : (selectedShippingRate?.freeShipping ? 0 : (selectedShippingRate?.cost ?? 25.00));
   const buyerProtectionCost = getBuyerProtectionCost(currentTier?.tierNumber);
   const protectionCost = buyerProtection ? buyerProtectionCost : 0;
   const customLabelingCost = 0; // $0 for now as specified
@@ -209,11 +289,27 @@ const Checkout = () => {
           custom_labeling: customLabeling,
           custom_labeling_logo_url: getOrderLogoUrl(),
           custom_labeling_cost: customLabelingCost,
+          fulfillment_carrier: selectedShippingRate?.carrier || null,
+          estimated_delivery_date: selectedShippingRate ? 
+            new Date(Date.now() + selectedShippingRate.estimatedDaysMax * 86400000).toISOString().split('T')[0] : null,
         })
         .select()
         .single();
 
       if (orderError) throw orderError;
+
+      // Auto-create shipment record with selected carrier
+      const shipmentNumber = `SHP-${Date.now().toString(36).toUpperCase()}`;
+      await supabase.from("order_shipments").insert({
+        order_id: order.id,
+        shipment_number: shipmentNumber,
+        status: "pending",
+        carrier: selectedShippingRate?.carrier || "USPS",
+        shipping_cost: shippingCost,
+        estimated_delivery: selectedShippingRate ?
+          new Date(Date.now() + selectedShippingRate.estimatedDaysMax * 86400000).toISOString().split('T')[0] : null,
+        notes: `Auto-selected: ${selectedShippingRate?.label || "Standard Shipping"}`,
+      });
 
       // Create order items - for BOGO, add both paid and free items
       const orderItems: any[] = [];
@@ -859,9 +955,24 @@ const Checkout = () => {
                       )}
 
                       <div className="flex justify-between font-body">
-                        <span className="text-muted-foreground">Shipping</span>
-                        <span className={freeShipping ? "text-emerald-500" : "text-foreground"}>
-                          {freeShipping ? "FREE" : formatCurrency(shippingCost)}
+                        <div className="text-muted-foreground">
+                          <span>Shipping</span>
+                          {selectedShippingRate && !freeShipping && (
+                            <p className="text-xs mt-0.5">
+                              {selectedShippingRate.label} ({selectedShippingRate.estimatedDaysMin}-{selectedShippingRate.estimatedDaysMax} days)
+                            </p>
+                          )}
+                          {(freeShipping || selectedShippingRate?.freeShipping) && (
+                            <p className="text-xs text-emerald-500 mt-0.5">
+                              {selectedShippingRate?.freeShippingReason || "Free with your tier!"}
+                            </p>
+                          )}
+                          {isLoadingShipping && (
+                            <p className="text-xs mt-0.5">Calculating...</p>
+                          )}
+                        </div>
+                        <span className={freeShipping || selectedShippingRate?.freeShipping ? "text-emerald-500" : "text-foreground"}>
+                          {freeShipping || selectedShippingRate?.freeShipping ? "FREE" : formatCurrency(shippingCost)}
                         </span>
                       </div>
 
