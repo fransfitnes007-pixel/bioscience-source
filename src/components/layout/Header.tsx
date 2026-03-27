@@ -4,6 +4,7 @@ import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartIcon } from "@/components/layout/CartIcon";
 import { supabase } from "@/integrations/supabase/client";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,16 +14,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navLinks = [
-  { name: "Home", path: "/home" },
+  { name: "Home", path: "/" },
   { name: "Products", path: "/products" },
   { name: "About", path: "/about" },
-  { name: "Terms", path: "/terms" },
 ];
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
-  const [isApproved, setIsApproved] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,15 +32,9 @@ export const Header = () => {
       setUser(session?.user || null);
       
       if (session?.user) {
-        // Check admin status
         const { data: adminData } = await supabase
           .rpc('has_role', { _user_id: session.user.id, _role: 'admin' });
         setIsAdmin(!!adminData);
-        
-        // Check approved status
-        const { data: approvedData } = await supabase
-          .rpc('is_approved', { _user_id: session.user.id });
-        setIsApproved(!!approvedData);
       }
     };
 
@@ -53,13 +46,8 @@ export const Header = () => {
         const { data: adminData } = await supabase
           .rpc('has_role', { _user_id: session.user.id, _role: 'admin' });
         setIsAdmin(!!adminData);
-        
-        const { data: approvedData } = await supabase
-          .rpc('is_approved', { _user_id: session.user.id });
-        setIsApproved(!!approvedData);
       } else {
         setIsAdmin(false);
-        setIsApproved(false);
       }
     });
 
@@ -78,9 +66,9 @@ export const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img
-              alt="PØINT BioSciences"
-              className="h-10 lg:h-12 w-auto"
-              src="/lovable-uploads/84c304af-556c-4932-b0d2-97a43b8c6c10.png"
+              alt="Resurrected"
+              className="h-8 lg:h-10 w-auto"
+              src={resurrectedLogo}
             />
           </Link>
 
@@ -118,12 +106,13 @@ export const Header = () => {
                       Admin Dashboard
                     </DropdownMenuItem>
                   )}
-                  {isApproved && (
-                    <DropdownMenuItem onClick={() => navigate("/portal")}>
-                      My Portal
-                    </DropdownMenuItem>
-                  )}
-                  {(isAdmin || isApproved) && <DropdownMenuSeparator />}
+                  <DropdownMenuItem onClick={() => navigate("/portal")}>
+                    My Orders
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/portal/profile")}>
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
@@ -131,9 +120,9 @@ export const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link to="/">
+              <Link to="/account">
                 <Button variant="heroOutline" size="default">
-                  B2B Access
+                  Sign In
                 </Button>
               </Link>
             )}
@@ -181,15 +170,13 @@ export const Header = () => {
                       Admin Dashboard
                     </Link>
                   )}
-                  {isApproved && (
-                    <Link
-                      to="/portal"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="font-heading text-lg font-medium tracking-wide py-2 text-muted-foreground"
-                    >
-                      My Portal
-                    </Link>
-                  )}
+                  <Link
+                    to="/portal"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="font-heading text-lg font-medium tracking-wide py-2 text-muted-foreground"
+                  >
+                    My Orders
+                  </Link>
                   <Button
                     variant="hero"
                     size="lg"
@@ -204,9 +191,9 @@ export const Header = () => {
                   </Button>
                 </>
               ) : (
-                <Link to="/" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/account" onClick={() => setIsMenuOpen(false)}>
                   <Button variant="hero" size="lg" className="w-full mt-4">
-                    B2B Access
+                    Sign In
                   </Button>
                 </Link>
               )}

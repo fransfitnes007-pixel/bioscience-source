@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 const stats = [
   { value: "99.9%", label: "Purity · 3rd Party Tested" },
   { value: "50+", label: "Research Compounds" },
-  { value: "24-72h", label: "Order Turnaround" },
-  { value: "300-500%", label: "Margin Potential" },
+  { value: "24-72h", label: "Shipping Turnaround" },
+  { value: "10K+", label: "Happy Customers" },
 ];
 
 export const StatsSection = () => {
@@ -13,14 +13,9 @@ export const StatsSection = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
       { threshold: 0.2 }
     );
-
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);

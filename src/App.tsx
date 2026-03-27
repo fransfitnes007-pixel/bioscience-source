@@ -4,7 +4,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
-import Gateway from "./pages/Gateway";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductPage from "./pages/ProductPage";
@@ -14,7 +13,6 @@ import About from "./pages/About";
 import Terms from "./pages/Terms";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Access from "./pages/Access";
-import Apply from "./pages/Apply";
 import NotFound from "./pages/NotFound";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import SetPassword from "./pages/SetPassword";
@@ -47,8 +45,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Gateway />} />
-            <Route path="/home" element={<Index />} />
+            <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:slug" element={<ProductPage />} />
             <Route path="/cart" element={<Cart />} />
@@ -57,8 +54,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/access" element={<Access />} />
-            <Route path="/apply" element={<Apply />} />
+            <Route path="/account" element={<Access />} />
             <Route path="/set-password" element={<SetPassword />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />

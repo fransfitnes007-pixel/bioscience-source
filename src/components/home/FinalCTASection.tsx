@@ -9,14 +9,9 @@ export const FinalCTASection = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
       { threshold: 0.3 }
     );
-
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -31,12 +26,12 @@ export const FinalCTASection = () => {
             Ready to Get Started?
           </h2>
           <p className="font-body text-lg text-muted-foreground mb-10">
-            Apply for wholesale access and start ordering directly from Point Biosciences. 
-            Better margins, better quality, better results for your business.
+            Browse our catalog of premium peptides and place your order today. 
+            Fast shipping, guaranteed purity, no hassle.
           </p>
-          <Link to="/access">
+          <Link to="/products">
             <Button variant="hero" size="lg" className="group">
-              Apply Now
+              Shop Products
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>

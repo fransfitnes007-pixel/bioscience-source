@@ -30,8 +30,8 @@ export const COASection = () => {
               COAs & Purity Documentation
             </h2>
             <p className="font-body text-muted-foreground max-w-2xl mx-auto">
-              Every product we supply comes with comprehensive 3rd party testing documentation, 
-              ensuring 99.9% purity verification and complete transparency for your business.
+              Every product comes with comprehensive third-party testing documentation, 
+              ensuring 99.9% purity verification and complete transparency.
             </p>
           </div>
 
