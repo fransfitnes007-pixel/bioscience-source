@@ -26,28 +26,30 @@ const handler = async (req: Request): Promise<Response> => {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
-    // Create admin client with service role
     const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-      },
+      auth: { autoRefreshToken: false, persistSession: false },
     });
 
     // Verify the caller is an admin
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      throw new Error("No authorization header");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
     }
 
     const token = authHeader.replace("Bearer ", "");
     const { data: userData, error: userError } = await supabaseAdmin.auth.getUser(token);
     
     if (userError || !userData.user) {
-      throw new Error("Unauthorized");
+      return new Response(
+        JSON.stringify({ error: "Invalid authentication" }),
+        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
     }
 
-    // Check if user has admin role
+    // Check admin role
     const { data: roles, error: rolesError } = await supabaseAdmin
       .from("user_roles")
       .select("role")
@@ -55,21 +57,47 @@ const handler = async (req: Request): Promise<Response> => {
       .eq("role", "admin");
 
     if (rolesError || !roles || roles.length === 0) {
-      throw new Error("Admin access required");
+      return new Response(
+        JSON.stringify({ error: "Admin access required" }),
+        { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
     }
 
-    const {
-      applicationId,
-      email,
-      contactName,
-      businessName,
-      phone,
-      website,
-      country,
-    }: CreatePartnerRequest = await req.json();
+    const body: CreatePartnerRequest = await req.json();
+    const { applicationId, email, contactName, businessName, phone, website, country } = body;
 
+    // Input validation
     if (!applicationId || !email || !contactName || !businessName) {
-      throw new Error("Missing required fields");
+      return new Response(
+        JSON.stringify({ error: "Missing required fields" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email) || email.length > 255) {
+      return new Response(
+        JSON.stringify({ error: "Invalid email format" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // UUID validation
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(applicationId)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid application ID" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Length validation
+    if (contactName.length > 200 || businessName.length > 200) {
+      return new Response(
+        JSON.stringify({ error: "Input exceeds maximum length" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
     }
 
     // Check if user already exists
@@ -80,72 +108,74 @@ const handler = async (req: Request): Promise<Response> => {
     let setupLink: string;
 
     if (existingUser) {
-      // User already exists, just generate a password reset link
       userId = existingUser.id;
       
       const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
         type: "magiclink",
-        email: email,
-        options: {
-          redirectTo: `https://resurrected.com/set-password`,
-        },
+        email,
+        options: { redirectTo: `https://resurrected.com/set-password` },
       });
 
       if (linkError) {
-        throw new Error(`Failed to generate setup link: ${linkError.message}`);
+        console.error("Link generation error:", linkError);
+        return new Response(
+          JSON.stringify({ error: "Failed to generate setup link" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
       }
 
       setupLink = linkData.properties.action_link;
     } else {
-      // Create new user with a random temporary password
-      const tempPassword = crypto.randomUUID() + "Aa1!"; // Meets password requirements
+      const tempPassword = crypto.randomUUID() + "Aa1!";
       
       const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
-        email: email,
+        email,
         password: tempPassword,
-        email_confirm: true, // Auto-confirm the email
-        user_metadata: {
-          contact_name: contactName,
-          business_name: businessName,
-        },
+        email_confirm: true,
+        user_metadata: { contact_name: contactName, business_name: businessName },
       });
 
       if (createError) {
-        throw new Error(`Failed to create user: ${createError.message}`);
+        console.error("User creation error:", createError);
+        return new Response(
+          JSON.stringify({ error: "Failed to create account" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
       }
 
       userId = newUser.user.id;
 
-      // Generate magic link for password setup
       const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
         type: "magiclink",
-        email: email,
-        options: {
-          redirectTo: `https://resurrected.com/set-password`,
-        },
+        email,
+        options: { redirectTo: `https://resurrected.com/set-password` },
       });
 
       if (linkError) {
-        throw new Error(`Failed to generate setup link: ${linkError.message}`);
+        console.error("Link generation error:", linkError);
+        return new Response(
+          JSON.stringify({ error: "Failed to generate setup link" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
       }
 
       setupLink = linkData.properties.action_link;
     }
 
-    // Parse contact name into first/last
+    // Parse contact name
     const nameParts = contactName.trim().split(" ");
     const firstName = nameParts[0] || "";
     const lastName = nameParts.slice(1).join(" ") || "";
 
-    // Fetch the application to get the company logo URL
+    // Fetch application for company logo
     const { data: applicationData } = await supabaseAdmin
       .from("applications")
       .select("company_logo_url")
       .eq("id", applicationId)
       .single();
 
-    // Update or create profile (include company_logo_url from application)
-    const { error: profileError } = await supabaseAdmin
+    // Upsert profile
+    await supabaseAdmin
       .from("profiles")
       .upsert({
         user_id: userId,
@@ -158,47 +188,32 @@ const handler = async (req: Request): Promise<Response> => {
         country: country || null,
         status: "approved",
         company_logo_url: applicationData?.company_logo_url || null,
-      }, {
-        onConflict: "user_id",
-      });
+      }, { onConflict: "user_id" });
 
-    if (profileError) {
-      console.error("Profile upsert error:", profileError);
-      // Don't throw - profile might already exist from trigger
-    }
-
-    // Update the application with the user_id
-    const { error: appError } = await supabaseAdmin
+    // Update application with user_id
+    await supabaseAdmin
       .from("applications")
       .update({ user_id: userId })
       .eq("id", applicationId);
 
-    if (appError) {
-      console.error("Application update error:", appError);
-    }
-
-    console.log(`Partner account created/updated for ${email}, userId: ${userId}`);
+    // Audit log
+    await supabaseAdmin.from("security_audit_log").insert({
+      user_id: userData.user.id,
+      action: "partner_account_created",
+      resource_type: "application",
+      resource_id: applicationId,
+      metadata: { partner_email: email, business_name: businessName },
+    });
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        userId,
-        setupLink,
-      }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      JSON.stringify({ success: true, userId, setupLink }),
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   } catch (error: unknown) {
     console.error("Error in create-partner-account:", error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return new Response(
-      JSON.stringify({ success: false, error: errorMessage }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      JSON.stringify({ error: "Failed to create partner account" }),
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 };
