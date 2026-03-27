@@ -57,6 +57,8 @@ import AdminLiveView from "./pages/admin/LiveView";
 import AdminOnlineStore from "./pages/admin/OnlineStore";
 import AdminShopChannel from "./pages/admin/ShopChannel";
 import AdminTikTokChannel from "./pages/admin/TikTokChannel";
+import AdminSettingsGeneral from "./pages/admin/SettingsGeneral";
+import AdminSettingsCheckout from "./pages/admin/SettingsCheckout";
 import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
 import PortalProducts from "./pages/portal/Products";
@@ -132,6 +134,8 @@ const App = () => (
             <Route path="/admin/businesses" element={<AdminBusinesses />} />
             <Route path="/admin/messages-center" element={<AdminMessagesCenter />} />
             <Route path="/admin/suppliers" element={<AdminSuppliers />} />
+            <Route path="/admin/settings" element={<AdminSettingsGeneral />} />
+            <Route path="/admin/settings/checkout" element={<AdminSettingsCheckout />} />
             {/* Supplier Portal Routes */}
             <Route path="/supplier" element={<SupplierDashboard />} />
             <Route path="/supplier/orders" element={<SupplierOrders />} />
