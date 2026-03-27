@@ -234,7 +234,7 @@ const FinancePayouts = () => {
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                    filter === f ? "bg-primary text-white" : "bg-secondary text-muted-foreground hover:bg-accent"
+                    filter === f ? "bg-foreground text-background" : "bg-secondary text-muted-foreground hover:bg-accent"
                   }`}
                 >
                   {f.charAt(0).toUpperCase() + f.slice(1)}
