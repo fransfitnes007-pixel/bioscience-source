@@ -2,15 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "@/components/admin/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
-import { ArrowLeft, Plus, FileText, Trash2 } from "lucide-react";
+import { FileText, Plus, Trash2 } from "lucide-react";
 
 interface DraftOrder {
   id: string;
@@ -46,68 +41,78 @@ const DraftOrders = () => {
     <AdminLayout>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/orders")}>
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-            <h1 className="text-xl font-bold">Draft orders</h1>
+          <div className="flex items-center gap-2">
+            <FileText className="h-5 w-5 text-[#202223]" />
+            <h1 className="text-xl font-semibold text-[#202223]">Drafts</h1>
           </div>
-          <Button size="sm" onClick={() => navigate("/admin/orders/new")}>
-            <Plus className="h-4 w-4 mr-1" /> Create order
+          <Button
+            size="sm"
+            className="bg-[#303030] text-white hover:bg-[#1a1a1a]"
+            onClick={() => navigate("/admin/orders/new")}
+          >
+            Create order
           </Button>
         </div>
 
-        <Card>
-          <CardContent className="p-0">
-            {isLoading ? (
-              <div className="text-center py-12 text-muted-foreground">Loading...</div>
-            ) : drafts.length === 0 ? (
-              <div className="text-center py-12 text-muted-foreground">
-                <FileText className="h-10 w-10 mx-auto mb-3 opacity-40" />
-                <p>No draft orders</p>
-                <Button variant="link" onClick={() => navigate("/admin/orders/new")}>Create one</Button>
+        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+          {isLoading ? (
+            <div className="text-center py-16 text-[#6d7175]">Loading...</div>
+          ) : drafts.length === 0 ? (
+            <div className="text-center py-20">
+              <div className="mx-auto w-24 h-24 mb-6 rounded-full bg-[#f6f6f7] flex items-center justify-center">
+                <FileText className="h-10 w-10 text-[#b5b5b5]" />
               </div>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Draft</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Customer</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Total</TableHead>
-                    <TableHead className="w-10"></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {drafts.map(draft => (
-                    <TableRow key={draft.id}>
-                      <TableCell className="font-mono text-sm font-medium">{draft.draft_number}</TableCell>
-                      <TableCell className="text-sm text-muted-foreground">
-                        {format(new Date(draft.created_at), "MMM d, yyyy")}
-                      </TableCell>
-                      <TableCell>
-                        <p className="text-sm">{draft.customer_name || "No customer"}</p>
-                        {draft.customer_email && <p className="text-xs text-muted-foreground">{draft.customer_email}</p>}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline" className="bg-yellow-500/10 text-yellow-600 border-yellow-500/20">
-                          {draft.status}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right font-medium">${Number(draft.total).toFixed(2)}</TableCell>
-                      <TableCell>
-                        <Button variant="ghost" size="sm" onClick={() => deleteDraft(draft.id)}>
-                          <Trash2 className="h-4 w-4 text-destructive" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </CardContent>
-        </Card>
+              <h3 className="text-lg font-semibold text-[#202223] mb-2">Manually create orders and invoices</h3>
+              <p className="text-[#6d7175] mb-6 max-w-md mx-auto">
+                Use draft orders to take orders over the phone, email invoices to customers, and collect payments.
+              </p>
+              <Button
+                className="bg-[#303030] text-white hover:bg-[#1a1a1a]"
+                onClick={() => navigate("/admin/orders/new")}
+              >
+                Create draft order
+              </Button>
+            </div>
+          ) : (
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-[#e1e3e5] text-left">
+                  <th className="py-3 px-4 text-[#6d7175] font-medium">Draft</th>
+                  <th className="py-3 px-4 text-[#6d7175] font-medium">Date</th>
+                  <th className="py-3 px-4 text-[#6d7175] font-medium">Customer</th>
+                  <th className="py-3 px-4 text-[#6d7175] font-medium">Status</th>
+                  <th className="py-3 px-4 text-[#6d7175] font-medium text-right">Total</th>
+                  <th className="py-3 px-4 w-10"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {drafts.map(draft => (
+                  <tr key={draft.id} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] transition-colors">
+                    <td className="py-3 px-4 font-medium text-[#005bd3]">{draft.draft_number}</td>
+                    <td className="py-3 px-4 text-[#6d7175]">
+                      {format(new Date(draft.created_at), "MMM d, yyyy")}
+                    </td>
+                    <td className="py-3 px-4">
+                      <p className="text-[#202223]">{draft.customer_name || "No customer"}</p>
+                      {draft.customer_email && <p className="text-xs text-[#6d7175]">{draft.customer_email}</p>}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                        {draft.status}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 text-right font-medium text-[#202223]">${Number(draft.total).toFixed(2)}</td>
+                    <td className="py-3 px-4">
+                      <button onClick={() => deleteDraft(draft.id)} className="p-1 rounded hover:bg-[#e1e3e5]">
+                        <Trash2 className="h-4 w-4 text-[#6d7175]" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </AdminLayout>
   );

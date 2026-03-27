@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "@/components/admin/AdminLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Trash2, Save, Send, X } from "lucide-react";
+import { ArrowLeft, Plus, X, Search, Pencil } from "lucide-react";
 
 interface DraftItem {
   id: string;
@@ -20,41 +19,61 @@ interface DraftItem {
   variation_name: string;
   quantity: number;
   unit_price: number;
+  is_taxable: boolean;
+  is_physical: boolean;
+  weight: number;
 }
 
 const CreateDraftOrder = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [showCustomItem, setShowCustomItem] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
 
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [notes, setNotes] = useState("");
-  const [items, setItems] = useState<DraftItem[]>([
-    { id: crypto.randomUUID(), product_name: "", variation_name: "", quantity: 1, unit_price: 0 },
-  ]);
+  const [items, setItems] = useState<DraftItem[]>([]);
 
   const [shippingCost, setShippingCost] = useState("0");
   const [discountAmount, setDiscountAmount] = useState("0");
 
-  const addItem = () => {
-    setItems([...items, { id: crypto.randomUUID(), product_name: "", variation_name: "", quantity: 1, unit_price: 0 }]);
+  // Custom item form
+  const [customName, setCustomName] = useState("");
+  const [customPrice, setCustomPrice] = useState("0.00");
+  const [customQty, setCustomQty] = useState("1");
+  const [customTaxable, setCustomTaxable] = useState(true);
+  const [customPhysical, setCustomPhysical] = useState(true);
+  const [customWeight, setCustomWeight] = useState("0");
+
+  const addCustomItem = () => {
+    if (!customName) return;
+    setItems([...items, {
+      id: crypto.randomUUID(),
+      product_name: customName,
+      variation_name: "",
+      quantity: Number(customQty),
+      unit_price: Number(customPrice),
+      is_taxable: customTaxable,
+      is_physical: customPhysical,
+      weight: Number(customWeight),
+    }]);
+    setCustomName("");
+    setCustomPrice("0.00");
+    setCustomQty("1");
+    setShowCustomItem(false);
   };
 
   const removeItem = (id: string) => {
-    if (items.length <= 1) return;
     setItems(items.filter(i => i.id !== id));
-  };
-
-  const updateItem = (id: string, field: keyof DraftItem, value: any) => {
-    setItems(items.map(i => i.id === id ? { ...i, [field]: value } : i));
   };
 
   const subtotal = items.reduce((sum, i) => sum + (i.quantity * i.unit_price), 0);
   const total = subtotal - Number(discountAmount) + Number(shippingCost);
 
-  const saveDraft = async (status: string = "open") => {
-    if (!items.some(i => i.product_name)) {
+  const saveDraft = async () => {
+    if (items.length === 0) {
       toast({ title: "Error", description: "Add at least one product", variant: "destructive" });
       return;
     }
@@ -64,7 +83,7 @@ const CreateDraftOrder = () => {
       const draftNumber = `D-${Date.now().toString(36).toUpperCase()}`;
       const { data: draft, error } = await supabase.from("draft_orders").insert({
         draft_number: draftNumber,
-        status,
+        status: "open",
         customer_email: customerEmail,
         customer_name: customerName,
         notes,
@@ -79,7 +98,7 @@ const CreateDraftOrder = () => {
 
       if (draft) {
         await supabase.from("draft_order_items").insert(
-          items.filter(i => i.product_name).map(i => ({
+          items.map(i => ({
             draft_order_id: draft.id,
             product_name: i.product_name,
             variation_name: i.variation_name,
@@ -102,151 +121,278 @@ const CreateDraftOrder = () => {
 
   return (
     <AdminLayout>
-      <div className="space-y-6 max-w-4xl">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/orders")}>
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-            <h1 className="text-xl font-bold">Create order</h1>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center gap-3">
+          <button onClick={() => navigate("/admin/orders")} className="p-1 rounded hover:bg-[#e1e3e5]">
+            <ArrowLeft className="h-5 w-5 text-[#6d7175]" />
+          </button>
+          <h1 className="text-xl font-semibold text-[#202223]">Create order</h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-4">
+            {/* Products Card */}
+            <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+              <div className="px-5 py-4 border-b border-[#e1e3e5]">
+                <h2 className="font-semibold text-[#202223]">Products</h2>
+              </div>
+              <div className="p-5">
+                {items.length > 0 && (
+                  <div className="space-y-3 mb-4">
+                    {items.map(item => (
+                      <div key={item.id} className="flex items-center justify-between p-3 bg-[#f6f6f7] rounded-lg">
+                        <div>
+                          <p className="text-sm font-medium text-[#202223]">{item.product_name}</p>
+                          <p className="text-xs text-[#6d7175]">${item.unit_price.toFixed(2)} × {item.quantity}</p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="text-sm font-medium text-[#202223]">${(item.unit_price * item.quantity).toFixed(2)}</span>
+                          <button onClick={() => removeItem(item.id)} className="p-1 rounded hover:bg-[#e1e3e5]">
+                            <X className="h-4 w-4 text-[#6d7175]" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="flex items-center gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6d7175]" />
+                    <input
+                      type="text"
+                      placeholder="Search products"
+                      className="w-full h-9 pl-9 pr-3 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                    />
+                  </div>
+                  <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">
+                    Browse
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]"
+                    onClick={() => setShowCustomItem(true)}
+                  >
+                    Add custom item
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment Card */}
+            <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+              <div className="px-5 py-4 border-b border-[#e1e3e5]">
+                <h2 className="font-semibold text-[#202223]">Payment</h2>
+              </div>
+              <div className="p-5">
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-[#6d7175]">Subtotal</span>
+                    <span className="text-[#202223]">${subtotal.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[#6d7175]">Add discount</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#6d7175]">—</span>
+                      <span className="text-[#202223]">${Number(discountAmount).toFixed(2)}</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[#6d7175]">Add shipping or delivery</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#6d7175]">—</span>
+                      <span className="text-[#202223]">${Number(shippingCost).toFixed(2)}</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[#6d7175]">Estimated tax</span>
+                    <span className="text-[#6d7175]">Not calculated</span>
+                  </div>
+                  <div className="border-t border-[#e1e3e5] pt-3 flex justify-between font-semibold">
+                    <span className="text-[#202223]">Total</span>
+                    <span className="text-[#202223]">${total.toFixed(2)}</span>
+                  </div>
+                </div>
+                {items.length === 0 && (
+                  <p className="text-sm text-[#6d7175] mt-4 pt-4 border-t border-[#e1e3e5]">
+                    Add a product to calculate total and view payment options
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={() => saveDraft("open")} disabled={isLoading}>
-              <Save className="h-4 w-4 mr-1" /> Save draft
-            </Button>
+
+          {/* Right Column */}
+          <div className="space-y-4">
+            {/* Notes */}
+            <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+              <div className="px-5 py-4 flex items-center justify-between border-b border-[#e1e3e5]">
+                <h2 className="font-semibold text-[#202223]">Notes</h2>
+                <button onClick={() => setShowNotes(!showNotes)} className="p-1 rounded hover:bg-[#e1e3e5]">
+                  <Pencil className="h-4 w-4 text-[#6d7175]" />
+                </button>
+              </div>
+              <div className="p-5">
+                {showNotes ? (
+                  <textarea
+                    value={notes}
+                    onChange={e => setNotes(e.target.value)}
+                    placeholder="Add notes..."
+                    className="w-full h-20 px-3 py-2 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3] resize-none"
+                  />
+                ) : (
+                  <p className="text-sm text-[#6d7175]">{notes || "No notes"}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Customer */}
+            <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+              <div className="px-5 py-4 border-b border-[#e1e3e5]">
+                <h2 className="font-semibold text-[#202223]">Customer</h2>
+              </div>
+              <div className="p-5">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6d7175]" />
+                  <input
+                    type="text"
+                    placeholder="Search or create a customer"
+                    value={customerName}
+                    onChange={e => setCustomerName(e.target.value)}
+                    className="w-full h-9 pl-9 pr-3 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                  />
+                </div>
+                <input
+                  type="email"
+                  placeholder="Customer email"
+                  value={customerEmail}
+                  onChange={e => setCustomerEmail(e.target.value)}
+                  className="w-full h-9 px-3 mt-3 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                />
+              </div>
+            </div>
+
+            {/* Tags */}
+            <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+              <div className="px-5 py-4 flex items-center justify-between border-b border-[#e1e3e5]">
+                <h2 className="font-semibold text-[#202223]">Tags</h2>
+                <button className="p-1 rounded hover:bg-[#e1e3e5]">
+                  <Pencil className="h-4 w-4 text-[#6d7175]" />
+                </button>
+              </div>
+              <div className="p-5">
+                <input
+                  type="text"
+                  placeholder="Add tags..."
+                  className="w-full h-9 px-3 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
-            {/* Products */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">Products</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {items.map((item, i) => (
-                  <div key={item.id} className="grid grid-cols-12 gap-2 items-end">
-                    <div className="col-span-4">
-                      {i === 0 && <Label className="text-xs">Product</Label>}
-                      <Input
-                        value={item.product_name}
-                        onChange={e => updateItem(item.id, "product_name", e.target.value)}
-                        placeholder="Product name"
-                      />
-                    </div>
-                    <div className="col-span-3">
-                      {i === 0 && <Label className="text-xs">Variation</Label>}
-                      <Input
-                        value={item.variation_name}
-                        onChange={e => updateItem(item.id, "variation_name", e.target.value)}
-                        placeholder="Variation"
-                      />
-                    </div>
-                    <div className="col-span-2">
-                      {i === 0 && <Label className="text-xs">Qty</Label>}
-                      <Input
-                        type="number"
-                        value={item.quantity}
-                        onChange={e => updateItem(item.id, "quantity", Number(e.target.value))}
-                        min={1}
-                      />
-                    </div>
-                    <div className="col-span-2">
-                      {i === 0 && <Label className="text-xs">Price</Label>}
-                      <Input
-                        type="number"
-                        value={item.unit_price}
-                        onChange={e => updateItem(item.id, "unit_price", Number(e.target.value))}
-                        min={0}
-                        step="0.01"
-                      />
-                    </div>
-                    <div className="col-span-1">
-                      <Button variant="ghost" size="sm" onClick={() => removeItem(item.id)} disabled={items.length <= 1}>
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-                <Button variant="outline" size="sm" onClick={addItem}>
-                  <Plus className="h-4 w-4 mr-1" /> Add item
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Payment */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">Payment</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between items-center gap-4">
-                    <span className="text-muted-foreground">Discount</span>
-                    <Input
-                      type="number"
-                      value={discountAmount}
-                      onChange={e => setDiscountAmount(e.target.value)}
-                      className="w-24 h-8 text-right"
-                      min={0}
-                      step="0.01"
-                    />
-                  </div>
-                  <div className="flex justify-between items-center gap-4">
-                    <span className="text-muted-foreground">Shipping</span>
-                    <Input
-                      type="number"
-                      value={shippingCost}
-                      onChange={e => setShippingCost(e.target.value)}
-                      className="w-24 h-8 text-right"
-                      min={0}
-                      step="0.01"
-                    />
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between font-bold">
-                    <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">Customer</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <Label>Name</Label>
-                  <Input value={customerName} onChange={e => setCustomerName(e.target.value)} placeholder="Customer name" />
-                </div>
-                <div>
-                  <Label>Email</Label>
-                  <Input value={customerEmail} onChange={e => setCustomerEmail(e.target.value)} placeholder="customer@email.com" type="email" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">Notes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Add notes..." rows={3} />
-              </CardContent>
-            </Card>
-          </div>
+        {/* Save bar */}
+        <div className="flex justify-end gap-2 pt-2">
+          <Button
+            variant="outline"
+            className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]"
+            onClick={() => navigate("/admin/orders")}
+          >
+            Discard
+          </Button>
+          <Button
+            className="bg-[#303030] text-white hover:bg-[#1a1a1a]"
+            onClick={saveDraft}
+            disabled={isLoading}
+          >
+            Save draft
+          </Button>
         </div>
       </div>
+
+      {/* Custom Item Dialog */}
+      <Dialog open={showCustomItem} onOpenChange={setShowCustomItem}>
+        <DialogContent className="bg-white border-[#e1e3e5] text-[#202223] max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-[#202223]">Add custom item</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="col-span-3 sm:col-span-1 sm:col-start-1 sm:col-end-2">
+                <Label className="text-sm text-[#202223]">Item name</Label>
+                <input
+                  value={customName}
+                  onChange={e => setCustomName(e.target.value)}
+                  className="w-full h-9 px-3 mt-1 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                />
+              </div>
+              <div>
+                <Label className="text-sm text-[#202223]">Price</Label>
+                <div className="relative mt-1">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[#6d7175]">$</span>
+                  <input
+                    type="number"
+                    value={customPrice}
+                    onChange={e => setCustomPrice(e.target.value)}
+                    className="w-full h-9 pl-7 pr-3 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+              </div>
+              <div>
+                <Label className="text-sm text-[#202223]">Quantity</Label>
+                <input
+                  type="number"
+                  value={customQty}
+                  onChange={e => setCustomQty(e.target.value)}
+                  className="w-full h-9 px-3 mt-1 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                  min="1"
+                />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <label className="flex items-center gap-2 text-sm text-[#202223]">
+                <Checkbox checked={customTaxable} onCheckedChange={(v) => setCustomTaxable(!!v)} />
+                Item is taxable
+              </label>
+              <label className="flex items-center gap-2 text-sm text-[#202223]">
+                <Checkbox checked={customPhysical} onCheckedChange={(v) => setCustomPhysical(!!v)} />
+                Item is a physical product
+              </label>
+            </div>
+            {customPhysical && (
+              <div>
+                <Label className="text-sm text-[#6d7175]">Item weight (optional)</Label>
+                <div className="flex gap-2 mt-1">
+                  <input
+                    type="number"
+                    value={customWeight}
+                    onChange={e => setCustomWeight(e.target.value)}
+                    className="flex-1 h-9 px-3 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+                    min="0"
+                    step="0.01"
+                  />
+                  <div className="h-9 px-3 rounded-lg border border-[#c9cccf] bg-[#f6f6f7] text-sm text-[#202223] flex items-center">
+                    kg
+                  </div>
+                </div>
+                <p className="text-xs text-[#6d7175] mt-1">Used to calculate shipping rates accurately</p>
+              </div>
+            )}
+          </div>
+          <DialogFooter className="gap-2">
+            <Button variant="outline" className="bg-white border-[#c9cccf] text-[#202223]" onClick={() => setShowCustomItem(false)}>
+              Cancel
+            </Button>
+            <Button className="bg-[#303030] text-white hover:bg-[#1a1a1a]" onClick={addCustomItem}>
+              Add item
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </AdminLayout>
   );
 };
