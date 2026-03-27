@@ -32,6 +32,12 @@ import AdminAbandonedCheckouts from "./pages/admin/AbandonedCheckouts";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminInventory from "./pages/admin/Inventory";
 import AdminProductEdit from "./pages/admin/ProductEdit";
+import AdminTransfers from "./pages/admin/Transfers";
+import AdminCreateTransfer from "./pages/admin/CreateTransfer";
+import AdminGiftCards from "./pages/admin/GiftCards";
+import AdminCreateGiftCard from "./pages/admin/CreateGiftCard";
+import AdminCustomers from "./pages/admin/Customers";
+import AdminCustomerDetail from "./pages/admin/CustomerDetail";
 import AdminSuppliers from "./pages/admin/Suppliers";
 import TrackOrder from "./pages/TrackOrder";
 import PortalDashboard from "./pages/portal/Dashboard";
@@ -78,6 +84,12 @@ const App = () => (
             <Route path="/admin/products" element={<AdminProducts />} />
             <Route path="/admin/products/:slug" element={<AdminProductEdit />} />
             <Route path="/admin/inventory" element={<AdminInventory />} />
+            <Route path="/admin/transfers" element={<AdminTransfers />} />
+            <Route path="/admin/transfers/new" element={<AdminCreateTransfer />} />
+            <Route path="/admin/gift-cards" element={<AdminGiftCards />} />
+            <Route path="/admin/gift-cards/new" element={<AdminCreateGiftCard />} />
+            <Route path="/admin/customers" element={<AdminCustomers />} />
+            <Route path="/admin/customers/:userId" element={<AdminCustomerDetail />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/inquiries" element={<AdminInquiries />} />
             <Route path="/admin/messages" element={<AdminContactMessages />} />

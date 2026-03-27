@@ -14,6 +14,8 @@ import {
   Truck,
   Tag,
   Store,
+  ArrowRightLeft,
+  Gift,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
@@ -43,13 +45,15 @@ const navSections = [
         icon: Tag,
         children: [
           { title: "Inventory", href: "/admin/inventory" },
+          { title: "Transfers", href: "/admin/transfers" },
+          { title: "Gift cards", href: "/admin/gift-cards" },
         ],
       },
     ],
   },
   {
     items: [
-      { title: "Customers", href: "/admin/businesses", icon: Users },
+      { title: "Customers", href: "/admin/customers", icon: Users },
       { title: "Applications", href: "/admin/applications", icon: FileText },
       { title: "Inquiries", href: "/admin/inquiries", icon: MessageSquare },
       { title: "Contact Messages", href: "/admin/messages", icon: Mail },
