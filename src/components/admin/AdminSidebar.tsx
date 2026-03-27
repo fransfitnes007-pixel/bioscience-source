@@ -21,6 +21,10 @@ import {
   TicketPercent,
   DollarSign,
   BarChart3,
+  Globe,
+  ShoppingBag,
+  Music,
+  ChevronDown,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
