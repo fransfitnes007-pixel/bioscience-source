@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Shield } from "lucide-react";
-import logo from "@/assets/point-logo-white.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -63,7 +63,7 @@ const AdminLogin = () => {
       <Card className="w-full max-w-md relative z-10 border-border/50 bg-card/80 backdrop-blur-sm">
         <CardHeader className="text-center space-y-4">
           <div className="flex justify-center">
-            <img src={logo} alt="Point Peptides" className="h-12" />
+            <img src={resurrectedLogo} alt="Resurrected" className="h-12" />
           </div>
           <div className="space-y-2">
             <CardTitle className="text-2xl font-bold flex items-center justify-center gap-2">

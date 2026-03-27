@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
             {/* Header */}
             <div className="text-center mb-12 animate-fade-up">
               <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-foreground">
-                Point Biosciences
+                Resurrected
               </h1>
               <h2 className="font-heading text-2xl text-muted-foreground">
                 Privacy Policy
@@ -22,10 +22,9 @@ const PrivacyPolicy = () => {
             {/* Privacy Policy Content */}
             <div className="prose prose-invert max-w-none animate-fade-up animation-delay-100">
               <p className="font-body text-muted-foreground leading-relaxed mb-8">
-                Point Biosciences ("we," "us," or "our") is committed to protecting your privacy. 
+                Resurrected ("we," "us," or "our") is committed to protecting your privacy. 
                 This Privacy Policy explains how we collect, use, disclose, and safeguard your 
-                information when you visit our website www.pointbiosciences.com ("Site") or make 
-                a purchase through our platform.
+                information when you visit our website ("Site") or make a purchase through our platform.
               </p>
 
               <section className="mb-8">
@@ -35,7 +34,7 @@ const PrivacyPolicy = () => {
                 </p>
                 <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-2">
                   <li>Name and contact information (email address, phone number, mailing address)</li>
-                  <li>Business information (company name, business type, professional credentials)</li>
+                  <li>Account information (username, password)</li>
                   <li>Payment and billing information</li>
                   <li>Order history and product preferences</li>
                   <li>Communications you send to us</li>
@@ -64,7 +63,6 @@ const PrivacyPolicy = () => {
                 <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-2">
                   <li>To process and fulfill your orders</li>
                   <li>To communicate with you about your account, orders, and inquiries</li>
-                  <li>To verify your eligibility to purchase products</li>
                   <li>To improve our Site, products, and services</li>
                   <li>To send promotional communications (with your consent)</li>
                   <li>To comply with legal obligations</li>
@@ -79,7 +77,7 @@ const PrivacyPolicy = () => {
                   your information in the following circumstances:
                 </p>
                 <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-2">
-                  <li><strong>Third-Party Suppliers:</strong> To facilitate order fulfillment with our vetted suppliers</li>
+                  <li><strong>Fulfillment Partners:</strong> To facilitate order fulfillment and shipping</li>
                   <li><strong>Service Providers:</strong> With companies that help us operate our business (payment processors, shipping carriers, analytics providers)</li>
                   <li><strong>Legal Requirements:</strong> When required by law, court order, or government request</li>
                   <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
@@ -144,16 +142,16 @@ const PrivacyPolicy = () => {
                   <li><strong>Data Portability:</strong> Request your data in a portable format</li>
                 </ul>
                 <p className="font-body text-muted-foreground leading-relaxed mt-4">
-                  To exercise these rights, please contact us at info@pointbiosciences.com.
+                  To exercise these rights, please contact us at support@resurrected.com.
                 </p>
               </section>
 
               <section className="mb-8">
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Children's Privacy</h3>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  Our Site is not intended for individuals under the age of 21. We do not knowingly collect 
-                  personal information from anyone under 21 years of age. If we become aware that we have 
-                  collected personal information from someone under 21, we will take steps to delete that 
+                  Our Site is not intended for individuals under the age of 18. We do not knowingly collect 
+                  personal information from anyone under 18 years of age. If we become aware that we have 
+                  collected personal information from someone under 18, we will take steps to delete that 
                   information promptly.
                 </p>
               </section>
@@ -195,9 +193,8 @@ const PrivacyPolicy = () => {
                   data practices, please contact us at:
                 </p>
                 <div className="font-body text-muted-foreground leading-relaxed">
-                  <p><strong>Point Biosciences</strong></p>
-                  <p>Email: info@pointbiosciences.com</p>
-                  <p>Phone: (602) 399-5298 | (602) 469-7146</p>
+                  <p><strong>Resurrected</strong></p>
+                  <p>Email: support@resurrected.com</p>
                 </div>
               </section>
 

@@ -166,7 +166,7 @@ serve(async (req) => {
           
           <p style="color: #666;">
             Best regards,<br>
-            Point Bio Sciences Team
+            The Resurrected Team
           </p>
           
           <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
@@ -185,7 +185,7 @@ serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Point Bio Sciences <noreply@pointbiosciences.com>",
+          from: "Resurrected <noreply@resurrected.com>",
           to: [order.billing_email],
           subject: `Your Order #${order.order_number} Has Shipped!`,
           html: emailHtml,

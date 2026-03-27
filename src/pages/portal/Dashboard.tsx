@@ -107,7 +107,7 @@ const PortalDashboard = () => {
             {loading ? (
               <Skeleton className="h-8 w-64" />
             ) : (
-              `Welcome back, ${profile?.first_name || profile?.business_name || 'Partner'}`
+              `Welcome back, ${profile?.first_name || 'there'}!`
             )}
           </h1>
           <p className="text-muted-foreground">Here's an overview of your account</p>

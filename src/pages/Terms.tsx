@@ -9,7 +9,7 @@ const Terms = () => {
             {/* Header */}
             <div className="text-center mb-12 animate-fade-up">
               <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-foreground">
-                Point Biosciences
+                Resurrected
               </h1>
               <h2 className="font-heading text-2xl text-muted-foreground">
                 Terms and Conditions of Use
@@ -22,31 +22,30 @@ const Terms = () => {
             {/* Terms Content */}
             <div className="prose prose-invert max-w-none animate-fade-up animation-delay-100">
               <p className="font-body text-muted-foreground leading-relaxed mb-8">
-                By accessing or using the website www.pointbiosciences.com ("Site"), you agree to 
+                By accessing or using our website ("Site"), you agree to 
                 comply with and be bound by these Terms and Conditions. These Terms govern your use 
-                of our Site and any services offered by Point Biosciences ("we," "us," or "our"). 
+                of our Site and any services offered by Resurrected ("we," "us," or "our"). 
                 If you do not agree with these Terms, you may not access or use the Site.
               </p>
 
               <section className="mb-8">
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">General Overview</h3>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  Point Biosciences is a distributor connecting businesses that are looking for research 
-                  products to third-party peptide suppliers. We do not manufacture, produce, or own any 
-                  peptides or other products listed on our Site. All purchases are made directly with the 
-                  third-party supplier; we act solely as a facilitator.
+                  Resurrected is a retailer of premium research peptides and compounds. We source products 
+                  from vetted, certified third-party suppliers and deliver them directly to our customers. 
+                  All products are sold for research purposes only.
                 </p>
               </section>
 
               <section className="mb-8">
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Eligibility</h3>
                 <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-2">
-                  <li>You must be at least 21 years of age.</li>
-                  <li>You must be a licensed professional, researcher, or otherwise qualified to purchase 
-                      peptides for in-vitro research purposes only.</li>
+                  <li>You must be at least 18 years of age.</li>
+                  <li>You must agree that all products purchased are for research purposes only and are 
+                      not intended for human or animal consumption.</li>
                 </ul>
                 <p className="font-body text-muted-foreground leading-relaxed mt-4">
-                  By using our Site, you represent and warrant that you meet these criteria. Point Biosciences 
+                  By using our Site, you represent and warrant that you meet these criteria. Resurrected 
                   reserves the right to refuse service or terminate accounts if eligibility requirements are not met.
                 </p>
               </section>
@@ -65,11 +64,11 @@ const Terms = () => {
               <section className="mb-8">
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Product Information and Use</h3>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
-                  All products offered through Point Biosciences are for in-vitro laboratory research purposes 
+                  All products offered through Resurrected are for in-vitro laboratory research purposes 
                   only. They are not intended for human or animal consumption, therapeutic use, or any other purpose.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
-                  The products carry inherent risks. Point Biosciences provides purity testing and Certificates 
+                  The products carry inherent risks. Resurrected provides purity testing and Certificates 
                   of Analysis (COAs) for all products obtained from third-party suppliers.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
@@ -77,8 +76,8 @@ const Terms = () => {
                   international laws regarding the handling, use, and disposal of these products.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  Point Biosciences does not provide medical advice, dosing instructions, or recommendations 
-                  for peptide reconstitution or application.
+                  Resurrected does not provide medical advice, dosing instructions, or recommendations 
+                  for peptide reconstitution or usage.
                 </p>
               </section>
 
@@ -89,13 +88,12 @@ const Terms = () => {
                   be modified or canceled after submission.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
-                  All orders are final unless otherwise specified. Point Biosciences is not liable for returns, 
-                  exchanges, or refunds for products provided by third-party suppliers.
+                  All orders are final unless otherwise specified. Resurrected is not liable for returns, 
+                  exchanges, or refunds unless a product quality issue is verified.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  Point Biosciences facilitates communication and delivery but is not responsible for supplier 
-                  defects, delays, or errors. Any claims regarding product quality or delivery must be submitted 
-                  to the supplier; we will assist as a facilitator.
+                  Resurrected coordinates fulfillment and delivery. Any claims regarding product quality 
+                  or delivery must be submitted within 30 days of receipt.
                 </p>
               </section>
 
@@ -105,11 +103,11 @@ const Terms = () => {
                   The Site and all content are provided "as is" without warranties of any kind, express or implied.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
-                  Point Biosciences is not liable for any direct, indirect, incidental, consequential, or punitive 
+                  Resurrected is not liable for any direct, indirect, incidental, consequential, or punitive 
                   damages arising from your use of the Site or products purchased through it.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
-                  By using the Site, you agree to indemnify and hold Point Biosciences harmless from any claims, 
+                  By using the Site, you agree to indemnify and hold Resurrected harmless from any claims, 
                   losses, liabilities, or expenses arising from your use, handling, or possession of products 
                   purchased through the Site.
                 </p>
@@ -123,7 +121,7 @@ const Terms = () => {
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Intellectual Property</h3>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
                   All content, including logos, graphics, text, designs, and Site structure, is the property of 
-                  Point Biosciences or its licensors and is protected by copyright, trademark, and other 
+                  Resurrected or its licensors and is protected by copyright, trademark, and other 
                   intellectual property laws.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed">
@@ -150,7 +148,7 @@ const Terms = () => {
               <section className="mb-8">
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Third-Party Links</h3>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  The Site may include links to third-party suppliers or websites. Point Biosciences does not 
+                  The Site may include links to third-party websites. Resurrected does not 
                   endorse or guarantee these third parties and is not responsible for their content, products, 
                   or practices.
                 </p>
@@ -163,7 +161,7 @@ const Terms = () => {
                   including import/export controls, licensing, and permits.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  Point Biosciences assumes no responsibility for non-compliance by any customer.
+                  Resurrected assumes no responsibility for non-compliance by any customer.
                 </p>
               </section>
 
@@ -182,7 +180,7 @@ const Terms = () => {
               <section className="mb-8">
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Amendments</h3>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
-                  Point Biosciences reserves the right to modify these Terms at any time.
+                  Resurrected reserves the right to modify these Terms at any time.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed">
                   Changes are effective immediately upon posting. Continued use of the Site constitutes acceptance 
@@ -193,7 +191,7 @@ const Terms = () => {
               <section className="mb-8">
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Force Majeure</h3>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  Point Biosciences is not liable for delays or failures caused by circumstances beyond our 
+                  Resurrected is not liable for delays or failures caused by circumstances beyond our 
                   reasonable control, including supplier delays, shipping disruptions, customs issues, or 
                   technical problems.
                 </p>
@@ -203,7 +201,7 @@ const Terms = () => {
                 <h3 className="font-heading text-xl font-semibold text-foreground mb-4">Complete Agreement</h3>
                 <p className="font-body text-muted-foreground leading-relaxed mb-4">
                   These Terms, together with the Privacy Policy, constitute the entire agreement between you 
-                  and Point Biosciences regarding your use of the Site.
+                  and Resurrected regarding your use of the Site.
                 </p>
                 <p className="font-body text-muted-foreground leading-relaxed">
                   Any prior agreements, communications, or understandings are superseded.

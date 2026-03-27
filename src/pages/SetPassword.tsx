@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Check, Loader2 } from "lucide-react";
-import pointLogo from "@/assets/point-logo-white.png";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 const SetPassword = () => {
   const [password, setPassword] = useState("");
@@ -112,7 +112,7 @@ const SetPassword = () => {
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <img src={pointLogo} alt="PØINT BioSciences" className="h-10 mx-auto mb-4" />
+            <img src={resurrectedLogo} alt="Resurrected" className="h-10 mx-auto mb-4" />
             <CardTitle className="text-destructive">Invalid or Expired Link</CardTitle>
             <CardDescription>
               This password setup link is invalid or has expired. Please contact support if you need a new link.
@@ -155,10 +155,10 @@ const SetPassword = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <img src={pointLogo} alt="PØINT BioSciences" className="h-10 mx-auto mb-4" />
+          <img src={resurrectedLogo} alt="Resurrected" className="h-10 mx-auto mb-4" />
           <CardTitle>Set Your Password</CardTitle>
           <CardDescription>
-            Create a secure password for your partner account
+            Create a secure password for your account
           </CardDescription>
         </CardHeader>
         <CardContent>
