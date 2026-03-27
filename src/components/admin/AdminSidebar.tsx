@@ -19,6 +19,8 @@ import {
   Gift,
   Megaphone,
   TicketPercent,
+  DollarSign,
+  BarChart3,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
@@ -85,6 +87,14 @@ const navSections = [
           { title: "Files", href: "/admin/content/files" },
           { title: "Menus", href: "/admin/content/menus" },
           { title: "Blog posts", href: "/admin/content/blog" },
+        ],
+      },
+      {
+        title: "Finance",
+        href: "/admin/finance",
+        icon: DollarSign,
+        children: [
+          { title: "Payouts", href: "/admin/finance/payouts" },
         ],
       },
     ],
