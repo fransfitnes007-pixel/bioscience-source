@@ -25,6 +25,7 @@ import {
   ShoppingBag,
   Music,
   ChevronDown,
+  Settings,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
