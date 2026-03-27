@@ -53,7 +53,26 @@ const navSections = [
   },
   {
     items: [
-      { title: "Customers", href: "/admin/customers", icon: Users },
+      {
+        title: "Customers",
+        href: "/admin/customers",
+        icon: Users,
+        children: [
+          { title: "Segments", href: "/admin/segments" },
+        ],
+      },
+      {
+        title: "Marketing",
+        href: "/admin/marketing",
+        icon: Megaphone,
+        children: [
+          { title: "Campaigns", href: "/admin/marketing/campaigns" },
+        ],
+      },
+    ],
+  },
+  {
+    items: [
       { title: "Applications", href: "/admin/applications", icon: FileText },
       { title: "Inquiries", href: "/admin/inquiries", icon: MessageSquare },
       { title: "Contact Messages", href: "/admin/messages", icon: Mail },
