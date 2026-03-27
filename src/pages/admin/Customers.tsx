@@ -82,60 +82,60 @@ const Customers = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Customers</h1>
+            <Users className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Customers</h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">Export</Button>
-            <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">Import</Button>
-            <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">More actions</Button>
-            <Button size="sm" className="bg-[#303030] text-white hover:bg-[#1a1a1a]">Add customer</Button>
+            <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">Export</Button>
+            <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">Import</Button>
+            <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">More actions</Button>
+            <Button size="sm" className="bg-primary text-white hover:bg-primary/90">Add customer</Button>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="text-sm text-[#6d7175]">
+        <div className="text-sm text-muted-foreground">
           {customers.length} customers &nbsp;·&nbsp; 100% of your customer base
         </div>
 
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6d7175]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search customers"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-10 pl-9 pr-4 rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+            className="w-full h-10 pl-9 pr-4 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           {isLoading ? (
-            <div className="text-center py-16 text-[#6d7175]">Loading customers...</div>
+            <div className="text-center py-16 text-muted-foreground">Loading customers...</div>
           ) : (
             <>
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-[#e1e3e5] text-left">
+                  <tr className="border-b border-border text-left">
                     <th className="py-3 px-4 w-10"><Checkbox /></th>
-                    <th className="py-3 px-4 text-[#6d7175] font-medium">Customer name</th>
-                    <th className="py-3 px-4 text-[#6d7175] font-medium">Email subscription</th>
-                    <th className="py-3 px-4 text-[#6d7175] font-medium">Location</th>
-                    <th className="py-3 px-4 text-[#6d7175] font-medium">Orders</th>
-                    <th className="py-3 px-4 text-[#6d7175] font-medium text-right">Amount spent</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium">Customer name</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium">Email subscription</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium">Location</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium">Orders</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium text-right">Amount spent</th>
                   </tr>
                 </thead>
                 <tbody>
                   {paged.map((c) => (
                     <tr
                       key={c.user_id}
-                      className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] cursor-pointer transition-colors"
+                      className="border-b border-border hover:bg-secondary cursor-pointer transition-colors"
                       onClick={() => navigate(`/admin/customers/${c.user_id}`)}
                     >
                       <td className="py-3 px-4" onClick={(e) => e.stopPropagation()}><Checkbox /></td>
-                      <td className="py-3 px-4 text-[#202223] font-medium">
+                      <td className="py-3 px-4 text-foreground font-medium">
                         {c.first_name || c.last_name
                           ? `${c.first_name || ""} ${c.last_name || ""}`.trim()
                           : c.email || "Unknown"}
@@ -145,23 +145,23 @@ const Customers = () => {
                           Subscribed
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-[#202223]">{c.country}</td>
-                      <td className="py-3 px-4 text-[#202223]">{c.order_count} orders</td>
-                      <td className="py-3 px-4 text-[#202223] text-right">${c.total_spent.toFixed(2)}</td>
+                      <td className="py-3 px-4 text-foreground">{c.country}</td>
+                      <td className="py-3 px-4 text-foreground">{c.order_count} orders</td>
+                      <td className="py-3 px-4 text-foreground text-right">${c.total_spent.toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <div className="flex items-center justify-between px-4 py-3 border-t border-[#e1e3e5]">
+              <div className="flex items-center justify-between px-4 py-3 border-t border-border">
                 <div className="flex items-center gap-2">
-                  <button onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0} className="p-1 rounded hover:bg-[#f1f1f1] disabled:opacity-30">
+                  <button onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0} className="p-1 rounded hover:bg-secondary disabled:opacity-30">
                     <ChevronLeft className="h-4 w-4" />
                   </button>
-                  <button onClick={() => setPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1} className="p-1 rounded hover:bg-[#f1f1f1] disabled:opacity-30">
+                  <button onClick={() => setPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1} className="p-1 rounded hover:bg-secondary disabled:opacity-30">
                     <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>
-                <span className="text-sm text-[#6d7175]">
+                <span className="text-sm text-muted-foreground">
                   {page * PAGE_SIZE + 1}-{Math.min((page + 1) * PAGE_SIZE, filtered.length)} of {filtered.length}
                 </span>
               </div>

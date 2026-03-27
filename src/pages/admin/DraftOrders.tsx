@@ -42,32 +42,32 @@ const DraftOrders = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <FileText className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Drafts</h1>
+            <FileText className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Drafts</h1>
           </div>
           <Button
             size="sm"
-            className="bg-[#303030] text-white hover:bg-[#1a1a1a]"
+            className="bg-primary text-white hover:bg-primary/90"
             onClick={() => navigate("/admin/orders/new")}
           >
             Create order
           </Button>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           {isLoading ? (
-            <div className="text-center py-16 text-[#6d7175]">Loading...</div>
+            <div className="text-center py-16 text-muted-foreground">Loading...</div>
           ) : drafts.length === 0 ? (
             <div className="text-center py-20">
-              <div className="mx-auto w-24 h-24 mb-6 rounded-full bg-[#f6f6f7] flex items-center justify-center">
-                <FileText className="h-10 w-10 text-[#b5b5b5]" />
+              <div className="mx-auto w-24 h-24 mb-6 rounded-full bg-secondary flex items-center justify-center">
+                <FileText className="h-10 w-10 text-muted-foreground" />
               </div>
-              <h3 className="text-lg font-semibold text-[#202223] mb-2">Manually create orders and invoices</h3>
-              <p className="text-[#6d7175] mb-6 max-w-md mx-auto">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Manually create orders and invoices</h3>
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                 Use draft orders to take orders over the phone, email invoices to customers, and collect payments.
               </p>
               <Button
-                className="bg-[#303030] text-white hover:bg-[#1a1a1a]"
+                className="bg-primary text-white hover:bg-primary/90"
                 onClick={() => navigate("/admin/orders/new")}
               >
                 Create draft order
@@ -76,35 +76,35 @@ const DraftOrders = () => {
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left">
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Draft</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Date</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Customer</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Status</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium text-right">Total</th>
+                <tr className="border-b border-border text-left">
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Draft</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Date</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Customer</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Status</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium text-right">Total</th>
                   <th className="py-3 px-4 w-10"></th>
                 </tr>
               </thead>
               <tbody>
                 {drafts.map(draft => (
-                  <tr key={draft.id} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] transition-colors">
-                    <td className="py-3 px-4 font-medium text-[#005bd3]">{draft.draft_number}</td>
-                    <td className="py-3 px-4 text-[#6d7175]">
+                  <tr key={draft.id} className="border-b border-border hover:bg-secondary transition-colors">
+                    <td className="py-3 px-4 font-medium text-primary">{draft.draft_number}</td>
+                    <td className="py-3 px-4 text-muted-foreground">
                       {format(new Date(draft.created_at), "MMM d, yyyy")}
                     </td>
                     <td className="py-3 px-4">
-                      <p className="text-[#202223]">{draft.customer_name || "No customer"}</p>
-                      {draft.customer_email && <p className="text-xs text-[#6d7175]">{draft.customer_email}</p>}
+                      <p className="text-foreground">{draft.customer_name || "No customer"}</p>
+                      {draft.customer_email && <p className="text-xs text-muted-foreground">{draft.customer_email}</p>}
                     </td>
                     <td className="py-3 px-4">
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                         {draft.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-right font-medium text-[#202223]">${Number(draft.total).toFixed(2)}</td>
+                    <td className="py-3 px-4 text-right font-medium text-foreground">${Number(draft.total).toFixed(2)}</td>
                     <td className="py-3 px-4">
                       <button onClick={() => deleteDraft(draft.id)} className="p-1 rounded hover:bg-[#e1e3e5]">
-                        <Trash2 className="h-4 w-4 text-[#6d7175]" />
+                        <Trash2 className="h-4 w-4 text-muted-foreground" />
                       </button>
                     </td>
                   </tr>

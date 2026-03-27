@@ -62,20 +62,20 @@ const Discounts = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Tag className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Discounts</h1>
+            <Tag className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Discounts</h1>
           </div>
           <div className="flex gap-2">
             <Button
               variant="outline"
-              className="text-sm border-[#c9cccf] text-[#202223]"
+              className="text-sm border-border text-foreground"
               onClick={() => navigate("/admin/affiliates")}
             >
               <Users className="h-4 w-4 mr-2" />
               Affiliates
             </Button>
             <Button
-              className="bg-[#202223] text-white hover:bg-[#333] text-sm"
+              className="bg-primary text-white hover:bg-accent text-sm"
               onClick={() => navigate("/admin/discounts/new")}
             >
               Create discount
@@ -84,16 +84,16 @@ const Discounts = () => {
         </div>
 
         {/* Search */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[#e1e3e5]">
-            <span className="text-sm text-[#6d7175]">All</span>
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+            <span className="text-sm text-muted-foreground">All</span>
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6d7175]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search and filter"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-9 border-[#c9cccf] bg-[#f6f6f7] h-9 text-sm"
+                className="pl-9 border-border bg-secondary h-9 text-sm"
               />
             </div>
           </div>
@@ -101,16 +101,16 @@ const Discounts = () => {
           {/* Table */}
           {isLoading ? (
             <div className="flex justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-[#6d7175]" />
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : !filtered?.length ? (
-            <div className="text-center py-12 text-[#6d7175]">
+            <div className="text-center py-12 text-muted-foreground">
               No discounts found. Create your first discount code.
             </div>
           ) : (
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left text-xs font-medium text-[#6d7175] uppercase">
+                <tr className="border-b border-border text-left text-xs font-medium text-muted-foreground uppercase">
                   <th className="px-4 py-3 w-8">
                     <Checkbox />
                   </th>
@@ -125,7 +125,7 @@ const Discounts = () => {
                 {filtered?.map((discount) => (
                   <tr
                     key={discount.id}
-                    className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] cursor-pointer"
+                    className="border-b border-border hover:bg-secondary cursor-pointer"
                     onClick={() => navigate(`/admin/discounts/${discount.id}`)}
                   >
                     <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
@@ -134,7 +134,7 @@ const Discounts = () => {
                     <td className="px-4 py-3">
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-sm text-[#202223]">
+                          <span className="font-medium text-sm text-foreground">
                             {discount.code}
                           </span>
                           {discount.is_affiliate && (
@@ -143,7 +143,7 @@ const Discounts = () => {
                             </Badge>
                           )}
                         </div>
-                        <span className="text-sm text-[#6d7175]">
+                        <span className="text-sm text-muted-foreground">
                           {discount.discount_type === "percentage"
                             ? `${discount.discount_value}% off`
                             : discount.discount_type === "fixed_amount"
@@ -166,16 +166,16 @@ const Discounts = () => {
                         {discount.is_active ? "Active" : "Inactive"}
                       </Badge>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#202223]">
+                    <td className="px-4 py-3 text-sm text-foreground">
                       {discount.method === "code" ? "Code" : "Automatic"}
                     </td>
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-2 text-sm text-[#202223]">
+                      <div className="flex items-center gap-2 text-sm text-foreground">
                         {getTypeIcon(discount.discount_type)}
                         {getTypeLabel(discount)}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-right text-sm text-[#202223]">
+                    <td className="px-4 py-3 text-right text-sm text-foreground">
                       {discount.usage_count}
                     </td>
                   </tr>

@@ -97,33 +97,33 @@ const CreateDiscount = () => {
     <AdminLayout>
       <div className="space-y-6 max-w-[900px]">
         <div className="flex items-center gap-3">
-          <button onClick={() => navigate("/admin/discounts")} className="p-1 hover:bg-[#f1f1f1] rounded">
-            <ArrowLeft className="h-5 w-5 text-[#202223]" />
+          <button onClick={() => navigate("/admin/discounts")} className="p-1 hover:bg-secondary rounded">
+            <ArrowLeft className="h-5 w-5 text-foreground" />
           </button>
-          <Tag className="h-5 w-5 text-[#202223]" />
-          <h1 className="text-xl font-semibold text-[#202223]">Create discount</h1>
+          <Tag className="h-5 w-5 text-foreground" />
+          <h1 className="text-xl font-semibold text-foreground">Create discount</h1>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
           {/* Main form */}
           <div className="col-span-2 space-y-4">
             {/* Method & Code */}
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-4">
-              <h2 className="font-semibold text-sm text-[#202223]">
+            <div className="bg-card rounded-xl border border-border p-5 space-y-4">
+              <h2 className="font-semibold text-sm text-foreground">
                 {form.discountType === "free_shipping" ? "Free shipping" : form.appliesTo === "product" ? "Amount off products" : "Amount off order"}
               </h2>
               <div>
-                <Label className="text-sm text-[#202223]">Method</Label>
+                <Label className="text-sm text-foreground">Method</Label>
                 <div className="flex gap-0 mt-1">
                   <button
                     onClick={() => setForm({ ...form, method: "code" })}
-                    className={`px-4 py-2 text-sm border rounded-l-lg ${form.method === "code" ? "bg-[#f6f6f7] border-[#8c9196] font-medium" : "border-[#c9cccf]"}`}
+                    className={`px-4 py-2 text-sm border rounded-l-lg ${form.method === "code" ? "bg-secondary border-[#8c9196] font-medium" : "border-border"}`}
                   >
                     Discount code
                   </button>
                   <button
                     onClick={() => setForm({ ...form, method: "automatic" })}
-                    className={`px-4 py-2 text-sm border-t border-b border-r rounded-r-lg ${form.method === "automatic" ? "bg-[#f6f6f7] border-[#8c9196] font-medium" : "border-[#c9cccf]"}`}
+                    className={`px-4 py-2 text-sm border-t border-b border-r rounded-r-lg ${form.method === "automatic" ? "bg-secondary border-[#8c9196] font-medium" : "border-border"}`}
                   >
                     Automatic discount
                   </button>
@@ -132,18 +132,18 @@ const CreateDiscount = () => {
               {form.method === "code" && (
                 <div>
                   <div className="flex justify-between items-center">
-                    <Label className="text-sm text-[#202223]">Discount code</Label>
-                    <button onClick={generateCode} className="text-sm text-[#005bd3] hover:underline">
+                    <Label className="text-sm text-foreground">Discount code</Label>
+                    <button onClick={generateCode} className="text-sm text-primary hover:underline">
                       Generate random code
                     </button>
                   </div>
                   <Input
                     value={form.code}
                     onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
-                    className="mt-1 border-[#c9cccf]"
+                    className="mt-1 border-border"
                     placeholder="e.g. SUMMER20"
                   />
-                  <p className="text-xs text-[#6d7175] mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     Customers must enter this code at checkout.
                   </p>
                 </div>
@@ -151,12 +151,12 @@ const CreateDiscount = () => {
             </div>
 
             {/* Discount value */}
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-4">
-              <h2 className="font-semibold text-sm text-[#202223]">Discount value</h2>
+            <div className="bg-card rounded-xl border border-border p-5 space-y-4">
+              <h2 className="font-semibold text-sm text-foreground">Discount value</h2>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Select value={form.discountType} onValueChange={(v) => setForm({ ...form, discountType: v })}>
-                    <SelectTrigger className="border-[#c9cccf]">
+                    <SelectTrigger className="border-border">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -172,18 +172,18 @@ const CreateDiscount = () => {
                       type="number"
                       value={form.discountValue}
                       onChange={(e) => setForm({ ...form, discountValue: e.target.value })}
-                      className="border-[#c9cccf] pr-8"
+                      className="border-border pr-8"
                     />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6d7175] text-sm">
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
                       {form.discountType === "percentage" ? "%" : "$"}
                     </span>
                   </div>
                 )}
               </div>
               <div>
-                <Label className="text-sm text-[#202223]">Applies to</Label>
+                <Label className="text-sm text-foreground">Applies to</Label>
                 <Select value={form.appliesTo} onValueChange={(v) => setForm({ ...form, appliesTo: v })}>
-                  <SelectTrigger className="border-[#c9cccf] mt-1">
+                  <SelectTrigger className="border-border mt-1">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -195,8 +195,8 @@ const CreateDiscount = () => {
             </div>
 
             {/* Minimum purchase */}
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-3">
-              <h2 className="font-semibold text-sm text-[#202223]">Minimum purchase requirements</h2>
+            <div className="bg-card rounded-xl border border-border p-5 space-y-3">
+              <h2 className="font-semibold text-sm text-foreground">Minimum purchase requirements</h2>
               <div className="space-y-2">
                 {[
                   { value: "none", label: "No minimum requirements" },
@@ -211,7 +211,7 @@ const CreateDiscount = () => {
                       onChange={() => setForm({ ...form, minRequirement: opt.value })}
                       className="accent-[#202223]"
                     />
-                    <span className="text-sm text-[#202223]">{opt.label}</span>
+                    <span className="text-sm text-foreground">{opt.label}</span>
                   </label>
                 ))}
               </div>
@@ -221,7 +221,7 @@ const CreateDiscount = () => {
                   value={form.minAmount}
                   onChange={(e) => setForm({ ...form, minAmount: e.target.value })}
                   placeholder="$ 0.00"
-                  className="border-[#c9cccf] max-w-xs"
+                  className="border-border max-w-xs"
                 />
               )}
               {form.minRequirement === "quantity" && (
@@ -230,28 +230,28 @@ const CreateDiscount = () => {
                   value={form.minQuantity}
                   onChange={(e) => setForm({ ...form, minQuantity: e.target.value })}
                   placeholder="0"
-                  className="border-[#c9cccf] max-w-xs"
+                  className="border-border max-w-xs"
                 />
               )}
             </div>
 
             {/* Max uses */}
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-3">
-              <h2 className="font-semibold text-sm text-[#202223]">Maximum discount uses</h2>
+            <div className="bg-card rounded-xl border border-border p-5 space-y-3">
+              <h2 className="font-semibold text-sm text-foreground">Maximum discount uses</h2>
               <div className="space-y-3">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <Checkbox
                     checked={form.limitTotal}
                     onCheckedChange={(c) => setForm({ ...form, limitTotal: !!c })}
                   />
-                  <span className="text-sm text-[#202223]">Limit number of times this discount can be used in total</span>
+                  <span className="text-sm text-foreground">Limit number of times this discount can be used in total</span>
                 </label>
                 {form.limitTotal && (
                   <Input
                     type="number"
                     value={form.maxUses}
                     onChange={(e) => setForm({ ...form, maxUses: e.target.value })}
-                    className="border-[#c9cccf] max-w-xs"
+                    className="border-border max-w-xs"
                   />
                 )}
                 <label className="flex items-center gap-2 cursor-pointer">
@@ -259,14 +259,14 @@ const CreateDiscount = () => {
                     checked={form.limitPerCustomer}
                     onCheckedChange={(c) => setForm({ ...form, limitPerCustomer: !!c })}
                   />
-                  <span className="text-sm text-[#202223]">Limit to one use per customer</span>
+                  <span className="text-sm text-foreground">Limit to one use per customer</span>
                 </label>
               </div>
             </div>
 
             {/* Combinations */}
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-3">
-              <h2 className="font-semibold text-sm text-[#202223]">Combinations</h2>
+            <div className="bg-card rounded-xl border border-border p-5 space-y-3">
+              <h2 className="font-semibold text-sm text-foreground">Combinations</h2>
               <div className="space-y-3">
                 {[
                   { key: "combineProduct", label: "Product discounts" },
@@ -278,32 +278,32 @@ const CreateDiscount = () => {
                       checked={(form as any)[opt.key]}
                       onCheckedChange={(c) => setForm({ ...form, [opt.key]: !!c })}
                     />
-                    <span className="text-sm text-[#202223]">{opt.label}</span>
+                    <span className="text-sm text-foreground">{opt.label}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             {/* Active dates */}
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-3">
-              <h2 className="font-semibold text-sm text-[#202223]">Active dates</h2>
+            <div className="bg-card rounded-xl border border-border p-5 space-y-3">
+              <h2 className="font-semibold text-sm text-foreground">Active dates</h2>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label className="text-sm text-[#202223]">Start date</Label>
+                  <Label className="text-sm text-foreground">Start date</Label>
                   <Input
                     type="date"
                     value={form.startDate}
                     onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-                    className="border-[#c9cccf] mt-1"
+                    className="border-border mt-1"
                   />
                 </div>
                 <div>
-                  <Label className="text-sm text-[#202223]">Start time</Label>
+                  <Label className="text-sm text-foreground">Start time</Label>
                   <Input
                     type="time"
                     value={form.startTime}
                     onChange={(e) => setForm({ ...form, startTime: e.target.value })}
-                    className="border-[#c9cccf] mt-1"
+                    className="border-border mt-1"
                   />
                 </div>
               </div>
@@ -312,26 +312,26 @@ const CreateDiscount = () => {
                   checked={form.hasEndDate}
                   onCheckedChange={(c) => setForm({ ...form, hasEndDate: !!c })}
                 />
-                <span className="text-sm text-[#202223]">Set end date</span>
+                <span className="text-sm text-foreground">Set end date</span>
               </label>
               {form.hasEndDate && (
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label className="text-sm text-[#202223]">End date</Label>
+                    <Label className="text-sm text-foreground">End date</Label>
                     <Input
                       type="date"
                       value={form.endDate}
                       onChange={(e) => setForm({ ...form, endDate: e.target.value })}
-                      className="border-[#c9cccf] mt-1"
+                      className="border-border mt-1"
                     />
                   </div>
                   <div>
-                    <Label className="text-sm text-[#202223]">End time</Label>
+                    <Label className="text-sm text-foreground">End time</Label>
                     <Input
                       type="time"
                       value={form.endTime}
                       onChange={(e) => setForm({ ...form, endTime: e.target.value })}
-                      className="border-[#c9cccf] mt-1"
+                      className="border-border mt-1"
                     />
                   </div>
                 </div>
@@ -341,15 +341,15 @@ const CreateDiscount = () => {
 
           {/* Sidebar summary */}
           <div className="space-y-4">
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5 space-y-3">
-              <h3 className="font-semibold text-sm text-[#202223]">
+            <div className="bg-card rounded-xl border border-border p-5 space-y-3">
+              <h3 className="font-semibold text-sm text-foreground">
                 {form.code || "No discount code yet"}
               </h3>
-              <p className="text-xs text-[#6d7175]">{form.method === "code" ? "Code" : "Automatic"}</p>
+              <p className="text-xs text-muted-foreground">{form.method === "code" ? "Code" : "Automatic"}</p>
 
               <div>
-                <h4 className="font-semibold text-xs text-[#202223] mt-2">Type</h4>
-                <p className="text-xs text-[#6d7175]">
+                <h4 className="font-semibold text-xs text-foreground mt-2">Type</h4>
+                <p className="text-xs text-muted-foreground">
                   {form.discountType === "percentage"
                     ? "Percentage"
                     : form.discountType === "fixed_amount"
@@ -360,8 +360,8 @@ const CreateDiscount = () => {
               </div>
 
               <div>
-                <h4 className="font-semibold text-xs text-[#202223]">Details</h4>
-                <ul className="text-xs text-[#6d7175] list-disc pl-4 space-y-1">
+                <h4 className="font-semibold text-xs text-foreground">Details</h4>
+                <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-1">
                   <li>All customers</li>
                   <li>
                     {form.minRequirement === "none"
@@ -381,13 +381,13 @@ const CreateDiscount = () => {
 
         {/* Footer */}
         <div className="flex justify-end gap-2 pt-2">
-          <Button variant="outline" onClick={() => navigate("/admin/discounts")} className="border-[#c9cccf]">
+          <Button variant="outline" onClick={() => navigate("/admin/discounts")} className="border-border">
             Discard
           </Button>
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="bg-[#202223] text-white hover:bg-[#333]"
+            className="bg-primary text-white hover:bg-accent"
           >
             {saving ? "Saving..." : "Save discount"}
           </Button>

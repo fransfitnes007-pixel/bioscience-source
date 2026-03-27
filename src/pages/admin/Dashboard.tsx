@@ -125,21 +125,21 @@ const AdminDashboard = () => {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-[#202223]">Dashboard</h1>
-          <p className="text-sm text-[#6d7175] mt-1">Overview of your store</p>
+          <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
+          <p className="text-sm text-muted-foreground mt-1">Overview of your store</p>
         </div>
 
         {/* Stats */}
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {statCards.map((stat, i) => (
-            <div key={i} className="bg-white rounded-xl border border-[#e1e3e5] p-4">
+            <div key={i} className="bg-card rounded-xl border border-border p-4">
               <div className="flex items-center gap-3">
                 <div className={`p-2 rounded-lg ${stat.bgColor}`}>
                   <stat.icon className={`h-4 w-4 ${stat.iconColor}`} />
                 </div>
                 <div>
-                  <p className="text-xs text-[#6d7175]">{stat.label}</p>
-                  <p className="text-lg font-semibold text-[#202223]">{stat.value}</p>
+                  <p className="text-xs text-muted-foreground">{stat.label}</p>
+                  <p className="text-lg font-semibold text-foreground">{stat.value}</p>
                 </div>
               </div>
             </div>
@@ -151,7 +151,7 @@ const AdminDashboard = () => {
           {quickActions.map((action, i) => (
             <div
               key={i}
-              className="bg-white rounded-xl border border-[#e1e3e5] p-5 cursor-pointer hover:border-[#005bd3] transition-colors"
+              className="bg-card rounded-xl border border-border p-5 cursor-pointer hover:border-primary transition-colors"
               onClick={() => navigate(action.route)}
             >
               <div className="flex items-center justify-between">
@@ -160,44 +160,44 @@ const AdminDashboard = () => {
                     <action.icon className={`h-5 w-5 ${action.iconColor}`} />
                   </div>
                   <div>
-                    <p className="font-medium text-[#202223]">{action.label}</p>
-                    <p className="text-sm text-[#6d7175]">{action.desc}</p>
+                    <p className="font-medium text-foreground">{action.label}</p>
+                    <p className="text-sm text-muted-foreground">{action.desc}</p>
                   </div>
                 </div>
-                <ArrowRight className="h-5 w-5 text-[#b5b5b5]" />
+                <ArrowRight className="h-5 w-5 text-muted-foreground" />
               </div>
             </div>
           ))}
         </div>
 
         {/* Recent Activity */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-          <div className="px-5 py-4 border-b border-[#e1e3e5]">
-            <h2 className="font-semibold text-[#202223]">Recent Activity</h2>
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="px-5 py-4 border-b border-border">
+            <h2 className="font-semibold text-foreground">Recent Activity</h2>
           </div>
           <div>
             {isLoading ? (
-              <div className="text-center py-12 text-[#6d7175]">Loading...</div>
+              <div className="text-center py-12 text-muted-foreground">Loading...</div>
             ) : recentItems.length === 0 ? (
-              <div className="text-center py-12 text-[#6d7175]">No recent activity</div>
+              <div className="text-center py-12 text-muted-foreground">No recent activity</div>
             ) : (
               <div className="divide-y divide-[#e1e3e5]">
                 {recentItems.map(item => (
                   <div
                     key={`${item.type}-${item.id}`}
-                    className="flex items-center justify-between px-5 py-3.5 hover:bg-[#f6f6f7] cursor-pointer transition-colors"
+                    className="flex items-center justify-between px-5 py-3.5 hover:bg-secondary cursor-pointer transition-colors"
                     onClick={() => navigate(getTypeRoute(item.type))}
                   >
                     <div className="flex items-center gap-3">
                       {getTypeIcon(item.type)}
                       <div>
-                        <p className="text-sm font-medium text-[#202223]">{item.title}</p>
-                        <p className="text-xs text-[#6d7175]">{item.subtitle}</p>
+                        <p className="text-sm font-medium text-foreground">{item.title}</p>
+                        <p className="text-xs text-muted-foreground">{item.subtitle}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       {getStatusPill(item.status)}
-                      <span className="text-xs text-[#6d7175]">
+                      <span className="text-xs text-muted-foreground">
                         {format(new Date(item.date), "MMM d, yyyy")}
                       </span>
                     </div>

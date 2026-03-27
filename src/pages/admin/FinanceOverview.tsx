@@ -44,82 +44,82 @@ const FinanceOverview = () => {
     <AdminLayout>
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <DollarSign className="h-5 w-5 text-[#202223]" />
-          <h1 className="text-xl font-semibold text-[#202223]">Finance</h1>
+          <DollarSign className="h-5 w-5 text-foreground" />
+          <h1 className="text-xl font-semibold text-foreground">Finance</h1>
         </div>
 
         {/* Accounts & Payout Balance */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Left column */}
           <div className="space-y-4">
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5">
-              <h2 className="text-base font-semibold text-[#202223] mb-3">Accounts</h2>
+            <div className="bg-card rounded-xl border border-border p-5">
+              <h2 className="text-base font-semibold text-foreground mb-3">Accounts</h2>
               <div className="space-y-3">
-                <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-[#f6f6f7] cursor-pointer" onClick={() => navigate("/admin/finance/payouts")}>
+                <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-secondary cursor-pointer" onClick={() => navigate("/admin/finance/payouts")}>
                   <div className="flex items-center gap-3">
-                    <DollarSign className="h-4 w-4 text-[#6d7175]" />
-                    <span className="text-sm text-[#202223]">Payouts</span>
+                    <DollarSign className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-foreground">Payouts</span>
                   </div>
                   <Badge className="bg-green-100 text-green-800 text-xs">Active</Badge>
                 </div>
-                <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-[#f6f6f7]">
+                <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-secondary">
                   <div className="flex items-center gap-3">
-                    <CreditCard className="h-4 w-4 text-[#6d7175]" />
-                    <span className="text-sm text-[#202223]">Credit</span>
+                    <CreditCard className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-foreground">Credit</span>
                   </div>
-                  <span className="text-sm text-[#202223]">$0.00</span>
+                  <span className="text-sm text-foreground">$0.00</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl border border-[#e1e3e5] p-5">
+            <div className="bg-card rounded-xl border border-border p-5">
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-base font-semibold text-[#202223]">Affiliate Payouts</h2>
+                <h2 className="text-base font-semibold text-foreground">Affiliate Payouts</h2>
                 <button onClick={() => navigate("/admin/finance/payouts")} className="text-sm text-blue-600 hover:underline flex items-center gap-1">
                   Manage <ArrowRight className="h-3 w-3" />
                 </button>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-[#f6f6f7] rounded-lg p-3">
-                  <p className="text-xs text-[#6d7175]">Pending payouts</p>
-                  <p className="text-lg font-semibold text-[#202223]">${pendingPayouts.toFixed(2)}</p>
+                <div className="bg-secondary rounded-lg p-3">
+                  <p className="text-xs text-muted-foreground">Pending payouts</p>
+                  <p className="text-lg font-semibold text-foreground">${pendingPayouts.toFixed(2)}</p>
                 </div>
-                <div className="bg-[#f6f6f7] rounded-lg p-3">
-                  <p className="text-xs text-[#6d7175]">Total paid out</p>
-                  <p className="text-lg font-semibold text-[#202223]">${totalPaidOut.toFixed(2)}</p>
+                <div className="bg-secondary rounded-lg p-3">
+                  <p className="text-xs text-muted-foreground">Total paid out</p>
+                  <p className="text-lg font-semibold text-foreground">${totalPaidOut.toFixed(2)}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right column - Recent transactions */}
-          <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-            <div className="px-5 py-4 border-b border-[#e1e3e5] flex items-center justify-between">
+          <div className="bg-card rounded-xl border border-border overflow-hidden">
+            <div className="px-5 py-4 border-b border-border flex items-center justify-between">
               <div>
-                <h2 className="text-base font-semibold text-[#202223]">Payout balance</h2>
-                <p className="text-2xl font-semibold text-[#202223]">${pendingPayouts.toFixed(2)}</p>
+                <h2 className="text-base font-semibold text-foreground">Payout balance</h2>
+                <p className="text-2xl font-semibold text-foreground">${pendingPayouts.toFixed(2)}</p>
               </div>
               <div className="text-right">
-                <p className="text-xs text-[#6d7175]">🇺🇸 USD</p>
-                <p className="text-sm text-[#202223]">${totalRevenue.toFixed(2)}</p>
+                <p className="text-xs text-muted-foreground">🇺🇸 USD</p>
+                <p className="text-sm text-foreground">${totalRevenue.toFixed(2)}</p>
                 <button onClick={() => navigate("/admin/finance/payouts")} className="text-sm text-blue-600 hover:underline mt-1">View payouts</button>
               </div>
             </div>
 
-            <div className="px-5 py-3 border-b border-[#e1e3e5]">
-              <h3 className="text-sm font-semibold text-[#202223]">Recent transactions</h3>
+            <div className="px-5 py-3 border-b border-border">
+              <h3 className="text-sm font-semibold text-foreground">Recent transactions</h3>
             </div>
 
             {isLoading ? (
               <div className="flex justify-center py-8">
-                <Loader2 className="h-6 w-6 animate-spin text-[#6d7175]" />
+                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
               </div>
             ) : !earnings?.length ? (
-              <div className="text-center py-8 text-sm text-[#6d7175]">No transactions yet</div>
+              <div className="text-center py-8 text-sm text-muted-foreground">No transactions yet</div>
             ) : (
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-[#e1e3e5] text-left text-xs text-[#6d7175]">
+                  <tr className="border-b border-border text-left text-xs text-muted-foreground">
                     <th className="px-5 py-2">Date</th>
                     <th className="px-5 py-2">Status</th>
                     <th className="px-5 py-2">Description</th>
@@ -128,17 +128,17 @@ const FinanceOverview = () => {
                 </thead>
                 <tbody>
                   {earnings.map((e) => (
-                    <tr key={e.id} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7]">
-                      <td className="px-5 py-2.5 text-[#202223]">{format(new Date(e.created_at), "MMM d, yyyy")}</td>
+                    <tr key={e.id} className="border-b border-border hover:bg-secondary">
+                      <td className="px-5 py-2.5 text-foreground">{format(new Date(e.created_at), "MMM d, yyyy")}</td>
                       <td className="px-5 py-2.5">
                         <Badge className={e.status === "paid" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}>
                           {e.status === "paid" ? "Paid" : "Pending"}
                         </Badge>
                       </td>
-                      <td className="px-5 py-2.5 text-[#6d7175]">
+                      <td className="px-5 py-2.5 text-muted-foreground">
                         {(e as any).affiliates?.name || "Affiliate"} — {e.order_number || "Order"}
                       </td>
-                      <td className="px-5 py-2.5 text-right font-medium text-[#202223]">
+                      <td className="px-5 py-2.5 text-right font-medium text-foreground">
                         -${Number(e.commission_amount).toFixed(2)}
                       </td>
                     </tr>

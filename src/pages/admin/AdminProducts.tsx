@@ -66,98 +66,98 @@ const AdminProducts = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Tag className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Products</h1>
+            <Tag className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Products</h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">
+            <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">
               Export
             </Button>
-            <Button variant="outline" size="sm" className="bg-white border-[#c9cccf] text-[#202223] hover:bg-[#f6f6f7]">
+            <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">
               Import
             </Button>
-            <Button size="sm" className="bg-[#303030] text-white hover:bg-[#1a1a1a]">
+            <Button size="sm" className="bg-primary text-white hover:bg-primary/90">
               <Plus className="h-4 w-4 mr-1" /> Add product
             </Button>
           </div>
         </div>
 
         {/* Stats Bar */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           <div className="flex divide-x divide-[#e1e3e5]">
             <div className="px-5 py-4 flex items-center gap-3">
-              <span className="text-sm text-[#202223]">📅 30 days</span>
+              <span className="text-sm text-foreground">📅 30 days</span>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Total products</p>
-              <p className="text-lg font-semibold text-[#202223]">{products.length}</p>
+              <p className="text-sm text-muted-foreground">Total products</p>
+              <p className="text-lg font-semibold text-foreground">{products.length}</p>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Active</p>
-              <p className="text-lg font-semibold text-[#202223]">{products.filter(p => p.is_active).length}</p>
+              <p className="text-sm text-muted-foreground">Active</p>
+              <p className="text-lg font-semibold text-foreground">{products.filter(p => p.is_active).length}</p>
             </div>
             <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-[#6d7175]">Draft</p>
-              <p className="text-lg font-semibold text-[#202223]">{products.filter(p => !p.is_active).length}</p>
+              <p className="text-sm text-muted-foreground">Draft</p>
+              <p className="text-lg font-semibold text-foreground">{products.filter(p => !p.is_active).length}</p>
             </div>
           </div>
         </div>
 
         {/* Tabs */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-0 border-b border-[#e1e3e5]">
+          <div className="flex items-center gap-0 border-b border-border">
             {TABS.map(tab => (
               <button
                 key={tab.value}
                 onClick={() => setActiveTab(tab.value)}
                 className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.value
-                    ? "border-[#202223] text-[#202223]"
-                    : "border-transparent text-[#6d7175] hover:text-[#202223]"
+                    ? "border-[#202223] text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {tab.label}
               </button>
             ))}
-            <button className="px-3 py-2.5 text-sm text-[#6d7175] hover:text-[#202223]">+</button>
+            <button className="px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground">+</button>
           </div>
           <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6d7175]" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search products..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="h-9 pl-8 pr-3 w-[220px] rounded-lg border border-[#c9cccf] bg-white text-sm text-[#202223] placeholder:text-[#6d7175] focus:outline-none focus:ring-2 focus:ring-[#005bd3]"
+              className="h-9 pl-8 pr-3 w-[220px] rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           {isLoading ? (
-            <div className="text-center py-16 text-[#6d7175]">Loading products...</div>
+            <div className="text-center py-16 text-muted-foreground">Loading products...</div>
           ) : filtered.length === 0 ? (
-            <div className="text-center py-16 text-[#6d7175]">
+            <div className="text-center py-16 text-muted-foreground">
               <Tag className="h-10 w-10 mx-auto mb-3 opacity-40" />
               <p className="font-medium">No products found</p>
             </div>
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left">
+                <tr className="border-b border-border text-left">
                   <th className="py-3 px-4 w-10"><Checkbox /></th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Product</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Status</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Variants</th>
-                  <th className="py-3 px-4 text-[#6d7175] font-medium">Category</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Product</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Status</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Variants</th>
+                  <th className="py-3 px-4 text-muted-foreground font-medium">Category</th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.map(product => (
                   <tr
                     key={product.id}
-                    className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7] cursor-pointer transition-colors"
+                    className="border-b border-border hover:bg-secondary cursor-pointer transition-colors"
                     onClick={() => navigate(`/admin/products/${product.slug}`)}
                   >
                     <td className="py-3 px-4" onClick={e => e.stopPropagation()}>
@@ -165,14 +165,14 @@ const AdminProducts = () => {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg border border-[#e1e3e5] bg-[#f6f6f7] overflow-hidden flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 rounded-lg border border-border bg-secondary overflow-hidden flex items-center justify-center shrink-0">
                           {product.image_url ? (
                             <img src={product.image_url} alt="" className="w-full h-full object-cover" />
                           ) : (
-                            <Tag className="h-4 w-4 text-[#b5b5b5]" />
+                            <Tag className="h-4 w-4 text-muted-foreground" />
                           )}
                         </div>
-                        <span className="font-medium text-[#202223]">{product.display_name}</span>
+                        <span className="font-medium text-foreground">{product.display_name}</span>
                       </div>
                     </td>
                     <td className="py-3 px-4">
@@ -182,10 +182,10 @@ const AdminProducts = () => {
                         <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Draft</span>
                       )}
                     </td>
-                    <td className="py-3 px-4 text-[#202223]">
+                    <td className="py-3 px-4 text-foreground">
                       {product.variations_count} variant{product.variations_count !== 1 ? "s" : ""}
                     </td>
-                    <td className="py-3 px-4 text-[#202223]">{product.category_name}</td>
+                    <td className="py-3 px-4 text-foreground">{product.category_name}</td>
                   </tr>
                 ))}
               </tbody>

@@ -144,11 +144,11 @@ const BlogPosts = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <FileText className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Blog posts</h1>
+            <FileText className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Blog posts</h1>
           </div>
           <Button
-            className="bg-[#202223] text-white hover:bg-[#333] text-sm"
+            className="bg-primary text-white hover:bg-accent text-sm"
             onClick={() => openEditor()}
           >
             Create blog post
@@ -157,37 +157,37 @@ const BlogPosts = () => {
 
         {isLoading ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-[#6d7175]" />
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
           </div>
         ) : !posts?.length ? (
-          <div className="bg-white rounded-xl border border-[#e1e3e5] p-12 text-center">
+          <div className="bg-card rounded-xl border border-border p-12 text-center">
             <div className="mx-auto w-24 h-24 mb-4 flex items-center justify-center">
               <FileText className="h-16 w-16 text-[#c9cccf]" />
             </div>
-            <h3 className="font-semibold text-lg text-[#202223]">Write a blog post</h3>
-            <p className="text-sm text-[#6d7175] mt-1 max-w-md mx-auto">
+            <h3 className="font-semibold text-lg text-foreground">Write a blog post</h3>
+            <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">
               Blog posts are a great way to build a community around your products and your brand.
             </p>
             <Button
-              className="mt-4 bg-[#202223] text-white hover:bg-[#333]"
+              className="mt-4 bg-primary text-white hover:bg-accent"
               onClick={() => openEditor()}
             >
               Create blog post
             </Button>
           </div>
         ) : (
-          <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-            <div className="px-4 py-3 border-b border-[#e1e3e5]">
+          <div className="bg-card rounded-xl border border-border overflow-hidden">
+            <div className="px-4 py-3 border-b border-border">
               <Input
                 placeholder="Search blog posts..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="max-w-sm border-[#c9cccf] bg-[#f6f6f7] h-9 text-sm"
+                className="max-w-sm border-border bg-secondary h-9 text-sm"
               />
             </div>
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left text-xs font-medium text-[#6d7175] uppercase">
+                <tr className="border-b border-border text-left text-xs font-medium text-muted-foreground uppercase">
                   <th className="px-4 py-3">Title</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3">Author</th>
@@ -197,16 +197,16 @@ const BlogPosts = () => {
               </thead>
               <tbody>
                 {filtered?.map((post) => (
-                  <tr key={post.id} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7]">
+                  <tr key={post.id} className="border-b border-border hover:bg-secondary">
                     <td className="px-4 py-3">
                       <button
                         onClick={() => openEditor(post)}
-                        className="text-sm font-medium text-[#005bd3] hover:underline text-left"
+                        className="text-sm font-medium text-primary hover:underline text-left"
                       >
                         {post.title}
                       </button>
                       {post.excerpt && (
-                        <p className="text-xs text-[#6d7175] mt-0.5 truncate max-w-[400px]">
+                        <p className="text-xs text-muted-foreground mt-0.5 truncate max-w-[400px]">
                           {post.excerpt}
                         </p>
                       )}
@@ -224,25 +224,25 @@ const BlogPosts = () => {
                         {post.status}
                       </Badge>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#202223]">
+                    <td className="px-4 py-3 text-sm text-foreground">
                       {post.author_name || "—"}
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#202223]">
+                    <td className="px-4 py-3 text-sm text-foreground">
                       {format(new Date(post.created_at), "MMM d, yyyy")}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">
                         <button
                           onClick={() => openEditor(post)}
-                          className="p-1 hover:bg-[#f1f1f1] rounded"
+                          className="p-1 hover:bg-secondary rounded"
                         >
-                          <Pencil className="h-4 w-4 text-[#6d7175]" />
+                          <Pencil className="h-4 w-4 text-muted-foreground" />
                         </button>
                         <button
                           onClick={() => deletePost.mutate(post.id)}
                           className="p-1 hover:bg-red-50 rounded"
                         >
-                          <Trash2 className="h-4 w-4 text-[#6d7175] hover:text-red-600" />
+                          <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-600" />
                         </button>
                       </div>
                     </td>
@@ -328,8 +328,8 @@ const BlogPosts = () => {
                 placeholder="https://..."
               />
             </div>
-            <div className="border-t border-[#e1e3e5] pt-4 space-y-3">
-              <h3 className="text-sm font-semibold text-[#202223]">SEO</h3>
+            <div className="border-t border-border pt-4 space-y-3">
+              <h3 className="text-sm font-semibold text-foreground">SEO</h3>
               <div>
                 <Label className="text-xs">SEO Title</Label>
                 <Input
@@ -353,7 +353,7 @@ const BlogPosts = () => {
                 Cancel
               </Button>
               <Button
-                className="bg-[#202223] text-white hover:bg-[#333]"
+                className="bg-primary text-white hover:bg-accent"
                 onClick={() => savePost.mutate()}
                 disabled={!form.title || savePost.isPending}
               >

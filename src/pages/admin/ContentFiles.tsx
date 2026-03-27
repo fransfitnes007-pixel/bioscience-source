@@ -111,8 +111,8 @@ const ContentFiles = () => {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <FileImage className="h-5 w-5 text-[#202223]" />
-            <h1 className="text-xl font-semibold text-[#202223]">Files</h1>
+            <FileImage className="h-5 w-5 text-foreground" />
+            <h1 className="text-xl font-semibold text-foreground">Files</h1>
           </div>
           <div className="flex gap-2">
             {selected.length > 0 && (
@@ -126,7 +126,7 @@ const ContentFiles = () => {
               </Button>
             )}
             <Button
-              className="bg-[#202223] text-white hover:bg-[#333] text-sm"
+              className="bg-primary text-white hover:bg-accent text-sm"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading}
             >
@@ -143,36 +143,36 @@ const ContentFiles = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#e1e3e5] overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-[#e1e3e5]">
-            <span className="text-sm text-[#6d7175] font-medium">All</span>
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
+            <span className="text-sm text-muted-foreground font-medium">All</span>
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6d7175]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search files..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-9 border-[#c9cccf] bg-[#f6f6f7] h-9 text-sm"
+                className="pl-9 border-border bg-secondary h-9 text-sm"
               />
             </div>
-            <Button variant="outline" size="sm" className="border-[#c9cccf]">
+            <Button variant="outline" size="sm" className="border-border">
               <Filter className="h-4 w-4" />
             </Button>
           </div>
 
           {isLoading ? (
             <div className="flex justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-[#6d7175]" />
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : !filtered?.length ? (
             <div className="text-center py-16">
               <FileImage className="h-12 w-12 text-[#c9cccf] mx-auto mb-3" />
-              <h3 className="font-semibold text-[#202223]">No files uploaded</h3>
-              <p className="text-sm text-[#6d7175] mt-1">
+              <h3 className="font-semibold text-foreground">No files uploaded</h3>
+              <p className="text-sm text-muted-foreground mt-1">
                 Upload images, videos, and documents to manage your content.
               </p>
               <Button
-                className="mt-4 bg-[#202223] text-white hover:bg-[#333]"
+                className="mt-4 bg-primary text-white hover:bg-accent"
                 onClick={() => fileInputRef.current?.click()}
               >
                 Upload files
@@ -181,7 +181,7 @@ const ContentFiles = () => {
           ) : (
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#e1e3e5] text-left text-xs font-medium text-[#6d7175] uppercase">
+                <tr className="border-b border-border text-left text-xs font-medium text-muted-foreground uppercase">
                   <th className="px-4 py-3 w-8">
                     <Checkbox
                       checked={selected.length === filtered.length && filtered.length > 0}
@@ -200,7 +200,7 @@ const ContentFiles = () => {
               </thead>
               <tbody>
                 {filtered.map((file) => (
-                  <tr key={file.id} className="border-b border-[#e1e3e5] hover:bg-[#f6f6f7]">
+                  <tr key={file.id} className="border-b border-border hover:bg-secondary">
                     <td className="px-4 py-3">
                       <Checkbox
                         checked={selected.includes(file.id)}
@@ -215,31 +215,31 @@ const ContentFiles = () => {
                           className="h-10 w-10 rounded object-cover"
                         />
                       ) : (
-                        <div className="h-10 w-10 rounded bg-[#f6f6f7] flex items-center justify-center text-xs font-medium text-[#6d7175]">
+                        <div className="h-10 w-10 rounded bg-secondary flex items-center justify-center text-xs font-medium text-muted-foreground">
                           {getFileExtension(file.file_name)}
                         </div>
                       )}
                     </td>
                     <td className="px-4 py-3">
                       <div>
-                        <p className="text-sm font-medium text-[#202223] truncate max-w-[300px]">
+                        <p className="text-sm font-medium text-foreground truncate max-w-[300px]">
                           {file.file_name}
                         </p>
-                        <p className="text-xs text-[#6d7175]">
+                        <p className="text-xs text-muted-foreground">
                           {getFileExtension(file.file_name)}
                         </p>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#6d7175]">
+                    <td className="px-4 py-3 text-sm text-muted-foreground">
                       {file.alt_text || "—"}
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#202223]">
+                    <td className="px-4 py-3 text-sm text-foreground">
                       {format(new Date(file.created_at), "MMM d, yyyy")}
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#202223]">
+                    <td className="px-4 py-3 text-sm text-foreground">
                       {file.file_size ? formatFileSize(Number(file.file_size)) : "—"}
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#6d7175]">
+                    <td className="px-4 py-3 text-sm text-muted-foreground">
                       —
                     </td>
                   </tr>
