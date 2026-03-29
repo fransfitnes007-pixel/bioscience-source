@@ -155,7 +155,7 @@ const SetPassword = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <img src={resurrectedLogo} alt="Resurrected" className="h-10 mx-auto mb-4" />
+          <img src={resurrectedLogo} alt="Resurrected" className="h-10 mx-auto mb-4 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" style={{ mixBlendMode: 'lighten' }} />
           <CardTitle>Set Your Password</CardTitle>
           <CardDescription>
             Create a secure password for your account

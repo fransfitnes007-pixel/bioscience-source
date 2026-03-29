@@ -25,7 +25,7 @@ export const SupplierSidebar = () => {
     <aside className="w-64 bg-card border-r border-border min-h-screen flex flex-col">
       <div className="p-6 border-b border-border">
         <Link to="/supplier" className="flex items-center gap-2">
-          <img src={resurrectedLogo} alt="Resurrected" className="h-8" />
+          <img src={resurrectedLogo} alt="Resurrected" className="h-8 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" style={{ mixBlendMode: 'lighten' }} />
           <span className="text-sm text-muted-foreground">Supplier Portal</span>
         </Link>
       </div>
