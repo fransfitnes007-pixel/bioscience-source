@@ -170,7 +170,7 @@ const AdminSidebar = ({ isCollapsed, onToggle }: AdminSidebarProps) => {
       {/* Logo */}
       <div className="flex items-center h-14 px-4 border-b border-[#333]">
         {!isCollapsed && (
-          <img src={resurrectedLogo} alt="Resurrected" className="h-7" />
+          <img src={resurrectedLogo} alt="Resurrected" className="h-7 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" style={{ mixBlendMode: 'lighten' }} />
         )}
         <button
           onClick={onToggle}

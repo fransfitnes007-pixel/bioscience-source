@@ -116,7 +116,7 @@ const TrackOrder = () => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="max-w-md w-full mx-4">
           <CardContent className="p-8 text-center">
-            <img src={resurrectedLogo} alt="Resurrected" className="h-8 mx-auto mb-6" />
+            <img src={resurrectedLogo} alt="Resurrected" className="h-8 mx-auto mb-6 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" style={{ mixBlendMode: 'lighten' }} />
             <p className="text-muted-foreground">{error || "Order not found"}</p>
           </CardContent>
         </Card>
@@ -130,7 +130,7 @@ const TrackOrder = () => {
     <div className="min-h-screen bg-background">
       <div className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
-          <img src={resurrectedLogo} alt="Resurrected" className="h-8 mx-auto mb-6" />
+          <img src={resurrectedLogo} alt="Resurrected" className="h-8 mx-auto mb-6 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" style={{ mixBlendMode: 'lighten' }} />
           <h1 className="text-2xl font-bold mb-1">Track Your Order</h1>
           <p className="text-muted-foreground">Order #{data.order_number}</p>
         </div>

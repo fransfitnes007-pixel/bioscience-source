@@ -29,7 +29,8 @@ export const AgeVerification = () => {
         <img 
           src={resurrectedLogo} 
           alt="Resurrected" 
-          className="h-12 md:h-14 w-auto mx-auto mb-6"
+          className="h-12 md:h-14 w-auto mx-auto mb-6 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+          style={{ mixBlendMode: 'lighten' }}
         />
         <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6">
           You must be 21 or older to enter

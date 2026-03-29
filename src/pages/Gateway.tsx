@@ -120,7 +120,7 @@ const Gateway = () => {
           
           {/* Logo overlay - drops in from above */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <img src={resurrectedLogo} alt="Resurrected" className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up" />
+            <img src={resurrectedLogo} alt="Resurrected" className="w-[420px] lg:w-[550px] xl:w-[650px] transition-all duration-1000 ease-out animate-fade-up drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]" style={{ mixBlendMode: 'lighten' }} />
           </div>
         </div>
 
