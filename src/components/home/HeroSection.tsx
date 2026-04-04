@@ -40,7 +40,7 @@ export const HeroSection = () => {
             <img 
               src={resurrectedLogo} 
               alt="Resurrected" 
-              className="h-28 md:h-40 lg:h-52 w-auto mx-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+              className="h-36 md:h-48 lg:h-64 w-auto mx-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]"
             />
           </div>
 
