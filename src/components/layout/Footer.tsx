@@ -24,7 +24,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <img alt="Resurrected" className="h-10 w-auto drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" src={resurrectedLogo} style={{ mixBlendMode: 'lighten' }} />
+              <img alt="Resurrected" className="h-14 w-auto drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]" src={resurrectedLogo} />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-md mb-6">
               Premium research peptides with 99.9% purity. Third-party tested, fast shipping, and trusted by thousands of customers.
