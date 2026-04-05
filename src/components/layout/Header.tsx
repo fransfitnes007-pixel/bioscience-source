@@ -67,7 +67,7 @@ export const Header = () => {
           <Link to="/" className="flex items-center gap-3">
             <img
               alt="Resurrected"
-              className="h-14 lg:h-20 w-auto drop-shadow-[0_0_25px_rgba(255,255,255,0.5)]"
+              className="h-20 lg:h-28 w-auto drop-shadow-[0_0_35px_rgba(255,255,255,0.6)] brightness-110"
               src={resurrectedLogo}
             />
           </Link>
