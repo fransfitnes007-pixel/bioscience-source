@@ -78,9 +78,9 @@ export const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-heading text-sm font-medium tracking-wide transition-colors duration-300 ${
+                className={`font-heading text-base font-semibold tracking-wider transition-colors duration-300 ${
                   location.pathname === link.path
-                    ? "text-foreground"
+                    ? "text-foreground drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
