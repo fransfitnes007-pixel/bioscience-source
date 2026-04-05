@@ -60,14 +60,14 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border/60 shadow-lg shadow-black/20">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img
               alt="Resurrected"
-              className="h-12 lg:h-16 w-auto drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+              className="h-14 lg:h-20 w-auto drop-shadow-[0_0_25px_rgba(255,255,255,0.5)]"
               src={resurrectedLogo}
             />
           </Link>
@@ -78,9 +78,9 @@ export const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-heading text-sm font-medium tracking-wide transition-colors duration-300 ${
+                className={`font-heading text-base font-semibold tracking-wider transition-colors duration-300 ${
                   location.pathname === link.path
-                    ? "text-foreground"
+                    ? "text-foreground drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
