@@ -38,7 +38,7 @@ export const HeroSection = () => {
           {/* Logo */}
           <div className="mb-8 animate-fade-up">
             <img 
-              src={resurrectedLogo} 
+              src={resurrectedLabzLogo} 
               alt="Resurrected" 
               className="h-36 md:h-48 lg:h-64 w-auto mx-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]"
             />
