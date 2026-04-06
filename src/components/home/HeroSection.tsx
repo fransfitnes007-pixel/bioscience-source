@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MolecularAnimation } from "./MolecularAnimation";
 import { ArrowRight } from "lucide-react";
-import resurrectedLogo from "@/assets/resurrected-logo.png";
+import resurrectedLabzLogo from "@/assets/resurrected-labz-full-logo.png";
 
 const taglines = [
   "Premium Peptides. Unmatched Purity.",
