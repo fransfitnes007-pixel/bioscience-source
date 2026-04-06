@@ -68,7 +68,7 @@ export const Header = () => {
             <img
               alt="Resurrected"
               className="h-20 lg:h-28 w-auto drop-shadow-[0_0_35px_rgba(255,255,255,0.6)] brightness-110"
-              src="/083792b3-26fa-4add-94fd-a09803f58cc1.png"
+              src={resurrectedLogo}
             />
           </Link>
 
