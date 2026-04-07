@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { Product } from "@/lib/products-data";
 import { Button } from "@/components/ui/button";
-import { ImageIcon } from "lucide-react";
-import { getProductImage } from "@/lib/product-images";
+import { FlaskConical } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
@@ -10,24 +9,17 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  const productImage = getProductImage(product.slug);
-
   return (
-    <Link 
+    <Link
       to={`/products/${product.slug}`}
       className="group p-6 border border-border/50 rounded-lg bg-card/30 hover-lift transition-all duration-300 block"
     >
-      {/* Product image */}
-      <div className="aspect-square mb-4 bg-secondary/30 rounded-lg flex items-center justify-center overflow-hidden">
-        {productImage ? (
-          <img
-            src={productImage}
-            alt={product.displayName}
-            className="w-full h-full object-contain p-2"
-          />
-        ) : (
-          <ImageIcon className="w-12 h-12 text-muted-foreground/30" strokeWidth={1} />
-        )}
+      {/* Minimal icon placeholder */}
+      <div className="aspect-square mb-4 bg-secondary/20 rounded-lg flex items-center justify-center overflow-hidden">
+        <FlaskConical
+          className="w-14 h-14 text-muted-foreground/20 group-hover:text-muted-foreground/35 transition-colors duration-300"
+          strokeWidth={1}
+        />
       </div>
 
       {/* Product name */}
@@ -36,11 +28,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </h3>
 
       {/* View Details button */}
-      <Button
-        variant="heroOutline"
-        size="sm"
-        className="w-full"
-      >
+      <Button variant="heroOutline" size="sm" className="w-full">
         View Details
       </Button>
     </Link>
