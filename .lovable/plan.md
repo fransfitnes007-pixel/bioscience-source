@@ -1,187 +1,55 @@
 
-# Custom Logo Labeling Feature Implementation Plan
 
-## Overview
-This plan implements a comprehensive custom logo labeling system that allows customers to choose between standard white-label vials or custom-branded vials with their company logo during checkout and application.
+## Plan: Framer-Style Hero Animation with Branded Vial + Full Site Polish
 
----
+### What We're Building
 
-## Database Changes
+Replace the current particle-based hero background animation with a cinematic, Framer-inspired animation centered on the Resurrected Labz branded vial image. The vial will be the visual anchor of the hero, floating with a subtle 3D parallax effect, surrounded by particle trails and a glowing aura --- creating a premium, high-end feel that rivals top peptide websites.
 
-### 1. Create Storage Bucket for Company Logos
-- Create `company-logos` storage bucket (public access for logo display)
-- Configure RLS policies for secure uploads
+### Animation Concept
 
-### 2. Update `applications` Table
-Add column:
-- `company_logo_url` (TEXT, nullable) - stores the uploaded logo path from application
+The vial image fades in from below and gently floats in 3D space. Molecular particles orbit around it in slow arcs. A soft white glow pulses behind the vial. Mouse movement creates a parallax tilt effect on the vial (Framer signature). The full Resurrected Labz logo sits above.
 
-### 3. Update `profiles` Table
-Add column:
-- `company_logo_url` (TEXT, nullable) - stores the customer's company logo for future orders
+### Technical Approach
 
-### 4. Update `orders` Table
-Add columns:
-- `custom_labeling` (BOOLEAN, default false) - whether custom labeling was selected
-- `custom_labeling_logo_url` (TEXT, nullable) - the logo URL used for this specific order
-- `custom_labeling_cost` (NUMERIC, default 0) - price for custom labeling (set to $0 for now)
+**1. Copy the vial image asset**
+- Copy `user-uploads://Untitled_design_5.png` to `src/assets/hero-vial.png`
+- Process with Python to remove the light grey background, making it fully transparent
 
----
+**2. Rewrite `MolecularAnimation.tsx`**
+- Keep the particle network but make it subtler (fewer particles, lower opacity)
+- Add the vial as a centered, floating element with:
+  - CSS `float` animation (gentle up/down bobbing)
+  - Mouse-driven parallax via CSS `transform: perspective(1000px) rotateX() rotateY()` --- classic Framer 3D tilt
+  - A radial gradient glow behind the vial that pulses
+  - Orbiting small glowing dots around the vial (CSS animation on circular paths)
+- Smooth scroll-linked fade-out as user scrolls down
 
-## Application Process Changes (Apply.tsx)
+**3. Update `HeroSection.tsx`**
+- Keep the massive logo + tagline + CTA buttons exactly as they are
+- The vial animation becomes part of the background/mid-layer, sitting behind the logo text but above the particle field
+- Add staggered entrance animations: logo fades up first, then tagline, then buttons (Framer-style sequential reveal with `animation-delay`)
 
-### Add New Step 7: Company Logo Upload
-- Insert between current Step 6 (Additional Info) and submission
-- Update step count from 6 to 7
-- Step content:
-  - Header: "Upload Your Company Logo"
-  - Description explaining the logo will be used for custom vial labeling
-  - File upload component accepting PNG and PDF files
-  - Requirements displayed:
-    - Transparent background required
-    - PNG or PDF format
-    - Recommended dimensions
-  - Preview of uploaded logo
-  - Optional checkbox: "I want custom-labeled vials for my orders"
-  - Skip option (optional upload)
+**4. Add Tailwind keyframes** (in `tailwind.config.ts`)
+- `vial-float`: gentle Y-axis bob
+- `orbit`: circular rotation for orbiting particles
+- `glow-pulse`: radial glow intensity pulse
+- `reveal-up`: staggered content reveal with spring-like easing
 
----
+**5. Product cards & pricing (from the earlier request)**
+- Set all prices to `0` in `products-data.ts` (or display as "Contact for Pricing")
+- Remove product images from `ProductCard.tsx` --- replace with a minimal molecule/flask icon or the vial image
+- Keep all product info, descriptions, and scientific data intact
 
-## Checkout Flow Changes (Checkout.tsx)
+### Files to Create/Modify
 
-### Add Labeling Options Section
-Position: After shipping information, before payment notice
+| File | Action |
+|------|--------|
+| `src/assets/hero-vial.png` | Create (processed transparent vial) |
+| `src/components/home/MolecularAnimation.tsx` | Rewrite with vial + parallax + orbiting particles |
+| `src/components/home/HeroSection.tsx` | Add staggered Framer-style entrance animations |
+| `tailwind.config.ts` | Add new keyframes and animations |
+| `src/lib/products-data.ts` | Zero out all prices |
+| `src/components/products/ProductCard.tsx` | Remove product images, show icon placeholder |
+| `src/index.css` | Add any utility classes for parallax/3D transforms |
 
-**UI Design:**
-```text
-+--------------------------------------------------+
-|  🏷️  Vial Labeling Options                       |
-+--------------------------------------------------+
-|  [ ] Standard White Label (FREE)                 |
-|      Clean, professional blank white labels      |
-|                                                  |
-|  [ ] Custom Logo Labeling ($0.00)               |
-|      Your company logo on every vial            |
-|                                                  |
-|  [Upload Logo Button] or [Use Saved Logo]       |
-|  Accepts: PNG, PDF (transparent background)     |
-|                                                  |
-|  [Preview of uploaded logo if exists]           |
-+--------------------------------------------------+
-```
-
-**Logic:**
-- Check if user has saved logo in profile
-- If yes, show "Use saved logo" option
-- Allow new upload that overrides for this order
-- File validation for PNG/PDF only
-- Store selection in order record
-
----
-
-## Client Portal Changes (Profile.tsx)
-
-### Add Company Logo Section
-New card component after "Business Information":
-
-```text
-+--------------------------------------------------+
-|  🏷️  Company Logo                                |
-+--------------------------------------------------+
-|  Upload your company logo for custom vial        |
-|  labeling on your orders.                        |
-|                                                  |
-|  [Current Logo Preview]  or  [No logo uploaded] |
-|                                                  |
-|  [Upload New Logo]  [Remove Logo]               |
-|                                                  |
-|  Requirements:                                   |
-|  • PNG or PDF format                            |
-|  • Transparent background                        |
-|  • Recommended: 300x100px minimum               |
-+--------------------------------------------------+
-```
-
----
-
-## Admin Dashboard Changes
-
-### 1. Businesses Page (Businesses.tsx)
-- Add company logo thumbnail in the business details dialog
-- Show logo status indicator in table (icon showing if logo exists)
-
-### 2. Applications Page (Applications.tsx)
-- Display uploaded logo in application detail dialog
-- Add logo preview section showing the submitted logo
-
-### 3. Orders Page (Orders.tsx)
-- Add "Custom Labeling" column/indicator
-- Show labeling preferences in order detail view
-- Display the logo URL/preview that was used for the order
-
----
-
-## File Upload Component
-
-### Create Reusable LogoUploader Component
-Location: `src/components/shared/LogoUploader.tsx`
-
-**Features:**
-- Drag-and-drop support
-- Click to browse
-- File type validation (PNG, PDF only)
-- File size limit (e.g., 5MB)
-- Preview display
-- Upload progress indicator
-- Error handling with user-friendly messages
-
----
-
-## Technical Implementation Details
-
-### Storage Structure
-```
-company-logos/
-├── applications/
-│   └── {application_id}/logo.{ext}
-├── profiles/
-│   └── {user_id}/logo.{ext}
-└── orders/
-    └── {order_id}/logo.{ext}
-```
-
-### RLS Policies for Storage Bucket
-- Users can upload to their own profile folder
-- Users can upload during application (public insert for applications folder)
-- Admins can read all logos
-- Public read access for displaying logos
-
----
-
-## Implementation Order
-
-1. **Database migrations** - Create storage bucket and add columns
-2. **LogoUploader component** - Reusable file upload component  
-3. **Apply.tsx updates** - Add Step 7 for logo upload
-4. **Profile.tsx updates** - Add logo management section
-5. **Checkout.tsx updates** - Add labeling options
-6. **Admin pages updates** - Display logos in dashboards
-7. **Order flow integration** - Store labeling preference with orders
-
----
-
-## Files to Create
-- `src/components/shared/LogoUploader.tsx`
-
-## Files to Modify
-- `src/pages/Apply.tsx` - Add Step 7
-- `src/pages/Checkout.tsx` - Add labeling options
-- `src/pages/portal/Profile.tsx` - Add logo management
-- `src/pages/admin/Businesses.tsx` - Display logos
-- `src/pages/admin/Applications.tsx` - Display logos
-- `src/pages/admin/Orders.tsx` - Display labeling info
-
-## Database Migration
-- Create `company-logos` storage bucket
-- Add columns to `applications`, `profiles`, and `orders` tables
-- Add appropriate RLS policies
