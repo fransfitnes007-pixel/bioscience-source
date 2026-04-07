@@ -39,8 +39,8 @@ export const HeroSection = () => {
           <div className="mb-8 animate-fade-up">
             <img 
               src={resurrectedLabzLogo} 
-              alt="Resurrected" 
-              className="h-36 md:h-48 lg:h-64 w-auto mx-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+              alt="Resurrected Labz" 
+              className="h-48 md:h-72 lg:h-[26rem] w-auto mx-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.7)] drop-shadow-[0_0_80px_rgba(255,255,255,0.4)] drop-shadow-[0_0_120px_rgba(255,255,255,0.2)]"
             />
           </div>
 
