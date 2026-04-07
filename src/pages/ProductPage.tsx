@@ -129,18 +129,10 @@ const ProductPage = () => {
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Product Image */}
+            {/* Product Icon */}
             <div className="relative">
               <div className="aspect-square bg-card border border-border rounded-2xl flex items-center justify-center overflow-hidden sticky top-32">
-                {productImage ? (
-                  <img
-                    src={productImage}
-                    alt={product.displayName}
-                    className="w-full h-full object-contain p-8"
-                  />
-                ) : (
-                  <ImageIcon className="w-24 h-24 text-muted-foreground/30" strokeWidth={1} />
-                )}
+                <ImageIcon className="w-24 h-24 text-muted-foreground/20" strokeWidth={1} />
               </div>
             </div>
 
