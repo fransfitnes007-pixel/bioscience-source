@@ -1,7 +1,6 @@
 import { Product, ProductVariation } from "@/lib/products-data";
 import { Button } from "@/components/ui/button";
-import { X, ImageIcon, ExternalLink } from "lucide-react";
-import { getProductImage } from "@/lib/product-images";
+import { X, ExternalLink } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -24,8 +23,6 @@ export const ProductDetail = ({
   onInquire,
   onClose,
 }: ProductDetailProps) => {
-  const productImage = getProductImage(product.slug);
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
@@ -45,54 +42,46 @@ export const ProductDetail = ({
         </button>
 
         <div className="p-6 md:p-8">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row gap-8 mb-8">
-            {/* Product icon */}
-            <div className="w-full md:w-64 aspect-square bg-secondary/30 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
-              <ImageIcon className="w-16 h-16 text-muted-foreground/20" strokeWidth={1} />
-            </div>
+          <div className="mb-8 pr-12">
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-6">
+              {product.displayName}
+            </h2>
 
-            <div className="flex-1">
-              <h2 className="font-heading text-3xl font-bold text-foreground mb-6">
-                {product.displayName}
-              </h2>
-
-              {/* Variations */}
-              <div className="mb-6">
-                <h3 className="font-heading text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">
-                  Select Variation
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {product.variations.map((variation) => (
-                    <button
-                      key={variation.strength}
-                      onClick={() => onSelectVariation(variation)}
-                      className={`px-4 py-3 border rounded-lg font-body text-sm transition-all ${
-                        selectedVariation?.strength === variation.strength
-                          ? "border-foreground bg-foreground text-background"
-                          : "border-border hover:border-foreground/50 text-foreground"
-                      }`}
-                    >
-                      <span className="font-medium">{variation.strength}</span>
-                      <span className="text-xs opacity-70 block">
-                        MOQ: {variation.moq} vials
-                      </span>
-                    </button>
-                  ))}
-                </div>
+            {/* Variations */}
+            <div className="mb-6">
+              <h3 className="font-heading text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">
+                Select Variation
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {product.variations.map((variation) => (
+                  <button
+                    key={variation.strength}
+                    onClick={() => onSelectVariation(variation)}
+                    className={`px-4 py-3 border rounded-lg font-body text-sm transition-all ${
+                      selectedVariation?.strength === variation.strength
+                        ? "border-foreground bg-foreground text-background"
+                        : "border-border hover:border-foreground/50 text-foreground"
+                    }`}
+                  >
+                    <span className="font-medium">{variation.strength}</span>
+                    <span className="text-xs opacity-70 block">
+                      MOQ: {variation.moq} vials
+                    </span>
+                  </button>
+                ))}
               </div>
-
-              {/* Inquire button */}
-              <Button
-                variant="hero"
-                size="lg"
-                onClick={onInquire}
-                disabled={!selectedVariation}
-                className="w-full md:w-auto"
-              >
-                {selectedVariation ? "Inquire" : "Select a variation"}
-              </Button>
             </div>
+
+            {/* Inquire button */}
+            <Button
+              variant="hero"
+              size="lg"
+              onClick={onInquire}
+              disabled={!selectedVariation}
+              className="w-full md:w-auto"
+            >
+              {selectedVariation ? "Inquire" : "Select a variation"}
+            </Button>
           </div>
 
           {/* Accordion sections */}

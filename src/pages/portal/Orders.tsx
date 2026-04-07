@@ -23,7 +23,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Package, RefreshCw, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { getProductImage } from "@/lib/product-images";
 
 interface Order {
   id: string;
@@ -174,7 +173,6 @@ const PortalOrders = () => {
         variationName: item.variation_name || '',
         quantity: item.quantity,
         price: Number(item.unit_price),
-        image: getProductImage(item.product_id || item.product_name),
       });
     }
 

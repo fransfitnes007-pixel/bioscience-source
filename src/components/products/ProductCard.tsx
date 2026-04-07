@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Product } from "@/lib/products-data";
 import { Button } from "@/components/ui/button";
-import { FlaskConical } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
@@ -12,22 +11,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Link
       to={`/products/${product.slug}`}
-      className="group p-6 border border-border/50 rounded-lg bg-card/30 hover-lift transition-all duration-300 block"
+      className="group flex min-h-[180px] flex-col justify-between rounded-lg border border-border/50 bg-card/30 p-6 transition-all duration-300 hover-lift"
     >
-      {/* Minimal icon placeholder */}
-      <div className="aspect-square mb-4 bg-secondary/20 rounded-lg flex items-center justify-center overflow-hidden">
-        <FlaskConical
-          className="w-14 h-14 text-muted-foreground/20 group-hover:text-muted-foreground/35 transition-colors duration-300"
-          strokeWidth={1}
-        />
+      <div className="mb-8 space-y-3">
+        <p className="font-body text-xs uppercase tracking-[0.24em] text-muted-foreground">
+          Research peptide
+        </p>
+        <h3 className="font-heading text-xl font-medium leading-tight text-foreground">
+          {product.displayName}
+        </h3>
       </div>
 
-      {/* Product name */}
-      <h3 className="font-heading text-lg font-medium text-foreground mb-4 truncate">
-        {product.displayName}
-      </h3>
-
-      {/* View Details button */}
       <Button variant="heroOutline" size="sm" className="w-full">
         View Details
       </Button>

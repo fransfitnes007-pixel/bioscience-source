@@ -3,14 +3,12 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { DealProgress } from "@/components/cart/DealProgress";
-import { getProductImage } from "@/lib/product-images";
 import {
   ShoppingCart,
   Trash2,
   Plus,
   Minus,
   ArrowRight,
-  ImageIcon,
 } from "lucide-react";
 
 const Cart = () => {
@@ -31,10 +29,9 @@ const Cart = () => {
     }).format(amount);
   };
 
-  // Calculate discount based on current tier
   const getDiscount = () => {
     if (!currentTier) return 0;
-    
+
     if ((currentTier.rewardType === "percent_off" || currentTier.rewardType === "percent_off_shipping") && currentTier.rewardValue) {
       return subtotal * (currentTier.rewardValue / 100);
     }
@@ -44,7 +41,6 @@ const Cart = () => {
     return 0;
   };
 
-  // Check if free shipping is included
   const hasFreeShipping = currentTier?.rewardType === "percent_off_shipping" || currentTier?.rewardType === "free_shipping";
 
   const discount = getDiscount();
@@ -92,27 +88,11 @@ const Cart = () => {
               {/* Cart Items */}
               <div className="lg:col-span-2 space-y-4">
                 {items.map((item) => {
-                  // Use stored image or try to find product image by productId (which is the slug)
-                  const productImage = item.image || getProductImage(item.productId);
-                  
                   return (
                     <div
                       key={item.id}
                       className="flex gap-4 p-4 bg-card border border-border rounded-xl"
                     >
-                      {/* Image */}
-                      <div className="w-24 h-24 bg-secondary/30 rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden">
-                        {productImage ? (
-                          <img
-                            src={productImage}
-                            alt={item.productName}
-                            className="w-full h-full object-contain p-2"
-                          />
-                        ) : (
-                          <ImageIcon className="w-8 h-8 text-muted-foreground/30" />
-                        )}
-                      </div>
-
                       {/* Details */}
                       <div className="flex-1 min-w-0">
                         <h3 className="font-heading font-medium text-foreground truncate">
