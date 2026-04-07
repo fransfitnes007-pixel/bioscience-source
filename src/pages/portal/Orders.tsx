@@ -173,7 +173,6 @@ const PortalOrders = () => {
         variationName: item.variation_name || '',
         quantity: item.quantity,
         price: Number(item.unit_price),
-        image: getProductImage(item.product_id || item.product_name),
       });
     }
 
