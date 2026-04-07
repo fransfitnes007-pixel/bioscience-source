@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, ShoppingCart, Plus, Minus } from "lucide-react";
-import { productCategories, Product, ProductVariation } from "@/lib/products-data";
-import { getProductImage } from "@/lib/product-images";
+import { productCategories, ProductVariation } from "@/lib/products-data";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,7 +18,6 @@ const PortalProducts = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Flatten all products from categories
   const allProducts = useMemo(() => {
     return productCategories.flatMap((category) =>
       category.products.map((product) => ({
@@ -43,7 +41,7 @@ const PortalProducts = () => {
 
   const getQuantity = (productSlug: string, strength: string) => {
     const key = `${productSlug}-${strength}`;
-    return quantities[key] || 10; // Default to MOQ of 10
+    return quantities[key] || 10;
   };
 
   const setQuantity = (productSlug: string, strength: string, qty: number) => {
@@ -52,7 +50,6 @@ const PortalProducts = () => {
   };
 
   const getPrice = (variation: ProductVariation, qty: number): number => {
-    // Use the appropriate price tier based on quantity
     if (qty >= 30 && variation.price30) return variation.price30;
     if (qty >= 20 && variation.price20) return variation.price20;
     if (variation.price10) return variation.price10;
@@ -62,17 +59,16 @@ const PortalProducts = () => {
   const handleAddToCart = async (product: typeof allProducts[0], variation: ProductVariation) => {
     const qty = getQuantity(product.slug, variation.strength);
     const price = getPrice(variation, qty);
-    
+
     await addToCart({
       productId: product.slug,
       productName: product.displayName,
       variationId: variation.strength,
       variationName: variation.strength,
       quantity: qty,
-      price: price,
-      image: getProductImage(product.slug),
+      price,
     });
-    
+
     toast({
       title: "Added to cart",
       description: `${qty}x ${product.displayName} (${variation.strength})`,
@@ -138,14 +134,7 @@ const PortalProducts = () => {
         {/* Products Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filteredProducts.map((product) => (
-            <Card key={product.slug} className="overflow-hidden">
-              <div className="aspect-square relative bg-muted">
-                <img
-                  src={getProductImage(product.slug)}
-                  alt={product.displayName}
-                  className="object-cover w-full h-full"
-                />
-              </div>
+            <Card key={product.slug}>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">{product.displayName}</CardTitle>
                 <p className="text-sm text-muted-foreground line-clamp-2">

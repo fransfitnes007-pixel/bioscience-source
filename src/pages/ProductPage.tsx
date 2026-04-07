@@ -6,13 +6,7 @@ import { PriceDisplay } from "@/components/cart/PriceDisplay";
 import { useCart } from "@/contexts/CartContext";
 import { getProductBySlug, Product, ProductVariation } from "@/lib/products-data";
 import { toast } from "sonner";
-import { getProductImage } from "@/lib/product-images";
-import {
-  ArrowLeft,
-  ShoppingCart,
-  ImageIcon,
-  Check,
-} from "lucide-react";
+import { ArrowLeft, ShoppingCart, Check } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -21,11 +15,9 @@ import {
 } from "@/components/ui/accordion";
 import { ExternalLink } from "lucide-react";
 
-// Available quantity tiers
 const QUANTITY_TIERS = [10, 20, 30] as const;
 type QuantityTier = typeof QUANTITY_TIERS[number];
 
-// Helper to get price for a quantity tier
 const getPriceForTier = (variation: ProductVariation, tier: QuantityTier): number => {
   switch (tier) {
     case 10:
@@ -39,7 +31,6 @@ const getPriceForTier = (variation: ProductVariation, tier: QuantityTier): numbe
   }
 };
 
-// Helper to get original price (before 20% discount)
 const getOriginalPrice = (price: number): number => {
   if (price === 0) return 0;
   return Math.round(price / 0.8);
@@ -49,7 +40,7 @@ const ProductPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  
+
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
   const [selectedQuantity, setSelectedQuantity] = useState<QuantityTier>(10);
@@ -87,20 +78,16 @@ const ProductPage = () => {
     }
 
     setIsAddingToCart(true);
-    const productImage = getProductImage(product.slug);
     await addToCart({
       productId: product.slug,
       variationId: `${product.slug}-${selectedVariation.strength}-${selectedQuantity}`,
       productName: product.displayName,
       variationName: `${selectedVariation.strength} × ${selectedQuantity} vials`,
-      quantity: 1, // Each tier is sold as a single unit (10/20/30 vials)
+      quantity: 1,
       price,
-      image: productImage || undefined,
     });
     setIsAddingToCart(false);
   };
-
-  const productImage = product ? getProductImage(product.slug) : null;
 
   if (!product) {
     return (
@@ -128,15 +115,7 @@ const ProductPage = () => {
             <span className="font-body text-sm">Back to Products</span>
           </Link>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Product Icon */}
-            <div className="relative">
-              <div className="aspect-square bg-card border border-border rounded-2xl flex items-center justify-center overflow-hidden sticky top-32">
-                <ImageIcon className="w-24 h-24 text-muted-foreground/20" strokeWidth={1} />
-              </div>
-            </div>
-
-            {/* Product Info */}
+          <div className="max-w-4xl">
             <div>
               <h1 className="font-heading text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 {product.displayName}
