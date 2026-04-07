@@ -60,27 +60,27 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border/60 shadow-lg shadow-black/20">
+    <header className="fixed top-[32px] left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-24 lg:h-32">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img
               alt="Resurrected"
-              className="h-20 lg:h-28 w-auto drop-shadow-[0_0_35px_rgba(255,255,255,0.6)] brightness-110"
+              className="h-12 lg:h-16 w-auto drop-shadow-[0_0_25px_rgba(255,255,255,0.5)] brightness-110"
               src={resurrectedLogo}
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`font-heading text-lg font-bold tracking-widest uppercase transition-colors duration-300 ${
+                className={`font-body text-sm font-medium tracking-[0.15em] uppercase transition-colors duration-300 ${
                   location.pathname === link.path
-                    ? "text-foreground drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]"
+                    ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -95,9 +95,9 @@ export const Header = () => {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="heroOutline" size="default">
-                    <User className="h-4 w-4 mr-2" />
-                    My Account
+                  <Button variant="ghost" size="sm" className="gap-2 text-sm tracking-wide">
+                    <User className="h-4 w-4" />
+                    Account
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
@@ -121,7 +121,7 @@ export const Header = () => {
               </DropdownMenu>
             ) : (
               <Link to="/account">
-                <Button variant="heroOutline" size="default">
+                <Button variant="outline" size="sm" className="text-sm tracking-wide">
                   Sign In
                 </Button>
               </Link>
@@ -136,20 +136,20 @@ export const Header = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden py-6 border-t border-border/50 animate-fade-in">
+          <div className="lg:hidden py-6 border-t border-border/30 animate-fade-in">
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`font-heading text-lg font-medium tracking-wide py-2 transition-colors duration-300 ${
+                  className={`font-body text-sm font-medium tracking-wide uppercase py-2 transition-colors duration-300 ${
                     location.pathname === link.path
                       ? "text-foreground"
                       : "text-muted-foreground"
@@ -162,37 +162,21 @@ export const Header = () => {
               {user ? (
                 <>
                   {isAdmin && (
-                    <Link
-                      to="/admin"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="font-heading text-lg font-medium tracking-wide py-2 text-muted-foreground"
-                    >
+                    <Link to="/admin" onClick={() => setIsMenuOpen(false)} className="font-body text-sm font-medium tracking-wide py-2 text-muted-foreground">
                       Admin Dashboard
                     </Link>
                   )}
-                  <Link
-                    to="/portal"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="font-heading text-lg font-medium tracking-wide py-2 text-muted-foreground"
-                  >
+                  <Link to="/portal" onClick={() => setIsMenuOpen(false)} className="font-body text-sm font-medium tracking-wide py-2 text-muted-foreground">
                     My Orders
                   </Link>
-                  <Button
-                    variant="hero"
-                    size="lg"
-                    className="w-full mt-4"
-                    onClick={() => {
-                      handleLogout();
-                      setIsMenuOpen(false);
-                    }}
-                  >
+                  <Button variant="outline" size="sm" className="w-full mt-4" onClick={() => { handleLogout(); setIsMenuOpen(false); }}>
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
                   </Button>
                 </>
               ) : (
                 <Link to="/account" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="hero" size="lg" className="w-full mt-4">
+                  <Button variant="outline" size="sm" className="w-full mt-4">
                     Sign In
                   </Button>
                 </Link>
