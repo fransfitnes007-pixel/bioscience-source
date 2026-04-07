@@ -13,7 +13,7 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[52px]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-[52px]">
       <MolecularAnimation />
 
       {/* Gradient overlay */}
