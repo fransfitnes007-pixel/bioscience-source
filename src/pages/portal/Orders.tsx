@@ -23,7 +23,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Package, RefreshCw, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
-import { getProductImage } from "@/lib/product-images";
 
 interface Order {
   id: string;
