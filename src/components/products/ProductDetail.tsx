@@ -47,17 +47,9 @@ export const ProductDetail = ({
         <div className="p-6 md:p-8">
           {/* Header */}
           <div className="flex flex-col md:flex-row gap-8 mb-8">
-            {/* Product image */}
+            {/* Product icon */}
             <div className="w-full md:w-64 aspect-square bg-secondary/30 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
-              {productImage ? (
-                <img
-                  src={productImage}
-                  alt={product.displayName}
-                  className="w-full h-full object-contain p-4"
-                />
-              ) : (
-                <ImageIcon className="w-16 h-16 text-muted-foreground/30" strokeWidth={1} />
-              )}
+              <ImageIcon className="w-16 h-16 text-muted-foreground/20" strokeWidth={1} />
             </div>
 
             <div className="flex-1">
