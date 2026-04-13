@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
-import heroVial from "@/assets/hero-vial.png";
+
 
 interface Ripple {
   id: number;
@@ -17,21 +17,13 @@ interface Particle {
   opacity: number;
 }
 
-interface OrbitDot {
-  id: number;
-  angle: number;
-  radius: number;
-  size: number;
-  speed: number;
-  delay: number;
-}
 
 const CONNECTION_DISTANCE = 18;
 
 export const MolecularAnimation = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
-  const [scrollProgress, setScrollProgress] = useState(0);
+  
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const rippleIdRef = useRef(0);
 
@@ -48,19 +40,6 @@ export const MolecularAnimation = () => {
     }))
   );
 
-  // Orbiting dots around the vial
-  const orbitDots = useMemo<OrbitDot[]>(
-    () =>
-      Array.from({ length: 8 }, (_, i) => ({
-        id: i,
-        angle: (360 / 8) * i,
-        radius: 140 + Math.random() * 60,
-        size: Math.random() * 3 + 2,
-        speed: 20 + Math.random() * 15,
-        delay: i * 0.8,
-      })),
-    []
-  );
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -71,16 +50,11 @@ export const MolecularAnimation = () => {
         y: (e.clientY - rect.top) / rect.height,
       });
     };
-    const handleScroll = () => {
-      const docH = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(docH > 0 ? Math.min(window.scrollY / docH, 1) : 0);
-    };
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+    
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll", handleScroll);
+      
     };
   }, []);
 
@@ -129,9 +103,6 @@ export const MolecularAnimation = () => {
     return lines;
   }, [particlePositions]);
 
-  // 3D tilt values driven by mouse
-  const tiltX = (mousePos.y - 0.5) * -12;
-  const tiltY = (mousePos.x - 0.5) * 12;
 
   return (
     <div
@@ -183,62 +154,6 @@ export const MolecularAnimation = () => {
         />
       ))}
 
-      {/* ========== VIAL — center focal with 3D parallax ========== */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {/* Pulsing radial glow behind the vial */}
-        <div
-          className="absolute rounded-full animate-[glow-pulse_4s_ease-in-out_infinite]"
-          style={{
-            width: "420px",
-            height: "420px",
-            background:
-              "radial-gradient(circle, hsl(var(--foreground) / 0.08) 0%, hsl(var(--foreground) / 0.02) 40%, transparent 70%)",
-          }}
-        />
-
-        {/* Orbiting dots */}
-        {orbitDots.map((dot) => (
-          <div
-            key={dot.id}
-            className="absolute"
-            style={{
-              width: `${dot.size}px`,
-              height: `${dot.size}px`,
-              animation: `orbit ${dot.speed}s linear infinite`,
-              animationDelay: `${dot.delay}s`,
-              transformOrigin: "center",
-              left: "50%",
-              top: "50%",
-              marginLeft: `-${dot.size / 2}px`,
-              marginTop: `-${dot.radius}px`,
-            }}
-          >
-            <div
-              className="w-full h-full rounded-full"
-              style={{
-                background: `hsl(var(--foreground) / 0.4)`,
-                boxShadow: `0 0 ${dot.size * 4}px hsl(var(--foreground) / 0.3)`,
-              }}
-            />
-          </div>
-        ))}
-
-        {/* The vial itself with 3D tilt */}
-        <img
-          src={heroVial}
-          alt=""
-          className="relative z-10 animate-[vial-float_6s_ease-in-out_infinite] select-none"
-          style={{
-            height: "340px",
-            width: "auto",
-            transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
-            transition: "transform 0.3s ease-out",
-            filter:
-              "drop-shadow(0 0 30px hsl(0 0% 100% / 0.25)) drop-shadow(0 0 60px hsl(0 0% 100% / 0.1))",
-            opacity: 0.35,
-          }}
-        />
-      </div>
 
       {/* Ripple effects */}
       {ripples.map((ripple) => (
