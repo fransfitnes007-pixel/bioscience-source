@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
-import heroVial from "@/assets/hero-vial.png";
+
 
 interface Ripple {
   id: number;
