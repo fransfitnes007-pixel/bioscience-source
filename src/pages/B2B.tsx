@@ -19,10 +19,8 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell,
 } from "recharts";
 import { Layout } from "@/components/layout/Layout";
-import { Button } from "@/components/ui/button";
 import heroLogo from "@/assets/resurrected-logo-hero.png";
 
 // B2B password

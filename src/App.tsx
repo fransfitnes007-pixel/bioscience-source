@@ -13,6 +13,8 @@ import About from "./pages/About";
 import Terms from "./pages/Terms";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Access from "./pages/Access";
+import B2B from "./pages/B2B";
+import B2BApply from "./pages/B2BApply";
 import NotFound from "./pages/NotFound";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import SetPassword from "./pages/SetPassword";
@@ -91,6 +93,9 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/account" element={<Access />} />
             <Route path="/set-password" element={<SetPassword />} />
+            {/* B2B Routes */}
+            <Route path="/b2b" element={<B2B />} />
+            <Route path="/b2b/apply" element={<B2BApply />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
