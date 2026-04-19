@@ -78,7 +78,8 @@ export const SpinningLogo3D = ({
       <Canvas
         camera={{ position: [0, 0, cameraZ], fov: 45 }}
         gl={{ alpha: true, antialias: true, premultipliedAlpha: false }}
-        style={{ background: "transparent" }}
+        style={{ background: "transparent", display: "block", width: "100%", height: "100%" }}
+        onCreated={({ camera }) => camera.lookAt(0, 0, 0)}
       >
         <Suspense fallback={null}>
           <LogoMesh src={src} size={size} speed={speed} />

@@ -45,7 +45,7 @@ export const HeroSection = () => {
 
           {/* 3D Spinning Logo */}
           <div
-            className={`flex justify-center mb-8 transition-all duration-[1400ms] ease-out ${
+            className={`flex items-center justify-center mb-8 mx-auto transition-all duration-[1400ms] ease-out ${
               isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
             }`}
             style={{ transitionDelay: "150ms" }}
@@ -53,7 +53,7 @@ export const HeroSection = () => {
             <SpinningLogo3D
               size={3.4}
               cameraZ={4.6}
-              className="w-[520px] h-[420px] md:w-[760px] md:h-[560px] lg:w-[960px] lg:h-[680px] drop-shadow-[0_0_80px_rgba(255,255,255,0.45)]"
+              className="w-[520px] h-[420px] md:w-[760px] md:h-[560px] lg:w-[960px] lg:h-[680px] mx-auto drop-shadow-[0_0_80px_rgba(255,255,255,0.45)]"
             />
           </div>
 
