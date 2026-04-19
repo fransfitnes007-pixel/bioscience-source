@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CartIcon } from "@/components/layout/CartIcon";
 import { supabase } from "@/integrations/supabase/client";
 import { SpinningLogo3D } from "@/components/home/SpinningLogo3D";
+import resurrectedMark from "@/assets/resurrected-logo.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -65,7 +66,13 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center" aria-label="Resurrected Labz home">
-            <SpinningLogo3D className="w-16 h-16 lg:w-20 lg:h-20 drop-shadow-[0_0_20px_rgba(255,255,255,0.45)]" />
+            <SpinningLogo3D
+              src={resurrectedMark}
+              size={2.6}
+              cameraZ={3.6}
+              speed={0.8}
+              className="w-14 h-14 lg:w-16 lg:h-16 drop-shadow-[0_0_18px_rgba(255,255,255,0.55)]"
+            />
           </Link>
 
           {/* Desktop Navigation */}
