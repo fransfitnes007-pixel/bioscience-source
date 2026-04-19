@@ -13,13 +13,23 @@ interface LogoMeshProps {
 
 const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
   const meshRef = useRef<THREE.Group>(null);
+  const innerRef = useRef<THREE.Group>(null);
+  const spinRef = useRef(0);
   const texture = useLoader(TextureLoader, src);
   texture.anisotropy = 16;
   texture.colorSpace = THREE.SRGBColorSpace;
 
   useFrame((_, delta) => {
+    spinRef.current += delta * speed;
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * speed;
+      // Continuous Y rotation drives the "spin"
+      meshRef.current.rotation.y = spinRef.current;
+    }
+    if (innerRef.current) {
+      // Counter-rotate when we're on the back half so the front of the logo
+      // always faces the camera. At 180° we instantly flip back to 0°.
+      const mod = ((spinRef.current % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+      innerRef.current.rotation.y = mod >= Math.PI ? Math.PI : 0;
     }
   });
 
