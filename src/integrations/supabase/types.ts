@@ -1685,6 +1685,9 @@ export type Database = {
       }
       orders: {
         Row: {
+          app_subscription: boolean | null
+          app_subscription_cost: number | null
+          app_subscription_interval: string | null
           billing_address: string
           billing_address_2: string | null
           billing_city: string
@@ -1736,6 +1739,9 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          app_subscription?: boolean | null
+          app_subscription_cost?: number | null
+          app_subscription_interval?: string | null
           billing_address: string
           billing_address_2?: string | null
           billing_city: string
@@ -1787,6 +1793,9 @@ export type Database = {
           user_id: string
         }
         Update: {
+          app_subscription?: boolean | null
+          app_subscription_cost?: number | null
+          app_subscription_interval?: string | null
           billing_address?: string
           billing_address_2?: string | null
           billing_city?: string
