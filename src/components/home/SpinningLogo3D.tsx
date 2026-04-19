@@ -21,15 +21,16 @@ const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
 
   useFrame((_, delta) => {
     spinRef.current += delta * speed;
+    const mod = ((spinRef.current % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+
     if (meshRef.current) {
-      // Continuous Y rotation drives the "spin"
-      meshRef.current.rotation.y = spinRef.current;
+      meshRef.current.rotation.y = mod;
     }
+
     if (innerRef.current) {
-      // Counter-rotate when we're on the back half so the front of the logo
-      // always faces the camera. At 180° we instantly flip back to 0°.
-      const mod = ((spinRef.current % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-      innerRef.current.rotation.y = mod >= Math.PI ? Math.PI : 0;
+      // Mirror only while the plane's back face is visible so the readable
+      // front artwork appears continuous through the full rotation.
+      innerRef.current.scale.x = mod > Math.PI / 2 && mod < Math.PI * 1.5 ? -1 : 1;
     }
   });
 
