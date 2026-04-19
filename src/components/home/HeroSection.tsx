@@ -112,7 +112,7 @@ export const HeroSection = () => {
               { v: "GMP", l: "Manufactured" },
             ].map((s) => (
               <div key={s.l} className="text-center">
-                <div className="font-display text-3xl md:text-4xl text-foreground">{s.v}</div>
+                <div className="font-body font-bold text-3xl md:text-4xl text-foreground tracking-tight">{s.v}</div>
                 <div className="font-body text-[10px] uppercase tracking-[0.3em] text-muted-foreground mt-2">
                   {s.l}
                 </div>
