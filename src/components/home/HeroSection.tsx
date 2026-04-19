@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 export const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
