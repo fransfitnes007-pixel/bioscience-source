@@ -12,7 +12,7 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-24 md:pt-32">
       {/* Subtle radial spotlight */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "var(--gradient-radial-spot)" }} />
 
@@ -45,7 +45,7 @@ export const HeroSection = () => {
 
           {/* 3D Spinning Logo */}
           <div
-            className={`flex items-center justify-center mb-8 mx-auto transition-all duration-[1400ms] ease-out ${
+            className={`flex items-center justify-center -mb-6 md:-mb-12 lg:-mb-20 mx-auto transition-all duration-[1400ms] ease-out ${
               isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
             }`}
             style={{ transitionDelay: "150ms" }}
@@ -53,7 +53,7 @@ export const HeroSection = () => {
             <SpinningLogo3D
               size={3.4}
               cameraZ={4.6}
-              className="w-[520px] h-[420px] md:w-[760px] md:h-[560px] lg:w-[960px] lg:h-[680px] mx-auto drop-shadow-[0_0_80px_rgba(255,255,255,0.45)]"
+              className="w-[420px] h-[340px] md:w-[620px] md:h-[460px] lg:w-[780px] lg:h-[560px] mx-auto drop-shadow-[0_0_80px_rgba(255,255,255,0.45)]"
             />
           </div>
 
@@ -69,7 +69,7 @@ export const HeroSection = () => {
 
           {/* Subhead */}
           <p
-            className={`font-body text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto text-center mt-12 leading-relaxed transition-all duration-1000 ease-out ${
+            className={`font-body text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto text-center mt-8 leading-relaxed transition-all duration-1000 ease-out ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
             style={{ transitionDelay: "650ms" }}
