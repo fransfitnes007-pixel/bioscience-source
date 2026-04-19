@@ -41,13 +41,13 @@ const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
           toneMapped={false}
         />
       </mesh>
-      {/* Back face — mirrored so logo reads correctly (not reversed) from behind */}
-      <mesh position={[0, 0, -0.001]} rotation={[0, Math.PI, 0]} scale={[-1, 1, 1]}>
+      {/* Back face — same orientation as front so the readable logo shows from behind too */}
+      <mesh position={[0, 0, -0.001]} rotation={[0, Math.PI, 0]}>
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial
           map={texture}
           transparent
-          side={THREE.FrontSide}
+          side={THREE.BackSide}
           toneMapped={false}
         />
       </mesh>
