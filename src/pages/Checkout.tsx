@@ -1052,6 +1052,13 @@ const Checkout = () => {
                         </div>
                       )}
 
+                      {appSubscription && (
+                        <div className="flex justify-between font-body">
+                          <span className="text-muted-foreground">App Access (monthly)</span>
+                          <span className="text-foreground">{formatCurrency(appSubscriptionCost)}</span>
+                        </div>
+                      )}
+
                       <div className="border-t border-border pt-3 flex justify-between">
                         <span className="font-heading font-semibold text-foreground">Total</span>
                         <span className="font-heading text-2xl font-bold text-foreground">
