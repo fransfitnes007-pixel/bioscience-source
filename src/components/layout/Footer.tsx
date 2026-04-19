@@ -8,8 +8,8 @@ export const Footer = () => {
       <div className="container mx-auto px-6 lg:px-12 py-20 lg:py-28">
         {/* Wordmark */}
         <div className="mb-20">
-          <div className="font-display text-[18vw] md:text-[14vw] lg:text-[12rem] leading-none text-foreground/[0.08] select-none">
-            Resurrected
+          <div className="font-body font-bold tracking-[-0.05em] text-[18vw] md:text-[14vw] lg:text-[12rem] leading-none text-foreground/[0.08] select-none">
+            RESURRECTED
           </div>
         </div>
 
