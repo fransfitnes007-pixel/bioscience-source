@@ -2,60 +2,71 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { useRef, Suspense } from "react";
 import * as THREE from "three";
 import { TextureLoader } from "three";
-import resurrectedLogo from "@/assets/resurrected-logo-full.png";
+import heroLogo from "@/assets/resurrected-logo-hero.png";
 
-const LogoMesh = () => {
+interface LogoMeshProps {
+  src: string;
+  /** Maximum plane dimension in three.js units (the larger of width/height) */
+  size?: number;
+  speed?: number;
+}
+
+const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const texture = useLoader(TextureLoader, resurrectedLogo);
+  const texture = useLoader(TextureLoader, src);
   texture.anisotropy = 16;
+  texture.colorSpace = THREE.SRGBColorSpace;
 
   useFrame((_, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.6;
+      meshRef.current.rotation.y += delta * speed;
     }
   });
 
-  // Compute aspect from texture to size plane correctly
+  // Fit plane to texture aspect so the whole logo is always visible
   const img = texture.image as HTMLImageElement | undefined;
   const aspect = img && img.width && img.height ? img.width / img.height : 1;
-  const height = 3.2;
-  const width = height * aspect;
+  const width = aspect >= 1 ? size : size * aspect;
+  const height = aspect >= 1 ? size / aspect : size;
 
   return (
-    <group>
-      {/* Soft backlight glow */}
-      <pointLight position={[0, 0, -2]} intensity={3} color="#ffffff" distance={10} />
-      <pointLight position={[3, 2, 3]} intensity={1.5} color="#ffffff" />
-      <pointLight position={[-3, -2, 3]} intensity={1.2} color="#ffffff" />
-      <ambientLight intensity={0.4} />
-
-      <mesh ref={meshRef}>
-        <planeGeometry args={[width, height]} />
-        <meshStandardMaterial
-          map={texture}
-          transparent
-          side={THREE.DoubleSide}
-          emissive="#ffffff"
-          emissiveMap={texture}
-          emissiveIntensity={0.6}
-          metalness={0.3}
-          roughness={0.4}
-        />
-      </mesh>
-    </group>
+    <mesh ref={meshRef}>
+      <planeGeometry args={[width, height]} />
+      <meshBasicMaterial
+        map={texture}
+        transparent
+        side={THREE.DoubleSide}
+        toneMapped={false}
+      />
+    </mesh>
   );
 };
 
-export const SpinningLogo3D = ({ className = "" }: { className?: string }) => {
+interface SpinningLogo3DProps {
+  className?: string;
+  src?: string;
+  size?: number;
+  speed?: number;
+  /** Camera distance — increase to ensure the full plane fits in view */
+  cameraZ?: number;
+}
+
+export const SpinningLogo3D = ({
+  className = "",
+  src = heroLogo,
+  size = 3,
+  speed = 0.6,
+  cameraZ = 4.2,
+}: SpinningLogo3DProps) => {
   return (
     <div className={className}>
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 45 }}
-        gl={{ alpha: true, antialias: true }}
+        camera={{ position: [0, 0, cameraZ], fov: 45 }}
+        gl={{ alpha: true, antialias: true, premultipliedAlpha: false }}
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <LogoMesh />
+          <LogoMesh src={src} size={size} speed={speed} />
         </Suspense>
       </Canvas>
     </div>
