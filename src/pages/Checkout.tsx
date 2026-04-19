@@ -866,6 +866,67 @@ const Checkout = () => {
                   {/* Deal Progress */}
                   <DealProgress />
 
+                  {/* App Subscription Add-on */}
+                  <div
+                    onClick={() => setAppSubscription(!appSubscription)}
+                    className={`relative bg-card border rounded-xl p-6 cursor-pointer transition-all duration-500 overflow-hidden ${
+                      appSubscription
+                        ? "border-foreground bg-foreground/[0.04]"
+                        : "border-border hover:border-foreground/40"
+                    }`}
+                  >
+                    <div className="absolute top-3 right-3">
+                      <span className="font-body text-[9px] uppercase tracking-[0.25em] text-foreground/60 border border-border px-2 py-1 rounded-full">
+                        New
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 transition-all ${
+                          appSubscription
+                            ? "border-foreground bg-foreground"
+                            : "border-border"
+                        }`}
+                      >
+                        {appSubscription && <Check className="w-3.5 h-3.5 text-background" />}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Smartphone className="w-4 h-4 text-foreground" strokeWidth={1.5} />
+                          <span className="font-display text-xl text-foreground leading-tight">
+                            Resurrected App Access
+                          </span>
+                        </div>
+                        <p className="font-body text-sm text-muted-foreground mb-4 leading-relaxed">
+                          Lifetime dosage protocols, cycle tracking, and a private community of researchers — delivered as a deep-link to your phone.
+                        </p>
+                        <ul className="space-y-1.5 mb-4">
+                          {[
+                            "Personalized protocol library",
+                            "Cycle & reconstitution tracker",
+                            "Members-only research notes",
+                          ].map((b) => (
+                            <li key={b} className="flex items-center gap-2 font-body text-xs text-muted-foreground">
+                              <Sparkles className="w-3 h-3 text-foreground/60" strokeWidth={1.5} />
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="flex items-baseline justify-between border-t border-border/40 pt-3">
+                          <div>
+                            <span className="font-display text-2xl text-foreground">
+                              ${APP_SUBSCRIPTION_COST}
+                            </span>
+                            <span className="font-body text-xs text-muted-foreground ml-1">/ month</span>
+                          </div>
+                          <span className="font-body text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                            Cancel anytime
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Buyer Protection */}
                   <div
                     onClick={() => setBuyerProtection(!buyerProtection)}
