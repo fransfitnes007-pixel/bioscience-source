@@ -18,6 +18,8 @@ import {
   Tags,
   FileImage,
   Upload,
+  Smartphone,
+  Sparkles,
 } from "lucide-react";
 import LogoUploader from "@/components/shared/LogoUploader";
 
@@ -61,6 +63,8 @@ const Checkout = () => {
   const [customLabelingLogoUrl, setCustomLabelingLogoUrl] = useState<string | null>(null);
   const [savedLogoUrl, setSavedLogoUrl] = useState<string | null>(null);
   const [useSavedLogo, setUseSavedLogo] = useState(false);
+  const [appSubscription, setAppSubscription] = useState(false);
+  const APP_SUBSCRIPTION_COST = 19;
   const [orderTempId] = useState(() => crypto.randomUUID());
 
   // Shipping rate state
@@ -220,7 +224,8 @@ const Checkout = () => {
   const buyerProtectionCost = getBuyerProtectionCost(currentTier?.tierNumber);
   const protectionCost = buyerProtection ? buyerProtectionCost : 0;
   const customLabelingCost = 0; // $0 for now as specified
-  const total = subtotal - discount + shippingCost + protectionCost + customLabelingCost;
+  const appSubscriptionCost = appSubscription ? APP_SUBSCRIPTION_COST : 0;
+  const total = subtotal - discount + shippingCost + protectionCost + customLabelingCost + appSubscriptionCost;
 
   // Get the logo URL to use for this order
   const getOrderLogoUrl = () => {
@@ -289,6 +294,9 @@ const Checkout = () => {
           custom_labeling: customLabeling,
           custom_labeling_logo_url: getOrderLogoUrl(),
           custom_labeling_cost: customLabelingCost,
+          app_subscription: appSubscription,
+          app_subscription_cost: appSubscriptionCost,
+          app_subscription_interval: 'month',
           fulfillment_carrier: selectedShippingRate?.carrier || null,
           estimated_delivery_date: selectedShippingRate ? 
             new Date(Date.now() + selectedShippingRate.estimatedDaysMax * 86400000).toISOString().split('T')[0] : null,
