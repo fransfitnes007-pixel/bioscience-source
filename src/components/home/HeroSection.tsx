@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import resurrectedLogo from "@/assets/resurrected-logo.png";
+import { SpinningLogo3D } from "./SpinningLogo3D";
 
 export const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,18 +43,14 @@ export const HeroSection = () => {
             <span className="h-px w-8 bg-foreground/30" />
           </div>
 
-          {/* Glowing logo */}
+          {/* 3D Spinning Logo */}
           <div
-            className={`flex justify-center mb-8 transition-all duration-[1200ms] ease-out ${
+            className={`flex justify-center mb-8 transition-all duration-[1400ms] ease-out ${
               isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
             }`}
             style={{ transitionDelay: "150ms" }}
           >
-            <img
-              src={resurrectedLogo}
-              alt="Resurrected Labz"
-              className="h-40 md:h-56 lg:h-72 w-auto drop-shadow-[0_0_60px_rgba(255,255,255,0.45)] brightness-110"
-            />
+            <SpinningLogo3D className="w-[420px] h-[420px] md:w-[560px] md:h-[560px] lg:w-[680px] lg:h-[680px] drop-shadow-[0_0_80px_rgba(255,255,255,0.35)]" />
           </div>
 
           {/* Headline */}
