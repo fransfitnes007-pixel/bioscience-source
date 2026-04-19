@@ -13,13 +13,23 @@ interface LogoMeshProps {
 
 const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
   const meshRef = useRef<THREE.Group>(null);
+  const innerRef = useRef<THREE.Group>(null);
+  const spinRef = useRef(0);
   const texture = useLoader(TextureLoader, src);
   texture.anisotropy = 16;
   texture.colorSpace = THREE.SRGBColorSpace;
 
   useFrame((_, delta) => {
+    spinRef.current += delta * speed;
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * speed;
+      // Continuous Y rotation drives the "spin"
+      meshRef.current.rotation.y = spinRef.current;
+    }
+    if (innerRef.current) {
+      // Counter-rotate when we're on the back half so the front of the logo
+      // always faces the camera. At 180° we instantly flip back to 0°.
+      const mod = ((spinRef.current % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+      innerRef.current.rotation.y = mod >= Math.PI ? Math.PI : 0;
     }
   });
 
@@ -31,26 +41,17 @@ const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
 
   return (
     <group ref={meshRef}>
-      {/* Front face */}
-      <mesh position={[0, 0, 0.001]}>
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial
-          map={texture}
-          transparent
-          side={THREE.FrontSide}
-          toneMapped={false}
-        />
-      </mesh>
-      {/* Back face — same orientation as front so the readable logo shows from behind too */}
-      <mesh position={[0, 0, -0.001]} rotation={[0, Math.PI, 0]}>
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial
-          map={texture}
-          transparent
-          side={THREE.BackSide}
-          toneMapped={false}
-        />
-      </mesh>
+      <group ref={innerRef}>
+        <mesh>
+          <planeGeometry args={[width, height]} />
+          <meshBasicMaterial
+            map={texture}
+            transparent
+            side={THREE.DoubleSide}
+            toneMapped={false}
+          />
+        </mesh>
+      </group>
     </group>
   );
 };
