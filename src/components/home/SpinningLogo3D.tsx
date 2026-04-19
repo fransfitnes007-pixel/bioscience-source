@@ -12,7 +12,7 @@ interface LogoMeshProps {
 }
 
 const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Group>(null);
   const texture = useLoader(TextureLoader, src);
   texture.anisotropy = 16;
   texture.colorSpace = THREE.SRGBColorSpace;
