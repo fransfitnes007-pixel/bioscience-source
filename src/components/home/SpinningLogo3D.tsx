@@ -2,7 +2,7 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { useRef, Suspense } from "react";
 import * as THREE from "three";
 import { TextureLoader } from "three";
-import resurrectedLogo from "@/assets/resurrected-logo.png";
+import resurrectedLogo from "@/assets/resurrected-logo-full.png";
 
 const LogoMesh = () => {
   const meshRef = useRef<THREE.Mesh>(null);
