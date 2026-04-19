@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export const FinalCTASection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,23 +16,27 @@ export const FinalCTASection = () => {
   }, []);
 
   return (
-    <section ref={ref} className="py-24 lg:py-32 border-t border-border/30">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className={`max-w-2xl mx-auto text-center transition-all duration-700 ${
+    <section ref={ref} className="relative py-40 lg:py-56 border-t border-border/40 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "var(--gradient-radial-spot)" }} />
+      <div className="container mx-auto px-6 lg:px-12 relative">
+        <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ease-out ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold mb-6 text-foreground">
-            Ready to Get Started?
+          <span className="font-body text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+            06 — Begin
+          </span>
+          <h2 className="font-display text-5xl md:text-7xl lg:text-8xl text-foreground mt-8 mb-10 leading-[0.95]">
+            Your research, <em className="italic text-muted-foreground">resurrected.</em>
           </h2>
-          <p className="font-body text-lg text-muted-foreground mb-10">
-            Browse our catalog of premium peptides and place your order today. 
-            Fast shipping, guaranteed purity, no hassle.
+          <p className="font-body text-lg text-muted-foreground mb-14 max-w-xl mx-auto">
+            Browse our catalog. Place your order in minutes. Receive lab-verified compounds at your door in days.
           </p>
-          <Link to="/products">
-            <Button variant="hero" size="lg" className="group">
-              Shop Products
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+          <Link
+            to="/products"
+            className="group inline-flex items-center justify-center gap-2 px-10 py-5 bg-foreground text-background rounded-full font-body text-sm font-medium tracking-wide hover:bg-foreground/90 transition-all duration-500"
+          >
+            Shop the catalog
+            <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
       </div>

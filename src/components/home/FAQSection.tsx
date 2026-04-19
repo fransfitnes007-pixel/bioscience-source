@@ -7,38 +7,14 @@ import {
 } from "@/components/ui/accordion";
 
 const faqs = [
-  {
-    question: "How do I place an order?",
-    answer: "Simply browse our product catalog, add items to your cart, and proceed to checkout. Create a free account during checkout to track your orders and receive shipping updates.",
-  },
-  {
-    question: "What documentation do you provide?",
-    answer: "Every product comes with comprehensive documentation including Certificates of Analysis (COAs) from third-party labs, purity verification reports, and batch-specific testing data.",
-  },
-  {
-    question: "What are your minimum order quantities?",
-    answer: "Our products have varying minimum quantities starting as low as 10 units per variation. We also offer quantity-based discounts — the more you order, the more you save.",
-  },
-  {
-    question: "How fast is shipping?",
-    answer: "Most orders ship within 24-72 hours. You'll receive tracking information via email as soon as your order is dispatched. Delivery times vary by location.",
-  },
-  {
-    question: "What payment methods do you accept?",
-    answer: "We accept all major credit cards processed through our secure payment system. All transactions are encrypted and protected.",
-  },
-  {
-    question: "Do you ship internationally?",
-    answer: "Yes! We ship worldwide. International shipping costs and delivery times vary by destination. All orders include proper documentation.",
-  },
-  {
-    question: "What is your return policy?",
-    answer: "We stand behind our product quality. If there are any issues with purity or documentation, we'll work with you to resolve them. Returns must be initiated within 30 days of receipt.",
-  },
-  {
-    question: "How can I contact support?",
-    answer: "You can reach us anytime via email. Once you have an account, you can also message us directly through your order dashboard for order-specific questions.",
-  },
+  { question: "How do I place an order?", answer: "Browse our catalog, add items to your cart, and check out. Create an account during checkout to track shipments and reorder in one click." },
+  { question: "What documentation comes with my order?", answer: "Every product ships with a third-party Certificate of Analysis, purity verification, and batch-specific testing data — included by default, never on request." },
+  { question: "Are there order minimums?", answer: "No minimums. Order a single vial or hundreds — pricing scales with quantity, but quality never does." },
+  { question: "How fast does it ship?", answer: "Most orders dispatch within 24 hours. Domestic delivery in 2–3 business days. Tracking sent automatically the moment your order leaves." },
+  { question: "What payment methods are accepted?", answer: "All major credit and debit cards, processed through Stripe with 256-bit SSL encryption. We never see, store, or sell your payment data." },
+  { question: "Do you ship internationally?", answer: "Yes — worldwide. Customs-ready documentation included. Transit times and rates vary by destination." },
+  { question: "What if there's an issue with my order?", answer: "Buyer Protection covers damaged, lost, or non-delivered orders for a full refund or replacement. Add it at checkout for complete peace of mind." },
+  { question: "How do I get support?", answer: "Email support@resurrected.com or message us directly from your account dashboard for order-specific questions." },
 ];
 
 export const FAQSection = () => {
@@ -55,38 +31,38 @@ export const FAQSection = () => {
   }, []);
 
   return (
-    <section ref={ref} className="py-24 lg:py-32 border-t border-border/30">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className={`text-center mb-16 transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+    <section ref={ref} className="py-32 lg:py-48 border-t border-border/40">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className={`grid lg:grid-cols-12 gap-12 max-w-6xl mx-auto transition-all duration-1000 ease-out ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}>
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold mb-4 text-foreground">
-            Frequently Asked Questions
-          </h2>
-          <p className="font-body text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to know about ordering from Resurrected.
-          </p>
-        </div>
+          <div className="lg:col-span-4">
+            <span className="font-body text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+              05 — Questions
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mt-6 leading-[1.05]">
+              Common <em className="italic text-muted-foreground">questions.</em>
+            </h2>
+          </div>
 
-        <div className={`max-w-3xl mx-auto transition-all duration-700 delay-200 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border-border/50"
-              >
-                <AccordionTrigger className="font-heading text-left text-foreground hover:no-underline hover:text-foreground/80 py-6">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="font-body text-muted-foreground leading-relaxed pb-6">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <div className="lg:col-span-8">
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="border-border/40"
+                >
+                  <AccordionTrigger className="font-display text-xl md:text-2xl text-left text-foreground hover:no-underline hover:text-muted-foreground py-7 transition-colors">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="font-body text-base text-muted-foreground leading-relaxed pb-7 max-w-2xl">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
       </div>
     </section>
