@@ -43,24 +43,29 @@ export const HeroSection = () => {
             <span className="h-px w-8 bg-foreground/30" />
           </div>
 
-          {/* Display headline */}
-          <h1
-            className={`font-display text-[14vw] sm:text-[10vw] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] leading-[0.9] text-center text-foreground transition-all duration-[1200ms] ease-out ${
-              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          {/* Glowing logo */}
+          <div
+            className={`flex justify-center mb-8 transition-all duration-[1200ms] ease-out ${
+              isLoaded ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-8 scale-95"
             }`}
             style={{ transitionDelay: "150ms" }}
           >
-            Resurrected
-          </h1>
+            <img
+              src={resurrectedLogo}
+              alt="Resurrected Labz"
+              className="h-40 md:h-56 lg:h-72 w-auto drop-shadow-[0_0_60px_rgba(255,255,255,0.45)] brightness-110"
+            />
+          </div>
 
-          <p
-            className={`font-display italic text-center text-2xl md:text-4xl text-muted-foreground -mt-2 md:-mt-4 transition-all duration-1000 ease-out ${
+          {/* Headline */}
+          <h1
+            className={`font-body font-bold text-center text-foreground text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-[-0.04em] transition-all duration-1000 ease-out ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
-            style={{ transitionDelay: "400ms" }}
+            style={{ transitionDelay: "350ms" }}
           >
-            research, refined.
-          </p>
+            Research, <span className="text-muted-foreground font-light italic">refined.</span>
+          </h1>
 
           {/* Subhead */}
           <p
