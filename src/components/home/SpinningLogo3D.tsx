@@ -12,7 +12,7 @@ interface LogoMeshProps {
 }
 
 const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Group>(null);
   const texture = useLoader(TextureLoader, src);
   texture.anisotropy = 16;
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -30,15 +30,28 @@ const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
   const height = aspect >= 1 ? size / aspect : size;
 
   return (
-    <mesh ref={meshRef}>
-      <planeGeometry args={[width, height]} />
-      <meshBasicMaterial
-        map={texture}
-        transparent
-        side={THREE.DoubleSide}
-        toneMapped={false}
-      />
-    </mesh>
+    <group ref={meshRef}>
+      {/* Front face */}
+      <mesh position={[0, 0, 0.001]}>
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial
+          map={texture}
+          transparent
+          side={THREE.FrontSide}
+          toneMapped={false}
+        />
+      </mesh>
+      {/* Back face — mirrored so logo reads correctly (not reversed) from behind */}
+      <mesh position={[0, 0, -0.001]} rotation={[0, Math.PI, 0]} scale={[-1, 1, 1]}>
+        <planeGeometry args={[width, height]} />
+        <meshBasicMaterial
+          map={texture}
+          transparent
+          side={THREE.FrontSide}
+          toneMapped={false}
+        />
+      </mesh>
+    </group>
   );
 };
 
