@@ -41,26 +41,17 @@ const LogoMesh = ({ src, size = 3, speed = 0.6 }: LogoMeshProps) => {
 
   return (
     <group ref={meshRef}>
-      {/* Front face */}
-      <mesh position={[0, 0, 0.001]}>
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial
-          map={texture}
-          transparent
-          side={THREE.FrontSide}
-          toneMapped={false}
-        />
-      </mesh>
-      {/* Back face — same orientation as front so the readable logo shows from behind too */}
-      <mesh position={[0, 0, -0.001]} rotation={[0, Math.PI, 0]}>
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial
-          map={texture}
-          transparent
-          side={THREE.BackSide}
-          toneMapped={false}
-        />
-      </mesh>
+      <group ref={innerRef}>
+        <mesh>
+          <planeGeometry args={[width, height]} />
+          <meshBasicMaterial
+            map={texture}
+            transparent
+            side={THREE.DoubleSide}
+            toneMapped={false}
+          />
+        </mesh>
+      </group>
     </group>
   );
 };
