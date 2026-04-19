@@ -50,7 +50,11 @@ export const HeroSection = () => {
             }`}
             style={{ transitionDelay: "150ms" }}
           >
-            <SpinningLogo3D className="w-[420px] h-[420px] md:w-[560px] md:h-[560px] lg:w-[680px] lg:h-[680px] drop-shadow-[0_0_80px_rgba(255,255,255,0.35)]" />
+            <SpinningLogo3D
+              size={3.4}
+              cameraZ={4.6}
+              className="w-[520px] h-[420px] md:w-[760px] md:h-[560px] lg:w-[960px] lg:h-[680px] drop-shadow-[0_0_80px_rgba(255,255,255,0.45)]"
+            />
           </div>
 
           {/* Headline */}
