@@ -4,7 +4,7 @@ import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartIcon } from "@/components/layout/CartIcon";
 import { supabase } from "@/integrations/supabase/client";
-import resurrectedLogo from "@/assets/resurrected-logo.png";
+import { SpinningLogo3D } from "@/components/home/SpinningLogo3D";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -64,12 +64,8 @@ export const Header = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <img
-              alt="Resurrected"
-              className="h-12 lg:h-16 w-auto drop-shadow-[0_0_25px_rgba(255,255,255,0.5)] brightness-110"
-              src={resurrectedLogo}
-            />
+          <Link to="/" className="flex items-center" aria-label="Resurrected Labz home">
+            <SpinningLogo3D className="w-16 h-16 lg:w-20 lg:h-20 drop-shadow-[0_0_20px_rgba(255,255,255,0.45)]" />
           </Link>
 
           {/* Desktop Navigation */}
