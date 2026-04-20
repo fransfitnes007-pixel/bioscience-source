@@ -5,16 +5,17 @@ import { CookieConsent } from "@/components/CookieConsent";
 
 interface LayoutProps {
   children: ReactNode;
+  footerWordmark?: string;
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children, footerWordmark }: LayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         {children}
       </main>
-      <Footer />
+      <Footer wordmark={footerWordmark} />
       <CookieConsent />
     </div>
   );
