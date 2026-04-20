@@ -15,6 +15,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Access from "./pages/Access";
 import B2B from "./pages/B2B";
 import B2BApply from "./pages/B2BApply";
+import AffiliateApply from "./pages/AffiliateApply";
 import NotFound from "./pages/NotFound";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import SetPassword from "./pages/SetPassword";
@@ -96,6 +97,7 @@ const App = () => (
             {/* B2B Routes */}
             <Route path="/b2b" element={<B2B />} />
             <Route path="/b2b/apply" element={<B2BApply />} />
+            <Route path="/affiliate-apply" element={<AffiliateApply />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
