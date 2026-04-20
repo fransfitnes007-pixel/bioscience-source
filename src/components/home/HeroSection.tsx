@@ -30,17 +30,27 @@ export const HeroSection = () => {
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <div className="max-w-5xl mx-auto">
-          {/* Eyebrow */}
+          {/* Eyebrow — compliance & origin badges */}
           <div
-            className={`flex items-center justify-center gap-3 mb-10 transition-all duration-1000 ease-out ${
+            className={`flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mb-10 transition-all duration-1000 ease-out ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <span className="h-px w-8 bg-foreground/30" />
-            <span className="font-body text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-              Resurrected Labz · Est. 2024
-            </span>
-            <span className="h-px w-8 bg-foreground/30" />
+            {[
+              "🇺🇸 Made in USA",
+              "cGMP Manufactured",
+              "ISO 9001 Facility",
+              "USP <797> Compliant",
+              "3rd-Party HPLC Tested",
+              "Research Use Only",
+            ].map((label, i) => (
+              <span
+                key={label}
+                className="font-body text-[10px] uppercase tracking-[0.25em] text-muted-foreground border border-border/50 rounded-full px-3 py-1"
+              >
+                {label}
+              </span>
+            ))}
           </div>
 
           {/* 3D Spinning Logo */}
