@@ -125,7 +125,9 @@ export type Database = {
       }
       affiliates: {
         Row: {
+          audience_size: string | null
           commission_rate: number
+          content_niche: string | null
           created_at: string
           discount_code: string | null
           email: string
@@ -135,15 +137,23 @@ export type Database = {
           name: string
           notes: string | null
           phone: string | null
+          portfolio_url: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           sport: string | null
+          status: string
           tiktok: string | null
           total_earnings: number
           total_orders: number
           updated_at: string
+          viral_video_links: string | null
+          why_join: string | null
           youtube: string | null
         }
         Insert: {
+          audience_size?: string | null
           commission_rate?: number
+          content_niche?: string | null
           created_at?: string
           discount_code?: string | null
           email: string
@@ -153,15 +163,23 @@ export type Database = {
           name: string
           notes?: string | null
           phone?: string | null
+          portfolio_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           sport?: string | null
+          status?: string
           tiktok?: string | null
           total_earnings?: number
           total_orders?: number
           updated_at?: string
+          viral_video_links?: string | null
+          why_join?: string | null
           youtube?: string | null
         }
         Update: {
+          audience_size?: string | null
           commission_rate?: number
+          content_niche?: string | null
           created_at?: string
           discount_code?: string | null
           email?: string
@@ -171,11 +189,17 @@ export type Database = {
           name?: string
           notes?: string | null
           phone?: string | null
+          portfolio_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           sport?: string | null
+          status?: string
           tiktok?: string | null
           total_earnings?: number
           total_orders?: number
           updated_at?: string
+          viral_video_links?: string | null
+          why_join?: string | null
           youtube?: string | null
         }
         Relationships: []
