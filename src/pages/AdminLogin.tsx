@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Shield } from "lucide-react";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
+import { isLovablePreview } from "@/lib/preview-auth";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,11 @@ const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  if (isLovablePreview()) {
+    navigate("/admin", { replace: true });
+    return null;
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
