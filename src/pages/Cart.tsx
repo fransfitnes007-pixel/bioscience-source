@@ -63,7 +63,7 @@ const Cart = () => {
           <div className="flex items-center gap-4 mb-8">
             <ShoppingCart className="w-8 h-8 text-foreground" />
             <h1 className="font-heading text-3xl lg:text-4xl font-bold text-foreground">
-              Your Cart
+              Your Order
             </h1>
             <span className="font-body text-muted-foreground">
               ({items.length} {items.length === 1 ? "item" : "items"})
@@ -74,13 +74,13 @@ const Cart = () => {
             <div className="text-center py-16">
               <ShoppingCart className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
               <h2 className="font-heading text-2xl font-medium text-foreground mb-2">
-                Your cart is empty
+                Your order is empty
               </h2>
               <p className="font-body text-muted-foreground mb-6">
-                Browse our products and add items to get started.
+                Browse our research catalog and add compounds to get started.
               </p>
               <Link to="/products">
-                <Button variant="hero">Browse Products</Button>
+                <Button variant="hero">Browse Research Products</Button>
               </Link>
             </div>
           ) : (
@@ -200,7 +200,7 @@ const Cart = () => {
 
                     <Link to="/products">
                       <Button variant="ghost" className="w-full mt-3">
-                        Continue Shopping
+                        Continue Browsing Catalog
                       </Button>
                     </Link>
                   </div>

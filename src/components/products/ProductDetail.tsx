@@ -80,7 +80,7 @@ export const ProductDetail = ({
               disabled={!selectedVariation}
               className="w-full md:w-auto"
             >
-              {selectedVariation ? "Inquire" : "Select a variation"}
+              {selectedVariation ? "Request Research Quote" : "Select a variation"}
             </Button>
           </div>
 
@@ -89,7 +89,7 @@ export const ProductDetail = ({
             {product.description && (
               <AccordionItem value="description" className="border-border/50">
                 <AccordionTrigger className="font-heading text-base font-medium text-foreground hover:no-underline">
-                  Product Description
+                  Compound Description
                 </AccordionTrigger>
                 <AccordionContent className="font-body text-muted-foreground leading-relaxed">
                   {product.description}
@@ -152,7 +152,7 @@ export const ProductDetail = ({
           {/* Disclaimer */}
           <div className="mt-8 pt-6 border-t border-border/50">
             <p className="font-body text-sm text-muted-foreground font-medium">
-              <strong>NOT FOR HUMAN CONSUMPTION. NOT FOR ANIMAL TESTING OR CONSUMPTION.</strong>
+              <strong>FOR IN VITRO LABORATORY RESEARCH USE ONLY. NOT FOR HUMAN OR ANIMAL CONSUMPTION, ADMINISTRATION, OR ANY FORM OF BODILY INTRODUCTION. NOT FDA APPROVED. TO BE HANDLED BY TRAINED PROFESSIONALS IN CONTROLLED LABORATORY ENVIRONMENTS.</strong>
             </p>
           </div>
         </div>
