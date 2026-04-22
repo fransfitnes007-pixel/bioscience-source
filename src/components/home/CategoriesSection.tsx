@@ -6,31 +6,31 @@ const categories = [
   {
     name: "GLP / Metabolic",
     slug: "glp-metabolic",
-    description: "Glucose & weight regulation research compounds.",
+    description: "Metabolic pathway research compounds.",
     products: ["Semaglutide", "Tirzepatide", "Retatrutide", "Cagrilintide"],
   },
   {
     name: "Growth Hormone",
     slug: "growth-hormone",
-    description: "GHRPs, GHRHs, and IGF-1 pathway compounds.",
+    description: "GHRPs, GHRHs, and IGF-1 pathway research compounds.",
     products: ["HGH Somatropin", "Ipamorelin", "CJC-1295", "Tesamorelin"],
   },
   {
-    name: "Healing & Recovery",
+    name: "Tissue Repair",
     slug: "healing-recovery",
-    description: "Tissue repair and regeneration peptides.",
+    description: "Tissue repair and regeneration research peptides.",
     products: ["BPC-157", "TB-500", "BPC-157 + TB-500", "GHK-Cu"],
   },
   {
-    name: "Cognitive & Nootropic",
+    name: "Neuropeptides",
     slug: "cognitive-nootropic",
-    description: "Neuropeptides for cognitive function research.",
+    description: "Neuropeptide research compounds for in vitro study.",
     products: ["Semax", "Selank", "Pinealon", "DSIP"],
   },
   {
-    name: "Cosmetic & Skin",
+    name: "Dermatological",
     slug: "cosmetic-skin",
-    description: "Anti-aging and dermatological compounds.",
+    description: "Dermatological research peptides.",
     products: ["GHK-Cu", "SNAP-8", "Epithalon", "Glutathione"],
   },
   {
@@ -67,7 +67,7 @@ export const CategoriesSection = () => {
           </div>
           <div className="lg:col-span-8">
             <h2 className="font-display text-4xl md:text-6xl text-foreground leading-[1.05]">
-              Six categories. <em className="italic text-muted-foreground">One standard.</em>
+              Six research categories. <em className="italic text-muted-foreground">One laboratory standard.</em>
             </h2>
           </div>
         </div>
@@ -112,7 +112,7 @@ export const CategoriesSection = () => {
             to="/products"
             className="group inline-flex items-center gap-2 font-body text-sm uppercase tracking-[0.25em] text-foreground hover:text-muted-foreground transition-colors"
           >
-            View full catalog
+            View research catalog
             <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>

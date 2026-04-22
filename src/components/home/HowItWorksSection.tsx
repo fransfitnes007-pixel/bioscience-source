@@ -4,18 +4,18 @@ import { Search, ShoppingCart, Truck } from "lucide-react";
 const steps = [
   {
     icon: Search,
-    title: "Browse & Choose",
-    description: "Explore our catalog of premium peptides and select the products and variations you need.",
+    title: "Browse Research Catalog",
+    description: "Explore our catalog of reference-grade peptides and select the compounds and variations your research requires.",
   },
   {
     icon: ShoppingCart,
-    title: "Add to Cart & Checkout",
-    description: "Add your selections to your cart, create an account or sign in, and complete your secure checkout.",
+    title: "Place Your Order",
+    description: "Add compounds to your cart, sign in or create a laboratory account, and submit your order through encrypted checkout.",
   },
   {
     icon: Truck,
-    title: "Fast Shipping & Tracking",
-    description: "Your order ships quickly with tracking details so you know exactly when to expect delivery.",
+    title: "Tracked Laboratory Dispatch",
+    description: "Your order ships within 24 hours with full tracking and a batch-specific Certificate of Analysis included.",
   },
 ];
 
@@ -42,7 +42,7 @@ export const HowItWorksSection = () => {
             How It Works
           </h2>
           <p className="font-body text-muted-foreground max-w-xl mx-auto">
-            Getting started is simple — browse, order, and receive.
+            Three steps from catalog to laboratory bench.
           </p>
         </div>
 

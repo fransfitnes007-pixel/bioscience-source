@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
 const features = [
-  { title: "Dispatched in 24 hours", description: "Orders leave our facility within one business day. Tracked, insured, in your hands within 2–3 days domestically." },
-  { title: "End-to-end encrypted checkout", description: "Bank-grade payment processing. Your information is yours alone — never sold, never shared." },
-  { title: "≥99% verified purity", description: "Every batch independently tested and certified. We publish the COA before we publish the product." },
-  { title: "COA included by default", description: "No request forms, no waiting. Every order arrives with full third-party documentation." },
+  { title: "Dispatched in 24 hours", description: "Orders leave our facility within one business day. Tracked, insured, delivered to your laboratory in 2–3 days domestically." },
+  { title: "End-to-end encrypted checkout", description: "Bank-grade payment processing. Your laboratory information stays confidential — never sold, never shared." },
+  { title: "≥99% HPLC-verified purity", description: "Every batch independently analyzed and certified. We publish the COA before we list the compound." },
+  { title: "COA included by default", description: "No request forms, no waiting. Every order ships with full third-party analytical documentation." },
   { title: "Worldwide logistics", description: "Established carriers, proper handling, customs-ready paperwork. We ship where research lives." },
-  { title: "No minimums", description: "From a single vial to bulk procurement — same compound, same standard, same service." },
+  { title: "No minimums", description: "From a single vial to bulk procurement — same reference-grade compound, same standard, same service." },
 ];
 
 export const WhyResurrectedSection = () => {
@@ -33,7 +33,7 @@ export const WhyResurrectedSection = () => {
           </div>
           <div className="lg:col-span-8">
             <h2 className="font-display text-4xl md:text-6xl lg:text-7xl text-foreground leading-[1.05]">
-              The standard you <em className="italic text-muted-foreground">demand.</em>
+              The standard your <em className="italic text-muted-foreground">research demands.</em>
             </h2>
           </div>
         </div>
