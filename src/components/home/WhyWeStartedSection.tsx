@@ -30,21 +30,21 @@ export const WhyWeStartedSection = () => {
           <div className="space-y-8 text-center">
             <blockquote className="border-l-2 border-foreground/30 pl-6 text-left max-w-2xl mx-auto">
               <p className="font-body text-xl text-foreground/90 italic leading-relaxed">
-                "Everyone deserves access to high-quality research peptides without the markup."
+                "Every laboratory deserves access to verified, reference-grade research peptides — without the markup."
               </p>
             </blockquote>
 
             <div className="space-y-6 max-w-2xl mx-auto">
               <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                We started Resurrected because we saw an industry full of inflated prices and inconsistent quality. Our goal is simple: deliver the purest peptides at the fairest prices, with documentation you can trust.
+                We started Resurrected Labz because the research peptide supply chain was full of inflated pricing and inconsistent analytical quality. Our goal is simple: deliver the purest reference compounds at the fairest pricing, with documentation laboratories can trust.
               </p>
               
               <div className="p-6 border border-border/50 rounded-lg bg-card/30">
                 <p className="font-heading text-2xl md:text-3xl font-semibold text-foreground mb-3">
-                  Quality First
+                  Analytical Integrity First
                 </p>
                 <p className="font-body text-muted-foreground">
-                  Every batch is third-party tested with full Certificates of Analysis. We never cut corners on purity — because your research depends on it.
+                  Every batch is third-party HPLC tested with full Certificates of Analysis. We never cut corners on purity — because your research data depends on it.
                 </p>
               </div>
             </div>

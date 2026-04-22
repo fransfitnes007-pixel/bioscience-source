@@ -15,7 +15,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     >
       <div className="mb-8 space-y-3">
         <p className="font-body text-xs uppercase tracking-[0.24em] text-muted-foreground">
-          Research peptide
+          Research compound · For in vitro use only
         </p>
         <h3 className="font-heading text-xl font-medium leading-tight text-foreground">
           {product.displayName}
@@ -23,7 +23,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </div>
 
       <Button variant="heroOutline" size="sm" className="w-full">
-        View Details
+        View Research Details
       </Button>
     </Link>
   );

@@ -33,14 +33,14 @@ const data = [
 ];
 
 const series = [
-  { key: "weightLoss", label: "Weight loss (GLP-1, etc.)", color: "#22c55e" },
-  { key: "recovery",   label: "Recovery & longevity",      color: "#84cc16" },
-  { key: "skincare",   label: "Skincare & anti-aging",     color: "#f59e0b" },
-  { key: "hair",       label: "Hair restoration",          color: "#ef4444" },
+  { key: "weightLoss", label: "Metabolic research (GLP-1)",  color: "#22c55e" },
+  { key: "recovery",   label: "Tissue repair research",       color: "#84cc16" },
+  { key: "skincare",   label: "Dermatological research",      color: "#f59e0b" },
+  { key: "hair",       label: "Follicular research",          color: "#ef4444" },
 ];
 
 const stats = [
-  { v: "+1,150%", l: "GLP-1 search interest, '14→'24" },
+  { v: "+1,150%", l: "GLP-1 publication interest, '14→'24" },
   { v: "$60B+",   l: "Peptide therapeutics market, 2024" },
   { v: "9.2%",    l: "Compound annual growth rate" },
   { v: "10×",     l: "More clinical trials than 2014" },
@@ -111,7 +111,7 @@ export const PeptideGrowthSection = () => {
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          The decade peptides{" "}
+          The decade peptide research{" "}
           <span className="text-muted-foreground font-light italic">went mainstream.</span>
         </h2>
 
@@ -120,9 +120,9 @@ export const PeptideGrowthSection = () => {
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          Search interest, clinical adoption, and consumer demand have all moved in one direction.
-          Peptides are now the most-researched category in modern wellness — outpacing traditional
-          pharmaceuticals across weight loss, recovery, skincare, and hair restoration.
+          Publication volume, clinical trial registrations, and laboratory demand have all moved
+          in one direction. Peptides are now the most-researched compound class in modern
+          biomedical study — across metabolic, regenerative, dermatological, and follicular research.
         </p>
 
         {/* Chart */}

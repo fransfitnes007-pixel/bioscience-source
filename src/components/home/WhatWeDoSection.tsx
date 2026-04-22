@@ -23,10 +23,10 @@ export const WhatWeDoSection = () => {
           </div>
           <div className={`lg:col-span-8 transition-all duration-1000 delay-200 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <h2 className="font-display text-4xl md:text-6xl lg:text-7xl text-foreground leading-[1.05] mb-10">
-              Direct from manufacturer to <em className="italic text-muted-foreground">researcher</em> — no middlemen, no markup, no compromise.
+              Direct from manufacturer to the <em className="italic text-muted-foreground">laboratory</em> — no middlemen, no markup, no compromise.
             </h2>
             <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
-              Every compound is produced under GMP conditions, verified at ≥99% purity by independent third-party labs, and shipped with a batch-specific Certificate of Analysis. The result: research-grade material at the price it should be.
+              Every compound is produced under GMP conditions, verified at ≥99% purity by independent third-party laboratories, and shipped with a batch-specific Certificate of Analysis. Reference-grade material for in vitro research, at the price it should be.
             </p>
           </div>
         </div>

@@ -55,10 +55,10 @@ const About = () => {
           {/* Header */}
           <div className="text-center mb-16 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-foreground">
-              About Resurrected
+              About Resurrected Labz
             </h1>
             <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-              Premium research peptides with uncompromising quality standards.
+              Reference-grade research peptides with uncompromising analytical standards.
             </p>
           </div>
 
@@ -75,17 +75,17 @@ const About = () => {
             </h2>
             <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
               <p>
-                The research peptide market has long been plagued by inconsistent quality, opaque pricing, 
-                and unreliable suppliers. We founded Resurrected to change that — delivering premium products 
-                with full transparency at prices that make sense.
+                The research peptide supply chain has long been plagued by inconsistent analytical quality, opaque pricing,
+                and unreliable manufacturers. We founded Resurrected Labz to change that — delivering reference-grade compounds
+                with full analytical transparency at pricing that makes sense for laboratories.
               </p>
               <p>
-                Every product we sell is backed by third-party testing and Certificates of Analysis. 
-                We believe you shouldn't have to guess about what you're getting — you should know.
+                Every compound we supply is backed by independent third-party HPLC analysis and Certificates of Analysis.
+                Researchers shouldn't have to guess about purity — they should have the data.
               </p>
               <p className="text-foreground font-medium">
-                Our commitment: 99.9% purity, honest pricing, fast shipping, and documentation 
-                you can trust. Every time.
+                Our commitment: ≥99% verified purity, transparent pricing, fast laboratory dispatch, and analytical
+                documentation you can cite. Every batch.
               </p>
             </div>
           </section>
@@ -99,22 +99,22 @@ const About = () => {
             }`}
           >
             <h2 className="font-heading text-2xl md:text-3xl font-semibold mb-6 text-foreground">
-              Quality You Can Count On
+              Analytical Standards You Can Cite
             </h2>
             <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
               <p>
-                We source from vetted, certified suppliers and verify every batch through independent 
-                third-party laboratories. Our quality assurance process includes:
+                We source from vetted GMP-certified manufacturers and verify every batch through independent
+                third-party analytical laboratories. Our quality assurance process includes:
               </p>
               <ul className="list-disc list-inside space-y-2 pl-4">
-                <li>Third-party purity testing on every batch</li>
-                <li>Full Certificates of Analysis available for all products</li>
-                <li>Secure, climate-controlled storage and shipping</li>
-                <li>Rigorous supplier vetting and ongoing quality monitoring</li>
+                <li>Third-party HPLC purity analysis on every batch</li>
+                <li>Full Certificates of Analysis available for all compounds</li>
+                <li>Climate-controlled storage and research-grade logistics</li>
+                <li>Rigorous manufacturer vetting and ongoing analytical monitoring</li>
               </ul>
               <p>
-                When you order from Resurrected, you're getting products that meet the highest 
-                standards in the industry — guaranteed.
+                When you order from Resurrected Labz, you receive compounds that meet the highest
+                analytical standards in the research supply industry.
               </p>
             </div>
           </section>
@@ -128,11 +128,11 @@ const About = () => {
             }`}
           >
             <h2 className="font-heading text-2xl md:text-3xl font-semibold mb-6 text-foreground">
-              COAs & Purity Documentation
+              COAs & Analytical Documentation
             </h2>
             <p className="font-body text-muted-foreground leading-relaxed mb-8">
-              Transparency is fundamental to who we are. All products come with Certificates of 
-              Analysis from independent third-party laboratories.
+              Analytical transparency is fundamental to who we are. All research compounds ship with
+              Certificates of Analysis from independent third-party laboratories.
             </p>
 
             {coaDocuments.length > 0 ? (
@@ -182,14 +182,14 @@ const About = () => {
             }`}
           >
             <h2 className="font-heading text-2xl md:text-3xl font-semibold mb-6 text-foreground">
-              Ready to Order?
+              Ready to Place an Order?
             </h2>
             <p className="font-body text-muted-foreground mb-8">
-              Browse our full catalog of premium research peptides.
+              Browse our full catalog of reference-grade research peptides.
             </p>
             <Link to="/products">
               <Button variant="hero" size="lg" className="group">
-                Shop Products
+                Browse Research Catalog
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>

@@ -52,10 +52,10 @@ const Products = () => {
           {/* Header */}
           <div className="text-center mb-12 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-foreground">
-              Products
+              Research Products
             </h1>
             <p className="font-body text-muted-foreground max-w-2xl mx-auto">
-              Browse our comprehensive catalog of research peptides and compounds.
+              Browse our catalog of reference-grade research peptides and compounds for in vitro laboratory use.
             </p>
           </div>
 
@@ -65,7 +65,7 @@ const Products = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Search research compounds..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-4 bg-card border border-border rounded-lg font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30 transition-all"

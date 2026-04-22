@@ -84,7 +84,7 @@ export const HeroSection = () => {
             }`}
             style={{ transitionDelay: "650ms" }}
           >
-            Pharmaceutical-grade research peptides. ≥99% purity, third-party verified, shipped in days — not weeks.
+            Reference-grade research peptides for in vitro laboratory use. ≥99% purity, third-party HPLC verified, dispatched in days — not weeks.
           </p>
 
           {/* CTAs */}
@@ -98,14 +98,14 @@ export const HeroSection = () => {
               to="/products"
               className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-body text-sm font-medium tracking-wide hover:bg-foreground/90 transition-all duration-500 min-w-[200px]"
             >
-              Browse the catalog
+              Browse research products
               <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
             <Link
               to="/about"
               className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-border hover:border-foreground/40 text-foreground rounded-full font-body text-sm font-medium tracking-wide transition-all duration-500 min-w-[200px]"
             >
-              Our standard
+              Our laboratory standard
             </Link>
           </div>
 
@@ -117,8 +117,8 @@ export const HeroSection = () => {
             style={{ transitionDelay: "1100ms" }}
           >
             {[
-              { v: "≥99%", l: "Verified purity" },
-              { v: "24h", l: "Order dispatch" },
+              { v: "≥99%", l: "HPLC-verified purity" },
+              { v: "24h", l: "Laboratory dispatch" },
               { v: "GMP", l: "Manufactured" },
             ].map((s) => (
               <div key={s.l} className="text-center">

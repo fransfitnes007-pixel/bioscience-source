@@ -1,13 +1,13 @@
 import { Shield, Truck, FlaskConical, Clock } from "lucide-react";
 
 const announcements = [
-  { icon: Truck, text: "Free Shipping on Orders $150+" },
-  { icon: Clock, text: "24 Hour US Shipping" },
-  { icon: FlaskConical, text: "99%+ Purity Research Peptides" },
+  { icon: Truck, text: "Free Laboratory Shipping on Orders $150+" },
+  { icon: Clock, text: "24 Hour US Dispatch" },
+  { icon: FlaskConical, text: "≥99% Purity HPLC Verified" },
   { icon: Shield, text: "3rd Party COA Every Order" },
-  { icon: Truck, text: "Free Shipping on Orders $150+" },
-  { icon: Clock, text: "24 Hour US Shipping" },
-  { icon: FlaskConical, text: "99%+ Purity Research Peptides" },
+  { icon: Truck, text: "Free Laboratory Shipping on Orders $150+" },
+  { icon: Clock, text: "24 Hour US Dispatch" },
+  { icon: FlaskConical, text: "≥99% Purity HPLC Verified" },
   { icon: Shield, text: "3rd Party COA Every Order" },
 ];
 

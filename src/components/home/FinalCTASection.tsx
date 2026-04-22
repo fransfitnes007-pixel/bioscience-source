@@ -29,13 +29,13 @@ export const FinalCTASection = () => {
             Your research, <em className="italic text-muted-foreground">resurrected.</em>
           </h2>
           <p className="font-body text-lg text-muted-foreground mb-14 max-w-xl mx-auto">
-            Browse our catalog. Place your order in minutes. Receive lab-verified compounds at your door in days.
+            Browse the research catalog. Place your order in minutes. Receive HPLC-verified compounds at your laboratory in days.
           </p>
           <Link
             to="/products"
             className="group inline-flex items-center justify-center gap-2 px-10 py-5 bg-foreground text-background rounded-full font-body text-sm font-medium tracking-wide hover:bg-foreground/90 transition-all duration-500"
           >
-            Shop the catalog
+            Browse research catalog
             <ArrowUpRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>

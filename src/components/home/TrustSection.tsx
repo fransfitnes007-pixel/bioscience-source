@@ -1,67 +1,43 @@
 import { useEffect, useRef, useState } from "react";
-import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2, Quote } from "lucide-react";
+import { Shield, Microscope, Clock, Globe, BadgeCheck, Lock, FlaskConical, Award, CheckCircle2 } from "lucide-react";
 
 const certifications = [
   { icon: FlaskConical, label: "GMP Compliant" },
   { icon: Award, label: "ISO 9001" },
-  { icon: CheckCircle2, label: "Lab Verified" },
+  { icon: CheckCircle2, label: "HPLC Verified" },
   { icon: Shield, label: "COA Certified" },
-];
-
-const testimonials = [
-  {
-    quote: "The purity is unmatched. I've tried other suppliers and nothing compares to the consistency here.",
-    author: "Alex T.",
-    role: "Verified Customer",
-    metric: "99.9%",
-    metricLabel: "Purity"
-  },
-  {
-    quote: "Ordered on Monday, received on Wednesday. The COA documentation gives me total confidence in what I'm getting.",
-    author: "Jordan M.",
-    role: "Verified Customer",
-    metric: "<72h",
-    metricLabel: "Delivery"
-  },
-  {
-    quote: "Best prices I've found anywhere for this level of quality. Resurrected is my go-to now.",
-    author: "Chris R.",
-    role: "Verified Customer",
-    metric: "5 ★",
-    metricLabel: "Rating"
-  },
 ];
 
 const trustPoints = [
   {
     icon: BadgeCheck,
-    title: "Vetted Suppliers",
-    description: "Every supplier in our network undergoes rigorous vetting for quality and compliance standards.",
+    title: "Vetted Manufacturers",
+    description: "Every manufacturing partner undergoes rigorous vetting for analytical quality and GMP compliance.",
   },
   {
     icon: Microscope,
-    title: "Third-Party Testing",
-    description: "All products include independent lab analysis with full COA documentation.",
+    title: "Third-Party HPLC Analysis",
+    description: "All compounds include independent laboratory analysis with full COA documentation.",
   },
   {
     icon: Shield,
-    title: "99.9% Purity",
+    title: "≥99% Verified Purity",
     description: "We maintain strict purity standards across our entire research compound catalog.",
   },
   {
     icon: Clock,
-    title: "Fast Shipping",
-    description: "Orders ship within 24-72 hours with full tracking information sent to your email.",
+    title: "Fast Laboratory Dispatch",
+    description: "Orders ship within 24–72 hours with full tracking sent to your account.",
   },
   {
     icon: Globe,
-    title: "Worldwide Delivery",
-    description: "We ship globally with established logistics networks and proper handling.",
+    title: "Worldwide Logistics",
+    description: "We ship globally with established research-logistics carriers and proper handling.",
   },
   {
     icon: Lock,
-    title: "Secure Checkout",
-    description: "Encrypted payments and secure processing for every transaction.",
+    title: "Encrypted Checkout",
+    description: "Bank-grade encrypted payment processing on every order.",
   },
 ];
 
@@ -71,7 +47,9 @@ export const TrustSection = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
       { threshold: 0.1 }
     );
     if (ref.current) observer.observe(ref.current);
@@ -85,10 +63,10 @@ export const TrustSection = () => {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
           <h2 className="font-heading text-3xl md:text-4xl font-semibold mb-4 text-foreground">
-            Why Customers Trust Us
+            Why Laboratories Choose Us
           </h2>
           <p className="font-body text-muted-foreground max-w-2xl mx-auto">
-            Built on transparency, quality assurance, and reliable service.
+            Built on analytical transparency, GMP compliance, and reliable research-grade fulfillment.
           </p>
         </div>
 
@@ -133,50 +111,16 @@ export const TrustSection = () => {
           </div>
         </div>
 
-        {/* Testimonials */}
-        <div className={`mt-20 transition-all duration-700 delay-600 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}>
-          <h3 className="font-heading text-2xl md:text-3xl font-semibold text-center mb-4 text-foreground">
-            What Our Customers Say
-          </h3>
-          <p className="font-body text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Real feedback from real customers.
-          </p>
-          
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="p-6 border border-border/50 rounded-lg bg-card/30 backdrop-blur-sm relative group hover-lift"
-              >
-                <Quote className="w-8 h-8 text-foreground/10 absolute top-4 right-4" />
-                <div className="mb-4">
-                  <span className="font-heading text-3xl font-bold text-foreground">{testimonial.metric}</span>
-                  <p className="font-body text-xs text-muted-foreground uppercase tracking-wider">{testimonial.metricLabel}</p>
-                </div>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4 italic">
-                  "{testimonial.quote}"
-                </p>
-                <div className="pt-4 border-t border-border/30">
-                  <p className="font-heading text-sm font-medium text-foreground">{testimonial.author}</p>
-                  <p className="font-body text-xs text-muted-foreground">{testimonial.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Stats Row */}
         <div className={`mt-16 transition-all duration-700 delay-700 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {[
-              { value: "10K+", label: "Happy Customers" },
-              { value: "50+", label: "Products" },
-              { value: "98%", label: "Satisfaction Rate" },
-              { value: "4.9/5", label: "Customer Rating" },
+              { value: "≥99%", label: "HPLC Purity" },
+              { value: "50+", label: "Research Compounds" },
+              { value: "24h", label: "Order Dispatch" },
+              { value: "GMP", label: "Manufactured" },
             ].map((stat, index) => (
               <div key={index} className="text-center p-4 border border-border/30 rounded-lg bg-card/20">
                 <p className="font-heading text-2xl md:text-3xl font-bold text-foreground">{stat.value}</p>

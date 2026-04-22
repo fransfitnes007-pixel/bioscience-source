@@ -27,11 +27,11 @@ export const COASection = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}>
             <h2 className="font-heading text-3xl md:text-4xl font-semibold mb-4 text-foreground">
-              COAs & Purity Documentation
+              COAs & Analytical Documentation
             </h2>
             <p className="font-body text-muted-foreground max-w-2xl mx-auto">
-              Every product comes with comprehensive third-party testing documentation, 
-              ensuring 99.9% purity verification and complete transparency.
+              Every research compound ships with comprehensive third-party HPLC documentation —
+              ≥99% purity verification and full analytical transparency for your laboratory records.
             </p>
           </div>
 
@@ -46,7 +46,7 @@ export const COASection = () => {
                 Certificates of Analysis
               </h3>
               <p className="font-body text-sm text-muted-foreground">
-                Independent 3rd party lab testing for every batch we supply
+                Independent third-party HPLC analysis for every batch we supply
               </p>
             </div>
 
@@ -55,10 +55,10 @@ export const COASection = () => {
                 <Shield className="w-7 h-7 text-foreground/80" strokeWidth={1.5} />
               </div>
               <h3 className="font-heading text-lg font-medium mb-2 text-foreground">
-                99.9% Purity Verified
+                ≥99% Purity Verified
               </h3>
               <p className="font-body text-sm text-muted-foreground">
-                Rigorous 3rd party purity testing on all products
+                Rigorous third-party purity analysis on all research compounds
               </p>
             </div>
 
@@ -67,10 +67,10 @@ export const COASection = () => {
                 <Award className="w-7 h-7 text-foreground/80" strokeWidth={1.5} />
               </div>
               <h3 className="font-heading text-lg font-medium mb-2 text-foreground">
-                Quality Assurance
+                GMP Manufacturing
               </h3>
               <p className="font-body text-sm text-muted-foreground">
-                Industry-leading quality standards you can trust
+                Compounds produced under GMP conditions in ISO 9001 facilities
               </p>
             </div>
           </div>

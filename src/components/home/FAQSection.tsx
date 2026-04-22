@@ -7,14 +7,15 @@ import {
 } from "@/components/ui/accordion";
 
 const faqs = [
-  { question: "How do I place an order?", answer: "Browse our catalog, add items to your cart, and check out. Create an account during checkout to track shipments and reorder in one click." },
-  { question: "What documentation comes with my order?", answer: "Every product ships with a third-party Certificate of Analysis, purity verification, and batch-specific testing data — included by default, never on request." },
-  { question: "Are there order minimums?", answer: "No minimums. Order a single vial or hundreds — pricing scales with quantity, but quality never does." },
-  { question: "How fast does it ship?", answer: "Most orders dispatch within 24 hours. Domestic delivery in 2–3 business days. Tracking sent automatically the moment your order leaves." },
+  { question: "Are these products for human consumption?", answer: "No. All compounds are sold strictly for in vitro laboratory research use only. They are not approved by the FDA for human or animal consumption, administration, or any form of bodily introduction. To be handled by trained professionals in controlled laboratory environments." },
+  { question: "How do I place a research order?", answer: "Browse our research catalog, add compounds to your cart, and complete checkout. Sign in or create a laboratory account to track shipments and reorder." },
+  { question: "What documentation comes with my order?", answer: "Every compound ships with a third-party Certificate of Analysis, HPLC purity verification, and batch-specific analytical data — included by default, never on request." },
+  { question: "Are there order minimums?", answer: "No minimums. Order a single vial or bulk quantities — pricing scales with quantity, the analytical standard does not." },
+  { question: "How fast does it ship?", answer: "Most orders dispatch within 24 hours. Domestic delivery in 2–3 business days. Tracking sent automatically the moment your order leaves the facility." },
   { question: "What payment methods are accepted?", answer: "All major credit and debit cards, processed through Stripe with 256-bit SSL encryption. We never see, store, or sell your payment data." },
-  { question: "Do you ship internationally?", answer: "Yes — worldwide. Customs-ready documentation included. Transit times and rates vary by destination." },
-  { question: "What if there's an issue with my order?", answer: "Buyer Protection covers damaged, lost, or non-delivered orders for a full refund or replacement. Add it at checkout for complete peace of mind." },
-  { question: "How do I get support?", answer: "Email support@resurrected.com or message us directly from your account dashboard for order-specific questions." },
+  { question: "Do you ship internationally?", answer: "Yes — worldwide. Customs-ready research documentation included. Transit times and rates vary by destination." },
+  { question: "What if there's an issue with my order?", answer: "Order Protection covers damaged, lost, or non-delivered shipments for full replacement. Add it at checkout for additional logistics coverage." },
+  { question: "How do I get support?", answer: "Email support@resurrected.com or message us from your laboratory account dashboard for order-specific questions." },
 ];
 
 export const FAQSection = () => {
