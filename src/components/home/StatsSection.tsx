@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: "99.9%", label: "Purity · 3rd Party Tested" },
+  { value: "≥99%", label: "HPLC Purity · 3rd Party" },
   { value: "50+", label: "Research Compounds" },
-  { value: "24-72h", label: "Shipping Turnaround" },
-  { value: "10K+", label: "Happy Customers" },
+  { value: "24-72h", label: "Laboratory Dispatch" },
+  { value: "GMP", label: "Manufactured" },
 ];
 
 export const StatsSection = () => {
