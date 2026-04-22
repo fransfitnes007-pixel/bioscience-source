@@ -6,13 +6,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const businessTypes = [
-  "Med Spa",
-  "Weight Loss Clinic",
-  "TRT / HRT Clinic",
-  "Wellness / IV Bar",
-  "Anti-Aging / Longevity",
-  "Functional Medicine",
-  "Plastic Surgery",
+  "Academic Research Laboratory",
+  "Contract Research Organization (CRO)",
+  "Compounding Pharmacy",
+  "Biotech / Pharmaceutical R&D",
+  "Government / Institutional Lab",
+  "Independent Research Facility",
+  "Distributor (Research Supply)",
   "Other",
 ];
 
@@ -126,27 +126,27 @@ const B2BApply = () => {
           <div className="flex items-center gap-3 mb-6">
             <span className="h-px w-8 bg-foreground/30" />
             <span className="font-body text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-              Wholesale Application
+              Research Account Application
             </span>
           </div>
 
           <h1 className="font-body font-bold text-4xl md:text-6xl text-foreground tracking-[-0.03em] leading-[1.0] mb-6">
             Apply for{" "}
-            <span className="text-muted-foreground font-light italic">partnership.</span>
+            <span className="text-muted-foreground font-light italic">research access.</span>
           </h1>
           <p className="font-body text-muted-foreground/80 mb-12 leading-relaxed">
-            Tell us about your practice. We review every application within 48 hours.
+            Tell us about your laboratory or institution. We review every application within 48 hours.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Business */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className={labelClass}>Business name *</label>
+                <label className={labelClass}>Institution / lab name *</label>
                 <input required value={form.businessName} onChange={(e) => update("businessName", e.target.value)} className={inputClass} />
               </div>
               <div>
-                <label className={labelClass}>Business type *</label>
+                <label className={labelClass}>Institution type *</label>
                 <select required value={form.businessType} onChange={(e) => update("businessType", e.target.value)} className={inputClass}>
                   <option value="">Select…</option>
                   {businessTypes.map(t => <option key={t} value={t}>{t}</option>)}
@@ -157,11 +157,11 @@ const B2BApply = () => {
             {/* Contact */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className={labelClass}>Contact name *</label>
+                <label className={labelClass}>Principal investigator / contact name *</label>
                 <input required value={form.contactName} onChange={(e) => update("contactName", e.target.value)} className={inputClass} />
               </div>
               <div>
-                <label className={labelClass}>Email *</label>
+                <label className={labelClass}>Institutional email *</label>
                 <input required type="email" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputClass} />
               </div>
             </div>
@@ -179,7 +179,7 @@ const B2BApply = () => {
 
             {/* Address */}
             <div>
-              <label className={labelClass}>Business address</label>
+              <label className={labelClass}>Laboratory shipping address</label>
               <input value={form.businessAddress} onChange={(e) => update("businessAddress", e.target.value)} className={inputClass} />
             </div>
             <div className="grid md:grid-cols-3 gap-4">
@@ -190,7 +190,7 @@ const B2BApply = () => {
 
             {/* Volume */}
             <div>
-              <label className={labelClass}>Estimated monthly volume *</label>
+              <label className={labelClass}>Estimated monthly research volume *</label>
               <select required value={form.monthlyVolume} onChange={(e) => update("monthlyVolume", e.target.value)} className={inputClass}>
                 <option value="">Select…</option>
                 {monthlyVolumes.map(v => <option key={v} value={v}>{v}</option>)}
@@ -199,7 +199,7 @@ const B2BApply = () => {
 
             {/* Interest */}
             <div>
-              <label className={labelClass}>Which peptides are you most interested in?</label>
+              <label className={labelClass}>Which research compounds are you most interested in?</label>
               <textarea
                 rows={3}
                 value={form.productsInterest}
@@ -210,12 +210,12 @@ const B2BApply = () => {
             </div>
 
             <div>
-              <label className={labelClass}>How will peptides fit into your practice?</label>
+              <label className={labelClass}>Describe your intended research use *</label>
               <textarea
                 rows={4}
                 value={form.howWeBenefit}
                 onChange={(e) => update("howWeBenefit", e.target.value)}
-                placeholder="Tell us about your patient base, current programs, and goals."
+                placeholder="In vitro assays, receptor binding studies, stability testing, etc. Include institution, IRB / ethics oversight if applicable."
                 className={inputClass}
               />
             </div>

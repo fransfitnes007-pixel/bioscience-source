@@ -77,10 +77,10 @@ const B2BGateway = ({ onSuccess }: { onSuccess: () => void }) => {
           </div>
           <img src={heroLogo} alt="Resurrected Labz" className="w-32 h-32 mx-auto mb-8 drop-shadow-[0_0_40px_rgba(255,255,255,0.3)]" />
           <h1 className="font-body font-bold text-4xl md:text-5xl text-foreground tracking-[-0.03em] leading-tight">
-            Partner portal.
+            Research partner portal.
           </h1>
           <p className="font-body text-muted-foreground/80 mt-4 leading-relaxed">
-            Resurrected Labz wholesale is invitation-only. Enter your access code to continue.
+            Resurrected Labz bulk research supply is invitation-only. Enter your access code to continue.
           </p>
         </div>
 
@@ -217,7 +217,7 @@ const B2BContent = () => {
             >
               <span className="h-px w-8 bg-foreground/30" />
               <span className="font-body text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-                Resurrected Labz · For Practitioners
+                Resurrected Labz · For Research Institutions
               </span>
               <span className="h-px w-8 bg-foreground/30" />
             </div>
@@ -238,7 +238,7 @@ const B2BContent = () => {
               style={{ transitionDelay: "350ms" }}
             >
               Built for{" "}
-              <span className="text-muted-foreground font-light italic">your practice.</span>
+              <span className="text-muted-foreground font-light italic">your laboratory.</span>
             </h1>
 
             <p
@@ -247,8 +247,8 @@ const B2BContent = () => {
               }`}
               style={{ transitionDelay: "650ms" }}
             >
-              Pharmaceutical-grade peptides, third-party verified, white-glove fulfillment.
-              Wholesale pricing for med spas, TRT clinics, weight-loss programs, and wellness centers.
+              Reference-grade research peptides, third-party HPLC verified, white-glove laboratory fulfillment.
+              Bulk research pricing for academic labs, contract research organizations, compounding pharmacies, and biotech.
             </p>
 
             <div
@@ -261,14 +261,14 @@ const B2BContent = () => {
                 to="/b2b/apply"
                 className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-body text-sm font-medium hover:bg-foreground/90 transition-all min-w-[220px]"
               >
-                Apply for partnership
+                Apply for research account
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <a
                 href="#metrics"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border hover:border-foreground/40 text-foreground rounded-full font-body text-sm font-medium transition-all min-w-[220px]"
               >
-                See the numbers
+                See research data
               </a>
             </div>
 
@@ -280,7 +280,7 @@ const B2BContent = () => {
             >
               {[
                 { v: "≥99%", l: "Verified purity" },
-                { v: "48h", l: "Wholesale dispatch" },
+                { v: "48h", l: "Bulk dispatch" },
                 { v: "GMP", l: "Manufactured" },
               ].map((s) => (
                 <div key={s.l} className="text-center">
