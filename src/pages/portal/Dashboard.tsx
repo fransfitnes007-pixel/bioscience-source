@@ -115,13 +115,8 @@ const PortalDashboard = () => {
         </div>
 
         {/* Resurrected App banner */}
-        <a
-          href={APP_SUBSCRIPTION_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block rounded-lg border border-border bg-card hover:border-foreground/40 transition-colors p-5"
-        >
-          <div className="flex items-center justify-between gap-4">
+        <div className="rounded-lg border border-border bg-card p-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2.5 rounded-full bg-foreground">
                 <Smartphone className="h-5 w-5 text-background" />
@@ -131,9 +126,30 @@ const PortalDashboard = () => {
                 <p className="text-sm text-muted-foreground">{APP_SUBSCRIPTION_TAGLINE}</p>
               </div>
             </div>
-            <ExternalLink className="h-5 w-5 text-muted-foreground shrink-0" />
+            <Button
+              asChild
+              className="shrink-0"
+              onClick={async () => {
+                try {
+                  const { data: { session } } = await supabase.auth.getSession();
+                  await supabase.from('analytics_events').insert({
+                    event_name: 'app_subscription_activate_click',
+                    event_type: 'click',
+                    metadata: { source: 'portal_dashboard_banner', url: APP_SUBSCRIPTION_URL },
+                    user_id: session?.user?.id ?? null,
+                  });
+                } catch (e) {
+                  console.warn('Failed to track app activate click', e);
+                }
+              }}
+            >
+              <a href={APP_SUBSCRIPTION_URL} target="_blank" rel="noopener noreferrer">
+                Activate on the App
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
           </div>
-        </a>
+        </div>
 
         {/* Company Logo Card - if logo exists */}
         {profile?.company_logo_url && (
