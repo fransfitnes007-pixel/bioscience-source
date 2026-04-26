@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "@/components/admin/AdminLayout";
-import { FileText, MessageSquare, Mail, ArrowRight, Users, Package, DollarSign } from "lucide-react";
+import { FileText, MessageSquare, Mail, ArrowRight, Users, Package, DollarSign, Smartphone, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
+import { APP_SUBSCRIPTION_URL, APP_SUBSCRIPTION_NAME, APP_SUBSCRIPTION_TAGLINE } from "@/lib/app-subscription";
 
 interface Stats {
   pendingApplications: number;
@@ -145,6 +146,27 @@ const AdminDashboard = () => {
             </div>
           ))}
         </div>
+
+        {/* Resurrected App deep link */}
+        <a
+          href={APP_SUBSCRIPTION_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-card rounded-2xl border border-border p-5 hover:border-primary transition-colors"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-full bg-foreground">
+                <Smartphone className="h-5 w-5 text-background" />
+              </div>
+              <div>
+                <p className="font-medium text-foreground">{APP_SUBSCRIPTION_NAME}</p>
+                <p className="text-sm text-muted-foreground">{APP_SUBSCRIPTION_TAGLINE}</p>
+              </div>
+            </div>
+            <ExternalLink className="h-5 w-5 text-muted-foreground shrink-0" />
+          </div>
+        </a>
 
         {/* Quick Actions */}
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
