@@ -66,6 +66,14 @@ export const Footer = ({ wordmark = "PRODUCTS YOU MAY LIKE" }: FooterProps) => {
                   {link.label}
                 </Link>
               ))}
+              <a
+                href="https://resurrectedlabz.com/app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-foreground hover:text-muted-foreground text-sm transition-colors"
+              >
+                Research App ↗
+              </a>
             </nav>
           </div>
         </div>

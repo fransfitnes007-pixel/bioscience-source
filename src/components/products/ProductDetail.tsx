@@ -1,6 +1,6 @@
 import { Product, ProductVariation } from "@/lib/products-data";
 import { Button } from "@/components/ui/button";
-import { X, ExternalLink } from "lucide-react";
+import { X, ExternalLink, ShieldCheck, FlaskConical, Truck } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -82,6 +82,30 @@ export const ProductDetail = ({
             >
               {selectedVariation ? "Request Research Quote" : "Select a variation"}
             </Button>
+
+            {/* Research Order Protection badge */}
+            <div className="mt-6 rounded-lg border border-border/60 bg-secondary/40 p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <ShieldCheck className="w-4 h-4 text-foreground" strokeWidth={1.75} />
+                <h4 className="font-heading text-sm font-medium text-foreground uppercase tracking-wider">
+                  Research Order Protection
+                </h4>
+              </div>
+              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <FlaskConical className="w-3.5 h-3.5 mt-0.5 shrink-0" strokeWidth={1.75} />
+                  <span>≥99% HPLC-verified or replacement issued</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Truck className="w-3.5 h-3.5 mt-0.5 shrink-0" strokeWidth={1.75} />
+                  <span>Discreet, temperature-controlled dispatch</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <ShieldCheck className="w-3.5 h-3.5 mt-0.5 shrink-0" strokeWidth={1.75} />
+                  <span>3rd-party COA included with every lot</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Accordion sections */}

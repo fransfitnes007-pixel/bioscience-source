@@ -3,7 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import PortalLayout from "@/components/portal/PortalLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Package, MessageSquare, Clock, DollarSign, Tags, FileImage } from "lucide-react";
+import { Package, MessageSquare, Clock, DollarSign, Tags, FileImage, Smartphone, ExternalLink } from "lucide-react";
+import { APP_SUBSCRIPTION_URL, APP_SUBSCRIPTION_NAME, APP_SUBSCRIPTION_TAGLINE } from "@/lib/app-subscription";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -112,6 +113,27 @@ const PortalDashboard = () => {
           </h1>
           <p className="text-muted-foreground">Here's an overview of your account</p>
         </div>
+
+        {/* Resurrected App banner */}
+        <a
+          href={APP_SUBSCRIPTION_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block rounded-lg border border-border bg-card hover:border-foreground/40 transition-colors p-5"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-full bg-foreground">
+                <Smartphone className="h-5 w-5 text-background" />
+              </div>
+              <div>
+                <p className="font-medium text-foreground">{APP_SUBSCRIPTION_NAME}</p>
+                <p className="text-sm text-muted-foreground">{APP_SUBSCRIPTION_TAGLINE}</p>
+              </div>
+            </div>
+            <ExternalLink className="h-5 w-5 text-muted-foreground shrink-0" />
+          </div>
+        </a>
 
         {/* Company Logo Card - if logo exists */}
         {profile?.company_logo_url && (
