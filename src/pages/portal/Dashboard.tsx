@@ -134,7 +134,8 @@ const PortalDashboard = () => {
                   const { data: { session } } = await supabase.auth.getSession();
                   await supabase.from('analytics_events').insert({
                     event_name: 'app_subscription_activate_click',
-                    event_data: { source: 'portal_dashboard_banner', url: APP_SUBSCRIPTION_URL },
+                    event_type: 'click',
+                    metadata: { source: 'portal_dashboard_banner', url: APP_SUBSCRIPTION_URL },
                     user_id: session?.user?.id ?? null,
                   });
                 } catch (e) {
