@@ -144,8 +144,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "TB500 (Thymosin Beta-4)",
         slug: "tb500",
         variations: [
-          { strength: "5mg", moq: 10, price10: 0, price20: 0, price30: 0 },
-          { strength: "10mg", moq: 10, price10: 0, price20: 0, price30: 0 },
+          { strength: "5mg", moq: 10, price10: 416, price20: 832, price30: 1248 },
+          { strength: "10mg", moq: 10, price10: 568, price20: 1136, price30: 1704 },
         ],
         description: "TB500 is commonly presented as thymosin beta-4–related material; thymosin beta-4 (Tβ4) is an endogenous 43-amino acid peptide that serves as a major actin-sequestering protein, playing central roles in cytoskeletal dynamics, cell motility, and tissue repair signaling networks. Mechanistically, Tβ4 promotes G-actin sequestration and regulates actin polymerization kinetics, directly influencing cell migration, wound closure, and vascular remodeling programs. It is studied extensively in regenerative biology for effects on angiogenesis, cardiac repair signaling, dermal wound healing, and inflammatory phase modulation. Research literature positions thymosin beta-4 as a key endogenous repair factor with broad tissue-protective and pro-regenerative signaling properties.",
         scientificPurpose: "Designed to study actin-cytoskeleton dynamics, cell migration and motility signaling, angiogenesis pathway activation, wound closure mechanisms, cardiac repair biology, and inflammatory modulation during tissue recovery processes.",
