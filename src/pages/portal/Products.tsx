@@ -143,7 +143,8 @@ const PortalProducts = () => {
               <CardContent className="space-y-3">
                 {product.variations.slice(0, 3).map((variation) => {
                   const qty = getQuantity(product.slug, variation.strength);
-                  const price = getPrice(variation, qty);
+                  const unit = getPrice(variation);
+                  const price = unit * qty;
                   
                   return (
                     <div
@@ -155,7 +156,7 @@ const PortalProducts = () => {
                         <p className="text-primary font-bold">
                           {formatPrice(price)}
                           <span className="text-xs text-muted-foreground ml-1">
-                            /{qty} vials
+                            /{qty} vial{qty > 1 ? "s" : ""}
                           </span>
                         </p>
                       </div>
@@ -166,7 +167,7 @@ const PortalProducts = () => {
                             size="icon"
                             className="h-8 w-8"
                             onClick={() =>
-                              setQuantity(product.slug, variation.strength, qty - 10)
+                              setQuantity(product.slug, variation.strength, qty - 1)
                             }
                           >
                             <Minus className="h-3 w-3" />
@@ -177,7 +178,7 @@ const PortalProducts = () => {
                             size="icon"
                             className="h-8 w-8"
                             onClick={() =>
-                              setQuantity(product.slug, variation.strength, qty + 10)
+                              setQuantity(product.slug, variation.strength, qty + 1)
                             }
                           >
                             <Plus className="h-3 w-3" />
