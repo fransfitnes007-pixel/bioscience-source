@@ -129,7 +129,7 @@ const ProductPage = () => {
                       key={`${product.slug}-${variation.strength}-${index}`}
                       onClick={() => {
                         setSelectedVariation(variation);
-                        setSelectedQuantity(10);
+                        setSelectedQuantity(1);
                       }}
                       className={`relative p-4 border rounded-xl text-left transition-all ${
                         selectedVariation?.strength === variation.strength
