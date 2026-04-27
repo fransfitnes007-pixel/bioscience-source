@@ -15,20 +15,10 @@ import {
 } from "@/components/ui/accordion";
 import { ExternalLink } from "lucide-react";
 
-const QUANTITY_TIERS = [10, 20, 30] as const;
-type QuantityTier = typeof QUANTITY_TIERS[number];
-
-const getPriceForTier = (variation: ProductVariation, tier: QuantityTier): number => {
-  switch (tier) {
-    case 10:
-      return variation.price10 ?? 0;
-    case 20:
-      return variation.price20 ?? 0;
-    case 30:
-      return variation.price30 ?? 0;
-    default:
-      return 0;
-  }
+const getUnitPrice = (variation: ProductVariation): number => {
+  if (variation.price && variation.price > 0) return variation.price;
+  if (variation.price10 && variation.price10 > 0) return variation.price10 / 10;
+  return 0;
 };
 
 const getOriginalPrice = (price: number): number => {
