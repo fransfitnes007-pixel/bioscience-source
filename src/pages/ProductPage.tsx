@@ -89,8 +89,9 @@ const ProductPage = () => {
     );
   }
 
-  const currentPrice = selectedVariation ? getPriceForTier(selectedVariation, selectedQuantity) : 0;
-  const originalPrice = getOriginalPrice(currentPrice);
+  const unitPrice = selectedVariation ? getUnitPrice(selectedVariation) : 0;
+  const lineTotal = unitPrice * selectedQuantity;
+  const originalPrice = getOriginalPrice(lineTotal);
 
   return (
     <Layout footerWordmark="PRODUCTS YOU MAY LIKE">
