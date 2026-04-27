@@ -194,14 +194,14 @@ const ProductPage = () => {
               {/* Price Display */}
               <div className="flex items-center gap-8 mb-8">
                 <PriceDisplay 
-                  price={currentPrice} 
+                  price={lineTotal} 
                   originalPrice={originalPrice}
                   size="lg" 
-                  showDiscount={currentPrice > 0}
+                  showDiscount={lineTotal > 0}
                 />
                 <div>
                   <span className="font-body text-sm text-muted-foreground block">
-                    {currentPrice > 0 ? `for ${selectedQuantity} vials` : "Price coming soon"}
+                    {lineTotal > 0 ? `${selectedQuantity} × ${selectedVariation?.strength}` : "Price coming soon"}
                   </span>
                   <span className="font-heading text-lg font-medium text-foreground">
                     {selectedVariation?.strength}
@@ -215,10 +215,10 @@ const ProductPage = () => {
                 size="lg"
                 className="w-full gap-3 text-lg py-6"
                 onClick={handleAddToCart}
-                disabled={currentPrice === 0 || isAddingToCart}
+                disabled={lineTotal === 0 || isAddingToCart}
               >
                 <ShoppingCart className="w-5 h-5" />
-                {isAddingToCart ? "Adding..." : currentPrice > 0 ? "Add to Cart" : "Contact for Pricing"}
+                {isAddingToCart ? "Adding..." : lineTotal > 0 ? "Add to Cart" : "Contact for Pricing"}
               </Button>
 
               {/* Product Details Accordion */}
