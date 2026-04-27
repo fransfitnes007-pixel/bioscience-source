@@ -1,10 +1,12 @@
 export interface ProductVariation {
   strength: string;
   moq: number;
-  // Quantity-based pricing: prices are for 10/20/30 vials (not per-unit)
-  price10?: number;  // Price for 10 vials
-  price20?: number;  // Price for 20 vials
-  price30?: number;  // Price for 30 vials
+  // Per-vial price (single vial sold to individuals)
+  price?: number;
+  // Legacy fields (deprecated, kept optional for backward compat)
+  price10?: number;
+  price20?: number;
+  price30?: number;
 }
 
 export interface Product {
@@ -34,11 +36,11 @@ export const productCategories: ProductCategory[] = [
         displayName: "GLP1-SEMA",
         slug: "glp1-sema",
         variations: [
-          { strength: "5mg", moq: 10, price10: 640, price20: 1280, price30: 1920 },
-          { strength: "10mg", moq: 10, price10: 736, price20: 1472, price30: 2208 },
-          { strength: "15mg", moq: 10, price10: 816, price20: 1632, price30: 2448 },
-          { strength: "20mg", moq: 10, price10: 1008, price20: 2016, price30: 3024 },
-          { strength: "30mg", moq: 10, price10: 1168, price20: 2336, price30: 3504 },
+          { strength: "5mg", moq: 1, price: 64 },
+          { strength: "10mg", moq: 1, price: 73.6 },
+          { strength: "15mg", moq: 1, price: 81.6 },
+          { strength: "20mg", moq: 1, price: 100.8 },
+          { strength: "30mg", moq: 1, price: 116.8 },
         ],
         description: "GLP1-SEMA is a long-acting peptide agonist engineered to mimic endogenous glucagon-like peptide-1 (GLP-1), a nutrient-responsive incretin hormone that coordinates glucose handling and appetite regulation. It is structurally modified to resist rapid enzymatic degradation and to sustain systemic exposure, enabling prolonged GLP-1 receptor activation. In research settings, it is used to map how sustained GLP-1R signaling alters pancreatic endocrine output, gastrointestinal motility, and CNS satiety circuitry.",
         scientificPurpose: "Designed to study GLP-1 receptor biology across metabolic tissues, with emphasis on glucose-dependent insulin secretion dynamics, suppression of nutrient-inappropriate glucagon output, gastric emptying control, and hypothalamic/brainstem satiety network activation.",
@@ -50,14 +52,14 @@ export const productCategories: ProductCategory[] = [
         displayName: "GLP1-TRIZ",
         slug: "glp1-triz",
         variations: [
-          { strength: "5mg", moq: 10, price10: 624, price20: 1248, price30: 1872 },
-          { strength: "10mg", moq: 10, price10: 736, price20: 1472, price30: 2208 },
-          { strength: "15mg", moq: 10, price10: 872, price20: 1744, price30: 2616 },
-          { strength: "20mg", moq: 10, price10: 1088, price20: 2176, price30: 3264 },
-          { strength: "30mg", moq: 10, price10: 1632, price20: 3264, price30: 4896 },
-          { strength: "40mg", moq: 10, price10: 1840, price20: 3680, price30: 5520 },
-          { strength: "50mg", moq: 10, price10: 2040, price20: 4080, price30: 6120 },
-          { strength: "60mg", moq: 10, price10: 2248, price20: 4496, price30: 6744 },
+          { strength: "5mg", moq: 1, price: 62.4 },
+          { strength: "10mg", moq: 1, price: 73.6 },
+          { strength: "15mg", moq: 1, price: 87.2 },
+          { strength: "20mg", moq: 1, price: 108.8 },
+          { strength: "30mg", moq: 1, price: 163.2 },
+          { strength: "40mg", moq: 1, price: 184 },
+          { strength: "50mg", moq: 1, price: 204 },
+          { strength: "60mg", moq: 1, price: 224.8 },
         ],
         description: "GLP1-TRIZ is a dual incretin receptor agonist engineered to activate both GLP-1 and GIP receptors, combining two nutrient-sensing endocrine pathways into a single signaling framework. This dual design is used to study \"incretin synergy,\" where parallel receptor engagement can amplify insulinotropic signaling while also modulating appetite and metabolic substrate handling. Research interest centers on how dual-pathway activation alters endocrine output, energy intake, and adiposity outcomes compared with single incretin activation.",
         scientificPurpose: "Designed to study combined GLP-1R/GIPR activation on glucose-dependent insulin secretion, systemic insulin sensitivity, appetite regulation, and fat-mass reduction biology, including downstream transcriptional remodeling in metabolic tissues.",
@@ -69,14 +71,14 @@ export const productCategories: ProductCategory[] = [
         displayName: "GLP3-RETA",
         slug: "glp3-reta",
         variations: [
-          { strength: "5mg", moq: 10, price10: 896, price20: 1792, price30: 2688 },
-          { strength: "10mg", moq: 10, price10: 1008, price20: 2016, price30: 3024 },
-          { strength: "15mg", moq: 10, price10: 1400, price20: 2800, price30: 4200 },
-          { strength: "20mg", moq: 10, price10: 1520, price20: 3040, price30: 4560 },
-          { strength: "30mg", moq: 10, price10: 1960, price20: 3920, price30: 5880 },
-          { strength: "40mg", moq: 10, price10: 2480, price20: 4960, price30: 7440 },
-          { strength: "50mg", moq: 10, price10: 3760, price20: 7520, price30: 11280 },
-          { strength: "60mg", moq: 10, price10: 5312, price20: 10624, price30: 15936 },
+          { strength: "5mg", moq: 1, price: 89.6 },
+          { strength: "10mg", moq: 1, price: 100.8 },
+          { strength: "15mg", moq: 1, price: 140 },
+          { strength: "20mg", moq: 1, price: 152 },
+          { strength: "30mg", moq: 1, price: 196 },
+          { strength: "40mg", moq: 1, price: 248 },
+          { strength: "50mg", moq: 1, price: 376 },
+          { strength: "60mg", moq: 1, price: 531.2 },
         ],
         description: "GLP3-RETA is a tri-agonist metabolic peptide designed to activate GLP-1, GIP, and glucagon receptors. The architecture is intended to combine incretin-driven satiety and glycemic control with glucagon-receptor–linked energy expenditure and lipid mobilization signaling. In research, it is used to explore \"balanced polyagonism\" as a strategy to shift weight-loss magnitude and metabolic flexibility beyond incretin-only models.",
         scientificPurpose: "Designed to study multi-receptor coordination of appetite suppression, glycemic regulation, lipid oxidation, and energy expenditure signaling—particularly the contribution of glucagon receptor signaling to weight-loss outcomes.",
@@ -131,8 +133,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "BPC-157",
         slug: "bpc-157",
         variations: [
-          { strength: "5mg", moq: 10, price10: 608, price20: 1216, price30: 1824 },
-          { strength: "10mg", moq: 10, price10: 688, price20: 1376, price30: 2064 },
+          { strength: "5mg", moq: 1, price: 60.8 },
+          { strength: "10mg", moq: 1, price: 68.8 },
         ],
         description: "BPC-157 (Body Protection Compound-157) is a synthetic pentadecapeptide derived from a segment of human gastric juice protein, engineered for exceptional stability in acidic environments and studied extensively in tissue-repair and cytoprotective research frameworks. Mechanistically, BPC-157 is associated with multi-pathway signaling involving growth factor modulation (VEGF, EGF), nitric oxide system interactions, and FAK-paxillin pathway activation relevant to cell migration and tissue remodeling. It is frequently studied in models of tendon, ligament, muscle, and gastrointestinal injury for its effects on angiogenesis, inflammatory phase modulation, and accelerated recovery kinetics. Research interest centers on its unusual stability profile and broad tissue-repair signaling effects across multiple organ systems.",
         scientificPurpose: "Designed to study multi-pathway tissue repair biology, including angiogenesis signaling (VEGF-mediated), growth factor modulation, nitric oxide system interactions, inflammatory cascade regulation, mucosal cytoprotection, and connective tissue remodeling in controlled injury/recovery models.",
@@ -144,8 +146,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "TB500 (Thymosin Beta-4)",
         slug: "tb500",
         variations: [
-          { strength: "5mg", moq: 10, price10: 416, price20: 832, price30: 1248 },
-          { strength: "10mg", moq: 10, price10: 568, price20: 1136, price30: 1704 },
+          { strength: "5mg", moq: 1, price: 41.6 },
+          { strength: "10mg", moq: 1, price: 56.8 },
         ],
         description: "TB500 is commonly presented as thymosin beta-4–related material; thymosin beta-4 (Tβ4) is an endogenous 43-amino acid peptide that serves as a major actin-sequestering protein, playing central roles in cytoskeletal dynamics, cell motility, and tissue repair signaling networks. Mechanistically, Tβ4 promotes G-actin sequestration and regulates actin polymerization kinetics, directly influencing cell migration, wound closure, and vascular remodeling programs. It is studied extensively in regenerative biology for effects on angiogenesis, cardiac repair signaling, dermal wound healing, and inflammatory phase modulation. Research literature positions thymosin beta-4 as a key endogenous repair factor with broad tissue-protective and pro-regenerative signaling properties.",
         scientificPurpose: "Designed to study actin-cytoskeleton dynamics, cell migration and motility signaling, angiogenesis pathway activation, wound closure mechanisms, cardiac repair biology, and inflammatory modulation during tissue recovery processes.",
@@ -349,8 +351,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "IPAMORELIN",
         slug: "ipamorelin",
         variations: [
-          { strength: "5mg", moq: 10, price10: 384, price20: 768, price30: 1152 },
-          { strength: "10mg", moq: 10, price10: 456, price20: 912, price30: 1368 },
+          { strength: "5mg", moq: 1, price: 38.4 },
+          { strength: "10mg", moq: 1, price: 45.6 },
         ],
         description: "Ipamorelin is a synthetic growth hormone secretagogue designed to activate the ghrelin receptor (GHSR-1a), stimulating pituitary GH release. It is frequently used as a mechanistic probe of ghrelin/GHSR biology and GH-axis modulation.",
         scientificPurpose: "Designed to study GHSR-mediated GH release, endocrine pulsatility, and downstream GH/IGF-axis signaling dynamics.",
@@ -400,9 +402,9 @@ export const productCategories: ProductCategory[] = [
         displayName: "HGH SOMATROPIN (191AA)",
         slug: "hgh-somatropin",
         variations: [
-          { strength: "10IU", moq: 10, price10: 252, price20: 504, price30: 756 },
-          { strength: "15IU", moq: 10, price10: 308, price20: 616, price30: 924 },
-          { strength: "24IU", moq: 10, price10: 420, price20: 840, price30: 1260 },
+          { strength: "10IU", moq: 1, price: 25.2 },
+          { strength: "15IU", moq: 1, price: 30.8 },
+          { strength: "24IU", moq: 1, price: 42 },
         ],
         description: "HGH Somatropin (191AA) is recombinant human growth hormone identical to the endogenous 191-amino acid pituitary hormone. It is used in research to study GH-axis signaling, metabolic regulation, and anabolic biology.",
         scientificPurpose: "Designed to study direct GH receptor signaling, IGF-1 axis activation, metabolic effects, and anabolic biology.",
@@ -580,9 +582,9 @@ export const productCategories: ProductCategory[] = [
         displayName: "NAD+",
         slug: "nad",
         variations: [
-          { strength: "100mg", moq: 10, price10: 576, price20: 1152, price30: 1728 },
-          { strength: "500mg", moq: 10, price10: 688, price20: 1376, price30: 2064 },
-          { strength: "1000mg", moq: 10, price10: 960, price20: 1920, price30: 2880 },
+          { strength: "100mg", moq: 1, price: 57.6 },
+          { strength: "500mg", moq: 1, price: 68.8 },
+          { strength: "1000mg", moq: 1, price: 96 },
         ],
         description: "NAD+ (Nicotinamide Adenine Dinucleotide) is an essential coenzyme in cellular metabolism, studied for its roles in energy production, DNA repair, sirtuin activation, and aging-related biology.",
         scientificPurpose: "Designed to study cellular energetics, sirtuin activation, DNA repair mechanisms, and aging/longevity pathways.",
@@ -675,8 +677,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "BAC WATER (Bacteriostatic Water)",
         slug: "bac-water",
         variations: [
-          { strength: "3ml", moq: 10, price10: 40, price20: 80, price30: 120 },
-          { strength: "10ml", moq: 10, price10: 96, price20: 192, price30: 288 },
+          { strength: "3ml", moq: 1, price: 4 },
+          { strength: "10ml", moq: 1, price: 9.6 },
         ],
         description: "Bacteriostatic Water is sterile water containing 0.9% benzyl alcohol as a bacteriostatic preservative. It is used for reconstituting lyophilized peptides and medications in research and clinical applications.",
         scientificPurpose: "Used as a diluent for reconstituting lyophilized peptides, proteins, and other research compounds requiring sterile, preserved solutions.",

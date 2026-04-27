@@ -41,24 +41,23 @@ const PortalProducts = () => {
 
   const getQuantity = (productSlug: string, strength: string) => {
     const key = `${productSlug}-${strength}`;
-    return quantities[key] || 10;
+    return quantities[key] || 1;
   };
 
   const setQuantity = (productSlug: string, strength: string, qty: number) => {
     const key = `${productSlug}-${strength}`;
-    setQuantities((prev) => ({ ...prev, [key]: Math.max(10, qty) }));
+    setQuantities((prev) => ({ ...prev, [key]: Math.max(1, qty) }));
   };
 
-  const getPrice = (variation: ProductVariation, qty: number): number => {
-    if (qty >= 30 && variation.price30) return variation.price30;
-    if (qty >= 20 && variation.price20) return variation.price20;
-    if (variation.price10) return variation.price10;
+  const getPrice = (variation: ProductVariation): number => {
+    if (variation.price && variation.price > 0) return variation.price;
+    if (variation.price10 && variation.price10 > 0) return variation.price10 / 10;
     return 0;
   };
 
   const handleAddToCart = async (product: typeof allProducts[0], variation: ProductVariation) => {
     const qty = getQuantity(product.slug, variation.strength);
-    const price = getPrice(variation, qty);
+    const price = getPrice(variation);
 
     await addToCart({
       productId: product.slug,
@@ -144,7 +143,8 @@ const PortalProducts = () => {
               <CardContent className="space-y-3">
                 {product.variations.slice(0, 3).map((variation) => {
                   const qty = getQuantity(product.slug, variation.strength);
-                  const price = getPrice(variation, qty);
+                  const unit = getPrice(variation);
+                  const price = unit * qty;
                   
                   return (
                     <div
@@ -156,7 +156,7 @@ const PortalProducts = () => {
                         <p className="text-primary font-bold">
                           {formatPrice(price)}
                           <span className="text-xs text-muted-foreground ml-1">
-                            /{qty} vials
+                            /{qty} vial{qty > 1 ? "s" : ""}
                           </span>
                         </p>
                       </div>
@@ -167,7 +167,7 @@ const PortalProducts = () => {
                             size="icon"
                             className="h-8 w-8"
                             onClick={() =>
-                              setQuantity(product.slug, variation.strength, qty - 10)
+                              setQuantity(product.slug, variation.strength, qty - 1)
                             }
                           >
                             <Minus className="h-3 w-3" />
@@ -178,7 +178,7 @@ const PortalProducts = () => {
                             size="icon"
                             className="h-8 w-8"
                             onClick={() =>
-                              setQuantity(product.slug, variation.strength, qty + 10)
+                              setQuantity(product.slug, variation.strength, qty + 1)
                             }
                           >
                             <Plus className="h-3 w-3" />
