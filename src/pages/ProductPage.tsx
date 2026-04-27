@@ -61,8 +61,8 @@ const ProductPage = () => {
       return;
     }
 
-    const price = getPriceForTier(selectedVariation, selectedQuantity);
-    if (price === 0) {
+    const unitPrice = getUnitPrice(selectedVariation);
+    if (unitPrice === 0) {
       toast.info("Price coming soon - contact us for pricing");
       return;
     }
@@ -70,11 +70,11 @@ const ProductPage = () => {
     setIsAddingToCart(true);
     await addToCart({
       productId: product.slug,
-      variationId: `${product.slug}-${selectedVariation.strength}-${selectedQuantity}`,
+      variationId: `${product.slug}-${selectedVariation.strength}`,
       productName: product.displayName,
-      variationName: `${selectedVariation.strength} × ${selectedQuantity} vials`,
-      quantity: 1,
-      price,
+      variationName: `${selectedVariation.strength} (1 vial)`,
+      quantity: selectedQuantity,
+      price: unitPrice,
     });
     setIsAddingToCart(false);
   };
