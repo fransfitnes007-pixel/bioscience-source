@@ -131,8 +131,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "BPC-157",
         slug: "bpc-157",
         variations: [
-          { strength: "5mg", moq: 10, price10: 0, price20: 0, price30: 0 },
-          { strength: "10mg", moq: 10, price10: 0, price20: 0, price30: 0 },
+          { strength: "5mg", moq: 10, price10: 608, price20: 1216, price30: 1824 },
+          { strength: "10mg", moq: 10, price10: 688, price20: 1376, price30: 2064 },
         ],
         description: "BPC-157 (Body Protection Compound-157) is a synthetic pentadecapeptide derived from a segment of human gastric juice protein, engineered for exceptional stability in acidic environments and studied extensively in tissue-repair and cytoprotective research frameworks. Mechanistically, BPC-157 is associated with multi-pathway signaling involving growth factor modulation (VEGF, EGF), nitric oxide system interactions, and FAK-paxillin pathway activation relevant to cell migration and tissue remodeling. It is frequently studied in models of tendon, ligament, muscle, and gastrointestinal injury for its effects on angiogenesis, inflammatory phase modulation, and accelerated recovery kinetics. Research interest centers on its unusual stability profile and broad tissue-repair signaling effects across multiple organ systems.",
         scientificPurpose: "Designed to study multi-pathway tissue repair biology, including angiogenesis signaling (VEGF-mediated), growth factor modulation, nitric oxide system interactions, inflammatory cascade regulation, mucosal cytoprotection, and connective tissue remodeling in controlled injury/recovery models.",
