@@ -400,9 +400,9 @@ export const productCategories: ProductCategory[] = [
         displayName: "HGH SOMATROPIN (191AA)",
         slug: "hgh-somatropin",
         variations: [
-          { strength: "10IU", moq: 10, price10: 0, price20: 0, price30: 0 },
-          { strength: "15IU", moq: 10, price10: 0, price20: 0, price30: 0 },
-          { strength: "24IU", moq: 10, price10: 0, price20: 0, price30: 0 },
+          { strength: "10IU", moq: 10, price10: 252, price20: 504, price30: 756 },
+          { strength: "15IU", moq: 10, price10: 308, price20: 616, price30: 924 },
+          { strength: "24IU", moq: 10, price10: 420, price20: 840, price30: 1260 },
         ],
         description: "HGH Somatropin (191AA) is recombinant human growth hormone identical to the endogenous 191-amino acid pituitary hormone. It is used in research to study GH-axis signaling, metabolic regulation, and anabolic biology.",
         scientificPurpose: "Designed to study direct GH receptor signaling, IGF-1 axis activation, metabolic effects, and anabolic biology.",
