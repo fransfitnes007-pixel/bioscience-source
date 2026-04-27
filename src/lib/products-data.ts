@@ -351,8 +351,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "IPAMORELIN",
         slug: "ipamorelin",
         variations: [
-          { strength: "5mg", moq: 10, price10: 384, price20: 768, price30: 1152 },
-          { strength: "10mg", moq: 10, price10: 456, price20: 912, price30: 1368 },
+          { strength: "5mg", moq: 1, price: 38.4 },
+          { strength: "10mg", moq: 1, price: 45.6 },
         ],
         description: "Ipamorelin is a synthetic growth hormone secretagogue designed to activate the ghrelin receptor (GHSR-1a), stimulating pituitary GH release. It is frequently used as a mechanistic probe of ghrelin/GHSR biology and GH-axis modulation.",
         scientificPurpose: "Designed to study GHSR-mediated GH release, endocrine pulsatility, and downstream GH/IGF-axis signaling dynamics.",
