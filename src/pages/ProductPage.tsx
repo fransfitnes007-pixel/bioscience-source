@@ -153,43 +153,41 @@ const ProductPage = () => {
                 </div>
               </div>
 
-              {/* Quantity Tiers */}
+              {/* Quantity */}
               <div className="mb-8">
                 <h3 className="font-heading text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">
-                  Select Quantity
+                  Quantity (Vials)
                 </h3>
-                <div className="grid grid-cols-3 gap-3">
-                  {QUANTITY_TIERS.map((tier) => {
-                    const tierPrice = selectedVariation ? getPriceForTier(selectedVariation, tier) : 0;
-                    const hasPrice = tierPrice > 0;
-                    
-                    return (
-                      <button
-                        key={tier}
-                        onClick={() => hasPrice && setSelectedQuantity(tier)}
-                        disabled={!hasPrice}
-                        className={`relative p-4 border rounded-xl text-center transition-all ${
-                          selectedQuantity === tier && hasPrice
-                            ? "border-foreground bg-foreground/5 ring-2 ring-foreground/20"
-                            : hasPrice
-                            ? "border-border hover:border-foreground/50"
-                            : "border-border/50 opacity-50 cursor-not-allowed"
-                        }`}
-                      >
-                        {selectedQuantity === tier && hasPrice && (
-                          <div className="absolute top-2 right-2 w-5 h-5 bg-foreground rounded-full flex items-center justify-center">
-                            <Check className="w-3 h-3 text-background" />
-                          </div>
-                        )}
-                        <span className="font-heading font-semibold text-foreground block mb-1">
-                          {tier} Vials
-                        </span>
-                        <span className="font-body text-sm text-muted-foreground">
-                          {hasPrice ? `$${tierPrice.toLocaleString()}` : "N/A"}
-                        </span>
-                      </button>
-                    );
-                  })}
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedQuantity((q) => Math.max(1, q - 1))}
+                    className="w-12 h-12 border border-border rounded-xl text-xl font-heading hover:border-foreground/50 transition-colors"
+                    disabled={unitPrice === 0}
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min={1}
+                    value={selectedQuantity}
+                    onChange={(e) => setSelectedQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                    disabled={unitPrice === 0}
+                    className="w-24 h-12 text-center border border-border rounded-xl bg-background font-heading text-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setSelectedQuantity((q) => q + 1)}
+                    className="w-12 h-12 border border-border rounded-xl text-xl font-heading hover:border-foreground/50 transition-colors"
+                    disabled={unitPrice === 0}
+                  >
+                    +
+                  </button>
+                  {unitPrice > 0 && (
+                    <span className="font-body text-sm text-muted-foreground ml-2">
+                      ${unitPrice.toFixed(2)} / vial
+                    </span>
+                  )}
                 </div>
               </div>
 
