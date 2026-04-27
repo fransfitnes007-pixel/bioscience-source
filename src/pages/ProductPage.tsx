@@ -33,7 +33,7 @@ const ProductPage = () => {
 
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
-  const [selectedQuantity, setSelectedQuantity] = useState<QuantityTier>(10);
+  const [selectedQuantity, setSelectedQuantity] = useState<number>(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   useEffect(() => {
