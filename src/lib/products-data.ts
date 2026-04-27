@@ -1,10 +1,12 @@
 export interface ProductVariation {
   strength: string;
   moq: number;
-  // Quantity-based pricing: prices are for 10/20/30 vials (not per-unit)
-  price10?: number;  // Price for 10 vials
-  price20?: number;  // Price for 20 vials
-  price30?: number;  // Price for 30 vials
+  // Per-vial price (single vial sold to individuals)
+  price?: number;
+  // Legacy fields (deprecated, kept optional for backward compat)
+  price10?: number;
+  price20?: number;
+  price30?: number;
 }
 
 export interface Product {
