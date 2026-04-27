@@ -675,8 +675,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "BAC WATER (Bacteriostatic Water)",
         slug: "bac-water",
         variations: [
-          { strength: "3ml", moq: 10, price10: 0, price20: 0, price30: 0 },
-          { strength: "10ml", moq: 10, price10: 0, price20: 0, price30: 0 },
+          { strength: "3ml", moq: 10, price10: 40, price20: 80, price30: 120 },
+          { strength: "10ml", moq: 10, price10: 96, price20: 192, price30: 288 },
         ],
         description: "Bacteriostatic Water is sterile water containing 0.9% benzyl alcohol as a bacteriostatic preservative. It is used for reconstituting lyophilized peptides and medications in research and clinical applications.",
         scientificPurpose: "Used as a diluent for reconstituting lyophilized peptides, proteins, and other research compounds requiring sterile, preserved solutions.",
