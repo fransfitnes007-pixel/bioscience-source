@@ -57,7 +57,7 @@ const PortalProducts = () => {
 
   const handleAddToCart = async (product: typeof allProducts[0], variation: ProductVariation) => {
     const qty = getQuantity(product.slug, variation.strength);
-    const price = getPrice(variation, qty);
+    const price = getPrice(variation);
 
     await addToCart({
       productId: product.slug,
