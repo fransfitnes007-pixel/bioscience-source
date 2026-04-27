@@ -41,18 +41,17 @@ const PortalProducts = () => {
 
   const getQuantity = (productSlug: string, strength: string) => {
     const key = `${productSlug}-${strength}`;
-    return quantities[key] || 10;
+    return quantities[key] || 1;
   };
 
   const setQuantity = (productSlug: string, strength: string, qty: number) => {
     const key = `${productSlug}-${strength}`;
-    setQuantities((prev) => ({ ...prev, [key]: Math.max(10, qty) }));
+    setQuantities((prev) => ({ ...prev, [key]: Math.max(1, qty) }));
   };
 
-  const getPrice = (variation: ProductVariation, qty: number): number => {
-    if (qty >= 30 && variation.price30) return variation.price30;
-    if (qty >= 20 && variation.price20) return variation.price20;
-    if (variation.price10) return variation.price10;
+  const getPrice = (variation: ProductVariation): number => {
+    if (variation.price && variation.price > 0) return variation.price;
+    if (variation.price10 && variation.price10 > 0) return variation.price10 / 10;
     return 0;
   };
 
