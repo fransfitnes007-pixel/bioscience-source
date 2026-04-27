@@ -580,9 +580,9 @@ export const productCategories: ProductCategory[] = [
         displayName: "NAD+",
         slug: "nad",
         variations: [
-          { strength: "100mg", moq: 10, price10: 0, price20: 0, price30: 0 },
-          { strength: "500mg", moq: 10, price10: 0, price20: 0, price30: 0 },
-          { strength: "1000mg", moq: 10, price10: 0, price20: 0, price30: 0 },
+          { strength: "100mg", moq: 10, price10: 576, price20: 1152, price30: 1728 },
+          { strength: "500mg", moq: 10, price10: 688, price20: 1376, price30: 2064 },
+          { strength: "1000mg", moq: 10, price10: 960, price20: 1920, price30: 2880 },
         ],
         description: "NAD+ (Nicotinamide Adenine Dinucleotide) is an essential coenzyme in cellular metabolism, studied for its roles in energy production, DNA repair, sirtuin activation, and aging-related biology.",
         scientificPurpose: "Designed to study cellular energetics, sirtuin activation, DNA repair mechanisms, and aging/longevity pathways.",
