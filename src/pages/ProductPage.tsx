@@ -51,7 +51,7 @@ const ProductPage = () => {
     setProduct(foundProduct);
     if (foundProduct.variations.length > 0) {
       setSelectedVariation(foundProduct.variations[0]);
-      setSelectedQuantity(10);
+      setSelectedQuantity(1);
     }
   }, [slug, navigate]);
 
