@@ -62,6 +62,401 @@ export type Database = {
         }
         Relationships: []
       }
+      affiliate_applications: {
+        Row: {
+          approved_affiliate_id: string | null
+          country: string | null
+          created_at: string
+          display_name: string
+          email: string
+          follower_count_total: number | null
+          id: string
+          legal_name: string | null
+          niche: string | null
+          phone: string | null
+          pitch: string | null
+          primary_audience: string | null
+          referred_by_affiliate_id: string | null
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          social_instagram: string | null
+          social_tiktok: string | null
+          social_twitter: string | null
+          social_youtube: string | null
+          status: string
+          updated_at: string
+          why_resurrected_labs: string | null
+        }
+        Insert: {
+          approved_affiliate_id?: string | null
+          country?: string | null
+          created_at?: string
+          display_name: string
+          email: string
+          follower_count_total?: number | null
+          id?: string
+          legal_name?: string | null
+          niche?: string | null
+          phone?: string | null
+          pitch?: string | null
+          primary_audience?: string | null
+          referred_by_affiliate_id?: string | null
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          social_instagram?: string | null
+          social_tiktok?: string | null
+          social_twitter?: string | null
+          social_youtube?: string | null
+          status?: string
+          updated_at?: string
+          why_resurrected_labs?: string | null
+        }
+        Update: {
+          approved_affiliate_id?: string | null
+          country?: string | null
+          created_at?: string
+          display_name?: string
+          email?: string
+          follower_count_total?: number | null
+          id?: string
+          legal_name?: string | null
+          niche?: string | null
+          phone?: string | null
+          pitch?: string | null
+          primary_audience?: string | null
+          referred_by_affiliate_id?: string | null
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          social_instagram?: string | null
+          social_tiktok?: string | null
+          social_twitter?: string | null
+          social_youtube?: string | null
+          status?: string
+          updated_at?: string
+          why_resurrected_labs?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_applications_approved_affiliate_id_fkey"
+            columns: ["approved_affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_applications_referred_by_affiliate_id_fkey"
+            columns: ["referred_by_affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliate_clicks: {
+        Row: {
+          affiliate_id: string
+          browser: string | null
+          city: string | null
+          code_id: string | null
+          conversion_id: string | null
+          converted: boolean
+          country: string | null
+          created_at: string
+          device_type: string | null
+          id: string
+          ip_hash: string | null
+          landing_page: string | null
+          link_id: string | null
+          os: string | null
+          referrer: string | null
+          region: string | null
+          sub_id: string | null
+          user_agent_hash: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          visitor_id: string
+        }
+        Insert: {
+          affiliate_id: string
+          browser?: string | null
+          city?: string | null
+          code_id?: string | null
+          conversion_id?: string | null
+          converted?: boolean
+          country?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          ip_hash?: string | null
+          landing_page?: string | null
+          link_id?: string | null
+          os?: string | null
+          referrer?: string | null
+          region?: string | null
+          sub_id?: string | null
+          user_agent_hash?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          visitor_id: string
+        }
+        Update: {
+          affiliate_id?: string
+          browser?: string | null
+          city?: string | null
+          code_id?: string | null
+          conversion_id?: string | null
+          converted?: boolean
+          country?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          ip_hash?: string | null
+          landing_page?: string | null
+          link_id?: string | null
+          os?: string | null
+          referrer?: string | null
+          region?: string | null
+          sub_id?: string | null
+          user_agent_hash?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_clicks_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_clicks_code_id_fkey"
+            columns: ["code_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_codes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_clicks_link_id_fkey"
+            columns: ["link_id"]
+            isOneToOne: false
+            referencedRelation: "tracking_links"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliate_codes: {
+        Row: {
+          active: boolean
+          affiliate_id: string
+          applies_to_product_ids: string[] | null
+          code: string
+          code_type: Database["public"]["Enums"]["code_type"]
+          created_at: string
+          customer_discount_label: string | null
+          discount_type: Database["public"]["Enums"]["discount_type"] | null
+          discount_value: number | null
+          expires_at: string | null
+          id: string
+          is_default: boolean
+          max_uses: number | null
+          max_uses_per_customer: number
+          minimum_order_cents: number | null
+          stripe_coupon_id: string | null
+          stripe_promotion_code_id: string | null
+          updated_at: string
+          uses_count: number
+        }
+        Insert: {
+          active?: boolean
+          affiliate_id: string
+          applies_to_product_ids?: string[] | null
+          code: string
+          code_type?: Database["public"]["Enums"]["code_type"]
+          created_at?: string
+          customer_discount_label?: string | null
+          discount_type?: Database["public"]["Enums"]["discount_type"] | null
+          discount_value?: number | null
+          expires_at?: string | null
+          id?: string
+          is_default?: boolean
+          max_uses?: number | null
+          max_uses_per_customer?: number
+          minimum_order_cents?: number | null
+          stripe_coupon_id?: string | null
+          stripe_promotion_code_id?: string | null
+          updated_at?: string
+          uses_count?: number
+        }
+        Update: {
+          active?: boolean
+          affiliate_id?: string
+          applies_to_product_ids?: string[] | null
+          code?: string
+          code_type?: Database["public"]["Enums"]["code_type"]
+          created_at?: string
+          customer_discount_label?: string | null
+          discount_type?: Database["public"]["Enums"]["discount_type"] | null
+          discount_value?: number | null
+          expires_at?: string | null
+          id?: string
+          is_default?: boolean
+          max_uses?: number | null
+          max_uses_per_customer?: number
+          minimum_order_cents?: number | null
+          stripe_coupon_id?: string | null
+          stripe_promotion_code_id?: string | null
+          updated_at?: string
+          uses_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_codes_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliate_conversions: {
+        Row: {
+          affiliate_id: string
+          approved_at: string | null
+          attribution_model: string
+          cleared_at: string | null
+          click_id: string | null
+          code_id: string | null
+          commission_cents: number
+          commission_rate_used: number
+          created_at: string
+          customer_email: string | null
+          discount_amount_cents: number
+          gross_amount_cents: number
+          hold_until: string | null
+          id: string
+          link_id: string | null
+          net_amount_cents: number
+          notes: string | null
+          order_id: string | null
+          paid_at: string | null
+          payout_id: string | null
+          product_summary: Json | null
+          refund_reason: string | null
+          refunded_at: string | null
+          reversal_reason: string | null
+          status: Database["public"]["Enums"]["commission_status"]
+          stripe_checkout_session_id: string | null
+          stripe_customer_id: string | null
+          stripe_payment_intent_id: string | null
+          updated_at: string
+          visitor_id: string | null
+        }
+        Insert: {
+          affiliate_id: string
+          approved_at?: string | null
+          attribution_model?: string
+          cleared_at?: string | null
+          click_id?: string | null
+          code_id?: string | null
+          commission_cents: number
+          commission_rate_used: number
+          created_at?: string
+          customer_email?: string | null
+          discount_amount_cents?: number
+          gross_amount_cents: number
+          hold_until?: string | null
+          id?: string
+          link_id?: string | null
+          net_amount_cents: number
+          notes?: string | null
+          order_id?: string | null
+          paid_at?: string | null
+          payout_id?: string | null
+          product_summary?: Json | null
+          refund_reason?: string | null
+          refunded_at?: string | null
+          reversal_reason?: string | null
+          status?: Database["public"]["Enums"]["commission_status"]
+          stripe_checkout_session_id?: string | null
+          stripe_customer_id?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string
+          visitor_id?: string | null
+        }
+        Update: {
+          affiliate_id?: string
+          approved_at?: string | null
+          attribution_model?: string
+          cleared_at?: string | null
+          click_id?: string | null
+          code_id?: string | null
+          commission_cents?: number
+          commission_rate_used?: number
+          created_at?: string
+          customer_email?: string | null
+          discount_amount_cents?: number
+          gross_amount_cents?: number
+          hold_until?: string | null
+          id?: string
+          link_id?: string | null
+          net_amount_cents?: number
+          notes?: string | null
+          order_id?: string | null
+          paid_at?: string | null
+          payout_id?: string | null
+          product_summary?: Json | null
+          refund_reason?: string | null
+          refunded_at?: string | null
+          reversal_reason?: string | null
+          status?: Database["public"]["Enums"]["commission_status"]
+          stripe_checkout_session_id?: string | null
+          stripe_customer_id?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string
+          visitor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_conversions_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_conversions_click_id_fkey"
+            columns: ["click_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_clicks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_conversions_code_id_fkey"
+            columns: ["code_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_codes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_conversions_link_id_fkey"
+            columns: ["link_id"]
+            isOneToOne: false
+            referencedRelation: "tracking_links"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       affiliate_earnings: {
         Row: {
           affiliate_id: string
@@ -123,86 +518,418 @@ export type Database = {
           },
         ]
       }
+      affiliate_notifications: {
+        Row: {
+          affiliate_id: string | null
+          body: string | null
+          created_at: string
+          email_sent_at: string | null
+          id: string
+          link_url: string | null
+          read_at: string | null
+          title: string
+          type: string
+        }
+        Insert: {
+          affiliate_id?: string | null
+          body?: string | null
+          created_at?: string
+          email_sent_at?: string | null
+          id?: string
+          link_url?: string | null
+          read_at?: string | null
+          title: string
+          type: string
+        }
+        Update: {
+          affiliate_id?: string | null
+          body?: string | null
+          created_at?: string
+          email_sent_at?: string | null
+          id?: string
+          link_url?: string | null
+          read_at?: string | null
+          title?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_notifications_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliate_payouts: {
+        Row: {
+          affiliate_id: string
+          amount_cents: number
+          conversion_ids: string[]
+          created_at: string
+          currency: string
+          external_metadata: Json | null
+          external_transaction_id: string | null
+          failed_at: string | null
+          failure_reason: string | null
+          fee_cents: number
+          id: string
+          initiated_at: string | null
+          method: Database["public"]["Enums"]["payout_method_type"]
+          net_amount_cents: number
+          paid_at: string | null
+          payout_method_id: string | null
+          scheduled_for: string | null
+          status: Database["public"]["Enums"]["payout_status"]
+          updated_at: string
+        }
+        Insert: {
+          affiliate_id: string
+          amount_cents: number
+          conversion_ids?: string[]
+          created_at?: string
+          currency?: string
+          external_metadata?: Json | null
+          external_transaction_id?: string | null
+          failed_at?: string | null
+          failure_reason?: string | null
+          fee_cents?: number
+          id?: string
+          initiated_at?: string | null
+          method: Database["public"]["Enums"]["payout_method_type"]
+          net_amount_cents: number
+          paid_at?: string | null
+          payout_method_id?: string | null
+          scheduled_for?: string | null
+          status?: Database["public"]["Enums"]["payout_status"]
+          updated_at?: string
+        }
+        Update: {
+          affiliate_id?: string
+          amount_cents?: number
+          conversion_ids?: string[]
+          created_at?: string
+          currency?: string
+          external_metadata?: Json | null
+          external_transaction_id?: string | null
+          failed_at?: string | null
+          failure_reason?: string | null
+          fee_cents?: number
+          id?: string
+          initiated_at?: string | null
+          method?: Database["public"]["Enums"]["payout_method_type"]
+          net_amount_cents?: number
+          paid_at?: string | null
+          payout_method_id?: string | null
+          scheduled_for?: string | null
+          status?: Database["public"]["Enums"]["payout_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_payouts_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_payouts_payout_method_id_fkey"
+            columns: ["payout_method_id"]
+            isOneToOne: false
+            referencedRelation: "payout_methods"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliate_program_settings: {
+        Row: {
+          application_questions: Json | null
+          auto_approve_commissions: boolean
+          auto_approve_threshold_cents: number
+          auto_payout_day_of_month: number
+          auto_payout_enabled: boolean
+          brand_kit_url: string | null
+          default_attribution_model: string
+          default_commission_rate: number
+          default_cookie_window_days: number
+          default_hold_period_days: number
+          fraud_self_purchase_check: boolean
+          fraud_velocity_clicks_per_hour: number
+          id: number
+          minimum_payout_cents: number
+          refund_grace_period_days: number
+          reply_to_email: string | null
+          support_email: string | null
+          terms_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          application_questions?: Json | null
+          auto_approve_commissions?: boolean
+          auto_approve_threshold_cents?: number
+          auto_payout_day_of_month?: number
+          auto_payout_enabled?: boolean
+          brand_kit_url?: string | null
+          default_attribution_model?: string
+          default_commission_rate?: number
+          default_cookie_window_days?: number
+          default_hold_period_days?: number
+          fraud_self_purchase_check?: boolean
+          fraud_velocity_clicks_per_hour?: number
+          id?: number
+          minimum_payout_cents?: number
+          refund_grace_period_days?: number
+          reply_to_email?: string | null
+          support_email?: string | null
+          terms_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          application_questions?: Json | null
+          auto_approve_commissions?: boolean
+          auto_approve_threshold_cents?: number
+          auto_payout_day_of_month?: number
+          auto_payout_enabled?: boolean
+          brand_kit_url?: string | null
+          default_attribution_model?: string
+          default_commission_rate?: number
+          default_cookie_window_days?: number
+          default_hold_period_days?: number
+          fraud_self_purchase_check?: boolean
+          fraud_velocity_clicks_per_hour?: number
+          id?: number
+          minimum_payout_cents?: number
+          refund_grace_period_days?: number
+          reply_to_email?: string | null
+          support_email?: string | null
+          terms_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      affiliate_resources: {
+        Row: {
+          active: boolean
+          category: string
+          created_at: string
+          description: string | null
+          display_order: number
+          download_count: number
+          file_size_bytes: number | null
+          file_url: string
+          id: string
+          mime_type: string | null
+          thumbnail_url: string | null
+          title: string
+        }
+        Insert: {
+          active?: boolean
+          category: string
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          download_count?: number
+          file_size_bytes?: number | null
+          file_url: string
+          id?: string
+          mime_type?: string | null
+          thumbnail_url?: string | null
+          title: string
+        }
+        Update: {
+          active?: boolean
+          category?: string
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          download_count?: number
+          file_size_bytes?: number | null
+          file_url?: string
+          id?: string
+          mime_type?: string | null
+          thumbnail_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
       affiliates: {
         Row: {
+          affiliate_number: number | null
+          application_notes: string | null
+          approved_at: string | null
+          approved_by: string | null
           audience_size: string | null
           commission_rate: number
           content_niche: string | null
+          country: string | null
           created_at: string
+          custom_commission_rate: number | null
+          default_code_id: string | null
           discount_code: string | null
+          display_name: string | null
           email: string
+          follower_count_total: number | null
           id: string
           instagram: string | null
+          internal_notes: string | null
           is_active: boolean
+          last_activity_at: string | null
+          legal_name: string | null
           name: string
           notes: string | null
+          payout_method_id: string | null
+          payout_threshold_cents: number
           phone: string | null
           portfolio_url: string | null
+          primary_audience: string | null
           reviewed_at: string | null
           reviewed_by: string | null
+          social_twitter: string | null
           sport: string | null
           status: string
+          tax_form_filed: boolean
+          tax_form_type: string | null
+          tax_form_url: string | null
+          tier: Database["public"]["Enums"]["affiliate_tier"]
           tiktok: string | null
+          total_clicks: number
+          total_commission_cents: number
+          total_conversions: number
           total_earnings: number
+          total_gross_cents: number
           total_orders: number
+          total_paid_cents: number
           updated_at: string
+          user_id: string | null
+          vanity_slug: string | null
           viral_video_links: string | null
           why_join: string | null
           youtube: string | null
         }
         Insert: {
+          affiliate_number?: number | null
+          application_notes?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
           audience_size?: string | null
           commission_rate?: number
           content_niche?: string | null
+          country?: string | null
           created_at?: string
+          custom_commission_rate?: number | null
+          default_code_id?: string | null
           discount_code?: string | null
+          display_name?: string | null
           email: string
+          follower_count_total?: number | null
           id?: string
           instagram?: string | null
+          internal_notes?: string | null
           is_active?: boolean
+          last_activity_at?: string | null
+          legal_name?: string | null
           name: string
           notes?: string | null
+          payout_method_id?: string | null
+          payout_threshold_cents?: number
           phone?: string | null
           portfolio_url?: string | null
+          primary_audience?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          social_twitter?: string | null
           sport?: string | null
           status?: string
+          tax_form_filed?: boolean
+          tax_form_type?: string | null
+          tax_form_url?: string | null
+          tier?: Database["public"]["Enums"]["affiliate_tier"]
           tiktok?: string | null
+          total_clicks?: number
+          total_commission_cents?: number
+          total_conversions?: number
           total_earnings?: number
+          total_gross_cents?: number
           total_orders?: number
+          total_paid_cents?: number
           updated_at?: string
+          user_id?: string | null
+          vanity_slug?: string | null
           viral_video_links?: string | null
           why_join?: string | null
           youtube?: string | null
         }
         Update: {
+          affiliate_number?: number | null
+          application_notes?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
           audience_size?: string | null
           commission_rate?: number
           content_niche?: string | null
+          country?: string | null
           created_at?: string
+          custom_commission_rate?: number | null
+          default_code_id?: string | null
           discount_code?: string | null
+          display_name?: string | null
           email?: string
+          follower_count_total?: number | null
           id?: string
           instagram?: string | null
+          internal_notes?: string | null
           is_active?: boolean
+          last_activity_at?: string | null
+          legal_name?: string | null
           name?: string
           notes?: string | null
+          payout_method_id?: string | null
+          payout_threshold_cents?: number
           phone?: string | null
           portfolio_url?: string | null
+          primary_audience?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          social_twitter?: string | null
           sport?: string | null
           status?: string
+          tax_form_filed?: boolean
+          tax_form_type?: string | null
+          tax_form_url?: string | null
+          tier?: Database["public"]["Enums"]["affiliate_tier"]
           tiktok?: string | null
+          total_clicks?: number
+          total_commission_cents?: number
+          total_conversions?: number
           total_earnings?: number
+          total_gross_cents?: number
           total_orders?: number
+          total_paid_cents?: number
           updated_at?: string
+          user_id?: string | null
+          vanity_slug?: string | null
           viral_video_links?: string | null
           why_join?: string | null
           youtube?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_affiliates_default_code"
+            columns: ["default_code_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_codes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_affiliates_payout_method"
+            columns: ["payout_method_id"]
+            isOneToOne: false
+            referencedRelation: "payout_methods"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       analytics_daily: {
         Row: {
@@ -618,6 +1345,51 @@ export type Database = {
           id?: string
           is_public?: boolean | null
           title?: string
+        }
+        Relationships: []
+      }
+      commission_tiers: {
+        Row: {
+          badge_color: string | null
+          bonus_per_milestone_cents: number | null
+          commission_rate: number
+          created_at: string
+          display_name: string
+          id: string
+          monthly_volume_threshold_cents: number
+          perks: string[] | null
+          recurring_commission_rate: number | null
+          rolling_window_days: number
+          tier: Database["public"]["Enums"]["affiliate_tier"]
+          updated_at: string
+        }
+        Insert: {
+          badge_color?: string | null
+          bonus_per_milestone_cents?: number | null
+          commission_rate: number
+          created_at?: string
+          display_name: string
+          id?: string
+          monthly_volume_threshold_cents: number
+          perks?: string[] | null
+          recurring_commission_rate?: number | null
+          rolling_window_days?: number
+          tier: Database["public"]["Enums"]["affiliate_tier"]
+          updated_at?: string
+        }
+        Update: {
+          badge_color?: string | null
+          bonus_per_milestone_cents?: number | null
+          commission_rate?: number
+          created_at?: string
+          display_name?: string
+          id?: string
+          monthly_volume_threshold_cents?: number
+          perks?: string[] | null
+          recurring_commission_rate?: number | null
+          rolling_window_days?: number
+          tier?: Database["public"]["Enums"]["affiliate_tier"]
+          updated_at?: string
         }
         Relationships: []
       }
@@ -1068,6 +1840,73 @@ export type Database = {
         }
         Relationships: []
       }
+      fraud_events: {
+        Row: {
+          action_taken: string | null
+          affiliate_id: string | null
+          click_id: string | null
+          conversion_id: string | null
+          created_at: string
+          details: Json
+          event_type: string
+          id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          severity: Database["public"]["Enums"]["fraud_severity"]
+          status: string
+        }
+        Insert: {
+          action_taken?: string | null
+          affiliate_id?: string | null
+          click_id?: string | null
+          conversion_id?: string | null
+          created_at?: string
+          details: Json
+          event_type: string
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          severity?: Database["public"]["Enums"]["fraud_severity"]
+          status?: string
+        }
+        Update: {
+          action_taken?: string | null
+          affiliate_id?: string | null
+          click_id?: string | null
+          conversion_id?: string | null
+          created_at?: string
+          details?: Json
+          event_type?: string
+          id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          severity?: Database["public"]["Enums"]["fraud_severity"]
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fraud_events_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fraud_events_click_id_fkey"
+            columns: ["click_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_clicks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fraud_events_conversion_id_fkey"
+            columns: ["conversion_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_conversions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       gift_cards: {
         Row: {
           code: string
@@ -1220,6 +2059,67 @@ export type Database = {
           variation_id?: string
         }
         Relationships: []
+      }
+      ledger_entries: {
+        Row: {
+          affiliate_id: string
+          amount_cents: number
+          balance_after_cents: number
+          conversion_id: string | null
+          created_at: string
+          description: string
+          entry_type: string
+          id: string
+          metadata: Json | null
+          payout_id: string | null
+        }
+        Insert: {
+          affiliate_id: string
+          amount_cents: number
+          balance_after_cents: number
+          conversion_id?: string | null
+          created_at?: string
+          description: string
+          entry_type: string
+          id?: string
+          metadata?: Json | null
+          payout_id?: string | null
+        }
+        Update: {
+          affiliate_id?: string
+          amount_cents?: number
+          balance_after_cents?: number
+          conversion_id?: string | null
+          created_at?: string
+          description?: string
+          entry_type?: string
+          id?: string
+          metadata?: Json | null
+          payout_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_entries_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ledger_entries_conversion_id_fkey"
+            columns: ["conversion_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_conversions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ledger_entries_payout_id_fkey"
+            columns: ["payout_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_payouts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       media_files: {
         Row: {
@@ -1917,6 +2817,77 @@ export type Database = {
         }
         Relationships: []
       }
+      payout_methods: {
+        Row: {
+          affiliate_id: string
+          created_at: string
+          crypto_address: string | null
+          crypto_network: string | null
+          display_label: string
+          id: string
+          is_default: boolean
+          is_verified: boolean
+          mercury_account_id: string | null
+          metadata: Json | null
+          method: Database["public"]["Enums"]["payout_method_type"]
+          paypal_email: string | null
+          plaid_access_token_id: string | null
+          plaid_account_id: string | null
+          stripe_connect_account_id: string | null
+          stripe_connect_payouts_enabled: boolean | null
+          updated_at: string
+          verified_at: string | null
+        }
+        Insert: {
+          affiliate_id: string
+          created_at?: string
+          crypto_address?: string | null
+          crypto_network?: string | null
+          display_label: string
+          id?: string
+          is_default?: boolean
+          is_verified?: boolean
+          mercury_account_id?: string | null
+          metadata?: Json | null
+          method: Database["public"]["Enums"]["payout_method_type"]
+          paypal_email?: string | null
+          plaid_access_token_id?: string | null
+          plaid_account_id?: string | null
+          stripe_connect_account_id?: string | null
+          stripe_connect_payouts_enabled?: boolean | null
+          updated_at?: string
+          verified_at?: string | null
+        }
+        Update: {
+          affiliate_id?: string
+          created_at?: string
+          crypto_address?: string | null
+          crypto_network?: string | null
+          display_label?: string
+          id?: string
+          is_default?: boolean
+          is_verified?: boolean
+          mercury_account_id?: string | null
+          metadata?: Json | null
+          method?: Database["public"]["Enums"]["payout_method_type"]
+          paypal_email?: string | null
+          plaid_access_token_id?: string | null
+          plaid_account_id?: string | null
+          stripe_connect_account_id?: string | null
+          stripe_connect_payouts_enabled?: boolean | null
+          updated_at?: string
+          verified_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payout_methods_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product_categories: {
         Row: {
           created_at: string
@@ -2495,6 +3466,81 @@ export type Database = {
         }
         Relationships: []
       }
+      tracking_links: {
+        Row: {
+          active: boolean
+          affiliate_id: string
+          click_count: number
+          code_id: string | null
+          conversion_count: number
+          created_at: string
+          destination_url: string
+          id: string
+          label: string | null
+          revenue_cents: number
+          short_slug: string
+          sub_id: string | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          active?: boolean
+          affiliate_id: string
+          click_count?: number
+          code_id?: string | null
+          conversion_count?: number
+          created_at?: string
+          destination_url: string
+          id?: string
+          label?: string | null
+          revenue_cents?: number
+          short_slug: string
+          sub_id?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          active?: boolean
+          affiliate_id?: string
+          click_count?: number
+          code_id?: string | null
+          conversion_count?: number
+          created_at?: string
+          destination_url?: string
+          id?: string
+          label?: string | null
+          revenue_cents?: number
+          short_slug?: string
+          sub_id?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tracking_links_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tracking_links_code_id_fkey"
+            columns: ["code_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_codes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           id: string
@@ -2741,13 +3787,34 @@ export type Database = {
       is_supplier: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
+      affiliate_tier: "bronze" | "silver" | "gold" | "platinum"
       app_role: "admin" | "user" | "supplier"
+      code_type: "tracking_only" | "discount_and_tracking"
+      commission_status:
+        | "pending"
+        | "approved"
+        | "cleared"
+        | "paid"
+        | "denied"
+        | "refunded"
+        | "reversed"
+      discount_type: "percentage" | "fixed_amount"
+      fraud_severity: "info" | "low" | "medium" | "high" | "critical"
       fulfillment_status:
         | "pending"
         | "in_production"
         | "packed"
         | "shipped"
         | "completed"
+      payout_method_type:
+        | "stripe_connect"
+        | "crypto_usdc_base"
+        | "crypto_usdc_polygon"
+        | "crypto_usdc_ethereum"
+        | "ach_plaid"
+        | "ach_mercury"
+        | "paypal"
+      payout_status: "queued" | "processing" | "paid" | "failed" | "cancelled"
       user_status: "pending" | "approved" | "denied"
     }
     CompositeTypes: {
@@ -2876,7 +3943,20 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      affiliate_tier: ["bronze", "silver", "gold", "platinum"],
       app_role: ["admin", "user", "supplier"],
+      code_type: ["tracking_only", "discount_and_tracking"],
+      commission_status: [
+        "pending",
+        "approved",
+        "cleared",
+        "paid",
+        "denied",
+        "refunded",
+        "reversed",
+      ],
+      discount_type: ["percentage", "fixed_amount"],
+      fraud_severity: ["info", "low", "medium", "high", "critical"],
       fulfillment_status: [
         "pending",
         "in_production",
@@ -2884,6 +3964,16 @@ export const Constants = {
         "shipped",
         "completed",
       ],
+      payout_method_type: [
+        "stripe_connect",
+        "crypto_usdc_base",
+        "crypto_usdc_polygon",
+        "crypto_usdc_ethereum",
+        "ach_plaid",
+        "ach_mercury",
+        "paypal",
+      ],
+      payout_status: ["queued", "processing", "paid", "failed", "cancelled"],
       user_status: ["pending", "approved", "denied"],
     },
   },
