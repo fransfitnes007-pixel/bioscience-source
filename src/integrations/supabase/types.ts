@@ -3785,6 +3785,10 @@ export type Database = {
       }
       is_approved: { Args: { _user_id: string }; Returns: boolean }
       is_supplier: { Args: { _user_id: string }; Returns: boolean }
+      refresh_affiliate_totals: {
+        Args: { _affiliate_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       affiliate_tier: "bronze" | "silver" | "gold" | "platinum"
