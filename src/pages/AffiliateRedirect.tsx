@@ -61,7 +61,7 @@ const AffiliateRedirect = () => {
       });
 
       // Increment counter (best-effort; non-atomic, fine for v1)
-      await supabase.rpc("increment_link_clicks" as any, { p_link_id: link.id }).catch(() => {});
+      try { await (supabase.rpc as any)("increment_link_clicks", { p_link_id: link.id }); } catch {}
 
       // Append UTM to destination
       const dest = new URL(link.destination_url, window.location.origin);
