@@ -17,6 +17,16 @@ import Access from "./pages/Access";
 import B2B from "./pages/B2B";
 import B2BApply from "./pages/B2BApply";
 import AffiliateApply from "./pages/AffiliateApply";
+import Affiliate from "./pages/Affiliate";
+import AffiliateRedirect from "./pages/AffiliateRedirect";
+import CreatorDashboard from "./pages/creator/Dashboard";
+import CreatorLinks from "./pages/creator/Links";
+import CreatorCodes from "./pages/creator/Codes";
+import CreatorEarnings from "./pages/creator/Earnings";
+import CreatorPayouts from "./pages/creator/Payouts";
+import CreatorProfile from "./pages/creator/Profile";
+import CreatorLeaderboard from "./pages/creator/Leaderboard";
+import CreatorResources from "./pages/creator/Resources";
 import NotFound from "./pages/NotFound";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import SetPassword from "./pages/SetPassword";
@@ -100,6 +110,18 @@ const App = () => (
             <Route path="/b2b" element={<B2B />} />
             <Route path="/b2b/apply" element={<B2BApply />} />
             <Route path="/affiliate-apply" element={<AffiliateApply />} />
+            <Route path="/affiliate" element={<Affiliate />} />
+            <Route path="/a/:slug" element={<AffiliateRedirect />} />
+            {/* Creator Portal Routes */}
+            <Route path="/creator" element={<CreatorDashboard />} />
+            <Route path="/creator/dashboard" element={<CreatorDashboard />} />
+            <Route path="/creator/links" element={<CreatorLinks />} />
+            <Route path="/creator/codes" element={<CreatorCodes />} />
+            <Route path="/creator/earnings" element={<CreatorEarnings />} />
+            <Route path="/creator/payouts" element={<CreatorPayouts />} />
+            <Route path="/creator/profile" element={<CreatorProfile />} />
+            <Route path="/creator/leaderboard" element={<CreatorLeaderboard />} />
+            <Route path="/creator/resources" element={<CreatorResources />} />
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
