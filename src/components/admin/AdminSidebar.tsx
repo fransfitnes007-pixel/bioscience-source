@@ -134,6 +134,21 @@ const navSections = [
     ],
   },
   {
+    label: "Affiliates",
+    items: [
+      {
+        title: "Affiliates",
+        href: "/admin/affiliates",
+        icon: Users,
+        children: [
+          { title: "Conversions", href: "/admin/affiliates/conversions" },
+          { title: "Payouts", href: "/admin/affiliates/payouts" },
+          { title: "Fraud", href: "/admin/affiliates/fraud" },
+        ],
+      },
+    ],
+  },
+  {
     items: [
       { title: "Applications", href: "/admin/applications", icon: FileText },
       { title: "Inquiries", href: "/admin/inquiries", icon: MessageSquare },
