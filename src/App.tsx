@@ -60,6 +60,9 @@ import AdminCreateCampaign from "./pages/admin/CreateCampaign";
 import AdminDiscounts from "./pages/admin/Discounts";
 import AdminCreateDiscount from "./pages/admin/CreateDiscount";
 import AdminAffiliates from "./pages/admin/Affiliates";
+import AdminAffiliateConversions from "./pages/admin/AffiliateConversions";
+import AdminAffiliatePayouts from "./pages/admin/AffiliatePayouts";
+import AdminAffiliateFraud from "./pages/admin/AffiliateFraud";
 import AdminContentFiles from "./pages/admin/ContentFiles";
 import AdminContentMenus from "./pages/admin/ContentMenus";
 import AdminBlogPosts from "./pages/admin/BlogPosts";
@@ -148,6 +151,9 @@ const App = () => (
             <Route path="/admin/discounts" element={<AdminDiscounts />} />
             <Route path="/admin/discounts/new" element={<AdminCreateDiscount />} />
             <Route path="/admin/affiliates" element={<AdminAffiliates />} />
+            <Route path="/admin/affiliates/conversions" element={<AdminAffiliateConversions />} />
+            <Route path="/admin/affiliates/payouts" element={<AdminAffiliatePayouts />} />
+            <Route path="/admin/affiliates/fraud" element={<AdminAffiliateFraud />} />
             <Route path="/admin/content/files" element={<AdminContentFiles />} />
             <Route path="/admin/content/menus" element={<AdminContentMenus />} />
             <Route path="/admin/content/blog" element={<AdminBlogPosts />} />
