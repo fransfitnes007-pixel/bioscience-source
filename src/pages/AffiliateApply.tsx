@@ -79,6 +79,14 @@ const AffiliateApply = () => {
       toast({ title: "Submission failed", description: error.message, variant: "destructive" });
       return;
     }
+    // Fire-and-forget confirmation email
+    supabase.functions.invoke("affiliate-notify", {
+      body: {
+        type: "application_received",
+        email: parsed.data.email,
+        display_name: parsed.data.name,
+      },
+    }).catch((err) => console.warn("notify failed", err));
     setSubmitted(true);
   };
 

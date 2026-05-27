@@ -163,6 +163,24 @@ const Affiliates = () => {
         affiliate_id: id,
       });
       if (discErr) throw discErr;
+
+      // Send approval email (non-blocking)
+      const { data: aff } = await supabase
+        .from("affiliates")
+        .select("email, name, display_name")
+        .eq("id", id)
+        .maybeSingle();
+      if (aff?.email) {
+        supabase.functions.invoke("affiliate-notify", {
+          body: {
+            type: "application_approved",
+            affiliate_id: id,
+            email: aff.email,
+            display_name: aff.display_name ?? aff.name,
+            data: { code: finalCode },
+          },
+        }).catch((err) => console.warn("notify failed", err));
+      }
     },
     onSuccess: () => {
       toast({ title: "Affiliate approved", description: "They've been added to your active roster." });
