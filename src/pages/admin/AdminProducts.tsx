@@ -1,64 +1,144 @@
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useMemo, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useNavigate } from "react-router-dom";
-import { Search, Tag, Plus } from "lucide-react";
+import { Search, Tag, Plus, TrendingUp, DollarSign, Package } from "lucide-react";
+import { productCategories } from "@/lib/products-data";
+import pricingData from "@/lib/products-pricing.json";
 
-interface ProductRow {
-  id: string;
-  display_name: string;
-  slug: string;
-  image_url: string | null;
-  is_active: boolean;
-  category_name: string;
-  variations_count: number;
+interface PricingVariant {
+  sku: string;
+  size: string;
+  cost: number;
+  price: number;
+  profit: number;
+  margin: number;
 }
 
-const TABS = [
-  { value: "all", label: "All" },
-  { value: "active", label: "Active" },
-  { value: "draft", label: "Draft" },
-  { value: "archived", label: "Archived" },
-];
+interface Row {
+  productName: string;
+  displayName: string;
+  slug: string;
+  categoryName: string;
+  sku: string;
+  size: string;
+  cost: number;
+  price: number;
+  profit: number;
+  margin: number;
+}
+
+// Map our static catalog slug -> JSON product name
+const slugToJsonName: Record<string, string> = {
+  "glp1-sema": "Semaglutide", "glp1-triz": "Tirzepatide", "glp3-reta": "Retatrutide",
+  "cagrilintide": "Cagrilintide", "mazdutide": "Mazdutide", "survodutide": "Survodutide",
+  "bpc-157": "BPC-157", "tb500": "TB-500", "thymosin-alpha-1": "Thymosin Alpha-1",
+  "ss-31": "SS-31", "thymalin": "Thymalin", "epithalon": "Epitalon", "aod": "AOD-9604",
+  "bpc-157-tb500": "BPC + TB Blend", "semax": "Semax", "selank": "Selank", "dsip": "DSIP",
+  "pinealon": "Pinealon", "tesamorelin": "Tesamorelin",
+  "cjc-1295-ipa": "CJC-1295 Without DAC + Ipamorelin", "cjc-1295-no-dac": "CJC-1295 No DAC",
+  "sermorelin": "Sermorelin", "ipamorelin": "Ipamorelin", "hexarelin": "Hexarelin Acetate",
+  "ghrp-6": "GHRP-6 Acetate", "igf-1-lr3": "IGF-1LR3", "hgh-somatropin": "HGH 191AA Somatropin",
+  "hcg": "HCG", "kisspeptin-10": "KissPeptin-10", "mt-2": "MT-2", "pt-141": "PT-141",
+  "ghk-cu": "GHK-CU", "snap-8": "Snap-8", "kpv": "KPV", "ll-37": "LL37",
+  "lemon-bottle": "Lemon Bottle", "l-carnitine": "L-Carnitine", "glutathione": "Glutathione",
+  "nad": "NAD+", "5-amino-1mq": "5-amino-1mq", "mots-c": "MOTs-c", "slu-pp-322": "SLU-PP-322",
+  "vip-5mg": "Vasoactive Intestinal Peptide", "glow-stack": "Glow Stack",
+  "klow-stack": "CU50 + TB10 + BC10 + KPV10", "bac-water": "Bacteriostatic Water",
+};
+
+const norm = (s: string) => {
+  const m = s.match(/([\d.]+)\s*(mg|iu|ml)/i);
+  return m ? `${m[1]}${m[2].toLowerCase()}` : s.trim().toLowerCase();
+};
+
+const fmt = (n: number) => `$${n.toFixed(2)}`;
 
 const AdminProducts = () => {
-  const [products, setProducts] = useState<ProductRow[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await supabase
-        .from("products")
-        .select("*, product_categories(name), product_variations(id)")
-        .order("sort_order", { ascending: true });
-
-      if (data) {
-        setProducts(data.map((p: any) => ({
-          id: p.id,
-          display_name: p.display_name,
-          slug: p.slug,
-          image_url: p.image_url,
-          is_active: p.is_active ?? true,
-          category_name: p.product_categories?.name || "Uncategorized",
-          variations_count: p.product_variations?.length || 0,
-        })));
+  const rows = useMemo<Row[]>(() => {
+    const jsonByName = new Map<string, PricingVariant[]>(
+      (pricingData as any).products.map((p: any) => [p.product, p.variants])
+    );
+    const out: Row[] = [];
+    for (const cat of productCategories) {
+      for (const p of cat.products) {
+        const jsonName = slugToJsonName[p.slug];
+        const variants = jsonName ? jsonByName.get(jsonName) || [] : [];
+        p.variations.forEach((v, idx) => {
+          const matched =
+            variants.find((jv) => norm(jv.size) === norm(v.strength)) || variants[idx];
+          const price = matched?.price ?? v.price ?? 0;
+          const cost = matched?.cost ?? 0;
+          const profit = matched?.profit ?? (price - cost);
+          const margin = matched?.margin ?? (price > 0 ? (profit / price) * 100 : 0);
+          out.push({
+            productName: p.name,
+            displayName: p.displayName,
+            slug: p.slug,
+            categoryName: cat.name,
+            sku: matched?.sku ?? "—",
+            size: v.strength,
+            cost,
+            price,
+            profit,
+            margin,
+          });
+        });
       }
-      setIsLoading(false);
-    };
-    fetchProducts();
+    }
+    return out;
   }, []);
 
-  const filtered = products.filter(p => {
-    if (activeTab === "active" && !p.is_active) return false;
-    if (activeTab === "draft" && p.is_active) return false;
-    if (searchQuery) return p.display_name.toLowerCase().includes(searchQuery.toLowerCase());
+  const categories = useMemo(
+    () => Array.from(new Set(rows.map((r) => r.categoryName))),
+    [rows]
+  );
+
+  const filtered = rows.filter((r) => {
+    if (categoryFilter !== "all" && r.categoryName !== categoryFilter) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      return (
+        r.displayName.toLowerCase().includes(q) ||
+        r.productName.toLowerCase().includes(q) ||
+        r.sku.toLowerCase().includes(q) ||
+        r.size.toLowerCase().includes(q)
+      );
+    }
     return true;
   });
+
+  const totals = useMemo(() => {
+    const productSlugs = new Set(filtered.map((r) => r.slug));
+    const totalRevenue = filtered.reduce((s, r) => s + r.price, 0);
+    const totalCost = filtered.reduce((s, r) => s + r.cost, 0);
+    const totalProfit = filtered.reduce((s, r) => s + r.profit, 0);
+    const avgMargin =
+      filtered.length > 0
+        ? filtered.reduce((s, r) => s + r.margin, 0) / filtered.length
+        : 0;
+    return {
+      products: productSlugs.size,
+      variants: filtered.length,
+      totalRevenue,
+      totalCost,
+      totalProfit,
+      avgMargin,
+    };
+  }, [filtered]);
+
+  const marginClass = (m: number) =>
+    m >= 90
+      ? "text-green-400"
+      : m >= 80
+      ? "text-green-300"
+      : m >= 70
+      ? "text-yellow-400"
+      : m >= 60
+      ? "text-orange-400"
+      : "text-red-400";
 
   return (
     <AdminLayout>
@@ -68,13 +148,41 @@ const AdminProducts = () => {
           <div className="flex items-center gap-2">
             <Tag className="h-5 w-5 text-foreground" />
             <h1 className="text-xl font-semibold text-foreground">Products</h1>
+            <span className="text-sm text-muted-foreground">
+              · {rows.length} variants across {new Set(rows.map((r) => r.slug)).size} products
+            </span>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">
-              Export
-            </Button>
-            <Button variant="outline" size="sm" className="bg-card border-border text-foreground hover:bg-secondary">
-              Import
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-card border-border text-foreground hover:bg-secondary"
+              onClick={() => {
+                const csv = [
+                  ["Product", "SKU", "Size", "Category", "Cost", "Price", "Profit", "Margin %"],
+                  ...rows.map((r) => [
+                    r.displayName,
+                    r.sku,
+                    r.size,
+                    r.categoryName,
+                    r.cost.toFixed(2),
+                    r.price.toFixed(2),
+                    r.profit.toFixed(2),
+                    r.margin.toFixed(2),
+                  ]),
+                ]
+                  .map((row) => row.map((c) => `"${c}"`).join(","))
+                  .join("\n");
+                const blob = new Blob([csv], { type: "text/csv" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "products-pricing.csv";
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+            >
+              Export CSV
             </Button>
             <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90">
               <Plus className="h-4 w-4 mr-1" /> Add product
@@ -83,113 +191,127 @@ const AdminProducts = () => {
         </div>
 
         {/* Stats Bar */}
-        <div className="bg-card rounded-xl border border-border overflow-hidden">
-          <div className="flex divide-x divide-border">
-            <div className="px-5 py-4 flex items-center gap-3">
-              <span className="text-sm text-foreground">📅 30 days</span>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="bg-card rounded-xl border border-border p-4">
+            <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
+              <Package className="h-3.5 w-3.5" /> Products
             </div>
-            <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-muted-foreground">Total products</p>
-              <p className="text-lg font-semibold text-foreground">{products.length}</p>
+            <p className="text-lg font-semibold text-foreground">{totals.products}</p>
+            <p className="text-xs text-muted-foreground">{totals.variants} variants</p>
+          </div>
+          <div className="bg-card rounded-xl border border-border p-4">
+            <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
+              <DollarSign className="h-3.5 w-3.5" /> Revenue (sum)
             </div>
-            <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-muted-foreground">Active</p>
-              <p className="text-lg font-semibold text-foreground">{products.filter(p => p.is_active).length}</p>
+            <p className="text-lg font-semibold text-foreground">{fmt(totals.totalRevenue)}</p>
+          </div>
+          <div className="bg-card rounded-xl border border-border p-4">
+            <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
+              <DollarSign className="h-3.5 w-3.5" /> Cost (sum)
             </div>
-            <div className="flex-1 px-5 py-4">
-              <p className="text-sm text-muted-foreground">Draft</p>
-              <p className="text-lg font-semibold text-foreground">{products.filter(p => !p.is_active).length}</p>
+            <p className="text-lg font-semibold text-foreground">{fmt(totals.totalCost)}</p>
+          </div>
+          <div className="bg-card rounded-xl border border-border p-4">
+            <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
+              <TrendingUp className="h-3.5 w-3.5" /> Profit (sum)
             </div>
+            <p className="text-lg font-semibold text-green-400">{fmt(totals.totalProfit)}</p>
+          </div>
+          <div className="bg-card rounded-xl border border-border p-4">
+            <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
+              <TrendingUp className="h-3.5 w-3.5" /> Avg margin
+            </div>
+            <p className={`text-lg font-semibold ${marginClass(totals.avgMargin)}`}>
+              {totals.avgMargin.toFixed(1)}%
+            </p>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-0 border-b border-border">
-            {TABS.map(tab => (
+        {/* Filters */}
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <div className="flex items-center gap-1 border-b border-border overflow-x-auto">
+            <button
+              onClick={() => setCategoryFilter("all")}
+              className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                categoryFilter === "all"
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              All
+            </button>
+            {categories.map((c) => (
               <button
-                key={tab.value}
-                onClick={() => setActiveTab(tab.value)}
-                className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${
-                  activeTab === tab.value
+                key={c}
+                onClick={() => setCategoryFilter(c)}
+                className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                  categoryFilter === c
                     ? "border-foreground text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {tab.label}
+                {c}
               </button>
             ))}
-            <button className="px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground">+</button>
           </div>
           <div className="relative">
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="Search by name, SKU, size..."
               value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="h-9 pl-8 pr-3 w-[220px] rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="h-9 pl-8 pr-3 w-[260px] rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
         </div>
 
         {/* Table */}
         <div className="bg-card rounded-xl border border-border overflow-hidden">
-          {isLoading ? (
-            <div className="text-center py-16 text-muted-foreground">Loading products...</div>
-          ) : filtered.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="text-center py-16 text-muted-foreground">
               <Tag className="h-10 w-10 mx-auto mb-3 opacity-40" />
               <p className="font-medium">No products found</p>
             </div>
           ) : (
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border text-left">
-                  <th className="py-3 px-4 w-10"><Checkbox /></th>
-                  <th className="py-3 px-4 text-muted-foreground font-medium">Product</th>
-                  <th className="py-3 px-4 text-muted-foreground font-medium">Status</th>
-                  <th className="py-3 px-4 text-muted-foreground font-medium">Variants</th>
-                  <th className="py-3 px-4 text-muted-foreground font-medium">Category</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map(product => (
-                  <tr
-                    key={product.id}
-                    className="border-b border-border hover:bg-secondary cursor-pointer transition-colors"
-                    onClick={() => navigate(`/admin/products/${product.slug}`)}
-                  >
-                    <td className="py-3 px-4" onClick={e => e.stopPropagation()}>
-                      <Checkbox />
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg border border-border bg-secondary overflow-hidden flex items-center justify-center shrink-0">
-                          {product.image_url ? (
-                            <img src={product.image_url} alt="" className="w-full h-full object-cover" />
-                          ) : (
-                            <Tag className="h-4 w-4 text-muted-foreground" />
-                          )}
-                        </div>
-                        <span className="font-medium text-foreground">{product.display_name}</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      {product.is_active ? (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-900/30 text-green-400">Active</span>
-                      ) : (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-900/30 text-yellow-400">Draft</span>
-                      )}
-                    </td>
-                    <td className="py-3 px-4 text-foreground">
-                      {product.variations_count} variant{product.variations_count !== 1 ? "s" : ""}
-                    </td>
-                    <td className="py-3 px-4 text-foreground">{product.category_name}</td>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border text-left bg-secondary/30">
+                    <th className="py-3 px-4 text-muted-foreground font-medium">Product</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium">SKU</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium">Size</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium">Category</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium text-right">Cost</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium text-right">Price</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium text-right">Profit</th>
+                    <th className="py-3 px-4 text-muted-foreground font-medium text-right">Margin</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {filtered.map((r, i) => (
+                    <tr
+                      key={`${r.slug}-${r.sku}-${i}`}
+                      className="border-b border-border hover:bg-secondary/50 transition-colors"
+                    >
+                      <td className="py-3 px-4">
+                        <div className="font-medium text-foreground">{r.displayName}</div>
+                        <div className="text-xs text-muted-foreground">{r.productName}</div>
+                      </td>
+                      <td className="py-3 px-4 font-mono text-xs text-muted-foreground">{r.sku}</td>
+                      <td className="py-3 px-4 text-foreground">{r.size}</td>
+                      <td className="py-3 px-4 text-muted-foreground text-xs">{r.categoryName}</td>
+                      <td className="py-3 px-4 text-right text-muted-foreground">{fmt(r.cost)}</td>
+                      <td className="py-3 px-4 text-right text-foreground font-medium">{fmt(r.price)}</td>
+                      <td className="py-3 px-4 text-right text-green-400 font-medium">{fmt(r.profit)}</td>
+                      <td className={`py-3 px-4 text-right font-semibold ${marginClass(r.margin)}`}>
+                        {r.margin.toFixed(1)}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </div>

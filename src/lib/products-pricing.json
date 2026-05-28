@@ -1,0 +1,1150 @@
+{
+  "products": [
+    {
+      "product": "Semaglutide",
+      "variants": [
+        {
+          "sku": "SM5",
+          "size": "5mg",
+          "cost": 3.6,
+          "price": 64.0,
+          "profit": 60.4,
+          "margin": 94.38
+        },
+        {
+          "sku": "SM10",
+          "size": "10mg",
+          "cost": 4.8,
+          "price": 73.6,
+          "profit": 68.8,
+          "margin": 93.48
+        },
+        {
+          "sku": "SM15",
+          "size": "15mg",
+          "cost": 6.0,
+          "price": 81.6,
+          "profit": 75.6,
+          "margin": 92.65
+        },
+        {
+          "sku": "SM20",
+          "size": "20mg",
+          "cost": 8.0,
+          "price": 100.8,
+          "profit": 92.8,
+          "margin": 92.06
+        },
+        {
+          "sku": "SM30",
+          "size": "30mg",
+          "cost": 10.4,
+          "price": 116.8,
+          "profit": 106.4,
+          "margin": 91.1
+        }
+      ]
+    },
+    {
+      "product": "Tirzepatide",
+      "variants": [
+        {
+          "sku": "TR5",
+          "size": "5mg",
+          "cost": 3.6,
+          "price": 62.4,
+          "profit": 58.8,
+          "margin": 94.23
+        },
+        {
+          "sku": "TR10",
+          "size": "10mg",
+          "cost": 4.8,
+          "price": 73.6,
+          "profit": 68.8,
+          "margin": 93.48
+        },
+        {
+          "sku": "TR15",
+          "size": "15mg",
+          "cost": 7.2,
+          "price": 87.2,
+          "profit": 80.0,
+          "margin": 91.74
+        },
+        {
+          "sku": "TR20",
+          "size": "20mg",
+          "cost": 8.4,
+          "price": 108.8,
+          "profit": 100.4,
+          "margin": 92.28
+        },
+        {
+          "sku": "TR30",
+          "size": "30mg",
+          "cost": 11.2,
+          "price": 163.2,
+          "profit": 152.0,
+          "margin": 93.14
+        },
+        {
+          "sku": "TR40",
+          "size": "40mg",
+          "cost": 13.2,
+          "price": 184.0,
+          "profit": 170.8,
+          "margin": 92.83
+        },
+        {
+          "sku": "TR50",
+          "size": "50mg",
+          "cost": 16.4,
+          "price": 204.0,
+          "profit": 187.6,
+          "margin": 91.96
+        },
+        {
+          "sku": "TR60",
+          "size": "60mg",
+          "cost": 19.2,
+          "price": 224.8,
+          "profit": 205.6,
+          "margin": 91.46
+        }
+      ]
+    },
+    {
+      "product": "Retatrutide",
+      "variants": [
+        {
+          "sku": "RT5",
+          "size": "5mg",
+          "cost": 5.6,
+          "price": 89.6,
+          "profit": 84.0,
+          "margin": 93.75
+        },
+        {
+          "sku": "RT10",
+          "size": "10mg",
+          "cost": 8.8,
+          "price": 100.8,
+          "profit": 92.0,
+          "margin": 91.27
+        },
+        {
+          "sku": "RT15",
+          "size": "15mg",
+          "cost": 11.2,
+          "price": 140.0,
+          "profit": 128.8,
+          "margin": 92.0
+        },
+        {
+          "sku": "RT20",
+          "size": "20mg",
+          "cost": 14.0,
+          "price": 152.0,
+          "profit": 138.0,
+          "margin": 90.79
+        },
+        {
+          "sku": "RT30",
+          "size": "30mg",
+          "cost": 18.4,
+          "price": 196.0,
+          "profit": 177.6,
+          "margin": 90.61
+        },
+        {
+          "sku": "RT40",
+          "size": "40mg",
+          "cost": 23.2,
+          "price": 248.0,
+          "profit": 224.8,
+          "margin": 90.65
+        },
+        {
+          "sku": "RT50",
+          "size": "50mg",
+          "cost": 27.2,
+          "price": 376.0,
+          "profit": 348.8,
+          "margin": 92.77
+        },
+        {
+          "sku": "RT60",
+          "size": "60mg",
+          "cost": 30.4,
+          "price": 531.2,
+          "profit": 500.8,
+          "margin": 94.28
+        }
+      ]
+    },
+    {
+      "product": "MT-2",
+      "variants": [
+        {
+          "sku": "ML10",
+          "size": "10mg",
+          "cost": 4.4,
+          "price": 34.4,
+          "profit": 30.0,
+          "margin": 87.21
+        }
+      ]
+    },
+    {
+      "product": "Ipamorelin",
+      "variants": [
+        {
+          "sku": "IP5",
+          "size": "5mg",
+          "cost": 4.0,
+          "price": 38.4,
+          "profit": 34.4,
+          "margin": 89.58
+        },
+        {
+          "sku": "IP10",
+          "size": "10mg",
+          "cost": 7.6,
+          "price": 45.6,
+          "profit": 38.0,
+          "margin": 83.33
+        }
+      ]
+    },
+    {
+      "product": "BPC-157",
+      "variants": [
+        {
+          "sku": "BC5",
+          "size": "5mg",
+          "cost": 4.0,
+          "price": 60.8,
+          "profit": 56.8,
+          "margin": 93.42
+        },
+        {
+          "sku": "BC10",
+          "size": "10mg",
+          "cost": 5.6,
+          "price": 68.8,
+          "profit": 63.2,
+          "margin": 91.86
+        }
+      ]
+    },
+    {
+      "product": "TB-500",
+      "variants": [
+        {
+          "sku": "BT5",
+          "size": "5mg",
+          "cost": 8.0,
+          "price": 41.6,
+          "profit": 33.6,
+          "margin": 80.77
+        },
+        {
+          "sku": "BT10",
+          "size": "10mg",
+          "cost": 14.0,
+          "price": 56.8,
+          "profit": 42.8,
+          "margin": 75.35
+        }
+      ]
+    },
+    {
+      "product": "BPC + TB Blend",
+      "variants": [
+        {
+          "sku": "BB10",
+          "size": "BPC 5mg + TB 5mg",
+          "cost": 10.0,
+          "price": 58.4,
+          "profit": 48.4,
+          "margin": 82.88
+        },
+        {
+          "sku": "BB20",
+          "size": "BPC 10mg + TB 10mg",
+          "cost": 20.0,
+          "price": 88.0,
+          "profit": 68.0,
+          "margin": 77.27
+        }
+      ]
+    },
+    {
+      "product": "AOD-9604",
+      "variants": [
+        {
+          "sku": "5AD",
+          "size": "5mg",
+          "cost": 10.8,
+          "price": 54.4,
+          "profit": 43.6,
+          "margin": 80.15
+        }
+      ]
+    },
+    {
+      "product": "HCG",
+      "variants": [
+        {
+          "sku": "G5K",
+          "size": "5000iu",
+          "cost": 7.2,
+          "price": 32.0,
+          "profit": 24.8,
+          "margin": 77.5
+        },
+        {
+          "sku": "G10K",
+          "size": "10000iu",
+          "cost": 14.4,
+          "price": 68.8,
+          "profit": 54.4,
+          "margin": 79.07
+        }
+      ]
+    },
+    {
+      "product": "PT-141",
+      "variants": [
+        {
+          "sku": "P41",
+          "size": "10mg",
+          "cost": 6.0,
+          "price": 38.4,
+          "profit": 32.4,
+          "margin": 84.38
+        }
+      ]
+    },
+    {
+      "product": "Lemon Bottle",
+      "variants": [
+        {
+          "sku": "柠檬瓶",
+          "size": "10ml",
+          "cost": 7.6,
+          "price": 32.0,
+          "profit": 24.4,
+          "margin": 76.25
+        }
+      ]
+    },
+    {
+      "product": "DSIP",
+      "variants": [
+        {
+          "sku": "DS5",
+          "size": "5mg",
+          "cost": 4.4,
+          "price": 26.4,
+          "profit": 22.0,
+          "margin": 83.33
+        },
+        {
+          "sku": "DS15",
+          "size": "15mg",
+          "cost": 9.2,
+          "price": 64.0,
+          "profit": 54.8,
+          "margin": 85.62
+        }
+      ]
+    },
+    {
+      "product": "Selank",
+      "variants": [
+        {
+          "sku": "SK5",
+          "size": "5mg",
+          "cost": 4.0,
+          "price": 23.2,
+          "profit": 19.2,
+          "margin": 82.76
+        },
+        {
+          "sku": "SK10",
+          "size": "10mg",
+          "cost": 6.4,
+          "price": 37.6,
+          "profit": 31.2,
+          "margin": 82.98
+        }
+      ]
+    },
+    {
+      "product": "CJC-1295 Without DAC + Ipamorelin",
+      "variants": [
+        {
+          "sku": "CP10",
+          "size": "10mg",
+          "cost": 10.4,
+          "price": 48.0,
+          "profit": 37.6,
+          "margin": 78.33
+        }
+      ]
+    },
+    {
+      "product": "Oxytocin",
+      "variants": [
+        {
+          "sku": "OT2",
+          "size": "2mg",
+          "cost": 3.6,
+          "price": 56.8,
+          "profit": 53.2,
+          "margin": 93.66
+        }
+      ]
+    },
+    {
+      "product": "Epitalon",
+      "variants": [
+        {
+          "sku": "ET10",
+          "size": "10mg",
+          "cost": 4.8,
+          "price": 29.6,
+          "profit": 24.8,
+          "margin": 83.78
+        },
+        {
+          "sku": "ET50",
+          "size": "50mg",
+          "cost": 13.6,
+          "price": 41.6,
+          "profit": 28.0,
+          "margin": 67.31
+        }
+      ]
+    },
+    {
+      "product": "ACE-031",
+      "variants": [
+        {
+          "sku": "AE1",
+          "size": "1mg",
+          "cost": 16.0,
+          "price": 124.8,
+          "profit": 108.8,
+          "margin": 87.18
+        }
+      ]
+    },
+    {
+      "product": "Adipotide",
+      "variants": [
+        {
+          "sku": "AP5",
+          "size": "5mg",
+          "cost": 17.2,
+          "price": 56.0,
+          "profit": 38.8,
+          "margin": 69.29
+        }
+      ]
+    },
+    {
+      "product": "Semax",
+      "variants": [
+        {
+          "sku": "XA5",
+          "size": "5mg",
+          "cost": 4.0,
+          "price": 19.2,
+          "profit": 15.2,
+          "margin": 79.17
+        },
+        {
+          "sku": "XA10",
+          "size": "10mg",
+          "cost": 5.6,
+          "price": 23.2,
+          "profit": 17.6,
+          "margin": 75.86
+        }
+      ]
+    },
+    {
+      "product": "SS-31",
+      "variants": [
+        {
+          "sku": "2S10",
+          "size": "10mg",
+          "cost": 9.2,
+          "price": 38.4,
+          "profit": 29.2,
+          "margin": 76.04
+        },
+        {
+          "sku": "2S50",
+          "size": "50mg",
+          "cost": 36.0,
+          "price": 114.4,
+          "profit": 78.4,
+          "margin": 68.53
+        }
+      ]
+    },
+    {
+      "product": "CJC-1295 No DAC",
+      "variants": [
+        {
+          "sku": "CND5",
+          "size": "5mg",
+          "cost": 8.8,
+          "price": 38.4,
+          "profit": 29.6,
+          "margin": 77.08
+        },
+        {
+          "sku": "CND10",
+          "size": "10mg",
+          "cost": 16.4,
+          "price": 56.8,
+          "profit": 40.4,
+          "margin": 71.13
+        }
+      ]
+    },
+    {
+      "product": "CJC-1295 DAC",
+      "variants": [
+        {
+          "sku": "CD5",
+          "size": "5mg",
+          "cost": 16.4,
+          "price": 38.4,
+          "profit": 22.0,
+          "margin": 57.29
+        }
+      ]
+    },
+    {
+      "product": "Sermorelin",
+      "variants": [
+        {
+          "sku": "SMO5",
+          "size": "5mg",
+          "cost": 6.8,
+          "price": 38.4,
+          "profit": 31.6,
+          "margin": 82.29
+        },
+        {
+          "sku": "SMO10",
+          "size": "10mg",
+          "cost": 10.4,
+          "price": 49.6,
+          "profit": 39.2,
+          "margin": 79.03
+        }
+      ]
+    },
+    {
+      "product": "GDF-8",
+      "variants": [
+        {
+          "sku": "F81",
+          "size": "1mg",
+          "cost": 15.2,
+          "price": 184.8,
+          "profit": 169.6,
+          "margin": 91.77
+        }
+      ]
+    },
+    {
+      "product": "IGF-1LR3",
+      "variants": [
+        {
+          "sku": "IG01",
+          "size": "0.1mg",
+          "cost": 3.6,
+          "price": 34.4,
+          "profit": 30.8,
+          "margin": 89.53
+        },
+        {
+          "sku": "IG1",
+          "size": "1mg",
+          "cost": 19.6,
+          "price": 57.6,
+          "profit": 38.0,
+          "margin": 65.97
+        }
+      ]
+    },
+    {
+      "product": "Tesamorelin",
+      "variants": [
+        {
+          "sku": "TSM5",
+          "size": "5mg",
+          "cost": 10.4,
+          "price": 48.0,
+          "profit": 37.6,
+          "margin": 78.33
+        },
+        {
+          "sku": "TSM10",
+          "size": "10mg",
+          "cost": 19.6,
+          "price": 56.8,
+          "profit": 37.2,
+          "margin": 65.49
+        }
+      ]
+    },
+    {
+      "product": "Hexarelin Acetate",
+      "variants": [
+        {
+          "sku": "HX5",
+          "size": "5mg",
+          "cost": 8.4,
+          "price": 29.6,
+          "profit": 21.2,
+          "margin": 71.62
+        }
+      ]
+    },
+    {
+      "product": "GHK-CU",
+      "variants": [
+        {
+          "sku": "CU50",
+          "size": "50mg",
+          "cost": 3.6,
+          "price": 35.2,
+          "profit": 31.6,
+          "margin": 89.77
+        },
+        {
+          "sku": "CU100",
+          "size": "100mg",
+          "cost": 4.4,
+          "price": 60.8,
+          "profit": 56.4,
+          "margin": 92.76
+        }
+      ]
+    },
+    {
+      "product": "SLU-PP-322",
+      "variants": [
+        {
+          "sku": "322",
+          "size": "5mg",
+          "cost": 12.8,
+          "price": 45.6,
+          "profit": 32.8,
+          "margin": 71.93
+        }
+      ]
+    },
+    {
+      "product": "KissPeptin-10",
+      "variants": [
+        {
+          "sku": "KS5",
+          "size": "5mg",
+          "cost": 6.4,
+          "price": 41.6,
+          "profit": 35.2,
+          "margin": 84.62
+        },
+        {
+          "sku": "KS10",
+          "size": "10mg",
+          "cost": 10.4,
+          "price": 64.8,
+          "profit": 54.4,
+          "margin": 83.95
+        }
+      ]
+    },
+    {
+      "product": "Thymosin Alpha-1",
+      "variants": [
+        {
+          "sku": "TA5",
+          "size": "5mg",
+          "cost": 8.4,
+          "price": 49.6,
+          "profit": 41.2,
+          "margin": 83.06
+        },
+        {
+          "sku": "TA10",
+          "size": "10mg",
+          "cost": 16.0,
+          "price": 64.8,
+          "profit": 48.8,
+          "margin": 75.31
+        }
+      ]
+    },
+    {
+      "product": "MOTs-c",
+      "variants": [
+        {
+          "sku": "MS10",
+          "size": "10mg",
+          "cost": 6.4,
+          "price": 41.6,
+          "profit": 35.2,
+          "margin": 84.62
+        },
+        {
+          "sku": "MS40",
+          "size": "40mg",
+          "cost": 18.8,
+          "price": 91.2,
+          "profit": 72.4,
+          "margin": 79.39
+        }
+      ]
+    },
+    {
+      "product": "LL37",
+      "variants": [
+        {
+          "sku": "375",
+          "size": "5mg",
+          "cost": 8.4,
+          "price": 34.4,
+          "profit": 26.0,
+          "margin": 75.58
+        }
+      ]
+    },
+    {
+      "product": "Melatonin",
+      "variants": [
+        {
+          "sku": "MT1",
+          "size": "10mg",
+          "cost": 5.2,
+          "price": 28.0,
+          "profit": 22.8,
+          "margin": 81.43
+        }
+      ]
+    },
+    {
+      "product": "Glutathione",
+      "variants": [
+        {
+          "sku": "GTT",
+          "size": "1500mg",
+          "cost": 8.0,
+          "price": 68.0,
+          "profit": 60.0,
+          "margin": 88.24
+        }
+      ]
+    },
+    {
+      "product": "NAD+",
+      "variants": [
+        {
+          "sku": "NJ100",
+          "size": "100mg",
+          "cost": 4.0,
+          "price": 57.6,
+          "profit": 53.6,
+          "margin": 93.06
+        },
+        {
+          "sku": "NJ500",
+          "size": "500mg",
+          "cost": 8.4,
+          "price": 68.8,
+          "profit": 60.4,
+          "margin": 87.79
+        },
+        {
+          "sku": "NJ1000",
+          "size": "1000mg",
+          "cost": 16.0,
+          "price": 96.0,
+          "profit": 80.0,
+          "margin": 83.33
+        }
+      ]
+    },
+    {
+      "product": "5-amino-1mq",
+      "variants": [
+        {
+          "sku": "5AM",
+          "size": "5mg",
+          "cost": 6.8,
+          "price": 45.6,
+          "profit": 38.8,
+          "margin": 85.09
+        },
+        {
+          "sku": "50AM",
+          "size": "50mg",
+          "cost": 12.4,
+          "price": 167.2,
+          "profit": 154.8,
+          "margin": 92.58
+        }
+      ]
+    },
+    {
+      "product": "Cagrilintide",
+      "variants": [
+        {
+          "sku": "CGL5",
+          "size": "5mg",
+          "cost": 10.8,
+          "price": 91.2,
+          "profit": 80.4,
+          "margin": 88.16
+        },
+        {
+          "sku": "CGL10",
+          "size": "10mg",
+          "cost": 16.4,
+          "price": 106.4,
+          "profit": 90.0,
+          "margin": 84.59
+        }
+      ]
+    },
+    {
+      "product": "Snap-8",
+      "variants": [
+        {
+          "sku": "NP810",
+          "size": "10mg",
+          "cost": 4.4,
+          "price": 49.6,
+          "profit": 45.2,
+          "margin": 91.13
+        }
+      ]
+    },
+    {
+      "product": "KPV",
+      "variants": [
+        {
+          "sku": "KPV5",
+          "size": "5mg",
+          "cost": 5.2,
+          "price": 40.0,
+          "profit": 34.8,
+          "margin": 87.0
+        },
+        {
+          "sku": "KPV10",
+          "size": "10mg",
+          "cost": 6.4,
+          "price": 52.0,
+          "profit": 45.6,
+          "margin": 87.69
+        }
+      ]
+    },
+    {
+      "product": "Lipo-C with vitamins B12",
+      "variants": [
+        {
+          "sku": "LC216",
+          "size": "10ml",
+          "cost": 8.0,
+          "price": 56.0,
+          "profit": 48.0,
+          "margin": 85.71
+        }
+      ]
+    },
+    {
+      "product": "L-Carnitine",
+      "variants": [
+        {
+          "sku": "LC600",
+          "size": "10ml",
+          "cost": 8.8,
+          "price": 20.0,
+          "profit": 11.2,
+          "margin": 56.0
+        }
+      ]
+    },
+    {
+      "product": "Survodutide",
+      "variants": [
+        {
+          "sku": "SUR10",
+          "size": "10mg",
+          "cost": 24.0,
+          "price": 106.4,
+          "profit": 82.4,
+          "margin": 77.44
+        }
+      ]
+    },
+    {
+      "product": "Cagrilintide + Semaglutide",
+      "variants": [
+        {
+          "sku": "CS10",
+          "size": "10mg",
+          "cost": 20.4,
+          "price": 88.0,
+          "profit": 67.6,
+          "margin": 76.82
+        }
+      ]
+    },
+    {
+      "product": "Glow Stack",
+      "variants": [
+        {
+          "sku": "BBG70",
+          "size": "70mg",
+          "cost": 19.6,
+          "price": 114.4,
+          "profit": 94.8,
+          "margin": 82.87
+        }
+      ]
+    },
+    {
+      "product": "HGH 191AA Somatropin",
+      "variants": [
+        {
+          "sku": "H10",
+          "size": "10iu",
+          "cost": 5.6,
+          "price": 25.2,
+          "profit": 19.6,
+          "margin": 77.78
+        },
+        {
+          "sku": "H15",
+          "size": "15iu",
+          "cost": 7.2,
+          "price": 30.8,
+          "profit": 23.6,
+          "margin": 76.62
+        },
+        {
+          "sku": "H24",
+          "size": "24iu",
+          "cost": 12.0,
+          "price": 42.0,
+          "profit": 30.0,
+          "margin": 71.43
+        }
+      ]
+    },
+    {
+      "product": "Triptorelin Acetate GnRH Triptorelin",
+      "variants": [
+        {
+          "sku": "TRI2",
+          "size": "2mg",
+          "cost": 2.8,
+          "price": 31.2,
+          "profit": 28.4,
+          "margin": 91.03
+        }
+      ]
+    },
+    {
+      "product": "CU50 + TB10 + BC10 + KPV10",
+      "variants": [
+        {
+          "sku": "KLOW80",
+          "size": "80mg",
+          "cost": 24.0,
+          "price": 67.2,
+          "profit": 43.2,
+          "margin": 64.29
+        }
+      ]
+    },
+    {
+      "product": "PNC-27",
+      "variants": [
+        {
+          "sku": "PNC5",
+          "size": "5mg",
+          "cost": 10.0,
+          "price": 99.4,
+          "profit": 89.4,
+          "margin": 89.94
+        },
+        {
+          "sku": "PNC10",
+          "size": "10mg",
+          "cost": 16.0,
+          "price": 156.8,
+          "profit": 140.8,
+          "margin": 89.8
+        }
+      ]
+    },
+    {
+      "product": "Pinealon",
+      "variants": [
+        {
+          "sku": "PI5",
+          "size": "5mg",
+          "cost": 4.8,
+          "price": 29.6,
+          "profit": 24.8,
+          "margin": 83.78
+        },
+        {
+          "sku": "PI10",
+          "size": "10mg",
+          "cost": 6.8,
+          "price": 41.6,
+          "profit": 34.8,
+          "margin": 83.65
+        },
+        {
+          "sku": "P20",
+          "size": "20mg",
+          "cost": 9.3,
+          "price": 53.6,
+          "profit": 44.3,
+          "margin": 82.65
+        }
+      ]
+    },
+    {
+      "product": "Vasoactive Intestinal Peptide",
+      "variants": [
+        {
+          "sku": "VIP5",
+          "size": "5mg",
+          "cost": 7.2,
+          "price": 42.4,
+          "profit": 35.2,
+          "margin": 83.02
+        },
+        {
+          "sku": "VIP10",
+          "size": "10mg",
+          "cost": 12.8,
+          "price": 62.4,
+          "profit": 49.6,
+          "margin": 79.49
+        }
+      ]
+    },
+    {
+      "product": "Adipotide Duplicate Row",
+      "variants": [
+        {
+          "sku": "AP5_DUPLICATE",
+          "size": "5mg",
+          "cost": 16.0,
+          "price": 49.6,
+          "profit": 33.6,
+          "margin": 67.74
+        }
+      ]
+    },
+    {
+      "product": "Mazdutide",
+      "variants": [
+        {
+          "sku": "MZ10",
+          "size": "10mg",
+          "cost": 18.8,
+          "price": 82.8,
+          "profit": 64.0,
+          "margin": 77.29
+        }
+      ]
+    },
+    {
+      "product": "Bacteriostatic Water",
+      "variants": [
+        {
+          "sku": "BA3",
+          "size": "3ml",
+          "cost": 0.6,
+          "price": 4.0,
+          "profit": 3.4,
+          "margin": 85.0
+        },
+        {
+          "sku": "BA10",
+          "size": "10ml",
+          "cost": 1.0,
+          "price": 9.6,
+          "profit": 8.6,
+          "margin": 89.58
+        }
+      ]
+    },
+    {
+      "product": "GHRP-2 Acetate",
+      "variants": [
+        {
+          "sku": "G25",
+          "size": "5mg",
+          "cost": 5.0,
+          "price": 26.4,
+          "profit": 21.4,
+          "margin": 81.06
+        }
+      ]
+    },
+    {
+      "product": "GHRP-6 Acetate",
+      "variants": [
+        {
+          "sku": "G65",
+          "size": "5mg",
+          "cost": 5.0,
+          "price": 26.4,
+          "profit": 21.4,
+          "margin": 81.06
+        },
+        {
+          "sku": "G610",
+          "size": "10mg",
+          "cost": 7.0,
+          "price": 41.6,
+          "profit": 34.6,
+          "margin": 83.17
+        }
+      ]
+    },
+    {
+      "product": "Thymalin",
+      "variants": [
+        {
+          "sku": "TY10",
+          "size": "10mg",
+          "cost": 8.0,
+          "price": 28.0,
+          "profit": 20.0,
+          "margin": 71.43
+        }
+      ]
+    }
+  ]
+}
