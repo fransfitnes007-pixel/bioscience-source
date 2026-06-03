@@ -132,20 +132,6 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll cue */}
-      <div
-        className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000 ease-out ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ transitionDelay: "1400ms" }}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="font-body text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            Scroll
-          </span>
-          <div className="w-px h-10 bg-gradient-to-b from-foreground/40 to-transparent" />
-        </div>
-      </div>
     </section>
   );
 };
