@@ -5,24 +5,25 @@ interface FooterProps {
   wordmark?: string;
 }
 
-export const Footer = ({ wordmark = "PRODUCTS YOU MAY LIKE" }: FooterProps) => {
+export const Footer = ({ wordmark }: FooterProps) => {
   const year = new Date().getFullYear();
-  const isLong = wordmark.length > 14;
+  const isLong = (wordmark ?? "").length > 14;
   return (
     <footer className="border-t border-border/40 bg-background relative overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12 py-20 lg:py-28">
-        {/* Wordmark */}
-        <div className="mb-20">
-          <div
-            className={`font-body font-bold tracking-[-0.05em] leading-none text-foreground/[0.08] select-none ${
-              isLong
-                ? "text-[10vw] md:text-[8vw] lg:text-[7rem]"
-                : "text-[18vw] md:text-[14vw] lg:text-[12rem]"
-            }`}
-          >
-            {wordmark}
+        {wordmark && (
+          <div className="mb-20">
+            <div
+              className={`font-body font-bold tracking-[-0.05em] leading-none text-foreground/[0.08] select-none ${
+                isLong
+                  ? "text-[10vw] md:text-[8vw] lg:text-[7rem]"
+                  : "text-[18vw] md:text-[14vw] lg:text-[12rem]"
+              }`}
+            >
+              {wordmark}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="grid grid-cols-2 md:grid-cols-12 gap-12 md:gap-8">
           <div className="col-span-2 md:col-span-5">
