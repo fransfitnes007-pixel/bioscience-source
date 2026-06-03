@@ -95,7 +95,7 @@ const ProductPage = () => {
   const originalPrice = getOriginalPrice(lineTotal);
 
   return (
-    <Layout footerWordmark="PRODUCTS YOU MAY LIKE">
+    <Layout>
       <div className="pt-24 lg:pt-32 pb-16">
         <div className="container mx-auto px-4 lg:px-8">
           {/* Back button */}
