@@ -4,7 +4,8 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/cart/PriceDisplay";
 import { useCart } from "@/contexts/CartContext";
-import { getProductBySlug, Product, ProductVariation } from "@/lib/products-data";
+import { getProductBySlug, getRelatedProducts, Product, ProductVariation } from "@/lib/products-data";
+import { ProductCard } from "@/components/products/ProductCard";
 import { toast } from "sonner";
 import { ArrowLeft, ShoppingCart, Check } from "lucide-react";
 import {
@@ -292,6 +293,26 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Related products */}
+        {(() => {
+          const related = getRelatedProducts(product.slug, 3);
+          if (related.length === 0) return null;
+          return (
+            <section className="container mx-auto px-4 lg:px-8 mt-24">
+              <div className="border-t border-border/40 pt-16">
+                <h2 className="font-heading text-2xl md:text-3xl font-medium text-foreground mb-10">
+                  Products you may like
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {related.map((p) => (
+                    <ProductCard key={p.slug} product={p} />
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+        })()}
       </div>
     </Layout>
   );

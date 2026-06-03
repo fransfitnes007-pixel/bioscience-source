@@ -702,6 +702,16 @@ export const getProductsByCategory = (categorySlug: string): Product[] => {
   return category ? category.products : [];
 };
 
+export const getCategoryByProductSlug = (slug: string): ProductCategory | undefined => {
+  return productCategories.find(c => c.products.some(p => p.slug === slug));
+};
+
+export const getRelatedProducts = (slug: string, limit = 3): Product[] => {
+  const category = getCategoryByProductSlug(slug);
+  if (!category) return [];
+  return category.products.filter(p => p.slug !== slug).slice(0, limit);
+};
+
 export const searchProducts = (query: string): Product[] => {
   const lowercaseQuery = query.toLowerCase();
   return getAllProducts().filter(product =>
