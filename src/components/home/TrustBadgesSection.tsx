@@ -24,27 +24,45 @@ export const TrustBadgesSection = () => {
   return (
     <section ref={ref} className="py-16 lg:py-20 border-t border-border/30">
       <div className="container mx-auto px-4 lg:px-8">
-        {/* ISO 9001 Certification Badge — full width centered */}
+        {/* Certification Badges Row */}
         <div
-          className={`flex justify-center mb-10 transition-all duration-700 ${
+          className={`flex flex-wrap justify-center gap-4 mb-10 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <div className="flex items-center gap-4 rounded-full border border-border/40 bg-card/20 px-6 py-3">
+          {/* ISO 9001 */}
+          <div className="flex items-center gap-3 rounded-full border border-border/40 bg-card/20 px-5 py-2.5">
             <img
               src={iso9001Badge}
               alt="ISO 9001 Certified"
-              className="h-10 w-auto"
+              className="h-9 w-auto"
               loading="lazy"
               width={512}
               height={512}
             />
             <div className="text-left">
               <p className="font-heading text-sm font-semibold text-foreground tracking-wide">
-                ISO 9001 Certified
+                ISO 9001
               </p>
               <p className="font-body text-[10px] text-muted-foreground uppercase tracking-wider">
-                Quality Management System
+                Quality Management
+              </p>
+            </div>
+          </div>
+
+          {/* HPLC */}
+          <div className="flex items-center gap-3 rounded-full border border-border/40 bg-card/20 px-5 py-2.5">
+            <div className="h-9 w-9 rounded-full border border-border/50 bg-card/40 flex items-center justify-center">
+              <span className="font-heading text-[10px] font-bold text-foreground tracking-wide">
+                HPLC
+              </span>
+            </div>
+            <div className="text-left">
+              <p className="font-heading text-sm font-semibold text-foreground tracking-wide">
+                HPLC Verified
+              </p>
+              <p className="font-body text-[10px] text-muted-foreground uppercase tracking-wider">
+                Purity Analysis
               </p>
             </div>
           </div>
