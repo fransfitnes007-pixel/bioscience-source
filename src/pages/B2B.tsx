@@ -24,7 +24,7 @@ import { Layout } from "@/components/layout/Layout";
 import heroLogo from "@/assets/resurrected-logo-hero.png";
 
 // B2B password
-const B2B_PASSWORD = "partner2025";
+const B2B_PASSWORD = "getfaurked2026";
 const STORAGE_KEY = "b2b-access-granted";
 
 /* ------------------------------- Static logo ------------------------------- */
