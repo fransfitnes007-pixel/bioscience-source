@@ -7,41 +7,41 @@
           "sku": "SM5",
           "size": "5mg",
           "cost": 3.6,
-          "price": 64.0,
-          "profit": 60.4,
-          "margin": 94.38
+          "price": 65,
+          "profit": 61.4,
+          "margin": 94.46
         },
         {
           "sku": "SM10",
           "size": "10mg",
           "cost": 4.8,
-          "price": 73.6,
-          "profit": 68.8,
-          "margin": 93.48
+          "price": 75,
+          "profit": 70.2,
+          "margin": 93.6
         },
         {
           "sku": "SM15",
           "size": "15mg",
-          "cost": 6.0,
-          "price": 81.6,
-          "profit": 75.6,
-          "margin": 92.65
+          "cost": 6,
+          "price": 80,
+          "profit": 74,
+          "margin": 92.5
         },
         {
           "sku": "SM20",
           "size": "20mg",
-          "cost": 8.0,
-          "price": 100.8,
-          "profit": 92.8,
-          "margin": 92.06
+          "cost": 8,
+          "price": 100,
+          "profit": 92,
+          "margin": 92
         },
         {
           "sku": "SM30",
           "size": "30mg",
           "cost": 10.4,
-          "price": 116.8,
-          "profit": 106.4,
-          "margin": 91.1
+          "price": 115,
+          "profit": 104.6,
+          "margin": 90.96
         }
       ]
     },
@@ -52,65 +52,65 @@
           "sku": "TR5",
           "size": "5mg",
           "cost": 3.6,
-          "price": 62.4,
-          "profit": 58.8,
-          "margin": 94.23
+          "price": 60,
+          "profit": 56.4,
+          "margin": 94
         },
         {
           "sku": "TR10",
           "size": "10mg",
           "cost": 4.8,
-          "price": 73.6,
-          "profit": 68.8,
-          "margin": 93.48
+          "price": 75,
+          "profit": 70.2,
+          "margin": 93.6
         },
         {
           "sku": "TR15",
           "size": "15mg",
           "cost": 7.2,
-          "price": 87.2,
-          "profit": 80.0,
-          "margin": 91.74
+          "price": 85,
+          "profit": 77.8,
+          "margin": 91.53
         },
         {
           "sku": "TR20",
           "size": "20mg",
           "cost": 8.4,
-          "price": 108.8,
-          "profit": 100.4,
-          "margin": 92.28
+          "price": 110,
+          "profit": 101.6,
+          "margin": 92.36
         },
         {
           "sku": "TR30",
           "size": "30mg",
           "cost": 11.2,
-          "price": 163.2,
-          "profit": 152.0,
-          "margin": 93.14
+          "price": 165,
+          "profit": 153.8,
+          "margin": 93.21
         },
         {
           "sku": "TR40",
           "size": "40mg",
           "cost": 13.2,
-          "price": 184.0,
-          "profit": 170.8,
-          "margin": 92.83
+          "price": 185,
+          "profit": 171.8,
+          "margin": 92.86
         },
         {
           "sku": "TR50",
           "size": "50mg",
           "cost": 16.4,
-          "price": 204.0,
-          "profit": 187.6,
-          "margin": 91.96
+          "price": 200,
+          "profit": 183.6,
+          "margin": 91.8
         },
         {
           "sku": "TR60",
           "size": "60mg",
           "cost": 19.2,
-          "price": 224.8,
-          "profit": 205.6,
-          "margin": 91.46
+          "price": 220,
+          "profit": 200.8,
+          "margin": 91.27
         }
       ]
     },
@@ -121,65 +121,65 @@
           "sku": "RT5",
           "size": "5mg",
           "cost": 5.6,
-          "price": 89.6,
-          "profit": 84.0,
-          "margin": 93.75
+          "price": 90,
+          "profit": 84.4,
+          "margin": 93.78
         },
         {
           "sku": "RT10",
           "size": "10mg",
           "cost": 8.8,
-          "price": 100.8,
-          "profit": 92.0,
-          "margin": 91.27
+          "price": 100,
+          "profit": 91.2,
+          "margin": 91.2
         },
         {
           "sku": "RT15",
           "size": "15mg",
           "cost": 11.2,
-          "price": 140.0,
+          "price": 140,
           "profit": 128.8,
-          "margin": 92.0
+          "margin": 92
         },
         {
           "sku": "RT20",
           "size": "20mg",
-          "cost": 14.0,
-          "price": 152.0,
-          "profit": 138.0,
-          "margin": 90.79
+          "cost": 14,
+          "price": 150,
+          "profit": 136,
+          "margin": 90.67
         },
         {
           "sku": "RT30",
           "size": "30mg",
           "cost": 18.4,
-          "price": 196.0,
-          "profit": 177.6,
-          "margin": 90.61
+          "price": 195,
+          "profit": 176.6,
+          "margin": 90.56
         },
         {
           "sku": "RT40",
           "size": "40mg",
           "cost": 23.2,
-          "price": 248.0,
-          "profit": 224.8,
-          "margin": 90.65
+          "price": 250,
+          "profit": 226.8,
+          "margin": 90.72
         },
         {
           "sku": "RT50",
           "size": "50mg",
           "cost": 27.2,
-          "price": 376.0,
-          "profit": 348.8,
-          "margin": 92.77
+          "price": 380,
+          "profit": 352.8,
+          "margin": 92.84
         },
         {
           "sku": "RT60",
           "size": "60mg",
           "cost": 30.4,
-          "price": 531.2,
-          "profit": 500.8,
-          "margin": 94.28
+          "price": 530,
+          "profit": 499.6,
+          "margin": 94.26
         }
       ]
     },
@@ -190,9 +190,9 @@
           "sku": "ML10",
           "size": "10mg",
           "cost": 4.4,
-          "price": 34.4,
-          "profit": 30.0,
-          "margin": 87.21
+          "price": 35,
+          "profit": 30.6,
+          "margin": 87.43
         }
       ]
     },
@@ -202,18 +202,18 @@
         {
           "sku": "IP5",
           "size": "5mg",
-          "cost": 4.0,
-          "price": 38.4,
-          "profit": 34.4,
-          "margin": 89.58
+          "cost": 4,
+          "price": 40,
+          "profit": 36,
+          "margin": 90
         },
         {
           "sku": "IP10",
           "size": "10mg",
           "cost": 7.6,
-          "price": 45.6,
-          "profit": 38.0,
-          "margin": 83.33
+          "price": 45,
+          "profit": 37.4,
+          "margin": 83.11
         }
       ]
     },
@@ -223,18 +223,18 @@
         {
           "sku": "BC5",
           "size": "5mg",
-          "cost": 4.0,
-          "price": 60.8,
-          "profit": 56.8,
-          "margin": 93.42
+          "cost": 4,
+          "price": 60,
+          "profit": 56,
+          "margin": 93.33
         },
         {
           "sku": "BC10",
           "size": "10mg",
           "cost": 5.6,
-          "price": 68.8,
-          "profit": 63.2,
-          "margin": 91.86
+          "price": 70,
+          "profit": 64.4,
+          "margin": 92
         }
       ]
     },
@@ -244,18 +244,18 @@
         {
           "sku": "BT5",
           "size": "5mg",
-          "cost": 8.0,
-          "price": 41.6,
-          "profit": 33.6,
-          "margin": 80.77
+          "cost": 8,
+          "price": 40,
+          "profit": 32,
+          "margin": 80
         },
         {
           "sku": "BT10",
           "size": "10mg",
-          "cost": 14.0,
-          "price": 56.8,
-          "profit": 42.8,
-          "margin": 75.35
+          "cost": 14,
+          "price": 55,
+          "profit": 41,
+          "margin": 74.55
         }
       ]
     },
@@ -265,18 +265,18 @@
         {
           "sku": "BB10",
           "size": "BPC 5mg + TB 5mg",
-          "cost": 10.0,
-          "price": 58.4,
-          "profit": 48.4,
-          "margin": 82.88
+          "cost": 10,
+          "price": 60,
+          "profit": 50,
+          "margin": 83.33
         },
         {
           "sku": "BB20",
           "size": "BPC 10mg + TB 10mg",
-          "cost": 20.0,
-          "price": 88.0,
-          "profit": 68.0,
-          "margin": 77.27
+          "cost": 20,
+          "price": 90,
+          "profit": 70,
+          "margin": 77.78
         }
       ]
     },
@@ -287,9 +287,9 @@
           "sku": "5AD",
           "size": "5mg",
           "cost": 10.8,
-          "price": 54.4,
-          "profit": 43.6,
-          "margin": 80.15
+          "price": 55,
+          "profit": 44.2,
+          "margin": 80.36
         }
       ]
     },
@@ -300,17 +300,17 @@
           "sku": "G5K",
           "size": "5000iu",
           "cost": 7.2,
-          "price": 32.0,
-          "profit": 24.8,
-          "margin": 77.5
+          "price": 30,
+          "profit": 22.8,
+          "margin": 76
         },
         {
           "sku": "G10K",
           "size": "10000iu",
           "cost": 14.4,
-          "price": 68.8,
-          "profit": 54.4,
-          "margin": 79.07
+          "price": 70,
+          "profit": 55.6,
+          "margin": 79.43
         }
       ]
     },
@@ -320,10 +320,10 @@
         {
           "sku": "P41",
           "size": "10mg",
-          "cost": 6.0,
-          "price": 38.4,
-          "profit": 32.4,
-          "margin": 84.38
+          "cost": 6,
+          "price": 40,
+          "profit": 34,
+          "margin": 85
         }
       ]
     },
@@ -334,9 +334,9 @@
           "sku": "柠檬瓶",
           "size": "10ml",
           "cost": 7.6,
-          "price": 32.0,
-          "profit": 24.4,
-          "margin": 76.25
+          "price": 30,
+          "profit": 22.4,
+          "margin": 74.67
         }
       ]
     },
@@ -347,17 +347,17 @@
           "sku": "DS5",
           "size": "5mg",
           "cost": 4.4,
-          "price": 26.4,
-          "profit": 22.0,
-          "margin": 83.33
+          "price": 25,
+          "profit": 20.6,
+          "margin": 82.4
         },
         {
           "sku": "DS15",
           "size": "15mg",
           "cost": 9.2,
-          "price": 64.0,
-          "profit": 54.8,
-          "margin": 85.62
+          "price": 65,
+          "profit": 55.8,
+          "margin": 85.85
         }
       ]
     },
@@ -367,18 +367,18 @@
         {
           "sku": "SK5",
           "size": "5mg",
-          "cost": 4.0,
-          "price": 23.2,
-          "profit": 19.2,
-          "margin": 82.76
+          "cost": 4,
+          "price": 25,
+          "profit": 21,
+          "margin": 84
         },
         {
           "sku": "SK10",
           "size": "10mg",
           "cost": 6.4,
-          "price": 37.6,
-          "profit": 31.2,
-          "margin": 82.98
+          "price": 40,
+          "profit": 33.6,
+          "margin": 84
         }
       ]
     },
@@ -389,9 +389,9 @@
           "sku": "CP10",
           "size": "10mg",
           "cost": 10.4,
-          "price": 48.0,
-          "profit": 37.6,
-          "margin": 78.33
+          "price": 50,
+          "profit": 39.6,
+          "margin": 79.2
         }
       ]
     },
@@ -402,9 +402,9 @@
           "sku": "OT2",
           "size": "2mg",
           "cost": 3.6,
-          "price": 56.8,
-          "profit": 53.2,
-          "margin": 93.66
+          "price": 55,
+          "profit": 51.4,
+          "margin": 93.45
         }
       ]
     },
@@ -415,17 +415,17 @@
           "sku": "ET10",
           "size": "10mg",
           "cost": 4.8,
-          "price": 29.6,
-          "profit": 24.8,
-          "margin": 83.78
+          "price": 30,
+          "profit": 25.2,
+          "margin": 84
         },
         {
           "sku": "ET50",
           "size": "50mg",
           "cost": 13.6,
-          "price": 41.6,
-          "profit": 28.0,
-          "margin": 67.31
+          "price": 40,
+          "profit": 26.4,
+          "margin": 66
         }
       ]
     },
@@ -435,10 +435,10 @@
         {
           "sku": "AE1",
           "size": "1mg",
-          "cost": 16.0,
-          "price": 124.8,
-          "profit": 108.8,
-          "margin": 87.18
+          "cost": 16,
+          "price": 125,
+          "profit": 109,
+          "margin": 87.2
         }
       ]
     },
@@ -449,9 +449,9 @@
           "sku": "AP5",
           "size": "5mg",
           "cost": 17.2,
-          "price": 56.0,
-          "profit": 38.8,
-          "margin": 69.29
+          "price": 55,
+          "profit": 37.8,
+          "margin": 68.73
         }
       ]
     },
@@ -461,18 +461,18 @@
         {
           "sku": "XA5",
           "size": "5mg",
-          "cost": 4.0,
-          "price": 19.2,
-          "profit": 15.2,
-          "margin": 79.17
+          "cost": 4,
+          "price": 20,
+          "profit": 16,
+          "margin": 80
         },
         {
           "sku": "XA10",
           "size": "10mg",
           "cost": 5.6,
-          "price": 23.2,
-          "profit": 17.6,
-          "margin": 75.86
+          "price": 25,
+          "profit": 19.4,
+          "margin": 77.6
         }
       ]
     },
@@ -483,17 +483,17 @@
           "sku": "2S10",
           "size": "10mg",
           "cost": 9.2,
-          "price": 38.4,
-          "profit": 29.2,
-          "margin": 76.04
+          "price": 40,
+          "profit": 30.8,
+          "margin": 77
         },
         {
           "sku": "2S50",
           "size": "50mg",
-          "cost": 36.0,
-          "price": 114.4,
-          "profit": 78.4,
-          "margin": 68.53
+          "cost": 36,
+          "price": 115,
+          "profit": 79,
+          "margin": 68.7
         }
       ]
     },
@@ -504,17 +504,17 @@
           "sku": "CND5",
           "size": "5mg",
           "cost": 8.8,
-          "price": 38.4,
-          "profit": 29.6,
-          "margin": 77.08
+          "price": 40,
+          "profit": 31.2,
+          "margin": 78
         },
         {
           "sku": "CND10",
           "size": "10mg",
           "cost": 16.4,
-          "price": 56.8,
-          "profit": 40.4,
-          "margin": 71.13
+          "price": 55,
+          "profit": 38.6,
+          "margin": 70.18
         }
       ]
     },
@@ -525,9 +525,9 @@
           "sku": "CD5",
           "size": "5mg",
           "cost": 16.4,
-          "price": 38.4,
-          "profit": 22.0,
-          "margin": 57.29
+          "price": 40,
+          "profit": 23.6,
+          "margin": 59
         }
       ]
     },
@@ -538,17 +538,17 @@
           "sku": "SMO5",
           "size": "5mg",
           "cost": 6.8,
-          "price": 38.4,
-          "profit": 31.6,
-          "margin": 82.29
+          "price": 40,
+          "profit": 33.2,
+          "margin": 83
         },
         {
           "sku": "SMO10",
           "size": "10mg",
           "cost": 10.4,
-          "price": 49.6,
-          "profit": 39.2,
-          "margin": 79.03
+          "price": 50,
+          "profit": 39.6,
+          "margin": 79.2
         }
       ]
     },
@@ -559,9 +559,9 @@
           "sku": "F81",
           "size": "1mg",
           "cost": 15.2,
-          "price": 184.8,
-          "profit": 169.6,
-          "margin": 91.77
+          "price": 185,
+          "profit": 169.8,
+          "margin": 91.78
         }
       ]
     },
@@ -572,17 +572,17 @@
           "sku": "IG01",
           "size": "0.1mg",
           "cost": 3.6,
-          "price": 34.4,
-          "profit": 30.8,
-          "margin": 89.53
+          "price": 35,
+          "profit": 31.4,
+          "margin": 89.71
         },
         {
           "sku": "IG1",
           "size": "1mg",
           "cost": 19.6,
-          "price": 57.6,
-          "profit": 38.0,
-          "margin": 65.97
+          "price": 60,
+          "profit": 40.4,
+          "margin": 67.33
         }
       ]
     },
@@ -593,17 +593,17 @@
           "sku": "TSM5",
           "size": "5mg",
           "cost": 10.4,
-          "price": 48.0,
-          "profit": 37.6,
-          "margin": 78.33
+          "price": 50,
+          "profit": 39.6,
+          "margin": 79.2
         },
         {
           "sku": "TSM10",
           "size": "10mg",
           "cost": 19.6,
-          "price": 56.8,
-          "profit": 37.2,
-          "margin": 65.49
+          "price": 55,
+          "profit": 35.4,
+          "margin": 64.36
         }
       ]
     },
@@ -614,9 +614,9 @@
           "sku": "HX5",
           "size": "5mg",
           "cost": 8.4,
-          "price": 29.6,
-          "profit": 21.2,
-          "margin": 71.62
+          "price": 30,
+          "profit": 21.6,
+          "margin": 72
         }
       ]
     },
@@ -627,17 +627,17 @@
           "sku": "CU50",
           "size": "50mg",
           "cost": 3.6,
-          "price": 35.2,
-          "profit": 31.6,
-          "margin": 89.77
+          "price": 35,
+          "profit": 31.4,
+          "margin": 89.71
         },
         {
           "sku": "CU100",
           "size": "100mg",
           "cost": 4.4,
-          "price": 60.8,
-          "profit": 56.4,
-          "margin": 92.76
+          "price": 60,
+          "profit": 55.6,
+          "margin": 92.67
         }
       ]
     },
@@ -648,9 +648,9 @@
           "sku": "322",
           "size": "5mg",
           "cost": 12.8,
-          "price": 45.6,
-          "profit": 32.8,
-          "margin": 71.93
+          "price": 45,
+          "profit": 32.2,
+          "margin": 71.56
         }
       ]
     },
@@ -661,17 +661,17 @@
           "sku": "KS5",
           "size": "5mg",
           "cost": 6.4,
-          "price": 41.6,
-          "profit": 35.2,
-          "margin": 84.62
+          "price": 40,
+          "profit": 33.6,
+          "margin": 84
         },
         {
           "sku": "KS10",
           "size": "10mg",
           "cost": 10.4,
-          "price": 64.8,
-          "profit": 54.4,
-          "margin": 83.95
+          "price": 65,
+          "profit": 54.6,
+          "margin": 84
         }
       ]
     },
@@ -682,17 +682,17 @@
           "sku": "TA5",
           "size": "5mg",
           "cost": 8.4,
-          "price": 49.6,
-          "profit": 41.2,
-          "margin": 83.06
+          "price": 50,
+          "profit": 41.6,
+          "margin": 83.2
         },
         {
           "sku": "TA10",
           "size": "10mg",
-          "cost": 16.0,
-          "price": 64.8,
-          "profit": 48.8,
-          "margin": 75.31
+          "cost": 16,
+          "price": 65,
+          "profit": 49,
+          "margin": 75.38
         }
       ]
     },
@@ -703,17 +703,17 @@
           "sku": "MS10",
           "size": "10mg",
           "cost": 6.4,
-          "price": 41.6,
-          "profit": 35.2,
-          "margin": 84.62
+          "price": 40,
+          "profit": 33.6,
+          "margin": 84
         },
         {
           "sku": "MS40",
           "size": "40mg",
           "cost": 18.8,
-          "price": 91.2,
-          "profit": 72.4,
-          "margin": 79.39
+          "price": 90,
+          "profit": 71.2,
+          "margin": 79.11
         }
       ]
     },
@@ -724,9 +724,9 @@
           "sku": "375",
           "size": "5mg",
           "cost": 8.4,
-          "price": 34.4,
-          "profit": 26.0,
-          "margin": 75.58
+          "price": 35,
+          "profit": 26.6,
+          "margin": 76
         }
       ]
     },
@@ -737,9 +737,9 @@
           "sku": "MT1",
           "size": "10mg",
           "cost": 5.2,
-          "price": 28.0,
-          "profit": 22.8,
-          "margin": 81.43
+          "price": 30,
+          "profit": 24.8,
+          "margin": 82.67
         }
       ]
     },
@@ -749,10 +749,10 @@
         {
           "sku": "GTT",
           "size": "1500mg",
-          "cost": 8.0,
-          "price": 68.0,
-          "profit": 60.0,
-          "margin": 88.24
+          "cost": 8,
+          "price": 70,
+          "profit": 62,
+          "margin": 88.57
         }
       ]
     },
@@ -762,26 +762,26 @@
         {
           "sku": "NJ100",
           "size": "100mg",
-          "cost": 4.0,
-          "price": 57.6,
-          "profit": 53.6,
-          "margin": 93.06
+          "cost": 4,
+          "price": 60,
+          "profit": 56,
+          "margin": 93.33
         },
         {
           "sku": "NJ500",
           "size": "500mg",
           "cost": 8.4,
-          "price": 68.8,
-          "profit": 60.4,
-          "margin": 87.79
+          "price": 70,
+          "profit": 61.6,
+          "margin": 88
         },
         {
           "sku": "NJ1000",
           "size": "1000mg",
-          "cost": 16.0,
-          "price": 96.0,
-          "profit": 80.0,
-          "margin": 83.33
+          "cost": 16,
+          "price": 95,
+          "profit": 79,
+          "margin": 83.16
         }
       ]
     },
@@ -792,17 +792,17 @@
           "sku": "5AM",
           "size": "5mg",
           "cost": 6.8,
-          "price": 45.6,
-          "profit": 38.8,
-          "margin": 85.09
+          "price": 45,
+          "profit": 38.2,
+          "margin": 84.89
         },
         {
           "sku": "50AM",
           "size": "50mg",
           "cost": 12.4,
-          "price": 167.2,
-          "profit": 154.8,
-          "margin": 92.58
+          "price": 165,
+          "profit": 152.6,
+          "margin": 92.48
         }
       ]
     },
@@ -813,17 +813,17 @@
           "sku": "CGL5",
           "size": "5mg",
           "cost": 10.8,
-          "price": 91.2,
-          "profit": 80.4,
-          "margin": 88.16
+          "price": 90,
+          "profit": 79.2,
+          "margin": 88
         },
         {
           "sku": "CGL10",
           "size": "10mg",
           "cost": 16.4,
-          "price": 106.4,
-          "profit": 90.0,
-          "margin": 84.59
+          "price": 105,
+          "profit": 88.6,
+          "margin": 84.38
         }
       ]
     },
@@ -834,9 +834,9 @@
           "sku": "NP810",
           "size": "10mg",
           "cost": 4.4,
-          "price": 49.6,
-          "profit": 45.2,
-          "margin": 91.13
+          "price": 50,
+          "profit": 45.6,
+          "margin": 91.2
         }
       ]
     },
@@ -847,17 +847,17 @@
           "sku": "KPV5",
           "size": "5mg",
           "cost": 5.2,
-          "price": 40.0,
+          "price": 40,
           "profit": 34.8,
-          "margin": 87.0
+          "margin": 87
         },
         {
           "sku": "KPV10",
           "size": "10mg",
           "cost": 6.4,
-          "price": 52.0,
-          "profit": 45.6,
-          "margin": 87.69
+          "price": 50,
+          "profit": 43.6,
+          "margin": 87.2
         }
       ]
     },
@@ -867,10 +867,10 @@
         {
           "sku": "LC216",
           "size": "10ml",
-          "cost": 8.0,
-          "price": 56.0,
-          "profit": 48.0,
-          "margin": 85.71
+          "cost": 8,
+          "price": 55,
+          "profit": 47,
+          "margin": 85.45
         }
       ]
     },
@@ -881,9 +881,9 @@
           "sku": "LC600",
           "size": "10ml",
           "cost": 8.8,
-          "price": 20.0,
+          "price": 20,
           "profit": 11.2,
-          "margin": 56.0
+          "margin": 56
         }
       ]
     },
@@ -893,10 +893,10 @@
         {
           "sku": "SUR10",
           "size": "10mg",
-          "cost": 24.0,
-          "price": 106.4,
-          "profit": 82.4,
-          "margin": 77.44
+          "cost": 24,
+          "price": 105,
+          "profit": 81,
+          "margin": 77.14
         }
       ]
     },
@@ -907,9 +907,9 @@
           "sku": "CS10",
           "size": "10mg",
           "cost": 20.4,
-          "price": 88.0,
-          "profit": 67.6,
-          "margin": 76.82
+          "price": 90,
+          "profit": 69.6,
+          "margin": 77.33
         }
       ]
     },
@@ -920,9 +920,9 @@
           "sku": "BBG70",
           "size": "70mg",
           "cost": 19.6,
-          "price": 114.4,
-          "profit": 94.8,
-          "margin": 82.87
+          "price": 115,
+          "profit": 95.4,
+          "margin": 82.96
         }
       ]
     },
@@ -933,25 +933,25 @@
           "sku": "H10",
           "size": "10iu",
           "cost": 5.6,
-          "price": 25.2,
-          "profit": 19.6,
-          "margin": 77.78
+          "price": 25,
+          "profit": 19.4,
+          "margin": 77.6
         },
         {
           "sku": "H15",
           "size": "15iu",
           "cost": 7.2,
-          "price": 30.8,
-          "profit": 23.6,
-          "margin": 76.62
+          "price": 30,
+          "profit": 22.8,
+          "margin": 76
         },
         {
           "sku": "H24",
           "size": "24iu",
-          "cost": 12.0,
-          "price": 42.0,
-          "profit": 30.0,
-          "margin": 71.43
+          "cost": 12,
+          "price": 40,
+          "profit": 28,
+          "margin": 70
         }
       ]
     },
@@ -962,9 +962,9 @@
           "sku": "TRI2",
           "size": "2mg",
           "cost": 2.8,
-          "price": 31.2,
-          "profit": 28.4,
-          "margin": 91.03
+          "price": 30,
+          "profit": 27.2,
+          "margin": 90.67
         }
       ]
     },
@@ -974,10 +974,10 @@
         {
           "sku": "KLOW80",
           "size": "80mg",
-          "cost": 24.0,
-          "price": 67.2,
-          "profit": 43.2,
-          "margin": 64.29
+          "cost": 24,
+          "price": 65,
+          "profit": 41,
+          "margin": 63.08
         }
       ]
     },
@@ -987,18 +987,18 @@
         {
           "sku": "PNC5",
           "size": "5mg",
-          "cost": 10.0,
-          "price": 99.4,
-          "profit": 89.4,
-          "margin": 89.94
+          "cost": 10,
+          "price": 100,
+          "profit": 90,
+          "margin": 90
         },
         {
           "sku": "PNC10",
           "size": "10mg",
-          "cost": 16.0,
-          "price": 156.8,
-          "profit": 140.8,
-          "margin": 89.8
+          "cost": 16,
+          "price": 155,
+          "profit": 139,
+          "margin": 89.68
         }
       ]
     },
@@ -1009,25 +1009,25 @@
           "sku": "PI5",
           "size": "5mg",
           "cost": 4.8,
-          "price": 29.6,
-          "profit": 24.8,
-          "margin": 83.78
+          "price": 30,
+          "profit": 25.2,
+          "margin": 84
         },
         {
           "sku": "PI10",
           "size": "10mg",
           "cost": 6.8,
-          "price": 41.6,
-          "profit": 34.8,
-          "margin": 83.65
+          "price": 40,
+          "profit": 33.2,
+          "margin": 83
         },
         {
           "sku": "P20",
           "size": "20mg",
           "cost": 9.3,
-          "price": 53.6,
-          "profit": 44.3,
-          "margin": 82.65
+          "price": 55,
+          "profit": 45.7,
+          "margin": 83.09
         }
       ]
     },
@@ -1038,17 +1038,17 @@
           "sku": "VIP5",
           "size": "5mg",
           "cost": 7.2,
-          "price": 42.4,
-          "profit": 35.2,
-          "margin": 83.02
+          "price": 40,
+          "profit": 32.8,
+          "margin": 82
         },
         {
           "sku": "VIP10",
           "size": "10mg",
           "cost": 12.8,
-          "price": 62.4,
-          "profit": 49.6,
-          "margin": 79.49
+          "price": 60,
+          "profit": 47.2,
+          "margin": 78.67
         }
       ]
     },
@@ -1058,10 +1058,10 @@
         {
           "sku": "AP5_DUPLICATE",
           "size": "5mg",
-          "cost": 16.0,
-          "price": 49.6,
-          "profit": 33.6,
-          "margin": 67.74
+          "cost": 16,
+          "price": 50,
+          "profit": 34,
+          "margin": 68
         }
       ]
     },
@@ -1072,9 +1072,9 @@
           "sku": "MZ10",
           "size": "10mg",
           "cost": 18.8,
-          "price": 82.8,
-          "profit": 64.0,
-          "margin": 77.29
+          "price": 85,
+          "profit": 66.2,
+          "margin": 77.88
         }
       ]
     },
@@ -1085,17 +1085,17 @@
           "sku": "BA3",
           "size": "3ml",
           "cost": 0.6,
-          "price": 4.0,
-          "profit": 3.4,
-          "margin": 85.0
+          "price": 5,
+          "profit": 4.4,
+          "margin": 88
         },
         {
           "sku": "BA10",
           "size": "10ml",
-          "cost": 1.0,
-          "price": 9.6,
-          "profit": 8.6,
-          "margin": 89.58
+          "cost": 1,
+          "price": 10,
+          "profit": 9,
+          "margin": 90
         }
       ]
     },
@@ -1105,10 +1105,10 @@
         {
           "sku": "G25",
           "size": "5mg",
-          "cost": 5.0,
-          "price": 26.4,
-          "profit": 21.4,
-          "margin": 81.06
+          "cost": 5,
+          "price": 25,
+          "profit": 20,
+          "margin": 80
         }
       ]
     },
@@ -1118,18 +1118,18 @@
         {
           "sku": "G65",
           "size": "5mg",
-          "cost": 5.0,
-          "price": 26.4,
-          "profit": 21.4,
-          "margin": 81.06
+          "cost": 5,
+          "price": 25,
+          "profit": 20,
+          "margin": 80
         },
         {
           "sku": "G610",
           "size": "10mg",
-          "cost": 7.0,
-          "price": 41.6,
-          "profit": 34.6,
-          "margin": 83.17
+          "cost": 7,
+          "price": 40,
+          "profit": 33,
+          "margin": 82.5
         }
       ]
     },
@@ -1139,10 +1139,10 @@
         {
           "sku": "TY10",
           "size": "10mg",
-          "cost": 8.0,
-          "price": 28.0,
-          "profit": 20.0,
-          "margin": 71.43
+          "cost": 8,
+          "price": 30,
+          "profit": 22,
+          "margin": 73.33
         }
       ]
     }
