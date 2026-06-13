@@ -3793,6 +3793,18 @@ export type Database = {
         Args: { _affiliate_id: string }
         Returns: undefined
       }
+      validate_discount_code: {
+        Args: { _code: string }
+        Returns: {
+          applies_to: string
+          code: string
+          discount_type: string
+          discount_value: number
+          id: string
+          is_active: boolean
+          minimum_purchase_amount: number
+        }[]
+      }
     }
     Enums: {
       affiliate_tier: "bronze" | "silver" | "gold" | "platinum"
