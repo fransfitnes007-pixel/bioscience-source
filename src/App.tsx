@@ -112,6 +112,7 @@ const App = () => (
             {/* B2B Routes */}
             <Route path="/b2b" element={<B2B />} />
             <Route path="/b2b/apply" element={<B2BApply />} />
+            <Route path="/apply" element={<B2BApply />} />
             <Route path="/affiliate-apply" element={<AffiliateApply />} />
             <Route path="/affiliate" element={<Affiliate />} />
             <Route path="/a/:slug" element={<AffiliateRedirect />} />
