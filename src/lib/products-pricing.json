@@ -1022,17 +1022,17 @@
           "sku": "PNC5",
           "size": "5mg",
           "cost": 10,
-          "price": 100,
-          "profit": 90,
-          "margin": 90
+          "price": 120,
+          "profit": 110,
+          "margin": 91.67
         },
         {
           "sku": "PNC10",
           "size": "10mg",
           "cost": 16,
-          "price": 155,
-          "profit": 139,
-          "margin": 89.68
+          "price": 145,
+          "profit": 129,
+          "margin": 88.97
         }
       ]
     },
