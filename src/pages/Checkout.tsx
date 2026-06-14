@@ -255,6 +255,12 @@ const Checkout = () => {
       return;
     }
 
+    if (!termsSig) {
+      toast.error("Please review and sign the Purchase Terms before continuing.");
+      setShowTermsModal(true);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
