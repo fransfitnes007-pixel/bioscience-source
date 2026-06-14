@@ -278,10 +278,58 @@ const AffiliateApply = () => {
               </div>
             </div>
 
-            <div className="pt-6 border-t border-border/40">
+            <div className="pt-6 border-t border-border/40 space-y-4">
+              <div className={`rounded-lg border p-4 ${agreementSig ? "border-emerald-500/40 bg-emerald-500/5" : "border-border bg-secondary/20"}`}>
+                {agreementSig ? (
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="w-5 h-5 text-emerald-500 mt-0.5" />
+                    <div className="flex-1">
+                      <p className="font-heading text-sm font-semibold">Creator Agreement signed</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Initialed <span className="font-display tracking-widest">{agreementSig.initials}</span> on {new Date(agreementSig.signedAt).toLocaleString()}.
+                        Admin will counter-sign on approval.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowAgreement(true)}
+                      className="text-xs underline text-muted-foreground hover:text-foreground"
+                    >
+                      Re-sign
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="w-5 h-5 text-muted-foreground mt-0.5" />
+                    <div className="flex-1">
+                      <p className="font-heading text-sm font-semibold">
+                        Sign the Creator Campaign Agreement
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Required to apply. Review the full agreement and initial electronically.
+                        Expected initials: <span className="font-display">{expectedInitials(form.name) || "—"}</span>
+                      </p>
+                    </div>
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={() => {
+                        if (!form.name.trim()) {
+                          toast({ title: "Enter your full name first", variant: "destructive" });
+                          return;
+                        }
+                        setShowAgreement(true);
+                      }}
+                    >
+                      Review & Sign
+                    </Button>
+                  </div>
+                )}
+              </div>
+
               <Button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !agreementSig}
                 className="w-full md:w-auto rounded-full px-10 py-6 text-sm font-medium tracking-wide"
               >
                 {loading ? "Submitting…" : "Submit application"}
@@ -292,6 +340,17 @@ const AffiliateApply = () => {
               </p>
             </div>
           </form>
+
+          <SignatureModal
+            open={showAgreement}
+            onOpenChange={setShowAgreement}
+            type="creator_campaign"
+            signerName={form.name}
+            signerEmail={form.email}
+            persist={false}
+            onSigned={(sig) => setAgreementSig({ initials: sig.initials, signedAt: sig.signedAt })}
+            ctaLabel="Sign Creator Agreement"
+          />
         </div>
       </section>
     </Layout>
