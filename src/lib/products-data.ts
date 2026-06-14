@@ -289,6 +289,19 @@ export const productCategories: ProductCategory[] = [
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=delta+sleep+inducing+peptide+DSIP"
       },
       {
+        name: "PNC-27",
+        displayName: "PNC-27",
+        slug: "pnc-27",
+        variations: [
+          { strength: "5mg", moq: 10, price: 120 },
+          { strength: "10mg", moq: 10, price: 145 },
+        ],
+        description: "PNC-27 is a synthetic peptide derived from the p53 protein, studied for its selective membrane-disrupting effects on malignant cells while leaving healthy cells intact. It is researched in oncology contexts for its potential to induce necrosis in cancer cells via membrane pore formation.",
+        scientificPurpose: "Designed to study selective cytotoxicity mechanisms, p53-derived peptide oncology applications, membrane disruption in malignant cells, and targeted cancer cell necrosis pathways.",
+        studiesFindings: "Demonstrates selective binding to and disruption of cancer cell membranes. Induces necrosis in malignant cells while sparing healthy tissue in experimental models. Supports investigation of p53-derived peptide therapeutics. Used in oncology and cancer biology research contexts.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=PNC-27+p53+peptide+cancer"
+      },
+      {
         name: "PINEALON",
         displayName: "PINEALON",
         slug: "pinealon",
