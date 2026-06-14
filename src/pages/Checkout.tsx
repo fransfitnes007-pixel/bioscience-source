@@ -20,8 +20,10 @@ import {
   Upload,
   Smartphone,
   Sparkles,
+  ShieldCheck,
 } from "lucide-react";
 import LogoUploader from "@/components/shared/LogoUploader";
+import SignatureModal from "@/components/agreements/SignatureModal";
 
 // Buyer protection pricing scales with order tier
 const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
