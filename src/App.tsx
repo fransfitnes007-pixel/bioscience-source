@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import { ComingSoonGate } from "@/components/ComingSoonGate";
+import { AgeVerification } from "@/components/AgeVerification";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductPage from "./pages/ProductPage";
@@ -97,6 +98,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <ComingSoonGate>
+        <AgeVerification />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
