@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { LegalPopup } from "@/components/LegalPopup";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 export const AgeVerification = () => {
   const [showModal, setShowModal] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [legalPopup, setLegalPopup] = useState<"terms" | "privacy" | null>(null);
 
   useEffect(() => {
     const verified = localStorage.getItem("age-verified");
@@ -48,13 +50,21 @@ export const AgeVerification = () => {
           />
           <span className="text-xs text-muted-foreground leading-relaxed">
             By checking this box, I acknowledge and agree to the{" "}
-            <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:opacity-80">
+            <button
+              type="button"
+              onClick={() => setLegalPopup("terms")}
+              className="underline text-foreground hover:opacity-80"
+            >
               Terms &amp; Conditions
-            </a>
+            </button>
             ,{" "}
-            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:opacity-80">
+            <button
+              type="button"
+              onClick={() => setLegalPopup("privacy")}
+              className="underline text-foreground hover:opacity-80"
+            >
               Privacy Policy
-            </a>
+            </button>
             , and confirm that all products are sold strictly for laboratory research use only — not for human or animal consumption. I am 21 years of age or older.
           </span>
         </label>
@@ -79,6 +89,13 @@ export const AgeVerification = () => {
           </Button>
         </div>
       </div>
+
+      {legalPopup && (
+        <LegalPopup
+          type={legalPopup}
+          onClose={() => setLegalPopup(null)}
+        />
+      )}
     </div>
   );
 };

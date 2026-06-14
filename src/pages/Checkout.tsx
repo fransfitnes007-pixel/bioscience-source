@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import LogoUploader from "@/components/shared/LogoUploader";
 import SignatureModal from "@/components/agreements/SignatureModal";
+import { LegalPopup } from "@/components/LegalPopup";
 
 // Buyer protection pricing scales with order tier
 const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
@@ -73,6 +74,7 @@ const Checkout = () => {
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [termsSig, setTermsSig] = useState<{ initials: string; signedAt: string } | null>(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [legalPopup, setLegalPopup] = useState<"terms" | "privacy" | null>(null);
 
   // Shipping rate state
   const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
@@ -1138,13 +1140,21 @@ const Checkout = () => {
                       />
                       <span className="text-xs text-muted-foreground leading-relaxed">
                         By checking this box, I acknowledge and agree to the{" "}
-                        <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:opacity-80">
+                        <button
+                          type="button"
+                          onClick={() => setLegalPopup("terms")}
+                          className="underline text-foreground hover:opacity-80"
+                        >
                           Terms &amp; Conditions
-                        </a>
+                        </button>
                         ,{" "}
-                        <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:opacity-80">
+                        <button
+                          type="button"
+                          onClick={() => setLegalPopup("privacy")}
+                          className="underline text-foreground hover:opacity-80"
+                        >
                           Privacy Policy
-                        </a>
+                        </button>
                         , and confirm that all products are sold strictly for laboratory research use only — not for human or animal consumption. I am 21 years of age or older.
                       </span>
                     </label>
@@ -1181,10 +1191,21 @@ const Checkout = () => {
 
                     <p className="font-body text-xs text-muted-foreground text-center mt-4">
                       By placing this order, you agree to our{" "}
-                      <Link to="/terms" className="underline hover:text-foreground">
+                      <button
+                        type="button"
+                        onClick={() => setLegalPopup("terms")}
+                        className="underline hover:text-foreground"
+                      >
                         Terms of Service
-                      </Link>
+                      </button>
                     </p>
+
+                    {legalPopup && (
+                      <LegalPopup
+                        type={legalPopup}
+                        onClose={() => setLegalPopup(null)}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
