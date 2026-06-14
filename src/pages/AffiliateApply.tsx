@@ -61,6 +61,15 @@ const AffiliateApply = () => {
       });
       return;
     }
+    if (!agreementSig) {
+      toast({
+        title: "Sign the Creator Agreement",
+        description: "You must review and sign the Creator Campaign Agreement before applying.",
+        variant: "destructive",
+      });
+      setShowAgreement(true);
+      return;
+    }
     setLoading(true);
     const { error } = await supabase.from("affiliates").insert({
       name: parsed.data.name,
