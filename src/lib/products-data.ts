@@ -582,7 +582,7 @@ export const productCategories: ProductCategory[] = [
         displayName: "L-CARNITINE",
         slug: "l-carnitine",
         variations: [
-          { strength: "10ml", moq: 10, price: 20 },
+          { strength: "10ml", moq: 10, price: 40 },
         ],
         description: "L-Carnitine is an amino acid derivative essential for fatty acid transport into mitochondria for beta-oxidation. It is studied for metabolic function, exercise performance, and lipid metabolism.",
         scientificPurpose: "Designed to study fatty acid transport, mitochondrial function, energy metabolism, and lipid oxidation.",
