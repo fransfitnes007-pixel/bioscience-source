@@ -907,9 +907,9 @@
           "sku": "LC600",
           "size": "10ml",
           "cost": 8.8,
-          "price": 20,
-          "profit": 11.2,
-          "margin": 56
+          "price": 40,
+          "profit": 31.2,
+          "margin": 78
         }
       ]
     },
