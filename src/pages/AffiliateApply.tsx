@@ -86,6 +86,7 @@ const AffiliateApply = () => {
       status: "pending",
       is_active: false,
       commission_rate: 10,
+      application_notes: `Creator Agreement ${AGREEMENT_VERSIONS.creator_campaign} reviewed and initialed "${agreementSig.initials}" at ${agreementSig.signedAt}. Formal counter-signature pending after account creation.`,
     });
     setLoading(false);
     if (error) {
