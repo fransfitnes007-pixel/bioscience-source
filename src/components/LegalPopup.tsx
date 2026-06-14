@@ -15,7 +15,7 @@ export const LegalPopup = ({ type, onClose }: LegalPopupProps) => {
         <div className="flex items-center justify-between p-6 border-b border-border">
           <div>
             <h2 className="font-heading text-xl font-bold text-foreground">
-              {isTerms ? "Terms & Conditions" : "Privacy Policy"}
+              {isTerms ? "Purchase Terms & Conditions" : "Privacy Policy"}
             </h2>
             <p className="font-body text-xs text-muted-foreground mt-1">
               Effective Date: January 1, 2025
@@ -35,68 +35,202 @@ export const LegalPopup = ({ type, onClose }: LegalPopupProps) => {
           {isTerms ? (
             <>
               <p className="font-body text-muted-foreground leading-relaxed mb-6">
-                By accessing or using our website ("Site"), you agree to comply with and be bound by these Terms and Conditions. These Terms govern your use of our Site and any services offered by Resurrected ("we," "us," or "our"). If you do not agree with these Terms, you may not access or use the Site.
+                By clicking "I Agree," completing a purchase, submitting payment, creating an account, or accessing products sold through Resurrected Labs ("Company"), Purchaser acknowledges and agrees to be legally bound by these Terms &amp; Conditions.
               </p>
 
               <section className="mb-6">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">General Overview</h3>
-                <p className="font-body text-muted-foreground leading-relaxed">
-                  Resurrected is a retailer of premium research peptides and compounds. We source products from vetted, certified third-party suppliers and deliver them directly to our customers. All products are sold for research purposes only.
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">1. Research Use Only Acknowledgment</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Purchaser expressly acknowledges and agrees that:
                 </p>
-              </section>
-
-              <section className="mb-6">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">Eligibility</h3>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1 mb-2">
+                  <li>All products sold by Company are intended solely for lawful laboratory, research, investigational, and analytical purposes</li>
+                  <li>Products are NOT intended for human consumption unless expressly stated otherwise under applicable law</li>
+                  <li>Products are NOT approved by the United States Food and Drug Administration ("FDA") to diagnose, treat, cure, or prevent disease</li>
+                  <li>Company makes no representations regarding therapeutic or medical benefits</li>
+                </ul>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Purchaser further acknowledges:
+                </p>
                 <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
-                  <li>You must be at least 18 years of age.</li>
-                  <li>You must agree that all products purchased are for research purposes only and are not intended for human or animal consumption.</li>
+                  <li>Products may involve unknown risks</li>
+                  <li>Purchaser assumes full responsibility for handling, storage, and use</li>
+                  <li>Purchaser possesses adequate knowledge regarding research materials and laboratory procedures</li>
                 </ul>
               </section>
 
               <section className="mb-6">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">Product Information and Use</h3>
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">2. Purchaser Eligibility</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Purchaser represents and warrants that Purchaser:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
+                  <li>Is at least twenty-one (21) years old</li>
+                  <li>Is legally authorized to purchase products</li>
+                  <li>Will use products only for lawful purposes</li>
+                  <li>Will not use products in violation of applicable laws or regulations</li>
+                </ul>
+              </section>
+
+              <section className="mb-6">
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">3. Prohibited Uses</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Purchaser agrees NOT to:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
+                  <li>Use products for unlawful purposes</li>
+                  <li>Market products as approved drugs</li>
+                  <li>Resell products in violation of law</li>
+                  <li>Misrepresent product purpose</li>
+                  <li>Use products in human clinical applications unless legally authorized</li>
+                  <li>Use products contrary to FDA regulations</li>
+                </ul>
+              </section>
+
+              <section className="mb-6">
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">4. No Medical Claims or Advice</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Company does not:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1 mb-2">
+                  <li>Provide medical advice</li>
+                  <li>Recommend products for treatment</li>
+                  <li>Guarantee outcomes</li>
+                  <li>Represent products as safe or effective for human consumption</li>
+                </ul>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Nothing on the website, Platform, advertisements, or communications constitutes medical advice.
+                </p>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  All products offered through Resurrected are for in-vitro laboratory research purposes only. They are not intended for human or animal consumption, therapeutic use, or any other purpose. Resurrected provides purity testing and Certificates of Analysis (COAs) for all products. You are solely responsible for compliance with all applicable laws.
+                  Purchaser agrees not to rely upon Company for medical guidance.
                 </p>
               </section>
 
               <section className="mb-6">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">Orders, Payments, and Fulfillment</h3>
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">5. Business Purchaser Representations</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  If Purchaser is purchasing on behalf of a business, clinic, laboratory, or entity, Purchaser represents that:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
+                  <li>Purchaser has authority to bind such entity</li>
+                  <li>Products will be handled in compliance with applicable laws</li>
+                  <li>Purchaser assumes responsibility for downstream compliance</li>
+                </ul>
+              </section>
+
+              <section className="mb-6">
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">6. Assumption of Risk</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Purchaser knowingly assumes all risks associated with:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1 mb-2">
+                  <li>Purchase</li>
+                  <li>Possession</li>
+                  <li>Storage</li>
+                  <li>Handling</li>
+                  <li>Transportation</li>
+                  <li>Use of products</li>
+                </ul>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  By placing an order, you authorize the use of the payment method provided. Orders cannot be modified or canceled after submission. All orders are final unless a product quality issue is verified. Claims must be submitted within 30 days of receipt.
+                  Purchaser releases Company from liability arising from misuse or unlawful use.
                 </p>
               </section>
 
               <section className="mb-6">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">Disclaimers and Liability</h3>
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">7. Limitation of Liability</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  To the fullest extent permitted by law:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1 mb-2">
+                  <li>Products are provided "AS IS"</li>
+                  <li>Company disclaims all warranties</li>
+                  <li>Company shall not be liable for indirect, incidental, punitive, or consequential damages</li>
+                </ul>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  The Site and all content are provided "as is" without warranties of any kind. Resurrected is not liable for any damages arising from your use of the Site or products purchased through it. By using the Site, you agree to indemnify and hold Resurrected harmless from any claims.
+                  Company's maximum liability shall not exceed the amount paid for the applicable order.
                 </p>
               </section>
 
               <section className="mb-6">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">Intellectual Property</h3>
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">8. Indemnification</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Purchaser agrees to indemnify and hold harmless Company from claims arising from:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
+                  <li>Product misuse</li>
+                  <li>Regulatory violations</li>
+                  <li>Illegal conduct</li>
+                  <li>Improper storage or handling</li>
+                  <li>Third-party claims arising from Purchaser conduct</li>
+                </ul>
+              </section>
+
+              <section className="mb-6">
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">9. Payment Authorization</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  By submitting payment, Purchaser:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
+                  <li>Authorizes Company to process payment</li>
+                  <li>Confirms all billing information is accurate</li>
+                  <li>Acknowledges orders may be refused or canceled at Company discretion</li>
+                </ul>
+              </section>
+
+              <section className="mb-6">
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">10. No Refunds, Returns, Guarantees, or Chargeback Rights</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-4">
+                  All purchases are final. Company does not offer refunds, returns, exchanges, credits, or cancellations unless expressly required by applicable law. Company makes no guarantees regarding product performance, research outcomes, or suitability for any intended purpose.
+                </p>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Orders may not be canceled once submitted, processed, fulfilled, or shipped.
+                </p>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Any unauthorized chargebacks, payment disputes, fraudulent refund attempts, or unauthorized transaction reversals may result in:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
+                  <li>Immediate account suspension or termination</li>
+                  <li>Permanent purchasing restrictions</li>
+                  <li>Collection activity</li>
+                  <li>Recovery of legal fees and administrative costs where permitted by law</li>
+                  <li>Legal action for breach of these Terms &amp; Conditions</li>
+                </ul>
+              </section>
+
+              <section className="mb-6">
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">11. Arbitration &amp; Governing Law</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Any dispute arising from these Terms shall be resolved exclusively through binding arbitration in Arizona.
+                </p>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Purchaser waives:
+                </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1 mb-2">
+                  <li>Jury trial rights</li>
+                  <li>Participation in class actions</li>
+                </ul>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  All content, including logos, graphics, text, designs, and Site structure, is the property of Resurrected or its licensors and is protected by copyright, trademark, and other intellectual property laws.
+                  Arizona and Florida law governs these Terms.
                 </p>
               </section>
 
               <section className="mb-6">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">Governing Law</h3>
-                <p className="font-body text-muted-foreground leading-relaxed">
-                  These Terms are governed by the laws of Florida, United States. Any disputes will be resolved in the courts of Florida.
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">12. Electronic Acceptance</h3>
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  By clicking "I Agree," Purchaser acknowledges that electronic acceptance constitutes a legally binding electronic signature under applicable law, including the E-SIGN Act and UETA.
                 </p>
-              </section>
-
-              <section className="mb-6">
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">Amendments</h3>
-                <p className="font-body text-muted-foreground leading-relaxed">
-                  Resurrected reserves the right to modify these Terms at any time. Changes are effective immediately upon posting. Continued use of the Site constitutes acceptance of updated Terms.
+                <p className="font-body text-muted-foreground leading-relaxed mb-2">
+                  Purchaser further acknowledges:
                 </p>
+                <ul className="font-body text-muted-foreground leading-relaxed list-disc list-inside space-y-1">
+                  <li>Purchaser has read these Terms</li>
+                  <li>Purchaser understands these Terms</li>
+                  <li>Purchaser voluntarily agrees to these Terms before completing payment</li>
+                </ul>
               </section>
 
               <p className="font-body text-muted-foreground leading-relaxed text-center pt-4 border-t border-border/50">
-                By using this Site and placing an order, you acknowledge that you have read, understood, and agree to these Terms and Conditions.
+                By using this Site and placing an order, you acknowledge that you have read, understood, and agree to these Terms &amp; Conditions.
               </p>
             </>
           ) : (
@@ -164,7 +298,7 @@ export const LegalPopup = ({ type, onClose }: LegalPopupProps) => {
               <section className="mb-6">
                 <h3 className="font-heading text-lg font-semibold text-foreground mb-2">Children's Privacy</h3>
                 <p className="font-body text-muted-foreground leading-relaxed">
-                  Our Site is not intended for individuals under 18. We do not knowingly collect personal information from anyone under 18.
+                  Our Site is not intended for individuals under 21. We do not knowingly collect personal information from anyone under 21.
                 </p>
               </section>
 
