@@ -74,6 +74,7 @@ const Checkout = () => {
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [termsSig, setTermsSig] = useState<{ initials: string; signedAt: string } | null>(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [legalPopup, setLegalPopup] = useState<"terms" | "privacy" | null>(null);
 
   // Shipping rate state
   const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
