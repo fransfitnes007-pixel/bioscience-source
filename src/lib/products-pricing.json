@@ -1168,7 +1168,26 @@
           "cost": 8,
           "price": 30,
           "profit": 22,
-          "margin": 73.33
+        {
+          "sku": "ALP500",
+          "size": "500mcg",
+          "cost": 8,
+          "price": 50,
+          "profit": 42,
+          "margin": 84
+        }
+      ]
+    },
+    {
+      "product": "Alprostadil",
+      "variants": [
+        {
+          "sku": "ALP500",
+          "size": "500mcg",
+          "cost": 8,
+          "price": 50,
+          "profit": 42,
+          "margin": 84
         }
       ]
     }

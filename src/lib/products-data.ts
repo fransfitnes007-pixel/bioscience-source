@@ -679,16 +679,16 @@ export const productCategories: ProductCategory[] = [
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=BPC-157+GHK-Cu+tissue+repair"
       },
       {
-        name: "KLOW STACK",
-        displayName: "KLOW STACK",
-        slug: "klow-stack",
+        name: "ALPROSTADIL",
+        displayName: "ALPROSTADIL",
+        slug: "alprostadil",
         variations: [
-          { strength: "80mg (GHK-CU50mg+TB10mg+BPC10mg+KPV10mg)", moq: 10, price: 65 },
+          { strength: "500mcg", moq: 10, price: 50 },
         ],
-        description: "The Klow Stack combines GHK-Cu, TB500, BPC-157, and KPV in a single formulation for studying coordinated tissue repair, anti-inflammatory signaling, and aesthetic applications.",
-        scientificPurpose: "Designed to study multi-peptide synergy for tissue repair, anti-inflammatory effects, and skin regeneration.",
-        studiesFindings: "Combines tissue repair with anti-inflammatory signaling. Supports collagen synthesis and wound healing. Modulates inflammatory pathways. Used in aesthetic and regenerative research.",
-        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=KPV+anti-inflammatory+peptide"
+        description: "Alprostadil is a synthetic prostaglandin E1 (PGE1) analog studied for its potent vasodilatory effects, smooth muscle relaxation, and vascular biology. It is widely researched for mechanisms of blood flow regulation, erectile function, and peripheral vascular dynamics.",
+        scientificPurpose: "Designed to study prostaglandin E1 receptor signaling, vasodilation mechanisms, smooth muscle relaxation, and vascular blood flow regulation.",
+        studiesFindings: "Activates PGE1 receptors and promotes vasodilation. Induces smooth muscle relaxation in vascular and cavernous tissues. Supports blood flow regulation research. Used in vascular biology and erectile function studies.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=alprostadil+prostaglandin+E1+vasodilation"
       },
     ]
   },
