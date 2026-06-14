@@ -4,6 +4,7 @@ import resurrectedLogo from "@/assets/resurrected-logo.png";
 
 export const AgeVerification = () => {
   const [showModal, setShowModal] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
     const verified = localStorage.getItem("age-verified");
@@ -34,15 +35,37 @@ export const AgeVerification = () => {
         <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6">
           You must be 21 or older to enter
         </h2>
-        <p className="font-body text-muted-foreground mb-8">
+        <p className="font-body text-muted-foreground mb-4">
           By clicking "I am 21+" you confirm that you are at least 21 years of age.
         </p>
+
+        <label className={`flex items-start gap-3 rounded-lg border p-4 cursor-pointer transition-colors text-left mb-6 ${agreedToTerms ? "border-emerald-500/40 bg-emerald-500/5" : "border-border bg-secondary/20 hover:border-foreground/30"}`}>
+          <input
+            type="checkbox"
+            checked={agreedToTerms}
+            onChange={(e) => setAgreedToTerms(e.target.checked)}
+            className="mt-0.5 w-4 h-4 rounded border-border accent-foreground"
+          />
+          <span className="text-xs text-muted-foreground leading-relaxed">
+            By checking this box, I acknowledge and agree to the{" "}
+            <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:opacity-80">
+              Terms &amp; Conditions
+            </a>
+            ,{" "}
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:opacity-80">
+              Privacy Policy
+            </a>
+            , and confirm that all products are sold strictly for laboratory research use only — not for human or animal consumption. I am 21 years of age or older.
+          </span>
+        </label>
+
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button
             onClick={handleConfirm}
             variant="hero"
             size="lg"
-            className="min-w-[140px]"
+            disabled={!agreedToTerms}
+            className="min-w-[140px] rounded-full"
           >
             I am 21+
           </Button>
@@ -50,7 +73,7 @@ export const AgeVerification = () => {
             onClick={handleDecline}
             variant="heroOutline"
             size="lg"
-            className="min-w-[140px]"
+            className="min-w-[140px] rounded-full"
           >
             Exit
           </Button>
