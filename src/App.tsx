@@ -98,6 +98,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <ComingSoonGate>
+        <AgeVerification />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
