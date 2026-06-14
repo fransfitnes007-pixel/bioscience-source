@@ -792,17 +792,17 @@
           "sku": "5AM",
           "size": "5mg",
           "cost": 6.8,
-          "price": 45,
-          "profit": 38.2,
-          "margin": 84.89
+          "price": 60,
+          "profit": 53.2,
+          "margin": 88.67
         },
         {
           "sku": "50AM",
           "size": "50mg",
           "cost": 12.4,
-          "price": 165,
-          "profit": 152.6,
-          "margin": 92.48
+          "price": 125,
+          "profit": 112.6,
+          "margin": 90.08
         }
       ]
     },

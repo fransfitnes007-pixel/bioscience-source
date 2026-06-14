@@ -596,8 +596,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "5-AMINO-1MQ",
         slug: "5-amino-1mq",
         variations: [
-          { strength: "5mg", moq: 10, price: 45 },
-          { strength: "50mg", moq: 10, price: 165 },
+          { strength: "5mg", moq: 10, price: 60 },
+          { strength: "50mg", moq: 10, price: 125 },
         ],
         description: "5-Amino-1MQ is a small molecule inhibitor of NNMT (nicotinamide N-methyltransferase), studied for its effects on metabolism, adipose tissue function, and NAD+ levels in obesity research.",
         scientificPurpose: "Designed to study NNMT inhibition, NAD+ metabolism, adipose tissue function, and metabolic regulation.",
