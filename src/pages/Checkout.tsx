@@ -263,6 +263,11 @@ const Checkout = () => {
       return;
     }
 
+    if (!agreedToTerms) {
+      toast.error("You must agree to the Terms & Conditions and Privacy Policy to continue.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
