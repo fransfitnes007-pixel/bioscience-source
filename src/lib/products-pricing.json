@@ -875,6 +875,19 @@
       ]
     },
     {
+      "product": "hyaluronic-acid",
+      "variants": [
+        {
+          "sku": "HA5",
+          "size": "5mg",
+          "cost": 5.2,
+          "price": 40,
+          "profit": 34.8,
+          "margin": 87
+        }
+      ]
+    },
+    {
       "product": "Lipo-C with vitamins B12",
       "variants": [
         {
