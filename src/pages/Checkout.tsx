@@ -1191,10 +1191,21 @@ const Checkout = () => {
 
                     <p className="font-body text-xs text-muted-foreground text-center mt-4">
                       By placing this order, you agree to our{" "}
-                      <Link to="/terms" className="underline hover:text-foreground">
+                      <button
+                        type="button"
+                        onClick={() => setLegalPopup("terms")}
+                        className="underline hover:text-foreground"
+                      >
                         Terms of Service
-                      </Link>
+                      </button>
                     </p>
+
+                    {legalPopup && (
+                      <LegalPopup
+                        type={legalPopup}
+                        onClose={() => setLegalPopup(null)}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
