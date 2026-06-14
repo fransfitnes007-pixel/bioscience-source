@@ -31,6 +31,8 @@ const AffiliateApply = () => {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showAgreement, setShowAgreement] = useState(false);
+  const [agreementSig, setAgreementSig] = useState<{ initials: string; signedAt: string } | null>(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
