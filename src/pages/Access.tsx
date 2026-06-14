@@ -7,6 +7,10 @@ import { Layout } from "@/components/layout/Layout";
 
 type AuthTab = "login" | "signup";
 
+const getErrorMessage = (error: unknown, fallback: string) => {
+  return error instanceof Error ? error.message : fallback;
+};
+
 const Access = () => {
   const [activeTab, setActiveTab] = useState<AuthTab>("login");
   const [isLoading, setIsLoading] = useState(false);
@@ -55,8 +59,8 @@ const Access = () => {
       } else {
         navigate("/portal");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Login failed");
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, "Login failed"));
     } finally {
       setIsLoading(false);
     }
@@ -97,7 +101,7 @@ const Access = () => {
     setIsLoading(true);
 
     try {
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      const { error: authError } = await supabase.auth.signUp({
         email: signupData.email.trim().toLowerCase(),
         password: signupData.password,
         options: {
@@ -113,8 +117,8 @@ const Access = () => {
 
       toast.success("Account created! Please check your email to verify, then sign in.");
       setActiveTab("login");
-    } catch (error: any) {
-      toast.error(error.message || "Signup failed");
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, "Signup failed"));
     } finally {
       setIsLoading(false);
     }
