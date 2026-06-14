@@ -65,7 +65,7 @@ export const AgeVerification = () => {
             >
               Privacy Policy
             </button>
-            , and confirm that all products are sold strictly for laboratory research use only — not for human or animal consumption. I am 21 years of age or older.
+            , and confirm that all products are sold strictly for laboratory research use only — not for human or animal consumption. I am 21 years of age or older. I understand all sales are final with no refunds, returns, or cancellations. I assume all risks associated with purchase, handling, storage, and use.
           </span>
         </label>
 
