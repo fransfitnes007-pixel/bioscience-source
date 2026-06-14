@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartIcon } from "@/components/layout/CartIcon";
 import { supabase } from "@/integrations/supabase/client";
 import { SpinningLogo3D } from "@/components/home/SpinningLogo3D";
 import resurrectedMark from "@/assets/resurrected-logo.png";
-import { getPreviewAdminUser, isLovablePreview } from "@/lib/preview-auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,19 +24,13 @@ const navLinks = [
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkUser = async () => {
-      if (isLovablePreview()) {
-        setUser(getPreviewAdminUser());
-        setIsAdmin(true);
-        return;
-      }
-
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user || null);
       
@@ -50,12 +44,6 @@ export const Header = () => {
     checkUser();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (isLovablePreview()) {
-        setUser(getPreviewAdminUser());
-        setIsAdmin(true);
-        return;
-      }
-
       setUser(session?.user || null);
       if (session?.user) {
         const { data: adminData } = await supabase
@@ -70,11 +58,6 @@ export const Header = () => {
   }, []);
 
   const handleLogout = async () => {
-    if (isLovablePreview()) {
-      navigate("/admin");
-      return;
-    }
-
     await supabase.auth.signOut();
     navigate("/");
   };

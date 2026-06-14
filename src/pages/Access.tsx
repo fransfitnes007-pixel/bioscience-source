@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { isLovablePreview } from "@/lib/preview-auth";
 
 type AuthTab = "login" | "signup";
+
+const getErrorMessage = (error: unknown, fallback: string) => {
+  return error instanceof Error ? error.message : fallback;
+};
 
 const Access = () => {
   const [activeTab, setActiveTab] = useState<AuthTab>("login");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isLovablePreview()) {
-      navigate("/admin", { replace: true });
-    }
-  }, [navigate]);
 
   const [loginData, setLoginData] = useState({ identifier: "", password: "" });
   const [signupData, setSignupData] = useState({
@@ -62,8 +59,8 @@ const Access = () => {
       } else {
         navigate("/portal");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Login failed");
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, "Login failed"));
     } finally {
       setIsLoading(false);
     }
@@ -104,33 +101,24 @@ const Access = () => {
     setIsLoading(true);
 
     try {
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: signupData.email,
+      const { error: authError } = await supabase.auth.signUp({
+        email: signupData.email.trim().toLowerCase(),
         password: signupData.password,
+        options: {
+          data: {
+            first_name: signupData.firstName.trim(),
+            last_name: signupData.lastName.trim(),
+            phone: signupData.phone.trim(),
+          },
+        },
       });
 
       if (authError) throw authError;
 
-      if (authData.user) {
-        // Auto-approve consumer accounts
-        const { error: profileError } = await supabase.from("profiles").upsert({
-          user_id: authData.user.id,
-          first_name: signupData.firstName,
-          last_name: signupData.lastName,
-          business_email: signupData.email,
-          phone: signupData.phone || null,
-          status: "approved" as any,
-        }, { onConflict: "user_id" });
-
-        if (profileError) {
-          console.error("Profile error:", profileError);
-        }
-      }
-
       toast.success("Account created! Please check your email to verify, then sign in.");
       setActiveTab("login");
-    } catch (error: any) {
-      toast.error(error.message || "Signup failed");
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, "Signup failed"));
     } finally {
       setIsLoading(false);
     }
