@@ -3,8 +3,9 @@ import { supabase } from "@/integrations/supabase/client";
 import PortalLayout from "@/components/portal/PortalLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Package, MessageSquare, Clock, DollarSign, Tags, FileImage, Smartphone, ExternalLink } from "lucide-react";
+import { Package, MessageSquare, Clock, DollarSign, Tags, FileImage, ExternalLink } from "lucide-react";
 import { APP_SUBSCRIPTION_URL, APP_SUBSCRIPTION_NAME, APP_SUBSCRIPTION_TAGLINE } from "@/lib/app-subscription";
+import peptidezLogo from "@/assets/peptidez-logo.png.asset.json";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 
