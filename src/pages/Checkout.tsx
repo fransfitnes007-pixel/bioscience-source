@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import LogoUploader from "@/components/shared/LogoUploader";
 import SignatureModal from "@/components/agreements/SignatureModal";
+import { LegalPopup } from "@/components/LegalPopup";
 
 // Buyer protection pricing scales with order tier
 const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
