@@ -144,6 +144,7 @@ const navSections = [
           { title: "Conversions", href: "/admin/affiliates/conversions" },
           { title: "Payouts", href: "/admin/affiliates/payouts" },
           { title: "Fraud", href: "/admin/affiliates/fraud" },
+          { title: "Agreements", href: "/admin/agreements" },
         ],
       },
     ],
