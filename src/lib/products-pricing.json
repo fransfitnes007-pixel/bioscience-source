@@ -936,6 +936,14 @@
           "price": 90,
           "profit": 69.6,
           "margin": 77.33
+        },
+        {
+          "sku": "CS55",
+          "size": "5mg + 5mg (10mg)",
+          "cost": 14.4,
+          "price": 115,
+          "profit": 100.6,
+          "margin": 87.48
         }
       ]
     },

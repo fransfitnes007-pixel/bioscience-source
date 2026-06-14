@@ -99,6 +99,19 @@ export const productCategories: ProductCategory[] = [
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=cagrilintide+amylin+analog+satiety"
       },
       {
+        name: "CAGRILINTIDE + SEMAGLUTIDE",
+        displayName: "CAGRILINTIDE + SEMAGLUTIDE",
+        slug: "cagrilintide-semaglutide",
+        variations: [
+          { strength: "10mg", moq: 10, price: 90 },
+          { strength: "5mg + 5mg (10mg)", moq: 10, price: 115 },
+        ],
+        description: "A research combination of Cagrilintide (amylin analogue) and Semaglutide (GLP-1 receptor agonist) designed to study dual-pathway appetite suppression, complementary satiety signaling, and additive weight-loss mechanisms through combined amylin and incretin receptor activation.",
+        scientificPurpose: "Designed to study combined amylin and GLP-1 receptor pathway activation, dual satiety signaling, additive appetite suppression, and synergistic metabolic regulation in obesity research frameworks.",
+        studiesFindings: "Demonstrates enhanced satiety signaling through dual amylin/incretin pathways. Produces additive weight reduction effects compared to monotherapy. Improves glycemic control through complementary mechanisms. Supports investigation of polyagonist approaches to metabolic disease.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=cagrilintide+semaglutide+combination+obesity"
+      },
+      {
         name: "MAZDUTIDE",
         displayName: "MAZDUTIDE",
         slug: "mazdutide",
