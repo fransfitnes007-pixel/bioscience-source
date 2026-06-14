@@ -3,8 +3,9 @@ import { supabase } from "@/integrations/supabase/client";
 import PortalLayout from "@/components/portal/PortalLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Package, MessageSquare, Clock, DollarSign, Tags, FileImage, Smartphone, ExternalLink } from "lucide-react";
+import { Package, MessageSquare, Clock, DollarSign, Tags, FileImage, ExternalLink } from "lucide-react";
 import { APP_SUBSCRIPTION_URL, APP_SUBSCRIPTION_NAME, APP_SUBSCRIPTION_TAGLINE } from "@/lib/app-subscription";
+import peptidezLogo from "@/assets/peptidez-logo.png.asset.json";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -118,8 +119,8 @@ const PortalDashboard = () => {
         <div className="rounded-lg border border-border bg-card p-5">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-full bg-foreground">
-                <Smartphone className="h-5 w-5 text-background" />
+              <div className="p-1.5 rounded-full bg-background border border-border overflow-hidden">
+                <img src={peptidezLogo.url} alt="Peptidez App" className="h-8 w-8 object-contain" />
               </div>
               <div>
                 <p className="font-medium text-foreground">{APP_SUBSCRIPTION_NAME}</p>
