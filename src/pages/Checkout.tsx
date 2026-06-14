@@ -18,13 +18,13 @@ import {
   Tags,
   FileImage,
   Upload,
-  Smartphone,
   Sparkles,
   ShieldCheck,
 } from "lucide-react";
 import LogoUploader from "@/components/shared/LogoUploader";
 import SignatureModal from "@/components/agreements/SignatureModal";
 import { LegalPopup } from "@/components/LegalPopup";
+import peptidezLogo from "@/assets/peptidez-logo.png.asset.json";
 
 // Buyer protection pricing scales with order tier
 const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
