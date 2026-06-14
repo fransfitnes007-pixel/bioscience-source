@@ -103,8 +103,7 @@ export const productCategories: ProductCategory[] = [
         displayName: "CAGRILINTIDE + SEMAGLUTIDE",
         slug: "cagrilintide-semaglutide",
         variations: [
-          { strength: "10mg", moq: 10, price: 90 },
-          { strength: "5mg + 5mg (10mg)", moq: 10, price: 115 },
+          { strength: "10mg (5mg + 5mg)", moq: 10, price: 115 },
         ],
         description: "A research combination of Cagrilintide (amylin analogue) and Semaglutide (GLP-1 receptor agonist) designed to study dual-pathway appetite suppression, complementary satiety signaling, and additive weight-loss mechanisms through combined amylin and incretin receptor activation.",
         scientificPurpose: "Designed to study combined amylin and GLP-1 receptor pathway activation, dual satiety signaling, additive appetite suppression, and synergistic metabolic regulation in obesity research frameworks.",
