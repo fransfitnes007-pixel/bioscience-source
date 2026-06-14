@@ -69,6 +69,10 @@ const Checkout = () => {
   const APP_SUBSCRIPTION_COST = 19;
   const [orderTempId] = useState(() => crypto.randomUUID());
 
+  // Checkout terms signature gate
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [termsSig, setTermsSig] = useState<{ initials: string; signedAt: string } | null>(null);
+
   // Shipping rate state
   const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
   const [selectedShippingRate, setSelectedShippingRate] = useState<ShippingRate | null>(null);
