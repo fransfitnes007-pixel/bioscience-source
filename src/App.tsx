@@ -86,6 +86,7 @@ import SupplierDashboard from "./pages/supplier/Dashboard";
 import SupplierOrders from "./pages/supplier/Orders";
 import SupplierOrderFulfillment from "./pages/supplier/OrderFulfillment";
 import SupplierMessages from "./pages/supplier/Messages";
+import AdminAgreements from "./pages/admin/Agreements";
 
 const queryClient = new QueryClient();
 
