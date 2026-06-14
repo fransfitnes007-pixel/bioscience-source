@@ -931,6 +931,66 @@ export type Database = {
           },
         ]
       }
+      agreement_signatures: {
+        Row: {
+          agreement_type: Database["public"]["Enums"]["agreement_type"]
+          agreement_version: string
+          counter_signed_at: string | null
+          counter_signed_by: string | null
+          counter_signer_initials: string | null
+          created_at: string
+          id: string
+          initials: string
+          ip_address: string | null
+          metadata: Json | null
+          signed_at: string
+          signer_email: string | null
+          signer_name: string | null
+          status: string
+          updated_at: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          agreement_type: Database["public"]["Enums"]["agreement_type"]
+          agreement_version?: string
+          counter_signed_at?: string | null
+          counter_signed_by?: string | null
+          counter_signer_initials?: string | null
+          created_at?: string
+          id?: string
+          initials: string
+          ip_address?: string | null
+          metadata?: Json | null
+          signed_at?: string
+          signer_email?: string | null
+          signer_name?: string | null
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          agreement_type?: Database["public"]["Enums"]["agreement_type"]
+          agreement_version?: string
+          counter_signed_at?: string | null
+          counter_signed_by?: string | null
+          counter_signer_initials?: string | null
+          created_at?: string
+          id?: string
+          initials?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          signed_at?: string
+          signer_email?: string | null
+          signer_name?: string | null
+          status?: string
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       analytics_daily: {
         Row: {
           applications_submitted: number | null
@@ -3808,6 +3868,7 @@ export type Database = {
     }
     Enums: {
       affiliate_tier: "bronze" | "silver" | "gold" | "platinum"
+      agreement_type: "purchaser_terms" | "b2b_terms" | "creator_campaign"
       app_role: "admin" | "user" | "supplier"
       code_type: "tracking_only" | "discount_and_tracking"
       commission_status:
@@ -3964,6 +4025,7 @@ export const Constants = {
   public: {
     Enums: {
       affiliate_tier: ["bronze", "silver", "gold", "platinum"],
+      agreement_type: ["purchaser_terms", "b2b_terms", "creator_campaign"],
       app_role: ["admin", "user", "supplier"],
       code_type: ["tracking_only", "discount_and_tracking"],
       commission_status: [

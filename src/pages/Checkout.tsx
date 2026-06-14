@@ -20,8 +20,10 @@ import {
   Upload,
   Smartphone,
   Sparkles,
+  ShieldCheck,
 } from "lucide-react";
 import LogoUploader from "@/components/shared/LogoUploader";
+import SignatureModal from "@/components/agreements/SignatureModal";
 
 // Buyer protection pricing scales with order tier
 const getBuyerProtectionCost = (tierNumber: number | undefined): number => {
@@ -66,6 +68,10 @@ const Checkout = () => {
   const [appSubscription, setAppSubscription] = useState(false);
   const APP_SUBSCRIPTION_COST = 19;
   const [orderTempId] = useState(() => crypto.randomUUID());
+
+  // Checkout terms signature gate
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [termsSig, setTermsSig] = useState<{ initials: string; signedAt: string } | null>(null);
 
   // Shipping rate state
   const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
@@ -246,6 +252,12 @@ const Checkout = () => {
     
     if (!userId) {
       toast.error("Please log in to complete your order");
+      return;
+    }
+
+    if (!termsSig) {
+      toast.error("Please review and sign the Purchase Terms before continuing.");
+      setShowTermsModal(true);
       return;
     }
 
@@ -1067,12 +1079,55 @@ const Checkout = () => {
                       </div>
                     </div>
 
+                    <div className={`mt-6 rounded-lg border p-4 ${termsSig ? "border-emerald-500/40 bg-emerald-500/5" : "border-border bg-secondary/20"}`}>
+                      {termsSig ? (
+                        <div className="flex items-start gap-3">
+                          <ShieldCheck className="w-5 h-5 text-emerald-500 mt-0.5" />
+                          <div className="flex-1">
+                            <p className="font-heading text-sm font-semibold text-foreground">
+                              Purchase Terms signed
+                            </p>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              Initialed <span className="font-display tracking-widest">{termsSig.initials}</span> on {new Date(termsSig.signedAt).toLocaleString()}
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setShowTermsModal(true)}
+                            className="text-xs underline text-muted-foreground hover:text-foreground"
+                          >
+                            Re-sign
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex items-start gap-3">
+                          <Shield className="w-5 h-5 text-muted-foreground mt-0.5" />
+                          <div className="flex-1">
+                            <p className="font-heading text-sm font-semibold text-foreground">
+                              Sign the Purchase Terms to continue
+                            </p>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              Required before payment. Click I Agree and initial.
+                            </p>
+                          </div>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="hero"
+                            onClick={() => setShowTermsModal(true)}
+                          >
+                            Review & Sign
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+
                     <Button
                       type="submit"
                       variant="hero"
                       size="lg"
-                      className="w-full mt-6 gap-2"
-                      disabled={isSubmitting}
+                      className="w-full mt-4 gap-2"
+                      disabled={isSubmitting || !termsSig}
                     >
                       {isSubmitting ? (
                         <>
@@ -1086,6 +1141,16 @@ const Checkout = () => {
                         </>
                       )}
                     </Button>
+
+                    <SignatureModal
+                      open={showTermsModal}
+                      onOpenChange={setShowTermsModal}
+                      type="purchaser_terms"
+                      signerName={`${billing.firstName} ${billing.lastName}`.trim()}
+                      signerEmail={billing.email}
+                      onSigned={(sig) => setTermsSig({ initials: sig.initials, signedAt: sig.signedAt })}
+                      ctaLabel="Sign Purchase Terms"
+                    />
 
                     <p className="font-body text-xs text-muted-foreground text-center mt-4">
                       By placing this order, you agree to our{" "}

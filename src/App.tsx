@@ -86,6 +86,7 @@ import SupplierDashboard from "./pages/supplier/Dashboard";
 import SupplierOrders from "./pages/supplier/Orders";
 import SupplierOrderFulfillment from "./pages/supplier/OrderFulfillment";
 import SupplierMessages from "./pages/supplier/Messages";
+import AdminAgreements from "./pages/admin/Agreements";
 
 const queryClient = new QueryClient();
 
@@ -155,6 +156,7 @@ const App = () => (
             <Route path="/admin/affiliates/conversions" element={<AdminAffiliateConversions />} />
             <Route path="/admin/affiliates/payouts" element={<AdminAffiliatePayouts />} />
             <Route path="/admin/affiliates/fraud" element={<AdminAffiliateFraud />} />
+            <Route path="/admin/agreements" element={<AdminAgreements />} />
             <Route path="/admin/content/files" element={<AdminContentFiles />} />
             <Route path="/admin/content/menus" element={<AdminContentMenus />} />
             <Route path="/admin/content/blog" element={<AdminBlogPosts />} />

@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatCents, formatNumber, getCurrentAffiliate } from "@/lib/creator-utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import CreatorAgreementCard from "@/components/agreements/CreatorAgreementCard";
 
 const CreatorDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -78,6 +79,13 @@ const CreatorDashboard = () => {
           <Badge variant="secondary">{(affiliate?.custom_commission_rate ?? affiliate?.commission_rate / 100) * 100 || affiliate?.commission_rate}% commission</Badge>
         </div>
       </div>
+      <div className="mb-8">
+        <CreatorAgreementCard
+          affiliateName={affiliate?.legal_name || affiliate?.name || ""}
+          affiliateEmail={affiliate?.email || ""}
+        />
+      </div>
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {kpis.map((k) => (
