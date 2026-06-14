@@ -109,7 +109,8 @@ const Checkout = () => {
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) {
-        navigate("/");
+        toast.error("Please sign in or create an account to complete your purchase");
+        navigate("/account");
         return;
       }
       setUserId(session.user.id);

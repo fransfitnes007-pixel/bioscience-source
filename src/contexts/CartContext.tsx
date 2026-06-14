@@ -121,18 +121,37 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return () => subscription.unsubscribe();
   }, []);
 
+  const GUEST_KEY = "guest-cart";
+
+  const loadGuestCart = (): CartItem[] => {
+    try {
+      const raw = localStorage.getItem(GUEST_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const saveGuestCart = (next: CartItem[]) => {
+    localStorage.setItem(GUEST_KEY, JSON.stringify(next));
+  };
+
   // Fetch cart when user changes
   useEffect(() => {
     if (userId) {
       refreshCart();
     } else {
-      setItems([]);
+      setItems(loadGuestCart());
       setIsLoading(false);
     }
   }, [userId]);
 
   const refreshCart = async () => {
-    if (!userId) return;
+    if (!userId) {
+      setItems(loadGuestCart());
+      setIsLoading(false);
+      return;
+    }
     setIsLoading(true);
 
     const { data, error } = await supabase
@@ -168,7 +187,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const addToCart = async (item: Omit<CartItem, "id">) => {
     if (!userId) {
-      toast.error("Please log in to add items to cart");
+      // Guest cart: store in localStorage
+      const current = loadGuestCart();
+      const existing = current.find(
+        (i) => i.productName === item.productName && i.variationName === item.variationName
+      );
+      let next: CartItem[];
+      if (existing) {
+        next = current.map((i) =>
+          i.id === existing.id ? { ...i, quantity: i.quantity + item.quantity } : i
+        );
+      } else {
+        next = [...current, { ...item, id: `guest-${Date.now()}-${Math.random().toString(36).slice(2, 8)}` }];
+      }
+      saveGuestCart(next);
+      setItems(next);
+      toast.success("Added to cart!");
       return;
     }
 
@@ -180,9 +214,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (existingItem) {
       await updateQuantity(existingItem.id, existingItem.quantity + item.quantity);
     } else {
-      // Note: product_id and variation_id are not passed since our static catalog
-      // uses string slugs, not database UUIDs. The cart stores all needed info
-      // (name, price, image) directly for display and checkout.
       const { error } = await supabase.from("cart_items").insert({
         user_id: userId,
         product_name: item.productName,
@@ -208,6 +239,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
+    if (!userId) {
+      const next = loadGuestCart().map((i) => (i.id === itemId ? { ...i, quantity } : i));
+      saveGuestCart(next);
+      setItems(next);
+      return;
+    }
+
     const { error } = await supabase
       .from("cart_items")
       .update({ quantity, updated_at: new Date().toISOString() })
@@ -221,6 +259,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeFromCart = async (itemId: string) => {
+    if (!userId) {
+      const next = loadGuestCart().filter((i) => i.id !== itemId);
+      saveGuestCart(next);
+      setItems(next);
+      toast.success("Removed from cart");
+      return;
+    }
+
     const { error } = await supabase.from("cart_items").delete().eq("id", itemId);
 
     if (!error) {
@@ -230,7 +276,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const clearCart = async () => {
-    if (!userId) return;
+    if (!userId) {
+      saveGuestCart([]);
+      setItems([]);
+      return;
+    }
 
     const { error } = await supabase.from("cart_items").delete().eq("user_id", userId);
 
@@ -238,6 +288,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       setItems([]);
     }
   };
+
 
   return (
     <CartContext.Provider
