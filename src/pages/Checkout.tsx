@@ -913,9 +913,9 @@ const Checkout = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <Smartphone className="w-4 h-4 text-foreground" strokeWidth={1.5} />
+                          <img src={peptidezLogo.url} alt="Peptidez App" className="w-6 h-6 object-contain" />
                           <span className="font-display text-xl text-foreground leading-tight">
-                            Resurrected App Access
+                            Peptidez App Access
                           </span>
                         </div>
                         <p className="font-body text-sm text-muted-foreground mb-4 leading-relaxed">

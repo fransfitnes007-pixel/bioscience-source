@@ -119,8 +119,8 @@ const PortalDashboard = () => {
         <div className="rounded-lg border border-border bg-card p-5">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-full bg-foreground">
-                <Smartphone className="h-5 w-5 text-background" />
+              <div className="p-1.5 rounded-full bg-background border border-border overflow-hidden">
+                <img src={peptidezLogo.url} alt="Peptidez App" className="h-8 w-8 object-contain" />
               </div>
               <div>
                 <p className="font-medium text-foreground">{APP_SUBSCRIPTION_NAME}</p>
