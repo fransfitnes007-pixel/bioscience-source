@@ -4,7 +4,7 @@
 export type AgreementType = "purchaser_terms" | "b2b_terms" | "creator_campaign";
 
 export const AGREEMENT_VERSIONS: Record<AgreementType, string> = {
-  purchaser_terms: "v1-2026.06",
+  purchaser_terms: "v2-2026.06",
   b2b_terms: "v1-2026.06",
   creator_campaign: "v1-2026.06",
 };
@@ -16,81 +16,128 @@ export const AGREEMENT_TITLES: Record<AgreementType, string> = {
 };
 
 export const PURCHASER_TERMS = `RESURRECTED LABS
-INDIVIDUAL PURCHASER TERMS & CONDITIONS
+PURCHASE TERMS & CONDITIONS
 
-By clicking "I Agree," completing a purchase, creating an account, submitting payment, or accessing products sold through the Resurrected Labs application or website ("Platform"), you ("Purchaser") acknowledge and agree to be legally bound by these Terms & Conditions.
+By clicking "I Agree," completing a purchase, submitting payment, creating an account, or accessing products sold through Resurrected Labs ("Company"), Purchaser acknowledges and agrees to be legally bound by these Terms & Conditions.
 
-ELIGIBILITY
-Purchaser represents and warrants that Purchaser:
-• Is at least eighteen (18) years old
-• Has legal authority to enter into this Agreement
-• Will comply with all applicable laws and regulations
-• Will provide accurate and truthful information
-Company reserves the right to refuse service or terminate access at its sole discretion.
+1. Research Use Only Acknowledgment
 
-RESEARCH USE ONLY ACKNOWLEDGMENT
 Purchaser expressly acknowledges and agrees that:
-• All products sold through the Platform are intended solely for lawful laboratory, analytical, investigational, and research purposes
+• All products sold by Company are intended solely for lawful laboratory, research, investigational, and analytical purposes
 • Products are NOT intended for human consumption unless expressly stated otherwise under applicable law
 • Products are NOT approved by the United States Food and Drug Administration ("FDA") to diagnose, treat, cure, or prevent disease
-• Company makes no medical, pharmaceutical, or therapeutic claims regarding any products sold
+• Company makes no representations regarding therapeutic or medical benefits
 
 Purchaser further acknowledges:
 • Products may involve unknown risks
-• Purchaser assumes full responsibility for handling, storage, transportation, and use
-• Purchaser possesses sufficient knowledge regarding research materials and safe handling procedures
+• Purchaser assumes full responsibility for handling, storage, and use
+• Purchaser possesses adequate knowledge regarding research materials and laboratory procedures
 
-NO MEDICAL ADVICE OR CLAIMS
-Company does not provide medical advice, recommend treatment protocols, guarantee outcomes, or represent products as safe or effective for human use. Nothing on the Platform constitutes medical advice, healthcare guidance, treatment recommendations, or physician-patient relationships. Purchaser agrees not to rely upon Company for medical guidance.
+2. Purchaser Eligibility
 
-FDA DISCLAIMER
-Products sold through the Platform are not intended to diagnose, treat, cure, or prevent any disease. Purchaser acknowledges products may not be FDA approved, statements have not necessarily been evaluated by the FDA, and Purchaser assumes all risks associated with use, possession, and handling.
+Purchaser represents and warrants that Purchaser:
+• Is at least twenty-one (21) years old
+• Is legally authorized to purchase products
+• Will use products only for lawful purposes
+• Will not use products in violation of applicable laws or regulations
 
-PROHIBITED USES
+3. Prohibited Uses
+
 Purchaser agrees NOT to:
 • Use products for unlawful purposes
-• Use products contrary to FDA regulations
 • Market products as approved drugs
-• Resell products unlawfully
+• Resell products in violation of law
 • Misrepresent product purpose
-• Use products in unauthorized human applications
-• Use products in violation of federal, state, or local laws
+• Use products in human clinical applications unless legally authorized
+• Use products contrary to FDA regulations
 
-ASSUMPTION OF RISK
-Purchaser knowingly and voluntarily assumes all risks associated with purchase, possession, storage, handling, transportation, research use, and disposal of products. Purchaser releases and discharges Company from liability arising from misuse, mishandling, or unlawful use.
+4. No Medical Claims or Advice
 
-PAYMENT AUTHORIZATION
-By submitting payment, Purchaser authorizes Company to charge Purchaser's selected payment method, confirms billing information is accurate, and acknowledges orders may be canceled or refused at Company discretion.
+Company does not:
+• Provide medical advice
+• Recommend products for treatment
+• Guarantee outcomes
+• Represent products as safe or effective for human consumption
 
-NO REFUNDS, RETURNS, OR GUARANTEES
-All sales are final. Company does not offer refunds, returns, exchanges, or credits unless required by applicable law. Company makes no guarantees regarding product performance, results, or outcomes. Purchaser assumes full responsibility for all purchasing decisions. Orders may not be canceled once submitted or processed. Unauthorized chargebacks, payment disputes, or fraudulent refund attempts may result in immediate account termination, permanent purchasing bans, collection activity, and legal action where permitted by law.
+Nothing on the website, Platform, advertisements, or communications constitutes medical advice.
 
-USER CONDUCT
-Purchaser agrees not to engage in fraudulent activity, abuse discount codes, attempt chargeback fraud, use bots or unauthorized purchasing systems, or misrepresent identity or purchasing purpose. Company reserves the right to terminate accounts involved in suspicious activity.
+Purchaser agrees not to rely upon Company for medical guidance.
 
-LIMITATION OF LIABILITY
-To the fullest extent permitted by law, products and services are provided "AS IS." Company disclaims all warranties, express or implied. Company shall not be liable for indirect, incidental, punitive, special, or consequential damages. Company's total liability shall not exceed the amount paid by Purchaser for the applicable order.
+5. Business Purchaser Representations
 
-INDEMNIFICATION
-Purchaser agrees to indemnify, defend, and hold harmless Resurrected Labs from claims arising from product misuse, Purchaser misconduct, violation of laws, improper handling or storage, unauthorized resale or distribution, and third-party claims resulting from Purchaser conduct.
+If Purchaser is purchasing on behalf of a business, clinic, laboratory, or entity, Purchaser represents that:
+• Purchaser has authority to bind such entity
+• Products will be handled in compliance with applicable laws
+• Purchaser assumes responsibility for downstream compliance
 
-ELECTRONIC COMMUNICATIONS
-Purchaser consents to receive electronic communications from Company including receipts, order updates, legal notices, policy updates, and account notifications.
+6. Assumption of Risk
 
-INTELLECTUAL PROPERTY
-All Platform content including logos, branding, product descriptions, graphics, videos, software, and marketing materials are owned by Company and protected under applicable intellectual property laws. Purchaser may not reproduce, distribute, copy, or exploit Company materials without written consent.
+Purchaser knowingly assumes all risks associated with:
+• Purchase
+• Possession
+• Storage
+• Handling
+• Transportation
+• Use of products
 
-ACCOUNT SUSPENSION & TERMINATION
-Company reserves the right to suspend or terminate accounts for fraudulent activity, regulatory violations, violation of these Terms, chargeback abuse, illegal conduct, or misuse of products. Company retains sole discretion regarding enforcement decisions.
+Purchaser releases Company from liability arising from misuse or unlawful use.
 
-ARBITRATION & GOVERNING LAW
-Any dispute arising from these Terms shall be resolved exclusively through binding arbitration in Arizona. Purchaser waives jury trial rights and participation in class actions. Arizona and Florida law governs these Terms.
+7. Limitation of Liability
 
-FORCE MAJEURE
-Company shall not be liable for delays or failures caused by supply chain disruptions, payment processor failures, government actions, regulatory changes, internet outages, natural disasters, or events beyond Company control.
+To the fullest extent permitted by law:
+• Products are provided "AS IS"
+• Company disclaims all warranties
+• Company shall not be liable for indirect, incidental, punitive, or consequential damages
 
-ELECTRONIC ACCEPTANCE
-By clicking "I Agree" and entering your initials below, Purchaser acknowledges that electronic acceptance constitutes a legally binding electronic signature under applicable law, including the E-SIGN Act and UETA. Purchaser further acknowledges that Purchaser has read these Terms, understands these Terms, and voluntarily agrees to these Terms before completing payment.`;
+Company's maximum liability shall not exceed the amount paid for the applicable order.
+
+8. Indemnification
+
+Purchaser agrees to indemnify and hold harmless Company from claims arising from:
+• Product misuse
+• Regulatory violations
+• Illegal conduct
+• Improper storage or handling
+• Third-party claims arising from Purchaser conduct
+
+9. Payment Authorization
+
+By submitting payment, Purchaser:
+• Authorizes Company to process payment
+• Confirms all billing information is accurate
+• Acknowledges orders may be refused or canceled at Company discretion
+
+10. No Refunds, Returns, Guarantees, or Chargeback Rights
+
+All purchases are final. Company does not offer refunds, returns, exchanges, credits, or cancellations unless expressly required by applicable law. Company makes no guarantees regarding product performance, research outcomes, or suitability for any intended purpose.
+
+Orders may not be canceled once submitted, processed, fulfilled, or shipped.
+
+Any unauthorized chargebacks, payment disputes, fraudulent refund attempts, or unauthorized transaction reversals may result in:
+• Immediate account suspension or termination
+• Permanent purchasing restrictions
+• Collection activity
+• Recovery of legal fees and administrative costs where permitted by law
+• Legal action for breach of these Terms & Conditions
+
+11. Arbitration & Governing Law
+
+Any dispute arising from these Terms shall be resolved exclusively through binding arbitration in Arizona.
+
+Purchaser waives:
+• Jury trial rights
+• Participation in class actions
+
+Arizona and Florida law governs these Terms.
+
+12. Electronic Acceptance
+
+By clicking "I Agree," Purchaser acknowledges that electronic acceptance constitutes a legally binding electronic signature under applicable law, including the E-SIGN Act and UETA.
+
+Purchaser further acknowledges:
+• Purchaser has read these Terms
+• Purchaser understands these Terms
+• Purchaser voluntarily agrees to these Terms before completing payment`;
 
 export const B2B_TERMS = `RESURRECTED LABS
 B2B PURCHASE TERMS & CONDITIONS
