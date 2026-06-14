@@ -72,6 +72,7 @@ const Checkout = () => {
   // Checkout terms signature gate
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [termsSig, setTermsSig] = useState<{ initials: string; signedAt: string } | null>(null);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   // Shipping rate state
   const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
@@ -259,6 +260,11 @@ const Checkout = () => {
     if (!termsSig) {
       toast.error("Please review and sign the Purchase Terms before continuing.");
       setShowTermsModal(true);
+      return;
+    }
+
+    if (!agreedToTerms) {
+      toast.error("You must agree to the Terms & Conditions and Privacy Policy to continue.");
       return;
     }
 
@@ -1123,12 +1129,32 @@ const Checkout = () => {
                       )}
                     </div>
 
+                    <label className={`mt-4 flex items-start gap-3 rounded-lg border p-4 cursor-pointer transition-colors ${agreedToTerms ? "border-emerald-500/40 bg-emerald-500/5" : "border-border bg-secondary/20 hover:border-foreground/30"}`}>
+                      <input
+                        type="checkbox"
+                        checked={agreedToTerms}
+                        onChange={(e) => setAgreedToTerms(e.target.checked)}
+                        className="mt-0.5 w-4 h-4 rounded border-border accent-foreground"
+                      />
+                      <span className="text-xs text-muted-foreground leading-relaxed">
+                        By checking this box, I acknowledge and agree to the{" "}
+                        <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:opacity-80">
+                          Terms &amp; Conditions
+                        </a>
+                        ,{" "}
+                        <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline text-foreground hover:opacity-80">
+                          Privacy Policy
+                        </a>
+                        , and confirm that all products are sold strictly for laboratory research use only — not for human or animal consumption. I am 21 years of age or older.
+                      </span>
+                    </label>
+
                     <Button
                       type="submit"
                       variant="hero"
                       size="lg"
                       className="w-full mt-4 gap-2"
-                      disabled={isSubmitting || !termsSig}
+                      disabled={isSubmitting || !termsSig || !agreedToTerms}
                     >
                       {isSubmitting ? (
                         <>
