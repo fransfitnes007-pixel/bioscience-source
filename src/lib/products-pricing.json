@@ -807,6 +807,19 @@
       ]
     },
     {
+      "product": "cerebrolysin",
+      "variants": [
+        {
+          "sku": "CRB60",
+          "size": "60mg",
+          "cost": 8,
+          "price": 50,
+          "profit": 42,
+          "margin": 84
+        }
+      ]
+    },
+    {
       "product": "Cagrilintide",
       "variants": [
         {

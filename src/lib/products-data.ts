@@ -289,6 +289,18 @@ export const productCategories: ProductCategory[] = [
         studiesFindings: "Improves cognitive/behavioral endpoints in select experimental models (study dependent). Increases neuronal resistance to oxidative stress in preclinical systems (context dependent). Modulates stress-response signaling markers in CNS-related experimental frameworks. Influences neurochemical signaling profiles in some models. Provides a minimal peptide tool for studying neuroprotection and stress resilience hypotheses.",
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=Pinealon+EDR+peptide+neuroprotective"
       },
+      {
+        name: "CEREBROLYSIN",
+        displayName: "CEREBROLYSIN",
+        slug: "cerebrolysin",
+        variations: [
+          { strength: "60mg", moq: 1, price: 50 },
+        ],
+        description: "Cerebrolysin is a parenteral peptide preparation derived from purified porcine brain tissue, studied for its neuroprotective and neurotrophic properties in experimental and clinical research contexts. It contains a mixture of low-molecular-weight peptides and free amino acids that cross the blood-brain barrier and are investigated for effects on neuronal survival, synaptic plasticity, and cognitive function. Research frameworks examine Cerebrolysin in neurodegeneration, stroke recovery, traumatic brain injury, and age-related cognitive decline models.",
+        scientificPurpose: "Designed to study neurotrophic factor signaling, neuronal survival and synaptic plasticity, neuroprotection in ischemia and trauma models, cognitive function endpoints, and peptide-based CNS regeneration strategies.",
+        studiesFindings: "Supports neuronal survival and reduces apoptosis in preclinical CNS injury models (context dependent). Enhances synaptic plasticity and neurotrophic factor expression in experimental systems. Improves cognitive and functional recovery endpoints in stroke and TBI research (study dependent). Demonstrates neuroprotective effects in neurodegenerative disease models. Crosses the blood-brain barrier and integrates into neuronal signaling networks. Modulates neuroinflammatory response markers in select experimental frameworks. Provides a multi-peptide tool for studying CNS repair and regeneration hypotheses.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=cerebrolysin+neuroprotective+peptide"
+      },
     ]
   },
   {
