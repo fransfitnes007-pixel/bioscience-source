@@ -8,7 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, CheckCircle2, Instagram, Youtube, Sparkles, DollarSign, TrendingUp } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Instagram, Youtube, Sparkles, DollarSign, TrendingUp, ShieldCheck } from "lucide-react";
+import SignatureModal from "@/components/agreements/SignatureModal";
+import { expectedInitials, AGREEMENT_VERSIONS } from "@/lib/agreements";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Full name required").max(100),
