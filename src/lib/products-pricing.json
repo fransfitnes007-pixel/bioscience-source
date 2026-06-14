@@ -1168,13 +1168,7 @@
           "cost": 8,
           "price": 30,
           "profit": 22,
-        {
-          "sku": "ALP500",
-          "size": "500mcg",
-          "cost": 8,
-          "price": 50,
-          "profit": 42,
-          "margin": 84
+          "margin": 73.33
         }
       ]
     },
@@ -1188,6 +1182,11 @@
           "price": 50,
           "profit": 42,
           "margin": 84
+        }
+      ]
+    }
+  ]
+}
         }
       ]
     }
