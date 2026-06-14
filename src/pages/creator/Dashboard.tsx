@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatCents, formatNumber, getCurrentAffiliate } from "@/lib/creator-utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import CreatorAgreementCard from "@/components/agreements/CreatorAgreementCard";
 
 const CreatorDashboard = () => {
   const [loading, setLoading] = useState(true);
