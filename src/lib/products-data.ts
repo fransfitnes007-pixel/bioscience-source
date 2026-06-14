@@ -554,6 +554,18 @@ export const productCategories: ProductCategory[] = [
         nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=LL-37+cathelicidin+antimicrobial+peptide"
       },
       {
+        name: "HYALURONIC ACID",
+        displayName: "HYALURONIC ACID",
+        slug: "hyaluronic-acid",
+        variations: [
+          { strength: "5mg", moq: 10, price: 40 },
+        ],
+        description: "Hyaluronic Acid is a naturally occurring glycosaminoglycan and a major component of the extracellular matrix, studied for its roles in tissue hydration, wound healing, joint lubrication, and skin rejuvenation. It is widely researched in dermatology, orthopedics, and regenerative medicine for its moisture-retention and viscoelastic properties.",
+        scientificPurpose: "Designed to study extracellular matrix biology, tissue hydration mechanisms, wound healing, joint lubrication, and skin rejuvenation pathways.",
+        studiesFindings: "Retains water and supports tissue hydration and volume. Accelerates wound healing and tissue repair endpoints. Provides viscoelastic properties for joint and skin applications. Supports collagen synthesis and extracellular matrix remodeling. Used in dermatology, orthopedics, and regenerative medicine research.",
+        nihLink: "https://pubmed.ncbi.nlm.nih.gov/?term=hyaluronic+acid+wound+healing+skin"
+      },
+      {
         name: "LEMON BOTTLE",
         displayName: "LEMON BOTTLE",
         slug: "lemon-bottle",
