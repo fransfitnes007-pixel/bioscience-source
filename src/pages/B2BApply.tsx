@@ -1,33 +1,74 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  Building2,
+  Package,
+  MapPin,
+  Target,
+  Sparkles,
+  Tag,
+  FileImage,
+  Upload,
+} from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-const businessTypes = [
-  "Academic Research Laboratory",
-  "Contract Research Organization (CRO)",
-  "Compounding Pharmacy",
-  "Biotech / Pharmaceutical R&D",
-  "Government / Institutional Lab",
-  "Independent Research Facility",
-  "Distributor (Research Supply)",
+type StepId = "business" | "type" | "location" | "products" | "partnership" | "details" | "logo";
+
+const STEPS: { id: StepId; label: string; icon: any }[] = [
+  { id: "business", label: "Business Info", icon: Building2 },
+  { id: "type", label: "Business Type", icon: Package },
+  { id: "location", label: "Location", icon: MapPin },
+  { id: "products", label: "Products", icon: Target },
+  { id: "partnership", label: "Partnership", icon: Sparkles },
+  { id: "details", label: "Details", icon: Sparkles },
+  { id: "logo", label: "Logo", icon: Tag },
+];
+
+const BUSINESS_TYPES = [
+  { value: "Research Laboratory", label: "Research Laboratory", desc: "Academic or private research facility" },
+  { value: "Compounding Pharmacy", label: "Compounding Pharmacy", desc: "Licensed pharmaceutical compounding" },
+  { value: "Medical Clinic / Practice", label: "Medical Clinic / Practice", desc: "Healthcare provider or medical office" },
+  { value: "Wellness Center / Med Spa", label: "Wellness Center / Med Spa", desc: "Aesthetic or wellness services" },
+  { value: "Distributor / Wholesaler", label: "Distributor / Wholesaler", desc: "Resale and distribution" },
+  { value: "Manufacturer", label: "Manufacturer", desc: "Product manufacturing" },
+  { value: "Other", label: "Other", desc: "Please describe in additional notes" },
+];
+
+const VOLUMES = [
+  "Under $1,000",
+  "$1,000 - $5,000",
+  "$5,000 - $10,000",
+  "$10,000 - $25,000",
+  "$25,000 - $50,000",
+  "Over $50,000",
+];
+
+const REFERRAL_SOURCES = [
+  "Google Search",
+  "Social Media",
+  "Referral / Word of Mouth",
+  "Trade Show / Conference",
+  "Industry Publication",
   "Other",
 ];
 
-const monthlyVolumes = [
-  "$1k – $5k",
-  "$5k – $15k",
-  "$15k – $50k",
-  "$50k – $150k",
-  "$150k+",
-];
+const inputBase =
+  "w-full px-4 py-3 bg-card border border-border rounded-lg font-body text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/40 transition-colors";
+const labelBase = "font-body text-sm font-medium text-foreground block mb-2";
 
 const B2BApply = () => {
   const navigate = useNavigate();
+  const [stepIdx, setStepIdx] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+
   const [form, setForm] = useState({
     businessName: "",
     contactName: "",
@@ -41,17 +82,76 @@ const B2BApply = () => {
     zipCode: "",
     country: "United States",
     productsInterest: "",
-    monthlyVolume: "",
+    productUsage: "",
     howWeBenefit: "",
+    companyImpact: "",
+    monthlyVolume: "",
+    referralSource: "",
     notes: "",
   });
 
-  const update = (k: string, v: string) => setForm(p => ({ ...p, [k]: v }));
+  const update = (k: string, v: string) => setForm((p) => ({ ...p, [k]: v }));
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const currentStep = STEPS[stepIdx].id;
+
+  const canContinue = (): boolean => {
+    switch (currentStep) {
+      case "business":
+        return !!(form.businessName && form.contactName && form.email && form.phone);
+      case "type":
+        return !!form.businessType;
+      case "location":
+        return !!(form.businessAddress && form.city && form.country);
+      case "products":
+        return !!(form.productsInterest && form.productUsage);
+      case "partnership":
+        return !!(form.howWeBenefit && form.companyImpact);
+      case "details":
+      case "logo":
+        return true;
+    }
+  };
+
+  const next = () => {
+    if (!canContinue()) {
+      toast.error("Please complete the required fields.");
+      return;
+    }
+    setStepIdx((i) => Math.min(STEPS.length - 1, i + 1));
+  };
+  const back = () => setStepIdx((i) => Math.max(0, i - 1));
+
+  const handleLogo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    if (!["image/png", "application/pdf"].includes(f.type)) {
+      toast.error("PNG or PDF only");
+      return;
+    }
+    if (f.size > 5 * 1024 * 1024) {
+      toast.error("Max 5MB");
+      return;
+    }
+    setLogoFile(f);
+    if (f.type === "image/png") setLogoPreview(URL.createObjectURL(f));
+    else setLogoPreview(null);
+  };
+
+  const submit = async () => {
     setLoading(true);
     try {
+      let companyLogoUrl: string | null = null;
+      if (logoFile) {
+        const ext = logoFile.name.split(".").pop()?.toLowerCase() || "png";
+        const path = `applications/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+        const { error: upErr } = await supabase.storage
+          .from("company-logos")
+          .upload(path, logoFile, { upsert: true, cacheControl: "3600" });
+        if (upErr) throw upErr;
+        const { data } = supabase.storage.from("company-logos").getPublicUrl(path);
+        companyLogoUrl = data.publicUrl;
+      }
+
       const { error } = await supabase.from("applications").insert({
         business_name: form.businessName,
         contact_name: form.contactName,
@@ -65,10 +165,13 @@ const B2BApply = () => {
         zip_code: form.zipCode || null,
         country: form.country,
         products_interest: form.productsInterest || null,
-        monthly_volume: form.monthlyVolume || null,
+        product_usage: form.productUsage || null,
         how_we_benefit: form.howWeBenefit || null,
+        company_impact: form.companyImpact || null,
+        monthly_volume: form.monthlyVolume || null,
+        referral_source: form.referralSource || "B2B Application",
         notes: form.notes || null,
-        referral_source: "B2B Page",
+        company_logo_url: companyLogoUrl,
       });
       if (error) throw error;
       setSubmitted(true);
@@ -79,10 +182,6 @@ const B2BApply = () => {
       setLoading(false);
     }
   };
-
-  const inputClass =
-    "w-full px-4 py-3 bg-card border border-border rounded-lg font-body text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/40 transition-colors";
-  const labelClass = "font-body text-sm font-medium text-foreground block mb-2";
 
   if (submitted) {
     return (
@@ -96,15 +195,13 @@ const B2BApply = () => {
               Application received.
             </h1>
             <p className="font-body text-muted-foreground/80 mb-10 leading-relaxed">
-              Our partnerships team will review your application within 48 hours and reach out with next steps,
-              your wholesale pricing tier, and an access code for the partner portal.
+              Our partnerships team will review your application within 48 hours and reach out with next steps.
             </p>
             <button
               onClick={() => navigate("/")}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-body text-sm font-medium hover:bg-foreground/90 transition-all"
             >
-              Back to home
-              <ArrowUpRight className="w-4 h-4" />
+              Back to home <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -114,130 +211,272 @@ const B2BApply = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen py-24 md:py-32 px-6 lg:px-12">
-        <div className="max-w-2xl mx-auto">
+      <div className="min-h-screen py-16 md:py-24 px-6 lg:px-12">
+        <div className="max-w-5xl mx-auto">
           <Link
             to="/b2b"
-            className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors mb-12"
+            className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors mb-10"
           >
-            <ArrowLeft className="w-4 h-4" /> Back to partner portal
+            <ArrowLeft className="w-4 h-4" /> Back to Home
           </Link>
 
-          <div className="flex items-center gap-3 mb-6">
-            <span className="h-px w-8 bg-foreground/30" />
-            <span className="font-body text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-              Research Account Application
-            </span>
+          {/* Stepper */}
+          <div className="flex items-center justify-between gap-2 mb-16 overflow-x-auto pb-2">
+            {STEPS.map((s, i) => {
+              const Icon = s.icon;
+              const active = i === stepIdx;
+              const done = i < stepIdx;
+              return (
+                <div key={s.id} className="flex items-center gap-2 shrink-0">
+                  <div
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all whitespace-nowrap ${
+                      active
+                        ? "bg-foreground text-background border-foreground"
+                        : done
+                        ? "bg-card text-foreground border-border"
+                        : "bg-card/40 text-muted-foreground border-border/50"
+                    }`}
+                  >
+                    {done ? <Check className="w-4 h-4" /> : <Icon className="w-4 h-4" />}
+                    <span className="font-body text-xs md:text-sm font-medium">{s.label}</span>
+                  </div>
+                  {i < STEPS.length - 1 && <div className="w-6 h-px bg-border" />}
+                </div>
+              );
+            })}
           </div>
 
-          <h1 className="font-body font-bold text-4xl md:text-6xl text-foreground tracking-[-0.03em] leading-[1.0] mb-6">
-            Apply for{" "}
-            <span className="text-muted-foreground font-light italic">research access.</span>
-          </h1>
-          <p className="font-body text-muted-foreground/80 mb-12 leading-relaxed">
-            Tell us about your laboratory or institution. We review every application within 48 hours.
-          </p>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Business */}
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>Institution / lab name *</label>
-                <input required value={form.businessName} onChange={(e) => update("businessName", e.target.value)} className={inputClass} />
+          {/* Step content */}
+          <div className="max-w-2xl mx-auto">
+            {currentStep === "business" && (
+              <div className="space-y-6">
+                <Header title="Tell us about your business" sub="Let's start with the basics about you and your company." />
+                <Field label="Business Name *">
+                  <input value={form.businessName} onChange={(e) => update("businessName", e.target.value)} placeholder="Your company name" className={inputBase} />
+                </Field>
+                <Field label="Your Name *">
+                  <input value={form.contactName} onChange={(e) => update("contactName", e.target.value)} placeholder="Full name" className={inputBase} />
+                </Field>
+                <Field label="Email Address *">
+                  <input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="you@company.com" className={inputBase} />
+                </Field>
+                <Field label="Phone Number *">
+                  <input type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="+1 (555) 000-0000" className={inputBase} />
+                </Field>
+                <Field label="Website (Optional)">
+                  <input value={form.website} onChange={(e) => update("website", e.target.value)} placeholder="https://yourcompany.com" className={inputBase} />
+                </Field>
               </div>
-              <div>
-                <label className={labelClass}>Institution type *</label>
-                <select required value={form.businessType} onChange={(e) => update("businessType", e.target.value)} className={inputClass}>
-                  <option value="">Select…</option>
-                  {businessTypes.map(t => <option key={t} value={t}>{t}</option>)}
-                </select>
+            )}
+
+            {currentStep === "type" && (
+              <div className="space-y-4">
+                <Header title="What type of business are you?" sub="This helps us understand how we can best serve you." />
+                <div className="space-y-3">
+                  {BUSINESS_TYPES.map((t) => {
+                    const selected = form.businessType === t.value;
+                    return (
+                      <button
+                        key={t.value}
+                        type="button"
+                        onClick={() => update("businessType", t.value)}
+                        className={`w-full text-left p-5 rounded-xl border transition-all ${
+                          selected ? "border-foreground bg-card" : "border-border bg-card/40 hover:border-foreground/40"
+                        }`}
+                      >
+                        <div className="font-body font-semibold text-foreground">{t.label}</div>
+                        <div className="font-body text-sm text-muted-foreground mt-1">{t.desc}</div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* Contact */}
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>Principal investigator / contact name *</label>
-                <input required value={form.contactName} onChange={(e) => update("contactName", e.target.value)} className={inputClass} />
+            {currentStep === "location" && (
+              <div className="space-y-6">
+                <Header title="Where is your business located?" sub="We need your business address for verification and shipping." />
+                <Field label="Street Address *">
+                  <input value={form.businessAddress} onChange={(e) => update("businessAddress", e.target.value)} placeholder="123 Business Street, Suite 100" className={inputBase} />
+                </Field>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Field label="City *">
+                    <input value={form.city} onChange={(e) => update("city", e.target.value)} placeholder="City" className={inputBase} />
+                  </Field>
+                  <Field label="State / Province">
+                    <input value={form.state} onChange={(e) => update("state", e.target.value)} placeholder="State" className={inputBase} />
+                  </Field>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Field label="ZIP / Postal Code">
+                    <input value={form.zipCode} onChange={(e) => update("zipCode", e.target.value)} placeholder="12345" className={inputBase} />
+                  </Field>
+                  <Field label="Country *">
+                    <input value={form.country} onChange={(e) => update("country", e.target.value)} className={inputBase} />
+                  </Field>
+                </div>
               </div>
-              <div>
-                <label className={labelClass}>Institutional email *</label>
-                <input required type="email" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputClass} />
+            )}
+
+            {currentStep === "products" && (
+              <div className="space-y-6">
+                <Header title="What products are you interested in?" sub="Help us understand your product needs and intended use." />
+                <Field label="What products are you looking for? *">
+                  <textarea rows={5} value={form.productsInterest} onChange={(e) => update("productsInterest", e.target.value)} placeholder="Tell us about the specific peptides, compounds, or product categories you're interested in..." className={inputBase} />
+                </Field>
+                <Field label="How will you use these products? *">
+                  <textarea rows={5} value={form.productUsage} onChange={(e) => update("productUsage", e.target.value)} placeholder="Describe the intended application of these products in your business operations..." className={inputBase} />
+                </Field>
               </div>
-            </div>
+            )}
 
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>Phone</label>
-                <input type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} className={inputClass} />
+            {currentStep === "partnership" && (
+              <div className="space-y-6">
+                <Header title="Let's build a partnership" sub="Help us understand how we can create value together." />
+                <Field label="How can Resurrected Labz benefit your business? *">
+                  <textarea rows={5} value={form.howWeBenefit} onChange={(e) => update("howWeBenefit", e.target.value)} placeholder="What are you looking for in a supplier? Quality, pricing, reliability, specific certifications, etc..." className={inputBase} />
+                </Field>
+                <Field label="What impact can we make on your company? *">
+                  <textarea rows={5} value={form.companyImpact} onChange={(e) => update("companyImpact", e.target.value)} placeholder="Tell us about your goals and how a partnership with us could help you achieve them..." className={inputBase} />
+                </Field>
               </div>
-              <div>
-                <label className={labelClass}>Website</label>
-                <input value={form.website} onChange={(e) => update("website", e.target.value)} placeholder="https://" className={inputClass} />
+            )}
+
+            {currentStep === "details" && (
+              <div className="space-y-6">
+                <Header title="Additional Details" sub="A few more optional details to help us serve you better." />
+                <Field label="Estimated Monthly Order Volume">
+                  <select value={form.monthlyVolume} onChange={(e) => update("monthlyVolume", e.target.value)} className={inputBase}>
+                    <option value="">Select estimated volume...</option>
+                    {VOLUMES.map((v) => <option key={v} value={v}>{v}</option>)}
+                  </select>
+                </Field>
+                <Field label="How did you hear about us?">
+                  <select value={form.referralSource} onChange={(e) => update("referralSource", e.target.value)} className={inputBase}>
+                    <option value="">Select...</option>
+                    {REFERRAL_SOURCES.map((r) => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </Field>
+                <Field label="Additional Notes or Questions">
+                  <textarea rows={4} value={form.notes} onChange={(e) => update("notes", e.target.value)} placeholder="Anything else you'd like us to know..." className={inputBase} />
+                </Field>
               </div>
-            </div>
+            )}
 
-            {/* Address */}
-            <div>
-              <label className={labelClass}>Laboratory shipping address</label>
-              <input value={form.businessAddress} onChange={(e) => update("businessAddress", e.target.value)} className={inputClass} />
-            </div>
-            <div className="grid md:grid-cols-3 gap-4">
-              <input value={form.city} onChange={(e) => update("city", e.target.value)} placeholder="City" className={inputClass} />
-              <input value={form.state} onChange={(e) => update("state", e.target.value)} placeholder="State" className={inputClass} />
-              <input value={form.zipCode} onChange={(e) => update("zipCode", e.target.value)} placeholder="Zip" className={inputClass} />
-            </div>
+            {currentStep === "logo" && (
+              <div className="space-y-6">
+                <Header title="Upload Your Company Logo" sub="Want your brand on our vials? Upload your logo for custom labeling." />
 
-            {/* Volume */}
-            <div>
-              <label className={labelClass}>Estimated monthly research volume *</label>
-              <select required value={form.monthlyVolume} onChange={(e) => update("monthlyVolume", e.target.value)} className={inputClass}>
-                <option value="">Select…</option>
-                {monthlyVolumes.map(v => <option key={v} value={v}>{v}</option>)}
-              </select>
-            </div>
+                <label className="block cursor-pointer">
+                  <input type="file" accept=".png,.pdf,image/png,application/pdf" onChange={handleLogo} className="hidden" />
+                  <div className="border-2 border-dashed border-border rounded-xl p-12 text-center hover:border-foreground/40 transition-all bg-card/30">
+                    {logoPreview ? (
+                      <img src={logoPreview} alt="Logo" className="w-24 h-24 object-contain mx-auto mb-4" />
+                    ) : (
+                      <div className="w-14 h-14 mx-auto rounded-full bg-secondary/60 flex items-center justify-center mb-4">
+                        <FileImage className="w-7 h-7 text-muted-foreground" />
+                      </div>
+                    )}
+                    <p className="font-body font-semibold text-foreground">
+                      {logoFile ? logoFile.name : "Upload your company logo"}
+                    </p>
+                    <p className="font-body text-sm text-muted-foreground mt-1">
+                      {logoFile ? "Click to replace" : "Drag and drop or click to browse"}
+                    </p>
+                  </div>
+                </label>
 
-            {/* Interest */}
-            <div>
-              <label className={labelClass}>Which research compounds are you most interested in?</label>
-              <textarea
-                rows={3}
-                value={form.productsInterest}
-                onChange={(e) => update("productsInterest", e.target.value)}
-                placeholder="GLP-1 (Semaglutide, Tirzepatide), BPC-157, TB-500, NAD+, etc."
-                className={inputClass}
-              />
-            </div>
+                <div className="p-5 bg-card/40 border border-border rounded-xl">
+                  <p className="font-body font-semibold text-foreground mb-3">Requirements:</p>
+                  <ul className="font-body text-sm text-muted-foreground space-y-1">
+                    <li>• PNG or PDF format</li>
+                    <li>• Transparent background required</li>
+                    <li>• Maximum file size: 5MB</li>
+                    <li>• Recommended: 300×100px minimum</li>
+                  </ul>
+                </div>
 
-            <div>
-              <label className={labelClass}>Describe your intended research use *</label>
-              <textarea
-                rows={4}
-                value={form.howWeBenefit}
-                onChange={(e) => update("howWeBenefit", e.target.value)}
-                placeholder="In vitro assays, receptor binding studies, stability testing, etc. Include institution, IRB / ethics oversight if applicable."
-                className={inputClass}
-              />
-            </div>
+                <div className="p-5 bg-card/40 border border-border rounded-xl">
+                  <p className="font-body font-semibold text-foreground mb-3">Why upload your logo?</p>
+                  <ul className="font-body text-sm text-muted-foreground space-y-1">
+                    <li>• Your company logo will appear on vial labels</li>
+                    <li>• Reinforce your brand with every product</li>
+                    <li>• Professional appearance for your clients</li>
+                  </ul>
+                </div>
 
-            <div>
-              <label className={labelClass}>Anything else we should know?</label>
-              <textarea rows={3} value={form.notes} onChange={(e) => update("notes", e.target.value)} className={inputClass} />
-            </div>
+                <p className="font-body text-center text-sm text-muted-foreground">
+                  This step is optional. You can skip it and add your logo later from your dashboard.
+                </p>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-body text-sm font-medium hover:bg-foreground/90 transition-all disabled:opacity-50"
-            >
-              {loading ? "Submitting…" : "Submit application"}
-              {!loading && <ArrowUpRight className="w-4 h-4" />}
-            </button>
-          </form>
+                <div className="p-5 bg-card/40 border border-border rounded-xl">
+                  <h3 className="font-body font-bold text-lg text-foreground mb-4">Application Summary</h3>
+                  <dl className="space-y-2 font-body text-sm">
+                    <Row k="Business:" v={form.businessName} />
+                    <Row k="Contact:" v={form.contactName} />
+                    <Row k="Email:" v={form.email} />
+                    <Row k="Type:" v={form.businessType} />
+                    <Row k="Location:" v={[form.city, form.state].filter(Boolean).join(", ")} />
+                    <Row k="Company Logo:" v={logoFile ? logoFile.name : "Not uploaded"} />
+                  </dl>
+                </div>
+              </div>
+            )}
+
+            {/* Navigation */}
+            <div className="flex items-center justify-between mt-12 pt-8 border-t border-border">
+              <button
+                onClick={back}
+                disabled={stepIdx === 0}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-body text-sm text-muted-foreground hover:text-foreground transition-colors disabled:opacity-30"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+
+              {stepIdx < STEPS.length - 1 ? (
+                <button
+                  onClick={next}
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-foreground text-background rounded-full font-body text-sm font-medium hover:bg-foreground/90 transition-all"
+                >
+                  Continue <ArrowRight className="w-4 h-4" />
+                </button>
+              ) : (
+                <button
+                  onClick={submit}
+                  disabled={loading}
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-foreground text-background rounded-full font-body text-sm font-medium hover:bg-foreground/90 transition-all disabled:opacity-50"
+                >
+                  {loading ? "Submitting…" : "Submit Application"}
+                  {!loading && <Check className="w-4 h-4" />}
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </Layout>
   );
 };
+
+const Header = ({ title, sub }: { title: string; sub: string }) => (
+  <div className="text-center mb-8">
+    <h1 className="font-body font-bold text-3xl md:text-4xl text-foreground tracking-[-0.02em] mb-3">{title}</h1>
+    <p className="font-body text-muted-foreground">{sub}</p>
+  </div>
+);
+
+const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <div>
+    <label className={labelBase}>{label}</label>
+    {children}
+  </div>
+);
+
+const Row = ({ k, v }: { k: string; v: string }) => (
+  <div className="flex items-center justify-between gap-4">
+    <dt className="text-muted-foreground">{k}</dt>
+    <dd className="text-foreground text-right">{v || "—"}</dd>
+  </div>
+);
 
 export default B2BApply;
