@@ -72,6 +72,7 @@ const Checkout = () => {
   // Checkout terms signature gate
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [termsSig, setTermsSig] = useState<{ initials: string; signedAt: string } | null>(null);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   // Shipping rate state
   const [shippingRates, setShippingRates] = useState<ShippingRate[]>([]);
