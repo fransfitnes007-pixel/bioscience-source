@@ -1,71 +1,41 @@
+## Goal
+Use Lovable Emails (built-in) to send branded transactional emails from `resurrectedlabz.com` — no third-party setup needed.
 
+## Step 1 — Set up email domain (required first)
+You need to add `resurrectedlabz.com` as a verified sender. This puts emails in inboxes as `notify@resurrectedlabz.com` instead of a generic address.
 
-## Framer-Style Premium Redesign Plan
+I'll trigger the setup dialog at the end of this plan. After you complete DNS, I continue automatically.
 
-You want the Framer aesthetic: clean, ultra-professional, but with subtle high-end motion that makes the site feel alive and unique — not flashy or distracting. Think slow reveals, smooth parallax, magnetic hover states, and a few signature "wow" moments rather than animation everywhere.
+## Step 2 — Email infrastructure
+Provision the queue, send function, suppression list, unsubscribe handler, and cron worker (one-time, automatic).
 
-### The Direction
+## Step 3 — Branded email templates
+Three React Email templates in the Resurrected Labs black/white luxury theme with your logo:
 
-**Restraint over spectacle.** Framer's best sites use motion as punctuation: a hero that breathes, sections that reveal as you scroll, hover states that feel weighted, and one or two signature visual moments (like your spinning logo). Everything else stays still and lets the content speak.
+1. **order-confirmation** — Logo, "Order Confirmed", line items with product images & strength, totals, shipping address, tracking number + "Track Package" CTA.
+2. **welcome-10-off** — For SMS opt-in & email signups. Logo, hero "Welcome to the Lab", their 10% discount code in a copy-style box, CTA to shop.
+3. **shipping-update** — Triggered when tracking is added. Logo, "Your order is on the way", tracking number, static map preview (Google Static Maps grayscale to match theme) showing route, "Track Live" CTA to carrier's page.
 
-### What I'd Build
+Note on the Shopify-style animated map: that's Shopify Shop app proprietary. Standard approach (what every brand uses outside Shop) is a **static grayscale map image** of the route with a CTA to the carrier's live tracker. That's what I'll build.
 
-**1. Hero — Cinematic Anchor**
-- Keep the spinning 3D Resurrected Labz logo as the centerpiece
-- Add a slow-drifting molecular/particle field behind it (very subtle, low opacity)
-- Soft radial glow that pulses with the logo
-- Headline + tagline + CTAs reveal in staggered sequence (Framer signature: 80ms delays, spring easing)
-- Scroll indicator at the bottom with a subtle bounce
+## Step 4 — Wire triggers
+- Order confirmation → fires from `verify-payment` edge function on successful checkout.
+- Welcome 10% off → fires from `ComingSoonGate` form submission (already collects name/email/phone).
+- Shipping update → fires when admin adds a tracking number on an order in `/admin/orders/:id`.
 
-**2. Product Showcase — The "Wow" Moment**
-- When you upload your peptide vial photos, build a horizontal scroll gallery where vials float past with parallax depth (foreground vials move faster than background)
-- Each vial card has a magnetic hover (cursor pulls the card slightly toward it)
-- Click reveals the product detail with a smooth shared-element transition
+Each uses an idempotency key so retries don't double-send.
 
-**3. Scroll-Triggered Reveals (site-wide)**
-- Section headings fade up with a slight blur-to-sharp effect as they enter view
-- Numbers/stats count up when visible
-- Images mask in from below with a clip-path reveal
-- All using IntersectionObserver — no heavy library
+## Technical details
+- Templates: `supabase/functions/_shared/transactional-email-templates/*.tsx` using React Email v0.0.22.
+- Registered in `registry.ts`. Single `send-transactional-email` function handles all sends.
+- Static map: `https://maps.googleapis.com/maps/api/staticmap` with `style=feature:all|invert_lightness:true|saturation:-100` for B&W theme. Requires a Google Maps Static API key (free tier covers thousands/month). I'll ask for it when wiring shipping update — not blocking for the other two.
+- Logo: hosted from `/resurrected-logo-full.png` (already in `public/`).
 
-**4. Interactive Polish**
-- Magnetic buttons (the cursor subtly pulls them)
-- Custom cursor that grows on interactive elements (optional, can toggle)
-- Smooth scroll with momentum
-- Page transitions that fade between routes
+## What I need from you
+1. Approve this plan.
+2. Complete the email domain setup dialog (DNS records — takes ~5 min, verification can take up to 72h but I can scaffold immediately).
+3. Later: a Google Maps Static API key for the shipping map (optional — can launch without it and add later).
 
-**5. Signature Visual Touches**
-- Hairline grid that fades in on hover over hero (architectural feel)
-- Section numbers (01 / 06) that scroll-track on the side
-- A subtle film grain overlay site-wide (already partially in place)
-- Section dividers that draw themselves in as you scroll
-
-### Image Strategy (For Your Uploads)
-
-When you upload your logo + peptide images, I'll:
-- Process each to ensure clean transparent backgrounds
-- Build a centralized image asset module so swaps are one-line edits
-- Create reusable product card / gallery / hero image components that handle the parallax + reveal animations consistently
-- Optimize for retina + lazy-load below the fold
-
-### Technical Approach
-
-- **Animations**: CSS keyframes + Tailwind for simple stuff, IntersectionObserver for scroll triggers, Framer Motion only where physics matter (magnetic hover, page transitions). Keeps bundle small.
-- **No new heavy dependencies** — Framer Motion is the only addition (~30kb gzipped)
-- **Performance**: All animations GPU-accelerated (transform + opacity only), reduced-motion respected, mobile gets simplified versions
-
-### Recommended Build Order
-
-1. **First**: Upload your logo + peptide images so I have real assets to design around
-2. **Phase 1**: Hero polish + scroll-reveal system + magnetic buttons (foundation)
-3. **Phase 2**: Product gallery with parallax + hover states (the showcase)
-4. **Phase 3**: Page transitions + section numbers + signature touches (the finish)
-
-Doing it in phases lets you react to each layer before we go further — so if a particular animation doesn't feel right, we adjust before building on top of it.
-
-### What I Need From You
-
-- Upload the peptide product photos (vials, packaging, anything you want featured)
-- Confirm: keep the current 3D spinning logo system, or refresh it?
-- Any specific Framer sites you've seen that nail the feel you want? (helps me calibrate restraint vs. expressiveness)
-
+<presentation-actions>
+<presentation-open-email-setup>Set up email domain</presentation-open-email-setup>
+</presentation-actions>
