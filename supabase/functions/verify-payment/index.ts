@@ -153,6 +153,37 @@ serve(async (req) => {
       order = data;
     }
 
+    // Send branded order confirmation email (idempotent via order_number key)
+    if (paymentSucceeded && order) {
+      try {
+        const items = (order.order_items || []).map((it: any) => ({
+          name: it.product_name,
+          variation: it.variation_name ?? undefined,
+          quantity: it.quantity,
+          price: Number(it.total_price),
+        }));
+        await supabaseClient.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "order-confirmation",
+            recipientEmail: order.billing_email,
+            idempotencyKey: `order-confirmation-${order.order_number}`,
+            templateData: {
+              recipientName: order.billing_first_name || "Researcher",
+              orderNumber: order.order_number,
+              orderDate: new Date(order.created_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
+              items,
+              subtotal: Number(order.subtotal || 0),
+              discount: Number(order.discount_amount || 0),
+              shipping: Number(order.shipping_cost || 0),
+              total: Number(order.total || 0),
+            },
+          },
+        });
+      } catch (e) {
+        console.warn("order-confirmation email send failed", e);
+      }
+    }
+
     return new Response(JSON.stringify({
       success: paymentSucceeded,
       paymentStatus,

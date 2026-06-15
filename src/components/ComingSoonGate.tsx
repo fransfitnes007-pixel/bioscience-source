@@ -51,17 +51,34 @@ export const ComingSoonGate = ({ children }: Props) => {
     }
     setSubmitting(true);
     try {
-      const { error: insertError } = await supabase.from("sms_optins").insert({
-        name: form.name.trim(),
-        email: form.email.trim().toLowerCase(),
-        phone: form.phone.trim(),
-        sms_consent: true,
-        consent_text: SMS_CONSENT_TEXT,
-        user_agent: typeof navigator !== "undefined" ? navigator.userAgent : null,
-      });
+      const email = form.email.trim().toLowerCase();
+      const name = form.name.trim();
+      const { data: inserted, error: insertError } = await supabase
+        .from("sms_optins")
+        .insert({
+          name,
+          email,
+          phone: form.phone.trim(),
+          sms_consent: true,
+          consent_text: SMS_CONSENT_TEXT,
+          user_agent: typeof navigator !== "undefined" ? navigator.userAgent : null,
+        })
+        .select("id")
+        .single();
       if (insertError) throw insertError;
+
+      // Send welcome / 10% off email (fire-and-forget; idempotency prevents dupes)
+      supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "welcome-10-off",
+          recipientEmail: email,
+          idempotencyKey: `welcome-10-off-${inserted?.id ?? email}`,
+          templateData: { recipientName: name || "Researcher", discountCode: "WELCOME10" },
+        },
+      }).catch((e) => console.warn("welcome email send failed", e));
+
       setSubmitted(true);
-      toast.success("You're in! Check your inbox soon for your 10% off code.");
+      toast.success("You're in! Check your inbox for your 10% off code.");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong. Try again.");
     } finally {

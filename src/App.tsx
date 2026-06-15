@@ -33,6 +33,7 @@ import CreatorResources from "./pages/creator/Resources";
 import NotFound from "./pages/NotFound";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import SetPassword from "./pages/SetPassword";
+import Unsubscribe from "./pages/Unsubscribe";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminApplications from "./pages/admin/Applications";
@@ -115,6 +116,7 @@ const App = () => (
             <Route path="/sms-terms" element={<SmsTerms />} />
             <Route path="/account" element={<Access />} />
             <Route path="/set-password" element={<SetPassword />} />
+            <Route path="/unsubscribe" element={<Unsubscribe />} />
             {/* B2B Routes */}
             <Route path="/b2b" element={<B2B />} />
             <Route path="/b2b/apply" element={<B2BApply />} />

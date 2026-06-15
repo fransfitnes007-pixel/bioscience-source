@@ -116,86 +116,41 @@ serve(async (req) => {
         })}</p>`
       : "";
 
-    // Send email via Resend
-    if (resendApiKey) {
-      const emailHtml = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #333; margin: 0;">Your Order Has Shipped!</h1>
-          </div>
-          
-          <p>Hi ${order.billing_first_name},</p>
-          
-          <p>Great news! Your order <strong>#${order.order_number}</strong> is on its way.</p>
-          
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #333;">Shipping Details</h3>
-            <p><strong>Carrier:</strong> ${carrierDisplay}</p>
-            ${tracking_number ? `<p><strong>Tracking Number:</strong> ${tracking_number}</p>` : ""}
-            ${deliveryText}
-            
-            ${trackingUrl ? `
-              <a href="${trackingUrl}" 
-                 style="display: inline-block; background: #000; color: #fff; padding: 12px 24px; 
-                        text-decoration: none; border-radius: 4px; margin-top: 10px;">
-                Track Your Package
-              </a>
-            ` : ""}
-          </div>
-          
-          <div style="margin: 20px 0;">
-            <h3 style="color: #333;">Items Shipped</h3>
-            <ul style="padding-left: 20px;">
-              ${itemsList}
-            </ul>
-          </div>
-          
-          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #333;">Shipping Address</h3>
-            <p style="margin: 0;">
-              ${order.shipping_first_name || order.billing_first_name} ${order.shipping_last_name || order.billing_last_name}<br>
-              ${order.shipping_address || order.billing_address}<br>
-              ${order.shipping_city || order.billing_city}, ${order.shipping_state || order.billing_state} ${order.shipping_zip || order.billing_zip}<br>
-              ${order.shipping_country || order.billing_country}
-            </p>
-          </div>
-          
-          <p>If you have any questions about your shipment, please don't hesitate to contact us.</p>
-          
-          <p>Thank you for your order!</p>
-          
-          <p style="color: #666;">
-            Best regards,<br>
-            The Resurrected Team
-          </p>
-          
-          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
-          
-          <p style="font-size: 12px; color: #999; text-align: center;">
-            This email was sent regarding order #${order.order_number}.
-            If you didn't place this order, please contact us immediately.
-          </p>
-        </div>
-      `;
+    // Send branded shipping update via Lovable Emails (idempotent per tracking number)
+    try {
+      const itemsForEmail = (items_shipped || orderItems || []).map((it: any) => ({
+        name: it.product_name,
+        variation: it.variation_name ?? undefined,
+        quantity: it.quantity,
+      }));
 
-      const emailResponse = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${resendApiKey}`,
-          "Content-Type": "application/json",
+      const estimatedDeliveryStr = estimated_delivery
+        ? new Date(estimated_delivery).toLocaleDateString("en-US", {
+            weekday: "short", month: "short", day: "numeric",
+          })
+        : undefined;
+
+      const idempotencyKey = `shipping-update-${order_id}-${tracking_number || "no-track"}`;
+
+      const { error: emailErr } = await supabaseClient.functions.invoke(
+        "send-transactional-email",
+        {
+          body: {
+            templateName: "shipping-update",
+            recipientEmail: order.billing_email,
+            idempotencyKey,
+            templateData: {
+              recipientName: order.billing_first_name || "Researcher",
+              orderNumber: order.order_number,
+              carrier: carrierDisplay,
+              trackingNumber: tracking_number || "",
+              trackingUrl: trackingUrl || "https://resurrectedlabz.com",
+              estimatedDelivery: estimatedDeliveryStr,
+              items: itemsForEmail,
+            },
+          },
         },
-        body: JSON.stringify({
-          from: "Resurrected <noreply@resurrected.com>",
-          to: [order.billing_email],
-          subject: `Your Order #${order.order_number} Has Shipped!`,
-          html: emailHtml,
-        }),
-      });
-
-      if (!emailResponse.ok) {
-        const errorText = await emailResponse.text();
-        console.error("Resend error:", errorText);
-      }
+      );
 
       // Log the email
       await supabaseClient.from("email_logs").insert({
@@ -203,15 +158,12 @@ serve(async (req) => {
         recipient_email: order.billing_email,
         recipient_name: `${order.billing_first_name} ${order.billing_last_name}`,
         subject: `Your Order #${order.order_number} Has Shipped!`,
-        status: emailResponse.ok ? "sent" : "failed",
-        sent_at: emailResponse.ok ? new Date().toISOString() : null,
-        metadata: {
-          order_id,
-          order_number: order.order_number,
-          carrier,
-          tracking_number,
-        },
+        status: emailErr ? "failed" : "sent",
+        sent_at: emailErr ? null : new Date().toISOString(),
+        metadata: { order_id, order_number: order.order_number, carrier, tracking_number },
       });
+    } catch (e) {
+      console.warn("shipping-update email send failed", e);
     }
 
     // Log activity
