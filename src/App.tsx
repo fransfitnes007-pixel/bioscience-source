@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 
 import { AgeVerification } from "@/components/AgeVerification";
+import { ComingSoonGate } from "@/components/ComingSoonGate";
+import SmsTerms from "./pages/SmsTerms";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductPage from "./pages/ProductPage";
@@ -99,6 +101,7 @@ const App = () => (
         <Sonner />
         <AgeVerification />
         <BrowserRouter>
+          <ComingSoonGate>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />
@@ -109,6 +112,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/sms-terms" element={<SmsTerms />} />
             <Route path="/account" element={<Access />} />
             <Route path="/set-password" element={<SetPassword />} />
             {/* B2B Routes */}
@@ -191,6 +195,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </ComingSoonGate>
         </BrowserRouter>
       </CartProvider>
     </TooltipProvider>
