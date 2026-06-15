@@ -4,6 +4,7 @@ import {
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
 import * as S from './_styles.ts'
+import { BrandHeader } from './_brand.tsx'
 
 interface Item {
   name: string
@@ -34,39 +35,41 @@ const Email = ({
 }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your Resurrected Labs order {orderNumber} is on the way</Preview>
+    <Preview>Order {orderNumber} is on the way</Preview>
     <Body style={S.main}>
       <Section style={S.outerWrap}>
         <Container style={S.container}>
-          <Section style={S.logoSection}>
-            <Img src={S.LOGO_URL} width="200" height="40" alt="Resurrected Labs" style={S.logo} />
-          </Section>
+          <BrandHeader />
+
           <Section style={S.hero}>
-            <Heading style={S.heading}>On the way</Heading>
-            <Text style={S.subheading}>Your order is moving.</Text>
-            <Text style={S.bodyText}>
-              Hi {recipientName}, order <strong style={{ color: '#fff' }}>#{orderNumber}</strong> just shipped via {carrier}.
+            <Text style={S.eyebrow}>On the way</Text>
+            <Heading style={S.heading}>Your order is moving.</Heading>
+            <Text style={S.subheading}>
+              Hi {recipientName}, order <strong style={{ color: S.C.ink }}>#{orderNumber}</strong> just shipped via {carrier}.
             </Text>
           </Section>
+
           <Hr style={S.hr} />
+
           <Section style={{ ...S.card, textAlign: 'center' as const }}>
             <Text style={{ ...S.sectionTitle, margin: '0 0 6px 0' }}>Tracking number</Text>
-            <Text style={{ fontSize: '16px', fontWeight: '600', color: '#fff', margin: '0 0 16px 0', fontFamily: "'SF Mono', monospace" }}>
+            <Text style={{ fontSize: '17px', fontWeight: 600, color: S.C.ink, margin: '0 0 18px 0', fontFamily: "'SF Mono', ui-monospace, Menlo, monospace", letterSpacing: '0.04em' }}>
               {trackingNumber || '—'}
             </Text>
             {mapImageUrl && (
-              <div style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid #18181b', marginBottom: '16px' }}>
+              <div style={{ borderRadius: '12px', overflow: 'hidden', border: `1px solid ${S.C.hairline}`, marginBottom: '18px' }}>
                 <Img src={mapImageUrl} width="520" height="200" alt="Shipping route"
-                  style={{ width: '100%', height: 'auto', display: 'block', filter: 'grayscale(1) contrast(1.1)', opacity: '0.85' }} />
+                  style={{ width: '100%', height: 'auto', display: 'block' }} />
               </div>
             )}
-            <Button href={trackingUrl} style={S.cta}>Track package</Button>
+            <Button href={trackingUrl} style={S.cta}>Track package →</Button>
             {estimatedDelivery && (
-              <Text style={{ fontSize: '12px', color: '#71717a', margin: '14px 0 0 0' }}>
-                Estimated delivery: {estimatedDelivery}
+              <Text style={{ fontSize: '12px', color: S.C.muted, margin: '16px 0 0 0' }}>
+                Estimated delivery: <strong style={{ color: S.C.ink }}>{estimatedDelivery}</strong>
               </Text>
             )}
           </Section>
+
           {items.length > 0 && (
             <>
               <Hr style={S.hr} />
@@ -74,14 +77,15 @@ const Email = ({
                 <Text style={S.sectionTitle}>Items shipped</Text>
                 <div style={S.card}>
                   {items.map((item, i) => (
-                    <Text key={i} style={{ fontSize: '13px', color: '#d4d4d8', margin: '0 0 6px 0' }}>
-                      {item.name}{item.variation ? ` · ${item.variation}` : ''} · Qty {item.quantity}
+                    <Text key={i} style={{ fontSize: '13px', color: S.C.inkSoft, margin: '0 0 6px 0' }}>
+                      <strong style={{ color: S.C.ink }}>{item.name}</strong>{item.variation ? ` · ${item.variation}` : ''} · Qty {item.quantity}
                     </Text>
                   ))}
                 </div>
               </Section>
             </>
           )}
+
           <Hr style={S.hr} />
           <Section>
             <Text style={S.footerText}>
