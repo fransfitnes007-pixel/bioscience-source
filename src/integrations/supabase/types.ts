@@ -3383,6 +3383,42 @@ export type Database = {
         }
         Relationships: []
       }
+      sms_optins: {
+        Row: {
+          consent_text: string | null
+          created_at: string
+          email: string
+          id: string
+          ip_address: string | null
+          name: string
+          phone: string
+          sms_consent: boolean
+          user_agent: string | null
+        }
+        Insert: {
+          consent_text?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          ip_address?: string | null
+          name: string
+          phone: string
+          sms_consent?: boolean
+          user_agent?: string | null
+        }
+        Update: {
+          consent_text?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          ip_address?: string | null
+          name?: string
+          phone?: string
+          sms_consent?: boolean
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       supplier_messages: {
         Row: {
           created_at: string
