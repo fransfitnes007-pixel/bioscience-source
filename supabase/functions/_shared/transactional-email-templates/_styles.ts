@@ -42,27 +42,29 @@ export const container: React.CSSProperties = {
   color: C.ink,
 }
 
-// Brand row: chrome dot + wordmark
-export const logoSection: React.CSSProperties = { textAlign: 'left', marginBottom: '28px' }
-export const brandRow: React.CSSProperties = { display: 'inline-block', verticalAlign: 'middle' }
-export const chromeDot: React.CSSProperties = {
-  display: 'inline-block',
-  width: '22px',
-  height: '22px',
-  borderRadius: '999px',
-  background: 'radial-gradient(circle at 30% 30%, #FFFFFF 0%, #C8C8C8 45%, #2E2E2E 100%)',
-  boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.15)',
-  verticalAlign: 'middle',
-  marginRight: '10px',
+// Brand header: real Resurrected Labz RL mark + full logo.
+export const logoSection: React.CSSProperties = { textAlign: 'center', marginBottom: '30px' }
+export const brandPanel: React.CSSProperties = {
+  backgroundColor: '#050505',
+  borderRadius: '16px',
+  padding: '18px 20px 20px',
+  textAlign: 'center' as const,
+  border: '1px solid rgba(255,255,255,0.10)',
 }
-export const wordmark: React.CSSProperties = {
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  fontSize: '15px',
-  fontWeight: 600,
-  letterSpacing: '-0.01em',
-  color: C.ink,
-  margin: 0,
+export const rlMark: React.CSSProperties = {
+  display: 'block',
+  margin: '0 auto 10px',
+  width: '42px',
+  height: '29px',
+  objectFit: 'contain' as const,
+}
+export const brandLogo: React.CSSProperties = {
+  display: 'block',
+  margin: '0 auto',
+  width: '252px',
+  maxWidth: '100%',
+  height: 'auto',
+  objectFit: 'contain' as const,
 }
 // Kept for back-compat; not used in pearl theme.
 export const logo: React.CSSProperties = { margin: '0', display: 'none' }
