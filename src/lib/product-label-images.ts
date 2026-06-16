@@ -171,6 +171,26 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   pinealon: {
     "5mg": pinealon5mg.url,
+    "10mg": pinealon10mg.url,
+    "20mg": pinealon20mg.url,
+  },
+  tesamorelin: {
+    "5mg": tesamorelin5mg.url,
+    "10mg": tesamorelin10mg.url,
+  },
+  "cjc-1295-ipa": {
+    "10mg": cjc1295Ipa10mg.url,
+  },
+  "cjc-1295-no-dac": {
+    "5mg": cjc1295NoDac5mg.url,
+    "10mg": cjc1295NoDac10mg.url,
+  },
+  thymalin: {
+    "10mg": thymalin10mg.url,
+  },
+  epithalon: {
+    "10mg": epithalon10mg.url,
+    "50mg": epithalon50mg.url,
   },
 };
 
