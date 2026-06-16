@@ -12,6 +12,11 @@ import motsC10mg from "@/assets/product-labels/mots-c-10mg.png.asset.json";
 import motsC40mg from "@/assets/product-labels/mots-c-40mg.png.asset.json";
 import sluPp322_5mg from "@/assets/product-labels/slu-pp-322-5mg.png.asset.json";
 import vip5mg from "@/assets/product-labels/vip-5mg.png.asset.json";
+import lemonBottle10ml from "@/assets/product-labels/lemon-bottle-10ml.png.asset.json";
+import lCarnitine10ml from "@/assets/product-labels/l-carnitine-10ml.png.asset.json";
+import vip10mg from "@/assets/product-labels/vip-10mg.png.asset.json";
+import glowStack70mg from "@/assets/product-labels/glow-stack-70mg.png.asset.json";
+import klowStack80mg from "@/assets/product-labels/klow-stack-80mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -35,8 +40,21 @@ export const productLabelImages: Record<string, StrengthMap> = {
   "slu-pp-322": {
     "5mg": sluPp322_5mg.url,
   },
-  vip: {
+  "vip-5mg": {
     "5mg": vip5mg.url,
+    "10mg": vip10mg.url,
+  },
+  "lemon-bottle": {
+    "10ml": lemonBottle10ml.url,
+  },
+  "l-carnitine": {
+    "10ml": lCarnitine10ml.url,
+  },
+  "glow-stack": {
+    "70mg": glowStack70mg.url,
+  },
+  "klow-stack": {
+    "80mg": klowStack80mg.url,
   },
 };
 
