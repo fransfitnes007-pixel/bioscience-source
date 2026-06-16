@@ -85,6 +85,16 @@ import glp3Reta30mg from "@/assets/product-labels/glp3-reta-30mg.png.asset.json"
 import glp3Reta40mg from "@/assets/product-labels/glp3-reta-40mg.png.asset.json";
 import glp3Reta50mg from "@/assets/product-labels/glp3-reta-50mg.png.asset.json";
 import glp3Reta60mg from "@/assets/product-labels/glp3-reta-60mg.png.asset.json";
+import glp1Triz5mg from "@/assets/product-labels/glp1-triz-5mg.png.asset.json";
+import glp1Triz10mg from "@/assets/product-labels/glp1-triz-10mg.png.asset.json";
+import glp1Triz15mg from "@/assets/product-labels/glp1-triz-15mg.png.asset.json";
+import glp1Triz20mg from "@/assets/product-labels/glp1-triz-20mg.png.asset.json";
+import glp1Triz30mg from "@/assets/product-labels/glp1-triz-30mg.png.asset.json";
+import glp1Triz40mg from "@/assets/product-labels/glp1-triz-40mg.png.asset.json";
+import glp1Triz50mg from "@/assets/product-labels/glp1-triz-50mg.png.asset.json";
+import glp1Triz60mg from "@/assets/product-labels/glp1-triz-60mg.png.asset.json";
+import glp1Sema5mg from "@/assets/product-labels/glp1-sema-5mg.png.asset.json";
+import glp1Sema10mg from "@/assets/product-labels/glp1-sema-10mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -263,6 +273,20 @@ export const productLabelImages: Record<string, StrengthMap> = {
     "40mg": glp3Reta40mg.url,
     "50mg": glp3Reta50mg.url,
     "60mg": glp3Reta60mg.url,
+  },
+  "glp1-triz": {
+    "5mg": glp1Triz5mg.url,
+    "10mg": glp1Triz10mg.url,
+    "15mg": glp1Triz15mg.url,
+    "20mg": glp1Triz20mg.url,
+    "30mg": glp1Triz30mg.url,
+    "40mg": glp1Triz40mg.url,
+    "50mg": glp1Triz50mg.url,
+    "60mg": glp1Triz60mg.url,
+  },
+  "glp1-sema": {
+    "5mg": glp1Sema5mg.url,
+    "10mg": glp1Sema10mg.url,
   },
 };
 
