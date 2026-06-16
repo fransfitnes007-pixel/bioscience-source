@@ -65,6 +65,16 @@ import bpc157Tb500_10mg from "@/assets/product-labels/bpc-157-tb500-10mg.png.ass
 import bpc157Tb500_20mg from "@/assets/product-labels/bpc-157-tb500-20mg.png.asset.json";
 import semax5mg from "@/assets/product-labels/semax-5mg.png.asset.json";
 import semax10mg from "@/assets/product-labels/semax-10mg.png.asset.json";
+import selank5mg from "@/assets/product-labels/selank-5mg.png.asset.json";
+import selank10mg from "@/assets/product-labels/selank-10mg.png.asset.json";
+import cagrilintide5mg from "@/assets/product-labels/cagrilintide-5mg.png.asset.json";
+import cagrilintide10mg from "@/assets/product-labels/cagrilintide-10mg.png.asset.json";
+import mazdutide10mg from "@/assets/product-labels/mazdutide-10mg.png.asset.json";
+import survodutide10mg from "@/assets/product-labels/survodutide-10mg.png.asset.json";
+import bpc157_5mg from "@/assets/product-labels/bpc-157-5mg.png.asset.json";
+import bpc157_10mg from "@/assets/product-labels/bpc-157-10mg.png.asset.json";
+import tb500_5mg from "@/assets/product-labels/tb500-5mg.png.asset.json";
+import tb500_10mg from "@/assets/product-labels/tb500-10mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -207,6 +217,28 @@ export const productLabelImages: Record<string, StrengthMap> = {
   semax: {
     "5mg": semax5mg.url,
     "10mg": semax10mg.url,
+  },
+  selank: {
+    "5mg": selank5mg.url,
+    "10mg": selank10mg.url,
+  },
+  cagrilintide: {
+    "5mg": cagrilintide5mg.url,
+    "10mg": cagrilintide10mg.url,
+  },
+  mazdutide: {
+    "10mg": mazdutide10mg.url,
+  },
+  survodutide: {
+    "10mg": survodutide10mg.url,
+  },
+  "bpc-157": {
+    "5mg": bpc157_5mg.url,
+    "10mg": bpc157_10mg.url,
+  },
+  tb500: {
+    "5mg": tb500_5mg.url,
+    "10mg": tb500_10mg.url,
   },
 };
 
