@@ -274,6 +274,20 @@ export const productLabelImages: Record<string, StrengthMap> = {
     "50mg": glp3Reta50mg.url,
     "60mg": glp3Reta60mg.url,
   },
+  "glp1-triz": {
+    "5mg": glp1Triz5mg.url,
+    "10mg": glp1Triz10mg.url,
+    "15mg": glp1Triz15mg.url,
+    "20mg": glp1Triz20mg.url,
+    "30mg": glp1Triz30mg.url,
+    "40mg": glp1Triz40mg.url,
+    "50mg": glp1Triz50mg.url,
+    "60mg": glp1Triz60mg.url,
+  },
+  "glp1-sema": {
+    "5mg": glp1Sema5mg.url,
+    "10mg": glp1Sema10mg.url,
+  },
 };
 
 const normalizeStrength = (s: string) =>
