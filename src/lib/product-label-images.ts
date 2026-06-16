@@ -78,6 +78,17 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   "ghk-cu": {
     "50mg": ghkCu50mg.url,
+    "100mg": ghkCu100mg.url,
+  },
+  "snap-8": {
+    "10mg": snap810mg.url,
+  },
+  kpv: {
+    "5mg": kpv5mg.url,
+    "10mg": kpv10mg.url,
+  },
+  "ll-37": {
+    "5mg": ll375mg.url,
   },
 };
 
