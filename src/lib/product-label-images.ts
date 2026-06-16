@@ -250,6 +250,20 @@ export const productLabelImages: Record<string, StrengthMap> = {
     "5mg": tb500_5mg.url,
     "10mg": tb500_10mg.url,
   },
+  "thymosin-alpha-1": {
+    "5mg": thymosinAlpha1_5mg.url,
+    "10mg": thymosinAlpha1_10mg.url,
+  },
+  "glp3-reta": {
+    "5mg": glp3Reta5mg.url,
+    "10mg": glp3Reta10mg.url,
+    "15mg": glp3Reta15mg.url,
+    "20mg": glp3Reta20mg.url,
+    "30mg": glp3Reta30mg.url,
+    "40mg": glp3Reta40mg.url,
+    "50mg": glp3Reta50mg.url,
+    "60mg": glp3Reta60mg.url,
+  },
 };
 
 const normalizeStrength = (s: string) =>
