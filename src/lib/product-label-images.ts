@@ -8,6 +8,10 @@ import nad500mg from "@/assets/product-labels/nad-500mg.png.asset.json";
 import nad1000mg from "@/assets/product-labels/nad-1000mg.png.asset.json";
 import amino5mg from "@/assets/product-labels/5-amino-1mq-5mg.png.asset.json";
 import amino50mg from "@/assets/product-labels/5-amino-1mq-50mg.png.asset.json";
+import motsC10mg from "@/assets/product-labels/mots-c-10mg.png.asset.json";
+import motsC40mg from "@/assets/product-labels/mots-c-40mg.png.asset.json";
+import sluPp322_5mg from "@/assets/product-labels/slu-pp-322-5mg.png.asset.json";
+import vip5mg from "@/assets/product-labels/vip-5mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -23,6 +27,16 @@ export const productLabelImages: Record<string, StrengthMap> = {
   "5-amino-1mq": {
     "5mg": amino5mg.url,
     "50mg": amino50mg.url,
+  },
+  "mots-c": {
+    "10mg": motsC10mg.url,
+    "40mg": motsC40mg.url,
+  },
+  "slu-pp-322": {
+    "5mg": sluPp322_5mg.url,
+  },
+  vip: {
+    "5mg": vip5mg.url,
   },
 };
 
