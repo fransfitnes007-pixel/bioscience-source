@@ -136,6 +136,17 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   ipamorelin: {
     "5mg": ipamorelin5mg.url,
+    "10mg": ipamorelin10mg.url,
+  },
+  hexarelin: {
+    "5mg": hexarelin5mg.url,
+  },
+  "ghrp-6": {
+    "5mg": ghrp6_5mg.url,
+    "10mg": ghrp6_10mg.url,
+  },
+  "igf-1-lr3": {
+    "0.1mg": igf1Lr3_01mg.url,
   },
 };
 
