@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-const SITE_PASSWORD = "resurrected2026";
+const SITE_PASSWORD = "earlyaccess";
 const STORAGE_KEY = "rl-site-unlocked";
 
 interface Props {
