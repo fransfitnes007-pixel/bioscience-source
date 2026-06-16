@@ -93,6 +93,13 @@ export const productLabelImages: Record<string, StrengthMap> = {
   "ll-37": {
     "5mg": ll375mg.url,
   },
+  "ss-31": {
+    "10mg": ss3110mg.url,
+    "50mg": ss3150mg.url,
+  },
+  "hgh-somatropin": {
+    "15iu": hghSomatropin15iu.url,
+  },
 };
 
 const normalizeStrength = (s: string) =>
