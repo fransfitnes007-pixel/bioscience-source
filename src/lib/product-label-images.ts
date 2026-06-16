@@ -35,6 +35,11 @@ import hcg5000iu from "@/assets/product-labels/hcg-5000iu.png.asset.json";
 import hcg10000iu from "@/assets/product-labels/hcg-10000iu.png.asset.json";
 import follistatin1mg from "@/assets/product-labels/follistatin-1mg.png.asset.json";
 import kisspeptin10_5mg from "@/assets/product-labels/kisspeptin-10-5mg.png.asset.json";
+import kisspeptin10_10mg from "@/assets/product-labels/kisspeptin-10-10mg.png.asset.json";
+import mt210mg from "@/assets/product-labels/mt-2-10mg.png.asset.json";
+import sermorelin5mg from "@/assets/product-labels/sermorelin-5mg.png.asset.json";
+import sermorelin10mg from "@/assets/product-labels/sermorelin-10mg.png.asset.json";
+import ipamorelin5mg from "@/assets/product-labels/ipamorelin-5mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -115,6 +120,17 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   "kisspeptin-10": {
     "5mg": kisspeptin10_5mg.url,
+    "10mg": kisspeptin10_10mg.url,
+  },
+  "mt-2": {
+    "10mg": mt210mg.url,
+  },
+  sermorelin: {
+    "5mg": sermorelin5mg.url,
+    "10mg": sermorelin10mg.url,
+  },
+  ipamorelin: {
+    "5mg": ipamorelin5mg.url,
   },
 };
 
