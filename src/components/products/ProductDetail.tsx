@@ -49,6 +49,24 @@ export const ProductDetail = ({
               {product.displayName}
             </h2>
 
+            {/* Label preview — swaps with selected strength */}
+            {(() => {
+              const labelSrc =
+                getLabelImage(product.slug, selectedVariation?.strength) ??
+                getProductImage(product.slug);
+              if (!labelSrc) return null;
+              return (
+                <div className="mb-6 rounded-lg border border-border bg-white overflow-hidden">
+                  <img
+                    src={labelSrc}
+                    alt={`${product.displayName}${selectedVariation ? ` ${selectedVariation.strength}` : ""} label`}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              );
+            })()}
+
+
             {/* Variations */}
             <div className="mb-6">
               <h3 className="font-heading text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">
