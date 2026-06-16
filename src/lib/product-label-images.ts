@@ -50,6 +50,16 @@ import hghSomatropin10iu from "@/assets/product-labels/hgh-somatropin-10iu.png.a
 import dsip5mg from "@/assets/product-labels/dsip-5mg.png.asset.json";
 import dsip15mg from "@/assets/product-labels/dsip-15mg.png.asset.json";
 import pinealon5mg from "@/assets/product-labels/pinealon-5mg.png.asset.json";
+import pinealon10mg from "@/assets/product-labels/pinealon-10mg.png.asset.json";
+import pinealon20mg from "@/assets/product-labels/pinealon-20mg.png.asset.json";
+import tesamorelin5mg from "@/assets/product-labels/tesamorelin-5mg.png.asset.json";
+import tesamorelin10mg from "@/assets/product-labels/tesamorelin-10mg.png.asset.json";
+import cjc1295Ipa10mg from "@/assets/product-labels/cjc-1295-ipa-10mg.png.asset.json";
+import cjc1295NoDac5mg from "@/assets/product-labels/cjc-1295-no-dac-5mg.png.asset.json";
+import cjc1295NoDac10mg from "@/assets/product-labels/cjc-1295-no-dac-10mg.png.asset.json";
+import thymalin10mg from "@/assets/product-labels/thymalin-10mg.png.asset.json";
+import epithalon10mg from "@/assets/product-labels/epithalon-10mg.png.asset.json";
+import epithalon50mg from "@/assets/product-labels/epithalon-50mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -161,6 +171,26 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   pinealon: {
     "5mg": pinealon5mg.url,
+    "10mg": pinealon10mg.url,
+    "20mg": pinealon20mg.url,
+  },
+  tesamorelin: {
+    "5mg": tesamorelin5mg.url,
+    "10mg": tesamorelin10mg.url,
+  },
+  "cjc-1295-ipa": {
+    "10mg": cjc1295Ipa10mg.url,
+  },
+  "cjc-1295-no-dac": {
+    "5mg": cjc1295NoDac5mg.url,
+    "10mg": cjc1295NoDac10mg.url,
+  },
+  thymalin: {
+    "10mg": thymalin10mg.url,
+  },
+  epithalon: {
+    "10mg": epithalon10mg.url,
+    "50mg": epithalon50mg.url,
   },
 };
 
