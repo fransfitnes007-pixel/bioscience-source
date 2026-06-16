@@ -47,6 +47,9 @@ import ghrp6_10mg from "@/assets/product-labels/ghrp-6-10mg.png.asset.json";
 import igf1Lr3_01mg from "@/assets/product-labels/igf-1-lr3-0-1mg.png.asset.json";
 import igf1Lr3_1mg from "@/assets/product-labels/igf-1-lr3-1mg.png.asset.json";
 import hghSomatropin10iu from "@/assets/product-labels/hgh-somatropin-10iu.png.asset.json";
+import dsip5mg from "@/assets/product-labels/dsip-5mg.png.asset.json";
+import dsip15mg from "@/assets/product-labels/dsip-15mg.png.asset.json";
+import pinealon5mg from "@/assets/product-labels/pinealon-5mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -151,6 +154,13 @@ export const productLabelImages: Record<string, StrengthMap> = {
   "igf-1-lr3": {
     "0.1mg": igf1Lr3_01mg.url,
     "1mg": igf1Lr3_1mg.url,
+  },
+  dsip: {
+    "5mg": dsip5mg.url,
+    "15mg": dsip15mg.url,
+  },
+  pinealon: {
+    "5mg": pinealon5mg.url,
   },
 };
 
