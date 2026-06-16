@@ -85,6 +85,16 @@ import glp3Reta30mg from "@/assets/product-labels/glp3-reta-30mg.png.asset.json"
 import glp3Reta40mg from "@/assets/product-labels/glp3-reta-40mg.png.asset.json";
 import glp3Reta50mg from "@/assets/product-labels/glp3-reta-50mg.png.asset.json";
 import glp3Reta60mg from "@/assets/product-labels/glp3-reta-60mg.png.asset.json";
+import glp1Triz5mg from "@/assets/product-labels/glp1-triz-5mg.png.asset.json";
+import glp1Triz10mg from "@/assets/product-labels/glp1-triz-10mg.png.asset.json";
+import glp1Triz15mg from "@/assets/product-labels/glp1-triz-15mg.png.asset.json";
+import glp1Triz20mg from "@/assets/product-labels/glp1-triz-20mg.png.asset.json";
+import glp1Triz30mg from "@/assets/product-labels/glp1-triz-30mg.png.asset.json";
+import glp1Triz40mg from "@/assets/product-labels/glp1-triz-40mg.png.asset.json";
+import glp1Triz50mg from "@/assets/product-labels/glp1-triz-50mg.png.asset.json";
+import glp1Triz60mg from "@/assets/product-labels/glp1-triz-60mg.png.asset.json";
+import glp1Sema5mg from "@/assets/product-labels/glp1-sema-5mg.png.asset.json";
+import glp1Sema10mg from "@/assets/product-labels/glp1-sema-10mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
