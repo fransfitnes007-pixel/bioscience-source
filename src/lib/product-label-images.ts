@@ -50,6 +50,16 @@ import hghSomatropin10iu from "@/assets/product-labels/hgh-somatropin-10iu.png.a
 import dsip5mg from "@/assets/product-labels/dsip-5mg.png.asset.json";
 import dsip15mg from "@/assets/product-labels/dsip-15mg.png.asset.json";
 import pinealon5mg from "@/assets/product-labels/pinealon-5mg.png.asset.json";
+import pinealon10mg from "@/assets/product-labels/pinealon-10mg.png.asset.json";
+import pinealon20mg from "@/assets/product-labels/pinealon-20mg.png.asset.json";
+import tesamorelin5mg from "@/assets/product-labels/tesamorelin-5mg.png.asset.json";
+import tesamorelin10mg from "@/assets/product-labels/tesamorelin-10mg.png.asset.json";
+import cjc1295Ipa10mg from "@/assets/product-labels/cjc-1295-ipa-10mg.png.asset.json";
+import cjc1295NoDac5mg from "@/assets/product-labels/cjc-1295-no-dac-5mg.png.asset.json";
+import cjc1295NoDac10mg from "@/assets/product-labels/cjc-1295-no-dac-10mg.png.asset.json";
+import thymalin10mg from "@/assets/product-labels/thymalin-10mg.png.asset.json";
+import epithalon10mg from "@/assets/product-labels/epithalon-10mg.png.asset.json";
+import epithalon50mg from "@/assets/product-labels/epithalon-50mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
