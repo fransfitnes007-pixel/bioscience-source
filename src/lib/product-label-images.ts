@@ -75,6 +75,16 @@ import bpc157_5mg from "@/assets/product-labels/bpc-157-5mg.png.asset.json";
 import bpc157_10mg from "@/assets/product-labels/bpc-157-10mg.png.asset.json";
 import tb500_5mg from "@/assets/product-labels/tb500-5mg.png.asset.json";
 import tb500_10mg from "@/assets/product-labels/tb500-10mg.png.asset.json";
+import thymosinAlpha1_5mg from "@/assets/product-labels/thymosin-alpha-1-5mg.png.asset.json";
+import thymosinAlpha1_10mg from "@/assets/product-labels/thymosin-alpha-1-10mg.png.asset.json";
+import glp3Reta5mg from "@/assets/product-labels/glp3-reta-5mg.png.asset.json";
+import glp3Reta10mg from "@/assets/product-labels/glp3-reta-10mg.png.asset.json";
+import glp3Reta15mg from "@/assets/product-labels/glp3-reta-15mg.png.asset.json";
+import glp3Reta20mg from "@/assets/product-labels/glp3-reta-20mg.png.asset.json";
+import glp3Reta30mg from "@/assets/product-labels/glp3-reta-30mg.png.asset.json";
+import glp3Reta40mg from "@/assets/product-labels/glp3-reta-40mg.png.asset.json";
+import glp3Reta50mg from "@/assets/product-labels/glp3-reta-50mg.png.asset.json";
+import glp3Reta60mg from "@/assets/product-labels/glp3-reta-60mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
