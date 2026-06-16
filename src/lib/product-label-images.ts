@@ -155,6 +155,13 @@ export const productLabelImages: Record<string, StrengthMap> = {
     "0.1mg": igf1Lr3_01mg.url,
     "1mg": igf1Lr3_1mg.url,
   },
+  dsip: {
+    "5mg": dsip5mg.url,
+    "15mg": dsip15mg.url,
+  },
+  pinealon: {
+    "5mg": pinealon5mg.url,
+  },
 };
 
 const normalizeStrength = (s: string) =>
