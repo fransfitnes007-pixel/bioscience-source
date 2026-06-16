@@ -115,6 +115,7 @@ export const productLabelImages: Record<string, StrengthMap> = {
     "50mg": ss3150mg.url,
   },
   "hgh-somatropin": {
+    "10iu": hghSomatropin10iu.url,
     "15iu": hghSomatropin15iu.url,
     "24iu": hghSomatropin24iu.url,
   },
