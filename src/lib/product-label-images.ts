@@ -17,6 +17,8 @@ import lCarnitine10ml from "@/assets/product-labels/l-carnitine-10ml.png.asset.j
 import vip10mg from "@/assets/product-labels/vip-10mg.png.asset.json";
 import glowStack70mg from "@/assets/product-labels/glow-stack-70mg.png.asset.json";
 import klowStack80mg from "@/assets/product-labels/klow-stack-80mg.png.asset.json";
+import bacWater3ml from "@/assets/product-labels/bac-water-3ml.png.asset.json";
+import bacWater10ml from "@/assets/product-labels/bac-water-10ml.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -55,6 +57,10 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   "klow-stack": {
     "80mg": klowStack80mg.url,
+  },
+  "bac-water": {
+    "3ml": bacWater3ml.url,
+    "10ml": bacWater10ml.url,
   },
 };
 
