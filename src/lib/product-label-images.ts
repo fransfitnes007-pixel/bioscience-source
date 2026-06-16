@@ -60,6 +60,11 @@ import cjc1295NoDac10mg from "@/assets/product-labels/cjc-1295-no-dac-10mg.png.a
 import thymalin10mg from "@/assets/product-labels/thymalin-10mg.png.asset.json";
 import epithalon10mg from "@/assets/product-labels/epithalon-10mg.png.asset.json";
 import epithalon50mg from "@/assets/product-labels/epithalon-50mg.png.asset.json";
+import aod9604_5mg from "@/assets/product-labels/aod-9604-5mg.png.asset.json";
+import bpc157Tb500_10mg from "@/assets/product-labels/bpc-157-tb500-10mg.png.asset.json";
+import bpc157Tb500_20mg from "@/assets/product-labels/bpc-157-tb500-20mg.png.asset.json";
+import semax5mg from "@/assets/product-labels/semax-5mg.png.asset.json";
+import semax10mg from "@/assets/product-labels/semax-10mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
