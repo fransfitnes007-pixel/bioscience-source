@@ -7,6 +7,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getLabelImage } from "@/lib/product-label-images";
+import { getProductImage } from "@/lib/product-images";
 
 interface ProductDetailProps {
   product: Product;
