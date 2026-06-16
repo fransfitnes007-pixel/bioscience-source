@@ -150,6 +150,7 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   "igf-1-lr3": {
     "0.1mg": igf1Lr3_01mg.url,
+    "1mg": igf1Lr3_1mg.url,
   },
 };
 
