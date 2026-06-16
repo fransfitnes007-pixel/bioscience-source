@@ -30,6 +30,11 @@ import ll375mg from "@/assets/product-labels/ll-37-5mg.png.asset.json";
 import ss3110mg from "@/assets/product-labels/ss-31-10mg.png.asset.json";
 import ss3150mg from "@/assets/product-labels/ss-31-50mg.png.asset.json";
 import hghSomatropin15iu from "@/assets/product-labels/hgh-somatropin-15iu.png.asset.json";
+import hghSomatropin24iu from "@/assets/product-labels/hgh-somatropin-24iu.png.asset.json";
+import hcg5000iu from "@/assets/product-labels/hcg-5000iu.png.asset.json";
+import hcg10000iu from "@/assets/product-labels/hcg-10000iu.png.asset.json";
+import follistatin1mg from "@/assets/product-labels/follistatin-1mg.png.asset.json";
+import kisspeptin10_5mg from "@/assets/product-labels/kisspeptin-10-5mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
