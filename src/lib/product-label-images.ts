@@ -27,6 +27,9 @@ import snap810mg from "@/assets/product-labels/snap-8-10mg.png.asset.json";
 import kpv5mg from "@/assets/product-labels/kpv-5mg.png.asset.json";
 import kpv10mg from "@/assets/product-labels/kpv-10mg.png.asset.json";
 import ll375mg from "@/assets/product-labels/ll-37-5mg.png.asset.json";
+import ss3110mg from "@/assets/product-labels/ss-31-10mg.png.asset.json";
+import ss3150mg from "@/assets/product-labels/ss-31-50mg.png.asset.json";
+import hghSomatropin15iu from "@/assets/product-labels/hgh-somatropin-15iu.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -89,6 +92,13 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   "ll-37": {
     "5mg": ll375mg.url,
+  },
+  "ss-31": {
+    "10mg": ss3110mg.url,
+    "50mg": ss3150mg.url,
+  },
+  "hgh-somatropin": {
+    "15iu": hghSomatropin15iu.url,
   },
 };
 
