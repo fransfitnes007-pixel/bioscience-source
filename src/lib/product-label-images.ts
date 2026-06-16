@@ -197,6 +197,17 @@ export const productLabelImages: Record<string, StrengthMap> = {
     "10mg": epithalon10mg.url,
     "50mg": epithalon50mg.url,
   },
+  aod: {
+    "5mg": aod9604_5mg.url,
+  },
+  "bpc-157-tb500": {
+    "10mg": bpc157Tb500_10mg.url,
+    "20mg": bpc157Tb500_20mg.url,
+  },
+  semax: {
+    "5mg": semax5mg.url,
+    "10mg": semax10mg.url,
+  },
 };
 
 const normalizeStrength = (s: string) =>
