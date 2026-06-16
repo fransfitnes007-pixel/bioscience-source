@@ -22,6 +22,11 @@ import bacWater10ml from "@/assets/product-labels/bac-water-10ml.png.asset.json"
 import mt110mg from "@/assets/product-labels/mt-1-10mg.png.asset.json";
 import pt14110mg from "@/assets/product-labels/pt-141-10mg.png.asset.json";
 import ghkCu50mg from "@/assets/product-labels/ghk-cu-50mg.png.asset.json";
+import ghkCu100mg from "@/assets/product-labels/ghk-cu-100mg.png.asset.json";
+import snap810mg from "@/assets/product-labels/snap-8-10mg.png.asset.json";
+import kpv5mg from "@/assets/product-labels/kpv-5mg.png.asset.json";
+import kpv10mg from "@/assets/product-labels/kpv-10mg.png.asset.json";
+import ll375mg from "@/assets/product-labels/ll-37-5mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -73,6 +78,17 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   "ghk-cu": {
     "50mg": ghkCu50mg.url,
+    "100mg": ghkCu100mg.url,
+  },
+  "snap-8": {
+    "10mg": snap810mg.url,
+  },
+  kpv: {
+    "5mg": kpv5mg.url,
+    "10mg": kpv10mg.url,
+  },
+  "ll-37": {
+    "5mg": ll375mg.url,
   },
 };
 
