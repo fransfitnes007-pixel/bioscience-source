@@ -104,6 +104,17 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   "hgh-somatropin": {
     "15iu": hghSomatropin15iu.url,
+    "24iu": hghSomatropin24iu.url,
+  },
+  hcg: {
+    "5000iu": hcg5000iu.url,
+    "10000iu": hcg10000iu.url,
+  },
+  follistatin: {
+    "1mg": follistatin1mg.url,
+  },
+  "kisspeptin-10": {
+    "5mg": kisspeptin10_5mg.url,
   },
 };
 
