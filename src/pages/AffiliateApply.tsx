@@ -71,7 +71,18 @@ const AffiliateApply = () => {
       return;
     }
     setLoading(true);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      setLoading(false);
+      toast({
+        title: "Sign in to apply",
+        description: "Create a free account first so we can link your application and follow up with you.",
+      });
+      navigate(`/account?redirect=${encodeURIComponent("/affiliate-apply")}`);
+      return;
+    }
     const { error } = await supabase.from("affiliates").insert({
+      user_id: session.user.id,
       name: parsed.data.name,
       email: parsed.data.email,
       phone: parsed.data.phone,
