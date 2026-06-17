@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ExternalLink } from "lucide-react";
+import { getLabelImage } from "@/lib/product-label-images";
 
 const getUnitPrice = (variation: ProductVariation): number => {
   if (variation.price && variation.price > 0) return variation.price;
