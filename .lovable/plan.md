@@ -1,41 +1,69 @@
-## Goal
-Use Lovable Emails (built-in) to send branded transactional emails from `resurrectedlabz.com` — no third-party setup needed.
+Here's your full catalog (no file changes needed — just copy below):
 
-## Step 1 — Set up email domain (required first)
-You need to add `resurrectedlabz.com` as a verified sender. This puts emails in inboxes as `notify@resurrectedlabz.com` instead of a generic address.
+```
+GLP / Metabolic
+- GLP1-SEMA (Semaglutide) — 5mg, 10mg, 15mg, 20mg, 30mg
+- GLP1-TRIZ (Tirzepatide) — 5mg, 10mg, 15mg, 20mg, 30mg, 40mg, 50mg, 60mg
+- GLP3-RETA (Retatrutide) — 5mg, 10mg, 15mg, 20mg, 30mg, 40mg, 50mg, 60mg
+- Cagrilintide — 5mg, 10mg
+- Cagrilintide + Semaglutide — 10mg (5mg + 5mg)
+- Mazdutide — 10mg
+- Survodutide — 10mg
 
-I'll trigger the setup dialog at the end of this plan. After you complete DNS, I continue automatically.
+Recovery & Regenerative
+- BPC-157 — 5mg, 10mg
+- TB500 (Thymosin Beta-4) — 5mg, 10mg
+- Thymosin Alpha-1 — 5mg, 10mg
+- SS-31 — 10mg, 50mg
+- Thymalin — 10mg
+- Epithalon — 10mg, 50mg
+- AOD-9604 — 5mg
+- BPC-157 + TB500 — 10mg (5+5), 20mg (10+10)
 
-## Step 2 — Email infrastructure
-Provision the queue, send function, suppression list, unsubscribe handler, and cron worker (one-time, automatic).
+Cognitive & Neuro
+- Semax — 5mg, 10mg
+- Selank — 5mg, 10mg
+- DSIP — 5mg, 15mg
+- PNC-27 — 5mg, 10mg
+- Pinealon — 5mg, 10mg, 20mg
+- Cerebrolysin — 60mg
 
-## Step 3 — Branded email templates
-Three React Email templates in the Resurrected Labs black/white luxury theme with your logo:
+Growth / Hormone & Peptides
+- Tesamorelin — 5mg, 10mg
+- CJC-1295 Without DAC + Ipamorelin — 10mg (5 + 5)
+- CJC-1295 No DAC — 5mg, 10mg
+- Sermorelin — 5mg, 10mg
+- Ipamorelin — 5mg, 10mg
+- Hexarelin — 5mg
+- GHRP-6 — 5mg, 10mg
+- IGF-1 LR3 — 0.1mg, 1mg
+- HGH Somatropin (191AA) — 10IU, 15IU, 24IU
+- HCG — 5000IU, 10000IU
+- Follistatin — 1mg
+- Kisspeptin-10 — 5mg, 10mg
 
-1. **order-confirmation** — Logo, "Order Confirmed", line items with product images & strength, totals, shipping address, tracking number + "Track Package" CTA.
-2. **welcome-10-off** — For SMS opt-in & email signups. Logo, hero "Welcome to the Lab", their 10% discount code in a copy-style box, CTA to shop.
-3. **shipping-update** — Triggered when tracking is added. Logo, "Your order is on the way", tracking number, static map preview (Google Static Maps grayscale to match theme) showing route, "Track Live" CTA to carrier's page.
+Aesthetic / Skin
+- MT-2 (Melanotan 2) — 10mg
+- MT-1 (Afamelanotide) — 10mg
+- PT-141 — 10mg
+- GHK-Cu — 50mg, 100mg
+- SNAP-8 — 10mg
+- KPV — 5mg, 10mg
+- LL-37 — 5mg
+- Hyaluronic Acid — 5mg
+- Lemon Bottle — 10ml
+- L-Carnitine — 10ml
+- Glutathione — 1500mg
+- NAD+ — 100mg, 500mg, 1000mg
+- 5-Amino-1MQ — 5mg, 50mg
+- MOTS-c — 10mg, 40mg
+- SLU-PP-322 — 5mg
+- VIP — 5mg, 10mg
+- Glow Stack — 70mg (BPC 10mg + GHK-Cu 50mg + TB 10mg)
+- Alprostadil — 500mcg
 
-Note on the Shopify-style animated map: that's Shopify Shop app proprietary. Standard approach (what every brand uses outside Shop) is a **static grayscale map image** of the route with a CTA to the carrier's live tracker. That's what I'll build.
+Supplies
+- Bacteriostatic Water — 3ml, 10ml
+```
 
-## Step 4 — Wire triggers
-- Order confirmation → fires from `verify-payment` edge function on successful checkout.
-- Welcome 10% off → fires from `ComingSoonGate` form submission (already collects name/email/phone).
-- Shipping update → fires when admin adds a tracking number on an order in `/admin/orders/:id`.
-
-Each uses an idempotency key so retries don't double-send.
-
-## Technical details
-- Templates: `supabase/functions/_shared/transactional-email-templates/*.tsx` using React Email v0.0.22.
-- Registered in `registry.ts`. Single `send-transactional-email` function handles all sends.
-- Static map: `https://maps.googleapis.com/maps/api/staticmap` with `style=feature:all|invert_lightness:true|saturation:-100` for B&W theme. Requires a Google Maps Static API key (free tier covers thousands/month). I'll ask for it when wiring shipping update — not blocking for the other two.
-- Logo: hosted from `/resurrected-logo-full.png` (already in `public/`).
-
-## What I need from you
-1. Approve this plan.
-2. Complete the email domain setup dialog (DNS records — takes ~5 min, verification can take up to 72h but I can scaffold immediately).
-3. Later: a Google Maps Static API key for the shipping map (optional — can launch without it and add later).
-
-<presentation-actions>
-<presentation-open-email-setup>Set up email domain</presentation-open-email-setup>
-</presentation-actions>
+Total: 49 products. No code changes — just shoot back "go" if you want me to do anything else.
