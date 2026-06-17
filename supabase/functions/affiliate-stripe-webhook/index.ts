@@ -31,13 +31,19 @@ serve(async (req) => {
   const body = await req.text();
   const sig = req.headers.get("stripe-signature");
 
+  if (!webhookSecret) {
+    console.error("[stripe-webhook] STRIPE_WEBHOOK_SECRET not configured");
+    return new Response(JSON.stringify({ error: "Webhook not configured" }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500,
+    });
+  }
+  if (!sig) {
+    return new Response(JSON.stringify({ error: "Missing signature" }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400,
+    });
+  }
   try {
-    if (webhookSecret && sig) {
-      event = await stripe.webhooks.constructEventAsync(body, sig, webhookSecret);
-    } else {
-      // Fallback for manual testing — accept raw JSON
-      event = JSON.parse(body) as Stripe.Event;
-    }
+    event = await stripe.webhooks.constructEventAsync(body, sig, webhookSecret);
   } catch (err) {
     console.error("[stripe-webhook] signature verification failed", err);
     return new Response(JSON.stringify({ error: "Invalid signature" }), {
@@ -58,7 +64,7 @@ serve(async (req) => {
     });
   } catch (err) {
     console.error("[stripe-webhook] handler error", err);
-    return new Response(JSON.stringify({ error: String(err) }), {
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500,
     });
   }

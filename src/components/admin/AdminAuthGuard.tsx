@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
-import { isLovablePreview } from "@/lib/preview-auth";
 
 interface AdminAuthGuardProps {
   children: React.ReactNode;
@@ -16,11 +15,6 @@ const AdminAuthGuard = ({ children }: AdminAuthGuardProps) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        if (isLovablePreview()) {
-          setIsAuthorized(true);
-          return;
-        }
-
         const { data: { session } } = await supabase.auth.getSession();
 
         if (!session) {
@@ -57,11 +51,6 @@ const AdminAuthGuard = ({ children }: AdminAuthGuardProps) => {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (isLovablePreview()) {
-        setIsAuthorized(true);
-        return;
-      }
-
       if (event === "SIGNED_OUT" || !session) {
         navigate("/admin/login");
       }
