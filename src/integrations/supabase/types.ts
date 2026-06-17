@@ -86,6 +86,7 @@ export type Database = {
           social_youtube: string | null
           status: string
           updated_at: string
+          user_id: string | null
           why_resurrected_labs: string | null
         }
         Insert: {
@@ -111,6 +112,7 @@ export type Database = {
           social_youtube?: string | null
           status?: string
           updated_at?: string
+          user_id?: string | null
           why_resurrected_labs?: string | null
         }
         Update: {
@@ -136,6 +138,7 @@ export type Database = {
           social_youtube?: string | null
           status?: string
           updated_at?: string
+          user_id?: string | null
           why_resurrected_labs?: string | null
         }
         Relationships: [
@@ -2978,7 +2981,6 @@ export type Database = {
           metadata: Json | null
           method: Database["public"]["Enums"]["payout_method_type"]
           paypal_email: string | null
-          plaid_access_token_id: string | null
           plaid_account_id: string | null
           stripe_connect_account_id: string | null
           stripe_connect_payouts_enabled: boolean | null
@@ -2998,7 +3000,6 @@ export type Database = {
           metadata?: Json | null
           method: Database["public"]["Enums"]["payout_method_type"]
           paypal_email?: string | null
-          plaid_access_token_id?: string | null
           plaid_account_id?: string | null
           stripe_connect_account_id?: string | null
           stripe_connect_payouts_enabled?: boolean | null
@@ -3018,7 +3019,6 @@ export type Database = {
           metadata?: Json | null
           method?: Database["public"]["Enums"]["payout_method_type"]
           paypal_email?: string | null
-          plaid_access_token_id?: string | null
           plaid_account_id?: string | null
           stripe_connect_account_id?: string | null
           stripe_connect_payouts_enabled?: boolean | null

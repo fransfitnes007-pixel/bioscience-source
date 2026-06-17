@@ -71,7 +71,18 @@ const AffiliateApply = () => {
       return;
     }
     setLoading(true);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      setLoading(false);
+      toast({
+        title: "Sign in to apply",
+        description: "Create a free account first so we can link your application and follow up with you.",
+      });
+      navigate(`/account?redirect=${encodeURIComponent("/affiliate-apply")}`);
+      return;
+    }
     const { error } = await supabase.from("affiliates").insert({
+      user_id: session.user.id,
       name: parsed.data.name,
       email: parsed.data.email,
       phone: parsed.data.phone,
@@ -93,14 +104,7 @@ const AffiliateApply = () => {
       toast({ title: "Submission failed", description: error.message, variant: "destructive" });
       return;
     }
-    // Fire-and-forget confirmation email
-    supabase.functions.invoke("affiliate-notify", {
-      body: {
-        type: "application_received",
-        email: parsed.data.email,
-        display_name: parsed.data.name,
-      },
-    }).catch((err) => console.warn("notify failed", err));
+    // Confirmation email is sent by admins from the admin panel after review.
     setSubmitted(true);
   };
 
