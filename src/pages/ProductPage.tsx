@@ -110,6 +110,19 @@ const ProductPage = () => {
 
           <div className="max-w-4xl">
             <div>
+              {(() => {
+                const labelSrc = getLabelImage(product.slug, selectedVariation?.strength);
+                if (!labelSrc) return null;
+                return (
+                  <div className="mb-8 overflow-hidden rounded-xl border border-border bg-white max-w-md">
+                    <img
+                      src={labelSrc}
+                      alt={`${product.displayName}${selectedVariation ? ` ${selectedVariation.strength}` : ""} label`}
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                );
+              })()}
               <h1 className="font-heading text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 {product.displayName}
               </h1>
