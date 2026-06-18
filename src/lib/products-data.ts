@@ -453,8 +453,8 @@ export const productCategories: ProductCategory[] = [
         displayName: "HCG",
         slug: "hcg",
         variations: [
-          { strength: "5000IU", moq: 10, price: 30 },
-          { strength: "10000IU", moq: 10, price: 70 },
+          { strength: "5000IU", moq: 10, price: 50 },
+          { strength: "10000IU", moq: 10, price: 80 },
         ],
         description: "HCG (Human Chorionic Gonadotropin) is a glycoprotein hormone that mimics luteinizing hormone (LH) activity. It is used in reproductive research, testosterone regulation studies, and fertility applications.",
         scientificPurpose: "Designed to study LH receptor signaling, testosterone production, ovulation induction, and reproductive biology.",

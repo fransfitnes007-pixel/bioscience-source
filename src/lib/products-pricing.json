@@ -300,17 +300,17 @@
           "sku": "G5K",
           "size": "5000iu",
           "cost": 7.2,
-          "price": 30,
-          "profit": 22.8,
-          "margin": 76
+          "price": 50,
+          "profit": 42.8,
+          "margin": 85.6
         },
         {
           "sku": "G10K",
           "size": "10000iu",
           "cost": 14.4,
-          "price": 70,
-          "profit": 55.6,
-          "margin": 79.43
+          "price": 80,
+          "profit": 65.6,
+          "margin": 82
         }
       ]
     },
