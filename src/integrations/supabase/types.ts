@@ -3217,8 +3217,11 @@ export type Database = {
       }
       profiles: {
         Row: {
+          address_line1: string | null
+          address_line2: string | null
           business_email: string | null
           business_name: string | null
+          city: string | null
           company_logo_url: string | null
           country: string | null
           created_at: string
@@ -3226,14 +3229,19 @@ export type Database = {
           id: string
           last_name: string | null
           phone: string | null
+          postal_code: string | null
+          state: string | null
           status: Database["public"]["Enums"]["user_status"]
           updated_at: string
           user_id: string
           website: string | null
         }
         Insert: {
+          address_line1?: string | null
+          address_line2?: string | null
           business_email?: string | null
           business_name?: string | null
+          city?: string | null
           company_logo_url?: string | null
           country?: string | null
           created_at?: string
@@ -3241,14 +3249,19 @@ export type Database = {
           id?: string
           last_name?: string | null
           phone?: string | null
+          postal_code?: string | null
+          state?: string | null
           status?: Database["public"]["Enums"]["user_status"]
           updated_at?: string
           user_id: string
           website?: string | null
         }
         Update: {
+          address_line1?: string | null
+          address_line2?: string | null
           business_email?: string | null
           business_name?: string | null
+          city?: string | null
           company_logo_url?: string | null
           country?: string | null
           created_at?: string
@@ -3256,6 +3269,8 @@ export type Database = {
           id?: string
           last_name?: string | null
           phone?: string | null
+          postal_code?: string | null
+          state?: string | null
           status?: Database["public"]["Enums"]["user_status"]
           updated_at?: string
           user_id?: string
