@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { User, Building2, Mail, Phone, Globe, Lock, Tags, FileImage, Trash2 } from "lucide-react";
+import { User, Building2, Mail, Phone, Globe, Lock, Tags, FileImage, Trash2, MapPin } from "lucide-react";
 import LogoUploader from "@/components/shared/LogoUploader";
 
 interface Profile {
@@ -19,6 +19,11 @@ interface Profile {
   website: string | null;
   country: string | null;
   company_logo_url: string | null;
+  address_line1: string | null;
+  address_line2: string | null;
+  city: string | null;
+  state: string | null;
+  postal_code: string | null;
 }
 
 const PortalProfile = () => {
