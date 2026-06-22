@@ -4049,6 +4049,20 @@ export type Database = {
         Args: { _affiliate_id: string }
         Returns: undefined
       }
+      resolve_tracking_link: {
+        Args: { _slug: string }
+        Returns: {
+          active: boolean
+          affiliate_id: string
+          code_id: string
+          destination_url: string
+          id: string
+          utm_campaign: string
+          utm_content: string
+          utm_medium: string
+          utm_source: string
+        }[]
+      }
       validate_discount_code: {
         Args: { _code: string }
         Returns: {
