@@ -319,8 +319,10 @@ const Checkout = () => {
           app_subscription_cost: appSubscriptionCost,
           app_subscription_interval: 'month',
           fulfillment_carrier: selectedShippingRate?.carrier || null,
-          estimated_delivery_date: selectedShippingRate ? 
+          fulfillment_service: selectedShippingRate?.service || null,
+          estimated_delivery_date: selectedShippingRate ?
             new Date(Date.now() + selectedShippingRate.estimatedDaysMax * 86400000).toISOString().split('T')[0] : null,
+
         })
         .select()
         .single();

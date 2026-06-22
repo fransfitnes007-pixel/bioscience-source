@@ -2784,6 +2784,7 @@ export type Database = {
           discount_tier: string | null
           estimated_delivery_date: string | null
           fulfillment_carrier: string | null
+          fulfillment_service: string | null
           fulfillment_tracking_number: string | null
           id: string
           internal_notes: string | null
@@ -2803,6 +2804,8 @@ export type Database = {
           shipping_same_as_billing: boolean | null
           shipping_state: string | null
           shipping_zip: string | null
+          shipstation_order_id: string | null
+          shipstation_order_key: string | null
           status: string
           stripe_customer_id: string | null
           stripe_payment_intent_id: string | null
@@ -2838,6 +2841,7 @@ export type Database = {
           discount_tier?: string | null
           estimated_delivery_date?: string | null
           fulfillment_carrier?: string | null
+          fulfillment_service?: string | null
           fulfillment_tracking_number?: string | null
           id?: string
           internal_notes?: string | null
@@ -2857,6 +2861,8 @@ export type Database = {
           shipping_same_as_billing?: boolean | null
           shipping_state?: string | null
           shipping_zip?: string | null
+          shipstation_order_id?: string | null
+          shipstation_order_key?: string | null
           status?: string
           stripe_customer_id?: string | null
           stripe_payment_intent_id?: string | null
@@ -2892,6 +2898,7 @@ export type Database = {
           discount_tier?: string | null
           estimated_delivery_date?: string | null
           fulfillment_carrier?: string | null
+          fulfillment_service?: string | null
           fulfillment_tracking_number?: string | null
           id?: string
           internal_notes?: string | null
@@ -2911,6 +2918,8 @@ export type Database = {
           shipping_same_as_billing?: boolean | null
           shipping_state?: string | null
           shipping_zip?: string | null
+          shipstation_order_id?: string | null
+          shipstation_order_key?: string | null
           status?: string
           stripe_customer_id?: string | null
           stripe_payment_intent_id?: string | null
