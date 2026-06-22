@@ -182,7 +182,28 @@ serve(async (req) => {
       } catch (e) {
         console.warn("order-confirmation email send failed", e);
       }
+
+      // Push to ShipStation for label purchase + tracking email (idempotent inside the function)
+      try {
+        const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+        const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+        const ssResp = await fetch(`${supabaseUrl}/functions/v1/shipstation-create-order`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-internal-key": serviceKey,
+            Authorization: `Bearer ${serviceKey}`,
+          },
+          body: JSON.stringify({ orderId: order.id }),
+        });
+        if (!ssResp.ok) {
+          console.warn("shipstation-create-order non-2xx", ssResp.status, await ssResp.text());
+        }
+      } catch (e) {
+        console.warn("shipstation-create-order invoke failed", e);
+      }
     }
+
 
     return new Response(JSON.stringify({
       success: paymentSucceeded,
