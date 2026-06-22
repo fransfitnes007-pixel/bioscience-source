@@ -119,15 +119,31 @@ const Checkout = () => {
       setUserId(session.user.id);
       setBilling(prev => ({ ...prev, email: session.user.email || "" }));
 
-      // Fetch profile to check for saved logo
+      // Fetch profile to check for saved logo + saved address
       const { data: profile } = await supabase
         .from('profiles')
-        .select('company_logo_url')
+        .select('company_logo_url, first_name, last_name, phone, business_name, address_line1, address_line2, city, state, postal_code, country')
         .eq('user_id', session.user.id)
         .single();
 
       if (profile?.company_logo_url) {
         setSavedLogoUrl(profile.company_logo_url);
+      }
+
+      if (profile) {
+        setBilling(prev => ({
+          ...prev,
+          firstName: prev.firstName || profile.first_name || "",
+          lastName: prev.lastName || profile.last_name || "",
+          phone: prev.phone || profile.phone || "",
+          company: prev.company || profile.business_name || "",
+          address: prev.address || profile.address_line1 || "",
+          address2: prev.address2 || profile.address_line2 || "",
+          city: prev.city || profile.city || "",
+          state: prev.state || profile.state || "",
+          zip: prev.zip || profile.postal_code || "",
+          country: profile.country || prev.country,
+        }));
       }
     });
   }, [navigate]);
