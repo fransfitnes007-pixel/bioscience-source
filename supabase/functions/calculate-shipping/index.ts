@@ -2,58 +2,30 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-// Weight-based shipping rate tables (per lb) for domestic US
-// These serve as fallback rates when no external shipping API is configured
-const CARRIER_RATES: Record<string, { baseCost: number; perLb: number; minDays: number; maxDays: number; label: string }> = {
-  usps_priority: { baseCost: 8.50, perLb: 0.75, minDays: 2, maxDays: 5, label: "USPS Priority Mail" },
-  usps_ground: { baseCost: 5.00, perLb: 0.50, minDays: 5, maxDays: 10, label: "USPS Ground Advantage" },
-  ups_ground: { baseCost: 12.00, perLb: 1.10, minDays: 3, maxDays: 7, label: "UPS Ground" },
-  ups_3day: { baseCost: 22.00, perLb: 1.80, minDays: 2, maxDays: 3, label: "UPS 3-Day Select" },
-  ups_2day: { baseCost: 32.00, perLb: 2.50, minDays: 1, maxDays: 2, label: "UPS 2nd Day Air" },
-  fedex_ground: { baseCost: 11.50, perLb: 1.05, minDays: 3, maxDays: 7, label: "FedEx Ground" },
-  fedex_express: { baseCost: 28.00, perLb: 2.20, minDays: 1, maxDays: 3, label: "FedEx Express Saver" },
-  fedex_2day: { baseCost: 30.00, perLb: 2.40, minDays: 1, maxDays: 2, label: "FedEx 2Day" },
-  dhl_express: { baseCost: 35.00, perLb: 3.00, minDays: 1, maxDays: 3, label: "DHL Express" },
-};
+// Ship-from origin (US). Override via SHIP_FROM_POSTAL_CODE / SHIP_FROM_COUNTRY env vars.
+const SHIP_FROM_POSTAL = Deno.env.get("SHIP_FROM_POSTAL_CODE") || "33101";
+const SHIP_FROM_COUNTRY = Deno.env.get("SHIP_FROM_COUNTRY") || "US";
 
-// International surcharges by region
-const INTERNATIONAL_SURCHARGE: Record<string, number> = {
-  CA: 15, // Canada
-  GB: 25, // UK
-  AU: 35, // Australia
-  DE: 25, // Germany
-  FR: 25, // France
-  default: 40,
-};
-
-// Zone-based domestic adjustments (simplified - based on distance from origin)
-const ZONE_MULTIPLIER: Record<string, number> = {
-  local: 1.0,    // Same state
-  regional: 1.15, // Neighboring states
-  national: 1.35, // Cross-country
+// Country name -> ISO2
+const COUNTRY_ISO: Record<string, string> = {
+  "United States": "US", USA: "US", US: "US",
+  Canada: "CA", "United Kingdom": "GB", UK: "GB",
+  Australia: "AU", Germany: "DE", France: "FR",
 };
 
 interface ShippingRequest {
-  items: Array<{
-    productName: string;
-    quantity: number;
-    price: number;
-  }>;
-  destination: {
-    country: string;
-    state?: string;
-    zip?: string;
-    city?: string;
-  };
+  items: Array<{ productName: string; quantity: number; price: number }>;
+  destination: { country: string; state?: string; zip?: string; city?: string };
   subtotal: number;
 }
 
 interface ShippingRate {
   carrier: string;
-  service: string;
+  service: string; // ShipStation serviceCode (e.g. usps_priority_mail)
   label: string;
   cost: number;
   estimatedDaysMin: number;
@@ -61,110 +33,137 @@ interface ShippingRate {
   recommended: boolean;
 }
 
-function estimateWeight(items: ShippingRequest["items"]): number {
-  // Estimate weight based on item count and price (B2B bulk = heavier)
-  // Average peptide vial: ~0.3 lbs, packaging adds ~0.5 lbs per order
-  let totalWeight = 0.5; // base packaging
-  for (const item of items) {
-    totalWeight += item.quantity * 0.3; // ~0.3 lbs per vial
-  }
-  return Math.max(1, totalWeight); // minimum 1 lb
+// Fallback table used when ShipStation isn't reachable
+const FALLBACK_RATES: Record<string, { baseCost: number; perLb: number; minDays: number; maxDays: number; label: string; carrier: string }> = {
+  usps_first_class_mail: { baseCost: 5.0, perLb: 0.5, minDays: 5, maxDays: 7, label: "USPS First Class", carrier: "USPS" },
+  usps_priority_mail: { baseCost: 8.5, perLb: 0.75, minDays: 2, maxDays: 5, label: "USPS Priority Mail", carrier: "USPS" },
+  usps_priority_mail_express: { baseCost: 26.0, perLb: 1.5, minDays: 1, maxDays: 2, label: "USPS Priority Mail Express", carrier: "USPS" },
+  ups_ground: { baseCost: 12.0, perLb: 1.1, minDays: 3, maxDays: 7, label: "UPS Ground", carrier: "UPS" },
+  ups_2nd_day_air: { baseCost: 32.0, perLb: 2.5, minDays: 1, maxDays: 2, label: "UPS 2nd Day Air", carrier: "UPS" },
+  fedex_ground: { baseCost: 11.5, perLb: 1.05, minDays: 3, maxDays: 7, label: "FedEx Ground", carrier: "FedEx" },
+};
+
+function estimateWeightLbs(items: ShippingRequest["items"]): number {
+  let w = 0.5; // packaging
+  for (const i of items) w += i.quantity * 0.3;
+  return Math.max(1, Math.round(w * 10) / 10);
 }
 
-function getZone(destinationState?: string): string {
-  // Origin assumed: Central US (for simplicity)
-  const localStates = ["TX", "OK", "LA", "AR", "NM"];
-  const regionalStates = ["MO", "KS", "CO", "MS", "AL", "TN", "GA", "FL", "AZ", "NE", "IA"];
-  
-  if (!destinationState) return "national";
-  const state = destinationState.toUpperCase().trim();
-  if (localStates.includes(state)) return "local";
-  if (regionalStates.includes(state)) return "regional";
-  return "national";
+function toIso(country: string): string {
+  return COUNTRY_ISO[country] || (country.length === 2 ? country.toUpperCase() : "US");
 }
 
-function calculateRates(req: ShippingRequest): ShippingRate[] {
-  const weight = estimateWeight(req.items);
-  const isInternational = req.destination.country !== "United States" && req.destination.country !== "US";
-  const zone = isInternational ? "national" : getZone(req.destination.state);
-  const zoneMultiplier = ZONE_MULTIPLIER[zone] || 1.35;
+async function getShipstationRates(req: ShippingRequest, weightLbs: number): Promise<ShippingRate[]> {
+  const apiKey = Deno.env.get("SHIPSTATION_API_KEY");
+  const apiSecret = Deno.env.get("SHIPSTATION_API_SECRET");
+  if (!apiKey || !apiSecret) return [];
 
-  // Get country code for international surcharge
-  const countryMap: Record<string, string> = {
-    "Canada": "CA", "United Kingdom": "GB", "Australia": "AU",
-    "Germany": "DE", "France": "FR",
-  };
-  const countryCode = countryMap[req.destination.country] || req.destination.country;
-  const intlSurcharge = isInternational
-    ? (INTERNATIONAL_SURCHARGE[countryCode] || INTERNATIONAL_SURCHARGE.default)
-    : 0;
+  const auth = "Basic " + btoa(`${apiKey}:${apiSecret}`);
+  const toCountry = toIso(req.destination.country);
 
-  const rates: ShippingRate[] = [];
+  // Carriers to query. Each ShipStation account has these unless removed.
+  const carriers = ["stamps_com", "ups", "fedex"];
 
-  // Filter carriers for international (only UPS, FedEx, DHL ship internationally)
-  const validCarriers = isInternational
-    ? Object.entries(CARRIER_RATES).filter(([key]) => 
-        key.startsWith("ups_") || key.startsWith("fedex_") || key.startsWith("dhl_"))
-    : Object.entries(CARRIER_RATES);
+  const allRates: ShippingRate[] = [];
 
-  for (const [key, carrier] of validCarriers) {
-    const baseCost = (carrier.baseCost + carrier.perLb * weight) * zoneMultiplier + intlSurcharge;
-    // Round to 2 decimal places
-    const cost = Math.round(baseCost * 100) / 100;
+  await Promise.all(
+    carriers.map(async (carrierCode) => {
+      try {
+        const body = {
+          carrierCode,
+          fromPostalCode: SHIP_FROM_POSTAL,
+          toState: req.destination.state || "",
+          toCountry,
+          toPostalCode: req.destination.zip || "",
+          toCity: req.destination.city || "",
+          weight: { value: weightLbs, units: "pounds" },
+          confirmation: "none",
+          residential: true,
+        };
+        const resp = await fetch("https://ssapi.shipstation.com/shipments/getrates", {
+          method: "POST",
+          headers: { Authorization: auth, "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        if (!resp.ok) {
+          console.warn(`ShipStation getrates ${carrierCode} failed:`, resp.status, await resp.text());
+          return;
+        }
+        const data = await resp.json() as Array<{ serviceCode: string; serviceName: string; shipmentCost: number; otherCost: number }>;
+        const carrierName = carrierCode === "stamps_com" ? "USPS" : carrierCode === "ups" ? "UPS" : "FedEx";
+        for (const r of data) {
+          const cost = Math.round((Number(r.shipmentCost || 0) + Number(r.otherCost || 0)) * 100) / 100;
+          if (!cost || cost <= 0) continue;
+          // Heuristic transit days from service name
+          const name = r.serviceName.toLowerCase();
+          let minD = 3, maxD = 7;
+          if (name.includes("express") || name.includes("overnight") || name.includes("priority mail express")) { minD = 1; maxD = 2; }
+          else if (name.includes("2") || name.includes("two")) { minD = 2; maxD = 3; }
+          else if (name.includes("priority")) { minD = 2; maxD = 4; }
+          else if (name.includes("first class") || name.includes("ground advantage")) { minD = 3; maxD = 6; }
+          else if (name.includes("ground")) { minD = 3; maxD = 7; }
+          allRates.push({
+            carrier: carrierName,
+            service: r.serviceCode,
+            label: r.serviceName,
+            cost,
+            estimatedDaysMin: minD,
+            estimatedDaysMax: maxD,
+            recommended: false,
+          });
+        }
+      } catch (e) {
+        console.warn(`ShipStation getrates ${carrierCode} error:`, e);
+      }
+    }),
+  );
 
-    // Add extra days for international
-    const extraDays = isInternational ? 5 : 0;
+  return allRates;
+}
 
-    rates.push({
-      carrier: key.split("_")[0].toUpperCase(),
-      service: key,
-      label: carrier.label + (isInternational ? " (International)" : ""),
-      cost,
-      estimatedDaysMin: carrier.minDays + extraDays,
-      estimatedDaysMax: carrier.maxDays + extraDays,
+function fallbackRates(req: ShippingRequest, weight: number): ShippingRate[] {
+  const out: ShippingRate[] = [];
+  for (const [code, r] of Object.entries(FALLBACK_RATES)) {
+    out.push({
+      carrier: r.carrier,
+      service: code,
+      label: r.label,
+      cost: Math.round((r.baseCost + r.perLb * weight) * 100) / 100,
+      estimatedDaysMin: r.minDays,
+      estimatedDaysMax: r.maxDays,
       recommended: false,
     });
   }
-
-  // Sort by cost
-  rates.sort((a, b) => a.cost - b.cost);
-
-  // Auto-select best rate: cheapest option that arrives within 7 days
-  const bestRate = rates.find(r => r.estimatedDaysMax <= 7) || rates[0];
-  if (bestRate) {
-    bestRate.recommended = true;
-  }
-
-  return rates;
+  return out;
 }
 
 serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
-  }
+  if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const body = await req.json() as ShippingRequest;
-
-    // Validate
-    if (!body.items || !Array.isArray(body.items) || body.items.length === 0) {
-      return new Response(
-        JSON.stringify({ error: "Items are required" }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
-      );
+    const body = (await req.json()) as ShippingRequest;
+    if (!body.items?.length) {
+      return new Response(JSON.stringify({ error: "Items required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 });
     }
-
     if (!body.destination?.country) {
-      return new Response(
-        JSON.stringify({ error: "Destination country is required" }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
-      );
+      return new Response(JSON.stringify({ error: "Destination country required" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 });
     }
 
-    const rates = calculateRates(body);
-    const recommended = rates.find(r => r.recommended) || rates[0];
+    const weight = estimateWeightLbs(body.items);
+    let rates = await getShipstationRates(body, weight);
+    let source: "shipstation" | "fallback" = "shipstation";
 
-    // Free shipping threshold for high-value orders
+    if (rates.length === 0) {
+      rates = fallbackRates(body, weight);
+      source = "fallback";
+    }
+
+    rates.sort((a, b) => a.cost - b.cost);
+    const recommended = rates.find((r) => r.estimatedDaysMax <= 7) || rates[0];
+    if (recommended) recommended.recommended = true;
+
     const freeShippingThreshold = 2000;
     const qualifiesForFreeShipping = body.subtotal >= freeShippingThreshold;
 
@@ -177,17 +176,16 @@ serve(async (req) => {
           freeShipping: qualifiesForFreeShipping,
           freeShippingReason: qualifiesForFreeShipping ? "Free shipping on orders over $2,000" : null,
         },
-        estimatedWeight: estimateWeight(body.items),
+        estimatedWeight: weight,
         freeShippingThreshold,
         qualifiesForFreeShipping,
+        source,
       }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 },
     );
-  } catch (error: any) {
-    console.error("Shipping calculation error:", error);
-    return new Response(
-      JSON.stringify({ error: "Failed to calculate shipping rates" }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
-    );
+  } catch (e: any) {
+    console.error("calculate-shipping error", e);
+    return new Response(JSON.stringify({ error: "Failed to calculate shipping rates" }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 });
   }
 });
