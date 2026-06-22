@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { Eye, EyeOff } from "lucide-react";
 
 type AuthTab = "login" | "signup";
 
@@ -14,6 +15,9 @@ const getErrorMessage = (error: unknown, fallback: string) => {
 const Access = () => {
   const [activeTab, setActiveTab] = useState<AuthTab>("login");
   const [isLoading, setIsLoading] = useState(false);
+  const [showLoginPwd, setShowLoginPwd] = useState(false);
+  const [showSignupPwd, setShowSignupPwd] = useState(false);
+  const [showConfirmPwd, setShowConfirmPwd] = useState(false);
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({ identifier: "", password: "" });
@@ -24,7 +28,20 @@ const Access = () => {
     phone: "",
     password: "",
     confirmPassword: "",
+    agreedToTerms: false,
+    initials: "",
   });
+
+  const routeAfterAuth = async (userId: string) => {
+    const { data: roleData } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId);
+    const roles = roleData?.map((r) => r.role) || [];
+    if (roles.includes("supplier")) navigate("/supplier");
+    else if (roles.includes("admin")) navigate("/admin");
+    else navigate("/portal");
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,22 +60,8 @@ const Access = () => {
 
       if (error) throw error;
 
-      const { data: roleData } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", data.user.id);
-
-      const roles = roleData?.map(r => r.role) || [];
-
       toast.success("Welcome back!");
-      
-      if (roles.includes("supplier")) {
-        navigate("/supplier");
-      } else if (roles.includes("admin")) {
-        navigate("/admin");
-      } else {
-        navigate("/portal");
-      }
+      await routeAfterAuth(data.user.id);
     } catch (error: unknown) {
       toast.error(getErrorMessage(error, "Login failed"));
     } finally {
@@ -68,43 +71,55 @@ const Access = () => {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (signupData.password !== signupData.confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
-
-    // Password strength validation
     if (signupData.password.length < 8) {
       toast.error("Password must be at least 8 characters");
       return;
     }
-
-    if (!/[A-Z]/.test(signupData.password) || !/[a-z]/.test(signupData.password) || !/[0-9]/.test(signupData.password)) {
+    if (
+      !/[A-Z]/.test(signupData.password) ||
+      !/[a-z]/.test(signupData.password) ||
+      !/[0-9]/.test(signupData.password)
+    ) {
       toast.error("Password must include uppercase, lowercase, and a number");
       return;
     }
-
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(signupData.email)) {
       toast.error("Please enter a valid email address");
       return;
     }
-
-    // Name validation
     if (signupData.firstName.trim().length < 1 || signupData.lastName.trim().length < 1) {
       toast.error("First and last name are required");
+      return;
+    }
+    if (!signupData.agreedToTerms) {
+      toast.error("You must agree to the Terms of Service and Privacy Policy");
+      return;
+    }
+    const expectedInitials = `${signupData.firstName.trim()[0] || ""}${signupData.lastName.trim()[0] || ""}`.toUpperCase();
+    const enteredInitials = signupData.initials.trim().toUpperCase();
+    if (!enteredInitials || enteredInitials.length < 2) {
+      toast.error("Please type your initials to confirm agreement");
+      return;
+    }
+    if (enteredInitials !== expectedInitials) {
+      toast.error(`Initials must match your name (${expectedInitials})`);
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const { error: authError } = await supabase.auth.signUp({
+      const { data, error: authError } = await supabase.auth.signUp({
         email: signupData.email.trim().toLowerCase(),
         password: signupData.password,
         options: {
+          emailRedirectTo: `${window.location.origin}/`,
           data: {
             first_name: signupData.firstName.trim(),
             last_name: signupData.lastName.trim(),
@@ -115,8 +130,34 @@ const Access = () => {
 
       if (authError) throw authError;
 
-      toast.success("Account created! Please check your email to verify, then sign in.");
-      setActiveTab("login");
+      // Best-effort: persist signature record (won't block if it fails)
+      if (data.user?.id) {
+        try {
+          await supabase.from("agreement_signatures").insert({
+            user_id: data.user.id,
+            agreement_type: "purchaser_terms",
+            agreement_version: "1.0",
+            signer_name: `${signupData.firstName.trim()} ${signupData.lastName.trim()}`,
+            signer_email: signupData.email.trim().toLowerCase(),
+            initials: enteredInitials,
+            user_agent: navigator.userAgent,
+            signed_at: new Date().toISOString(),
+            status: "signed",
+            metadata: { source: "account_signup" },
+          });
+        } catch {
+          /* non-blocking */
+        }
+      }
+
+      if (data.session) {
+        toast.success("Account created! You're signed in.");
+        await routeAfterAuth(data.user!.id);
+      } else {
+        toast.success("Account created! Please sign in.");
+        setActiveTab("login");
+        setLoginData({ identifier: signupData.email.trim().toLowerCase(), password: "" });
+      }
     } catch (error: unknown) {
       toast.error(getErrorMessage(error, "Signup failed"));
     } finally {
@@ -124,23 +165,23 @@ const Access = () => {
     }
   };
 
-  const inputClassName = "w-full px-4 py-3 bg-secondary/30 border border-border rounded-lg font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30";
+  const inputClassName =
+    "w-full px-4 py-3 bg-secondary/30 border border-border rounded-lg font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30";
   const labelClassName = "font-heading text-sm font-medium text-foreground block mb-2";
+
+  const expectedInitials = `${signupData.firstName.trim()[0] || ""}${signupData.lastName.trim()[0] || ""}`.toUpperCase();
 
   return (
     <Layout>
       <div className="min-h-[80vh] flex items-center justify-center py-16">
         <div className="w-full max-w-md mx-auto px-4">
           <div className="text-center mb-8">
-            <h1 className="font-heading text-3xl font-bold text-foreground mb-2">
-              My Account
-            </h1>
+            <h1 className="font-heading text-3xl font-bold text-foreground mb-2">My Account</h1>
             <p className="font-body text-muted-foreground">
               Sign in or create an account to start shopping.
             </p>
           </div>
 
-          {/* Tab navigation */}
           <div className="flex border-b border-border mb-8">
             <button
               onClick={() => setActiveTab("login")}
@@ -164,7 +205,6 @@ const Access = () => {
             </button>
           </div>
 
-          {/* Login Form */}
           {activeTab === "login" && (
             <form onSubmit={handleLogin} className="space-y-5 animate-fade-in">
               <div>
@@ -180,13 +220,23 @@ const Access = () => {
               </div>
               <div>
                 <label className={labelClassName}>Password</label>
-                <input
-                  type="password"
-                  required
-                  value={loginData.password}
-                  onChange={(e) => setLoginData((prev) => ({ ...prev, password: e.target.value }))}
-                  className={inputClassName}
-                />
+                <div className="relative">
+                  <input
+                    type={showLoginPwd ? "text" : "password"}
+                    required
+                    value={loginData.password}
+                    onChange={(e) => setLoginData((prev) => ({ ...prev, password: e.target.value }))}
+                    className={`${inputClassName} pr-12`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowLoginPwd((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
+                    aria-label={showLoginPwd ? "Hide password" : "Show password"}
+                  >
+                    {showLoginPwd ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
               <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isLoading}>
                 {isLoading ? "Signing in..." : "Sign In"}
@@ -194,7 +244,6 @@ const Access = () => {
             </form>
           )}
 
-          {/* Signup Form */}
           {activeTab === "signup" && (
             <form onSubmit={handleSignup} className="space-y-4 animate-fade-in">
               <div className="grid grid-cols-2 gap-4">
@@ -240,24 +289,98 @@ const Access = () => {
               </div>
               <div>
                 <label className={labelClassName}>Password *</label>
-                <input
-                  type="password"
-                  required
-                  value={signupData.password}
-                  onChange={(e) => setSignupData((prev) => ({ ...prev, password: e.target.value }))}
-                  className={inputClassName}
-                />
+                <div className="relative">
+                  <input
+                    type={showSignupPwd ? "text" : "password"}
+                    required
+                    value={signupData.password}
+                    onChange={(e) => setSignupData((prev) => ({ ...prev, password: e.target.value }))}
+                    className={`${inputClassName} pr-12`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowSignupPwd((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
+                    aria-label={showSignupPwd ? "Hide password" : "Show password"}
+                  >
+                    {showSignupPwd ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Min 8 chars, with uppercase, lowercase, and a number.
+                </p>
               </div>
               <div>
                 <label className={labelClassName}>Confirm Password *</label>
+                <div className="relative">
+                  <input
+                    type={showConfirmPwd ? "text" : "password"}
+                    required
+                    value={signupData.confirmPassword}
+                    onChange={(e) => setSignupData((prev) => ({ ...prev, confirmPassword: e.target.value }))}
+                    className={`${inputClassName} pr-12`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPwd((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
+                    aria-label={showConfirmPwd ? "Hide password" : "Show password"}
+                  >
+                    {showConfirmPwd ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Terms agreement + initials (matches checkout pattern) */}
+              <label
+                className={`flex items-start gap-3 rounded-lg border p-4 cursor-pointer transition-colors ${
+                  signupData.agreedToTerms
+                    ? "border-emerald-500/40 bg-emerald-500/5"
+                    : "border-border bg-secondary/20 hover:border-foreground/30"
+                }`}
+              >
                 <input
-                  type="password"
-                  required
-                  value={signupData.confirmPassword}
-                  onChange={(e) => setSignupData((prev) => ({ ...prev, confirmPassword: e.target.value }))}
-                  className={inputClassName}
+                  type="checkbox"
+                  checked={signupData.agreedToTerms}
+                  onChange={(e) =>
+                    setSignupData((prev) => ({ ...prev, agreedToTerms: e.target.checked }))
+                  }
+                  className="mt-1 h-4 w-4 accent-foreground"
+                />
+                <span className="font-body text-sm text-muted-foreground leading-relaxed">
+                  By creating an account, I acknowledge and agree to the{" "}
+                  <Link to="/terms" target="_blank" className="text-foreground underline underline-offset-2">
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link to="/privacy" target="_blank" className="text-foreground underline underline-offset-2">
+                    Privacy Policy
+                  </Link>
+                  .
+                </span>
+              </label>
+
+              <div>
+                <label className={labelClassName}>
+                  Type your initials to confirm{" "}
+                  {expectedInitials && (
+                    <span className="text-muted-foreground font-normal">
+                      (expected: <span className="font-display tracking-widest">{expectedInitials}</span>)
+                    </span>
+                  )}
+                </label>
+                <input
+                  type="text"
+                  maxLength={4}
+                  value={signupData.initials}
+                  onChange={(e) =>
+                    setSignupData((prev) => ({ ...prev, initials: e.target.value.toUpperCase() }))
+                  }
+                  placeholder={expectedInitials || "e.g. JD"}
+                  className={`${inputClassName} font-display tracking-[0.3em] uppercase`}
                 />
               </div>
+
               <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isLoading}>
                 {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
