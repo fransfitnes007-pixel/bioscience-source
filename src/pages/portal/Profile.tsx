@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { User, Building2, Mail, Phone, Globe, Lock, Tags, FileImage, Trash2 } from "lucide-react";
+import { User, Building2, Mail, Phone, Globe, Lock, Tags, FileImage, Trash2, MapPin } from "lucide-react";
 import LogoUploader from "@/components/shared/LogoUploader";
 
 interface Profile {
@@ -19,6 +19,11 @@ interface Profile {
   website: string | null;
   country: string | null;
   company_logo_url: string | null;
+  address_line1: string | null;
+  address_line2: string | null;
+  city: string | null;
+  state: string | null;
+  postal_code: string | null;
 }
 
 const PortalProfile = () => {
@@ -39,11 +44,11 @@ const PortalProfile = () => {
 
       const { data } = await supabase
         .from('profiles')
-        .select('first_name, last_name, business_name, business_email, phone, website, country, company_logo_url')
+        .select('first_name, last_name, business_name, business_email, phone, website, country, company_logo_url, address_line1, address_line2, city, state, postal_code')
         .eq('user_id', session.user.id)
         .single();
 
-      setProfile(data);
+      setProfile(data as Profile);
       setLoading(false);
     };
 
@@ -68,6 +73,11 @@ const PortalProfile = () => {
         website: profile.website,
         country: profile.country,
         company_logo_url: profile.company_logo_url,
+        address_line1: profile.address_line1,
+        address_line2: profile.address_line2,
+        city: profile.city,
+        state: profile.state,
+        postal_code: profile.postal_code,
         updated_at: new Date().toISOString(),
       })
       .eq('user_id', session.user.id);
@@ -235,6 +245,69 @@ const PortalProfile = () => {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Saved Shipping Address */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <MapPin className="h-5 w-5" />
+                  Saved Shipping Address
+                </CardTitle>
+                <CardDescription>
+                  Save your address so it's auto-filled the next time you check out.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="address1">Address Line 1</Label>
+                  <Input
+                    id="address1"
+                    value={profile?.address_line1 || ""}
+                    onChange={(e) => updateField('address_line1', e.target.value)}
+                    placeholder="123 Main St"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="address2">Address Line 2 (optional)</Label>
+                  <Input
+                    id="address2"
+                    value={profile?.address_line2 || ""}
+                    onChange={(e) => updateField('address_line2', e.target.value)}
+                    placeholder="Apt, suite, etc."
+                  />
+                </div>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <div className="space-y-2">
+                    <Label htmlFor="city">City</Label>
+                    <Input
+                      id="city"
+                      value={profile?.city || ""}
+                      onChange={(e) => updateField('city', e.target.value)}
+                      placeholder="Los Angeles"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="state">State / Region</Label>
+                    <Input
+                      id="state"
+                      value={profile?.state || ""}
+                      onChange={(e) => updateField('state', e.target.value)}
+                      placeholder="CA"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="postal">ZIP / Postal Code</Label>
+                    <Input
+                      id="postal"
+                      value={profile?.postal_code || ""}
+                      onChange={(e) => updateField('postal_code', e.target.value)}
+                      placeholder="90001"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
 
             {/* Company Logo Section */}
             <Card>
