@@ -44,11 +44,11 @@ const PortalProfile = () => {
 
       const { data } = await supabase
         .from('profiles')
-        .select('first_name, last_name, business_name, business_email, phone, website, country, company_logo_url')
+        .select('first_name, last_name, business_name, business_email, phone, website, country, company_logo_url, address_line1, address_line2, city, state, postal_code')
         .eq('user_id', session.user.id)
         .single();
 
-      setProfile(data);
+      setProfile(data as Profile);
       setLoading(false);
     };
 
@@ -73,6 +73,11 @@ const PortalProfile = () => {
         website: profile.website,
         country: profile.country,
         company_logo_url: profile.company_logo_url,
+        address_line1: profile.address_line1,
+        address_line2: profile.address_line2,
+        city: profile.city,
+        state: profile.state,
+        postal_code: profile.postal_code,
         updated_at: new Date().toISOString(),
       })
       .eq('user_id', session.user.id);
