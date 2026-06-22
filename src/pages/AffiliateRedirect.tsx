@@ -24,16 +24,15 @@ const AffiliateRedirect = () => {
     (async () => {
       if (!slug) return (window.location.href = "/");
 
-      const { data: link } = await supabase
-        .from("tracking_links")
-        .select("id, affiliate_id, code_id, destination_url, active, utm_source, utm_medium, utm_campaign, utm_content")
-        .eq("short_slug", slug)
-        .maybeSingle();
+      const { data: rows } = await supabase
+        .rpc("resolve_tracking_link", { _slug: slug });
+      const link = Array.isArray(rows) ? rows[0] : (rows as any);
 
       if (!link || !link.active) {
         window.location.href = "/";
         return;
       }
+
 
       const visitorId = getOrSetVisitorId();
 
