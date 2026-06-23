@@ -1186,6 +1186,98 @@ export type Database = {
         }
         Relationships: []
       }
+      b2b_pricing_tiers: {
+        Row: {
+          created_at: string
+          discount_percent: number
+          id: string
+          is_active: boolean
+          market_price_cents: number
+          our_price_cents: number
+          product_id: string
+          updated_at: string
+          vial_quantity: number
+        }
+        Insert: {
+          created_at?: string
+          discount_percent?: number
+          id?: string
+          is_active?: boolean
+          market_price_cents?: number
+          our_price_cents?: number
+          product_id: string
+          updated_at?: string
+          vial_quantity: number
+        }
+        Update: {
+          created_at?: string
+          discount_percent?: number
+          id?: string
+          is_active?: boolean
+          market_price_cents?: number
+          our_price_cents?: number
+          product_id?: string
+          updated_at?: string
+          vial_quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "b2b_pricing_tiers_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "b2b_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      b2b_products: {
+        Row: {
+          b2b_enabled: boolean
+          created_at: string
+          display_name: string
+          id: string
+          internal_buy_cost_cents: number
+          is_active: boolean
+          product_name: string
+          sku: string
+          sort_order: number
+          specification: string | null
+          strength: string | null
+          updated_at: string
+          vials_per_kit: number
+        }
+        Insert: {
+          b2b_enabled?: boolean
+          created_at?: string
+          display_name: string
+          id?: string
+          internal_buy_cost_cents?: number
+          is_active?: boolean
+          product_name: string
+          sku: string
+          sort_order?: number
+          specification?: string | null
+          strength?: string | null
+          updated_at?: string
+          vials_per_kit?: number
+        }
+        Update: {
+          b2b_enabled?: boolean
+          created_at?: string
+          display_name?: string
+          id?: string
+          internal_buy_cost_cents?: number
+          is_active?: boolean
+          product_name?: string
+          sku?: string
+          sort_order?: number
+          specification?: string | null
+          strength?: string | null
+          updated_at?: string
+          vials_per_kit?: number
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author_name: string | null
@@ -3977,6 +4069,29 @@ export type Database = {
       }
     }
     Functions: {
+      admin_get_b2b_catalog: {
+        Args: never
+        Returns: {
+          b2b_enabled: boolean
+          discount_percent: number
+          display_name: string
+          id: string
+          internal_buy_cost_cents: number
+          internal_profit_cents: number
+          is_active: boolean
+          market_price_cents: number
+          our_price_cents: number
+          product_name: string
+          profit_margin_percent: number
+          sku: string
+          sort_order: number
+          specification: string
+          strength: string
+          tier_id: string
+          vial_quantity: number
+          vials_per_kit: number
+        }[]
+      }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
@@ -4016,6 +4131,24 @@ export type Database = {
           user_id: string
           website: string
           zip_code: string
+        }[]
+      }
+      get_b2b_catalog: {
+        Args: never
+        Returns: {
+          discount_percent: number
+          display_name: string
+          id: string
+          market_price_cents: number
+          our_price_cents: number
+          product_name: string
+          sku: string
+          sort_order: number
+          specification: string
+          strength: string
+          tier_id: string
+          vial_quantity: number
+          vials_per_kit: number
         }[]
       }
       move_to_dlq: {
