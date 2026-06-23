@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -48,7 +48,19 @@ const Access = () => {
   const [showConfirmPwd, setShowConfirmPwd] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { refreshAuth } = useAuth();
+  const { refreshAuth, user, isAdmin, isB2B, isLoading: isAuthLoading, isRoleLoading } = useAuth();
+
+  useEffect(() => {
+    if (isAuthLoading || isRoleLoading || !user) return;
+    const redirect = searchParams.get("redirect");
+    if (isAdmin) {
+      navigate("/admin", { replace: true });
+    } else if (isB2B) {
+      navigate(redirect && redirect.startsWith("/") ? redirect : "/portal", { replace: true });
+    } else {
+      navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
+    }
+  }, [user, isAdmin, isB2B, isAuthLoading, isRoleLoading, navigate, searchParams]);
 
   const [loginData, setLoginData] = useState({ identifier: "", password: "" });
   const [signupData, setSignupData] = useState({
