@@ -350,8 +350,9 @@ const Access = () => {
           {activeTab === "login" && (
             <form onSubmit={handleLogin} className="space-y-5 animate-fade-in">
               <div>
-                <label className={labelClassName}>Email</label>
+                <label htmlFor="login-email" className={labelClassName}>Email</label>
                 <input
+                  id="login-email"
                   type="text"
                   required
                   value={loginData.identifier}
@@ -361,9 +362,10 @@ const Access = () => {
                 />
               </div>
               <div>
-                <label className={labelClassName}>Password</label>
+                <label htmlFor="login-password" className={labelClassName}>Password</label>
                 <div className="relative">
                   <input
+                    id="login-password"
                     type={showLoginPwd ? "text" : "password"}
                     required
                     value={loginData.password}
