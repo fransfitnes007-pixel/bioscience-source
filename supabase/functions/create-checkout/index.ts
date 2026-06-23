@@ -116,20 +116,99 @@ serve(async (req) => {
       customerId = customers.data[0].id;
     }
 
-    // Build line items from order (filter out BOGO FREE items with $0 price)
-    const lineItems = order.order_items
-      .filter((item: any) => item.unit_price > 0)
-      .map((item: any) => ({
+    // SECURITY: Re-derive unit prices from canonical product_variations rows
+    // rather than trusting client-supplied unit_price stored on order_items.
+    const supabaseAdminForPricing = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
+
+    const variationIds = Array.from(
+      new Set(
+        (order.order_items as Array<{ variation_id: string | null }>)
+          .map((it) => it.variation_id)
+          .filter((v): v is string => !!v)
+      )
+    );
+
+    let canonicalByVariation = new Map<string, number>();
+    let canonicalByProductStrength = new Map<string, number>();
+
+    if (variationIds.length > 0) {
+      const { data: variations, error: varErr } = await supabaseAdminForPricing
+        .from("product_variations")
+        .select("id, product_id, strength, price")
+        .in("id", variationIds);
+      if (varErr) {
+        console.error("Failed to load product_variations for pricing:", varErr);
+        return new Response(
+          JSON.stringify({ error: "Failed to verify pricing" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+        );
+      }
+      for (const v of variations || []) {
+        canonicalByVariation.set(v.id, Number(v.price ?? 0));
+        canonicalByProductStrength.set(
+          `${v.product_id}::${(v.strength || "").toLowerCase().trim()}`,
+          Number(v.price ?? 0)
+        );
+      }
+    }
+
+    // For items without variation_id, look up by product_id + variation_name (strength)
+    const fallbackProductIds = Array.from(
+      new Set(
+        (order.order_items as Array<{ variation_id: string | null; product_id: string | null }>)
+          .filter((it) => !it.variation_id && it.product_id)
+          .map((it) => it.product_id!)
+      )
+    );
+    if (fallbackProductIds.length > 0) {
+      const { data: vars2 } = await supabaseAdminForPricing
+        .from("product_variations")
+        .select("id, product_id, strength, price")
+        .in("product_id", fallbackProductIds);
+      for (const v of vars2 || []) {
+        const key = `${v.product_id}::${(v.strength || "").toLowerCase().trim()}`;
+        if (!canonicalByProductStrength.has(key)) {
+          canonicalByProductStrength.set(key, Number(v.price ?? 0));
+        }
+      }
+    }
+
+    // Build line items using canonical prices only. BOGO-FREE rows ($0) are kept
+    // only when they match a canonical $0 line; never trust client unit_price > 0.
+    const lineItems: any[] = [];
+    for (const item of order.order_items as Array<any>) {
+      let canonicalPrice: number | undefined;
+      if (item.variation_id && canonicalByVariation.has(item.variation_id)) {
+        canonicalPrice = canonicalByVariation.get(item.variation_id);
+      } else if (item.product_id) {
+        const key = `${item.product_id}::${(item.variation_name || "").toLowerCase().trim()}`;
+        canonicalPrice = canonicalByProductStrength.get(key);
+      }
+      if (canonicalPrice === undefined) {
+        // Allow $0 BOGO-FREE items written by checkout (no product mapping available)
+        if (Number(item.unit_price) === 0) continue;
+        console.error("No canonical price for order item", { id: item.id, name: item.product_name });
+        return new Response(
+          JSON.stringify({ error: "Pricing mismatch — please refresh your cart" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 400 }
+        );
+      }
+      if (canonicalPrice <= 0) continue;
+      lineItems.push({
         price_data: {
           currency: "usd",
           product_data: {
             name: item.product_name,
             description: item.variation_name || undefined,
           },
-          unit_amount: Math.round(item.unit_price * 100),
+          unit_amount: Math.round(canonicalPrice * 100),
         },
         quantity: item.quantity,
-      }));
+      });
+    }
 
     // Add shipping if applicable
     if (order.shipping_cost && order.shipping_cost > 0) {
