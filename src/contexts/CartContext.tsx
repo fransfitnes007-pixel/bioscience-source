@@ -196,7 +196,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }))
       );
     } else if (error) {
-      console.error("Cart load error:", error);
+      console.warn("Cart load warning:", error);
     }
     setIsLoading(false);
   };
