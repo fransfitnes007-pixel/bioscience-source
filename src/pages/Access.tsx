@@ -130,6 +130,17 @@ const Access = () => {
 
       if (authError) throw authError;
 
+      // Supabase email-enumeration protection: returns a user with no identities
+      const isExistingUser =
+        !!data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0;
+
+      if (isExistingUser) {
+        toast.info("An account with this email already exists. Please sign in.");
+        setActiveTab("login");
+        setLoginData({ identifier: signupData.email.trim().toLowerCase(), password: "" });
+        return;
+      }
+
       // Best-effort: persist signature record (won't block if it fails)
       if (data.user?.id) {
         try {
@@ -159,7 +170,17 @@ const Access = () => {
         setLoginData({ identifier: signupData.email.trim().toLowerCase(), password: "" });
       }
     } catch (error: unknown) {
-      toast.error(getErrorMessage(error, "Signup failed"));
+      const msg = getErrorMessage(error, "Signup failed");
+      const lower = msg.toLowerCase();
+      if (lower.includes("already registered") || lower.includes("already exists") || lower.includes("user_already_exists")) {
+        toast.info("This email is already registered. Please sign in instead.");
+        setActiveTab("login");
+        setLoginData({ identifier: signupData.email.trim().toLowerCase(), password: "" });
+      } else if (lower.includes("weak") || lower.includes("pwned") || lower.includes("known to be weak")) {
+        toast.error("This password has appeared in known data breaches. Please choose a different one.");
+      } else {
+        toast.error(msg);
+      }
     } finally {
       setIsLoading(false);
     }
