@@ -135,18 +135,22 @@ const Access = () => {
     setIsLoading(true);
 
     try {
-      const { data, error: authError } = await supabase.auth.signUp({
-        email: signupData.email.trim().toLowerCase(),
-        password: signupData.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-          data: {
-            first_name: signupData.firstName.trim(),
-            last_name: signupData.lastName.trim(),
-            phone: signupData.phone.trim(),
+      const { data, error: authError } = await withTimeout(
+        supabase.auth.signUp({
+          email: signupData.email.trim().toLowerCase(),
+          password: signupData.password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/products`,
+            data: {
+              first_name: signupData.firstName.trim(),
+              last_name: signupData.lastName.trim(),
+              phone: signupData.phone.trim(),
+            },
           },
-        },
-      });
+        }),
+        12000,
+        "Account creation took too long. Please try again."
+      );
 
       if (authError) throw authError;
 
@@ -182,8 +186,13 @@ const Access = () => {
       }
 
       if (data.session) {
+        await finishCustomerAccount({
+          firstName: signupData.firstName.trim(),
+          lastName: signupData.lastName.trim(),
+          phone: signupData.phone.trim(),
+        });
         toast.success("Account created! You're signed in.");
-        await routeAfterAuth(data.user!.id);
+        goToProducts();
       } else {
         toast.success("Account created! Please sign in.");
         setActiveTab("login");
