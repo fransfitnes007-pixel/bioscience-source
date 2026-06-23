@@ -28,19 +28,22 @@ const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, fallback: T)
   }
 };
 
-const safeHasRole = async (userId: string) => {
+const safeFetchRoles = async (userId: string) => {
   const response = await withTimeout(
     supabase
       .from("user_roles")
       .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle(),
+      .eq("user_id", userId),
     1800,
     null
   );
-  return !!response?.data;
+  const rows = (response?.data ?? []) as Array<{ role: string }>;
+  return {
+    isAdmin: rows.some((r) => r.role === "admin"),
+    isB2B: rows.some((r) => r.role === "b2b"),
+  };
 };
+
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
