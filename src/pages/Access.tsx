@@ -47,9 +47,9 @@ const Access = () => {
   const finishCustomerAccount = async (profile?: { firstName?: string; lastName?: string; phone?: string }) => {
     const { error } = await withTimeout(
       supabase.rpc("finish_b2c_account", {
-        _first_name: profile?.firstName || null,
-        _last_name: profile?.lastName || null,
-        _phone: profile?.phone || null,
+        _first_name: profile?.firstName || undefined,
+        _last_name: profile?.lastName || undefined,
+        _phone: profile?.phone || undefined,
       }),
       8000,
       "Account saved, but the profile sync took too long. Please refresh."
