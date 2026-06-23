@@ -65,6 +65,38 @@ const Access = () => {
     navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
   };
 
+  const routeSignedInUser = async (userId: string) => {
+    const redirect = searchParams.get("redirect");
+
+    const { data: isAdmin } = await withTimeout(
+      supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
+      5000,
+      { data: false, error: null }
+    );
+
+    if (isAdmin) {
+      navigate("/admin", { replace: true });
+      return;
+    }
+
+    const { data: profile } = await withTimeout(
+      supabase
+        .from("profiles")
+        .select("business_name")
+        .eq("user_id", userId)
+        .maybeSingle(),
+      5000,
+      { data: null, error: null }
+    );
+
+    if (profile?.business_name) {
+      navigate(redirect && redirect.startsWith("/") ? redirect : "/portal", { replace: true });
+      return;
+    }
+
+    goToProducts();
+  };
+
   const mergeGuestCartForUser = async (userId: string) => {
     const raw = localStorage.getItem("guest-cart");
     if (!raw) return;
@@ -114,7 +146,8 @@ const Access = () => {
       if (data.user?.id) await mergeGuestCartForUser(data.user.id);
       await refreshAuth();
       toast.success("Welcome back!");
-      goToProducts();
+      if (data.user?.id) await routeSignedInUser(data.user.id);
+      else goToProducts();
     } catch (error: unknown) {
       toast.error(getErrorMessage(error, "Login failed"));
     } finally {
