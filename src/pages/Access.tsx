@@ -170,26 +170,6 @@ const Access = () => {
         return;
       }
 
-      // Best-effort: persist signature record (won't block if it fails)
-      if (data.user?.id) {
-        try {
-          await supabase.from("agreement_signatures").insert({
-            user_id: data.user.id,
-            agreement_type: "purchaser_terms",
-            agreement_version: "1.0",
-            signer_name: `${signupData.firstName.trim()} ${signupData.lastName.trim()}`,
-            signer_email: signupData.email.trim().toLowerCase(),
-            initials: enteredInitials,
-            user_agent: navigator.userAgent,
-            signed_at: new Date().toISOString(),
-            status: "signed",
-            metadata: { source: "account_signup" },
-          });
-        } catch {
-          /* non-blocking */
-        }
-      }
-
       let signedInUserId = data.session?.user.id || null;
 
       if (!data.session) {
