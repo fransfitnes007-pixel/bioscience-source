@@ -223,7 +223,18 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
           ))}
         </nav>
 
-        <div className="p-2 border-t border-border">
+        <div className="p-2 border-t border-border space-y-1">
+          <Button
+            variant="ghost"
+            className={cn(
+              "w-full justify-start gap-3 text-muted-foreground hover:text-foreground",
+              isCollapsed && "justify-center px-2"
+            )}
+            onClick={() => navigate("/")}
+          >
+            <Home className="h-5 w-5 shrink-0" />
+            {!isCollapsed && <span>Back to Site</span>}
+          </Button>
           <Button
             variant="ghost"
             className={cn(
