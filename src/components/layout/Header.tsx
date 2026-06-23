@@ -97,7 +97,7 @@ export const Header = () => {
               </DropdownMenu>
             ) : !isLoading ? (
               <Link to="/account">
-                <Button variant="outline" size="sm" className="text-sm tracking-wide">
+                <Button variant="outline" size="sm" className="min-w-20 text-sm tracking-wide text-foreground">
                   Sign In
                 </Button>
               </Link>
@@ -109,7 +109,7 @@ export const Header = () => {
             <CartIcon />
             {!isLoading && !user && (
               <Link to="/account">
-                <Button variant="outline" size="sm" className="text-xs tracking-wide px-3">
+                <Button variant="outline" size="sm" className="min-w-20 px-3 text-xs tracking-wide text-foreground">
                   Sign In
                 </Button>
               </Link>
@@ -159,7 +159,7 @@ export const Header = () => {
                 </>
               ) : !isLoading ? (
                 <Link to="/account" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full mt-4">
+                  <Button variant="outline" size="sm" className="w-full mt-4 text-foreground">
                     Sign In
                   </Button>
                 </Link>
