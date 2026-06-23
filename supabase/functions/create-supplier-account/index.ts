@@ -143,7 +143,16 @@ serve(async (req) => {
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (resendApiKey) {
       const siteUrl = "https://resurrected.com";
-      
+      const escapeHtml = (s: string): string =>
+        String(s ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      const safeContactName = escapeHtml(contact_name);
+      const safeCompanyName = escapeHtml(company_name);
+
       await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
@@ -157,8 +166,8 @@ serve(async (req) => {
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
               <h1 style="color: #333;">Welcome to Resurrected</h1>
-              <p>Hello ${contact_name},</p>
-              <p>You have been added as a supplier partner for ${company_name}.</p>
+              <p>Hello ${safeContactName},</p>
+              <p>You have been added as a supplier partner for ${safeCompanyName}.</p>
               <p>To access your supplier portal, please set your password by clicking the link below:</p>
               <p><a href="${siteUrl}/set-password" style="background: #000; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 4px; display: inline-block;">Set Your Password</a></p>
               <p>After setting your password, you can log in at:</p>
