@@ -87,15 +87,20 @@ const PortalDashboard = () => {
       <div className="space-y-6">
         {/* Welcome Header */}
         <div>
+          <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-3">
+            <span className="h-px w-6 bg-foreground/40" />
+            Wholesale Partner Portal
+          </div>
           <h1 className="text-2xl font-bold tracking-tight">
             {loading ? (
               <Skeleton className="h-8 w-64" />
             ) : (
-              `Welcome back, ${profile?.first_name || 'there'}!`
+              `Welcome back, ${profile?.business_name || profile?.first_name || 'there'}!`
             )}
           </h1>
-          <p className="text-muted-foreground">Here's an overview of your account</p>
+          <p className="text-muted-foreground">Your B2B account overview, orders, and partner tools.</p>
         </div>
+
 
         {/* Resurrected App banner */}
         <div className="rounded-lg border border-border bg-card p-5">
