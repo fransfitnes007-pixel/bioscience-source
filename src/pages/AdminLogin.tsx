@@ -33,6 +33,12 @@ const AdminLogin = () => {
 
       if (authError) throw authError;
 
+      await supabase.rpc("finish_b2c_account", {
+        _first_name: null,
+        _last_name: null,
+        _phone: null,
+      });
+
       // Check if user has admin role
       const { data: roleData, error: roleError } = await supabase
         .rpc('has_role', { _user_id: authData.user.id, _role: 'admin' });
