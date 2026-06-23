@@ -190,12 +190,43 @@ const Access = () => {
         }
       }
 
-      if (data.session) {
+      let signedInUserId = data.session?.user.id || null;
+
+      if (!data.session) {
+        const { data: signInData, error: signInError } = await withTimeout(
+          supabase.auth.signInWithPassword({
+            email: signupData.email.trim().toLowerCase(),
+            password: signupData.password,
+          }),
+          12000,
+          "Account created, but sign in took too long. Please sign in."
+        );
+        if (signInError) throw signInError;
+        signedInUserId = signInData.user?.id || null;
+      }
+
+      if (signedInUserId) {
         await finishCustomerAccount({
           firstName: signupData.firstName.trim(),
           lastName: signupData.lastName.trim(),
           phone: signupData.phone.trim(),
         });
+        try {
+          await supabase.from("agreement_signatures").insert({
+            user_id: signedInUserId,
+            agreement_type: "purchaser_terms",
+            agreement_version: "1.0",
+            signer_name: `${signupData.firstName.trim()} ${signupData.lastName.trim()}`,
+            signer_email: signupData.email.trim().toLowerCase(),
+            initials: enteredInitials,
+            user_agent: navigator.userAgent,
+            signed_at: new Date().toISOString(),
+            status: "signed",
+            metadata: { source: "account_signup" },
+          });
+        } catch {
+          /* non-blocking */
+        }
         await refreshAuth();
         toast.success("Account created! You're signed in.");
         goToProducts();
