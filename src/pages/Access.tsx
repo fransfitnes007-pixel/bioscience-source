@@ -25,6 +25,21 @@ const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, message: str
   }
 };
 
+const sendSignupConfirmation = async (email: string, firstName: string) => {
+  try {
+    await supabase.functions.invoke("send-transactional-email", {
+      body: {
+        templateName: "account-access-confirmation",
+        recipientEmail: email,
+        idempotencyKey: `account-access-${email}`,
+        templateData: { recipientName: firstName || "Researcher" },
+      },
+    });
+  } catch (error) {
+    console.warn("Signup confirmation email failed", error);
+  }
+};
+
 const Access = () => {
   const [activeTab, setActiveTab] = useState<AuthTab>("login");
   const [isLoading, setIsLoading] = useState(false);
@@ -157,7 +172,7 @@ const Access = () => {
 
       await finishCustomerAccount();
       if (data.user?.id) await mergeGuestCartForUser(data.user.id);
-      await refreshAuth();
+      refreshAuth();
       toast.success("Welcome back!");
       if (data.user?.id) await routeSignedInUser(data.user.id);
       else goToProducts();
@@ -282,7 +297,8 @@ const Access = () => {
           /* non-blocking */
         }
         await mergeGuestCartForUser(signedInUserId);
-        await refreshAuth();
+        refreshAuth();
+        sendSignupConfirmation(signupData.email.trim().toLowerCase(), signupData.firstName.trim());
         toast.success("Account created! You're signed in.");
         goToProducts();
       } else {
