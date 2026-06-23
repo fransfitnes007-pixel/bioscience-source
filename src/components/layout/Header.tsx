@@ -95,8 +95,6 @@ export const Header = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : isLoading ? (
-              <div className="h-9 w-20 rounded-full border border-border/60" />
             ) : (
               <Link to="/account">
                 <Button variant="outline" size="sm" className="text-sm tracking-wide">
@@ -109,7 +107,7 @@ export const Header = () => {
           {/* Mobile actions */}
           <div className="lg:hidden flex items-center gap-2">
             <CartIcon />
-            {!user && !isLoading && (
+            {!user && (
               <Link to="/account">
                 <Button variant="outline" size="sm" className="text-xs tracking-wide px-3">
                   Sign In
@@ -159,7 +157,7 @@ export const Header = () => {
                     Sign Out
                   </Button>
                 </>
-              ) : isLoading ? null : (
+              ) : (
                 <Link to="/account" onClick={() => setIsMenuOpen(false)}>
                   <Button variant="outline" size="sm" className="w-full mt-4">
                     Sign In
