@@ -5,12 +5,14 @@ import { supabase } from "@/integrations/supabase/client";
 interface AuthContextValue {
   user: SupabaseUser | null;
   isAdmin: boolean;
+  isB2B: boolean;
   isLoading: boolean;
   isRoleLoading: boolean;
   refreshAuth: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+
 
 const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, fallback: T): Promise<T> => {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
