@@ -190,6 +190,16 @@ const handler = async (req: Request): Promise<Response> => {
         company_logo_url: applicationData?.company_logo_url || null,
       }, { onConflict: "user_id" });
 
+    // Grant the b2b role so the account unlocks the wholesale portal & nav
+    await supabaseAdmin
+      .from("user_roles")
+      .insert({ user_id: userId, role: "b2b" })
+      .select()
+      .maybeSingle()
+      .then(() => undefined, () => undefined);
+
+
+
     // Update application with user_id
     await supabaseAdmin
       .from("applications")
