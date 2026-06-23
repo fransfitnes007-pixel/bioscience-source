@@ -18,9 +18,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUnreadMessages } from "@/hooks/useUnreadMessages";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface PortalSidebarProps {
   isCollapsed: boolean;
@@ -60,15 +61,9 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
+  const { user } = useAuth();
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUserId(session?.user?.id || null);
-    });
-  }, []);
-
-  const unreadCount = useUnreadMessages(userId);
+  const unreadCount = useUnreadMessages(user?.id || null);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
