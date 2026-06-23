@@ -15,18 +15,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const navLinks = [
+const retailNavLinks = [
   { name: "Home", path: "/" },
   { name: "Products", path: "/products" },
   { name: "About", path: "/about" },
   { name: "B2B", path: "/b2b/apply" },
 ];
 
+const b2bNavLinks = [
+  { name: "Dashboard", path: "/portal" },
+  { name: "Wholesale", path: "/portal/products" },
+  { name: "Orders", path: "/portal/orders" },
+  { name: "Messages", path: "/portal/messages" },
+];
+
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, isAdmin, isLoading } = useAuth();
+  const { user, isAdmin, isB2B, isLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const navLinks = isB2B ? b2bNavLinks : retailNavLinks;
+
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -35,6 +44,12 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/40">
+      {isB2B && (
+        <div className="bg-foreground text-background text-[10px] uppercase tracking-[0.3em] text-center py-1.5 font-medium">
+          Wholesale Account · Partner Pricing & MOQ Active
+        </div>
+      )}
+
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -82,8 +97,13 @@ export const Header = () => {
                       Admin Dashboard
                     </DropdownMenuItem>
                   )}
+                  {isB2B && (
+                    <DropdownMenuItem onClick={() => navigate("/portal")}>
+                      Wholesale Portal
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem onClick={() => navigate("/portal")}>
-                    My Orders
+                    {isB2B ? "Orders" : "My Orders"}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/portal/profile")}>
                     Profile
@@ -93,6 +113,7 @@ export const Header = () => {
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
                   </DropdownMenuItem>
+
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : !isLoading ? (

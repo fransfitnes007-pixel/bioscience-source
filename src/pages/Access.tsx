@@ -84,22 +84,23 @@ const Access = () => {
     const redirect = searchParams.get("redirect");
 
     let isAdmin = false;
-    let hasBusinessProfile = false;
+    let isB2B = false;
 
     try {
       const { data } = await withTimeout(
         supabase
           .from("user_roles")
           .select("role")
-          .eq("user_id", userId)
-          .eq("role", "admin")
-          .maybeSingle(),
+          .eq("user_id", userId),
         5000,
-        "Admin check took too long"
+        "Role check took too long"
       );
-      isAdmin = !!data;
+      const rows = (data ?? []) as Array<{ role: string }>;
+      isAdmin = rows.some((r) => r.role === "admin");
+      isB2B = rows.some((r) => r.role === "b2b");
     } catch {
       isAdmin = false;
+      isB2B = false;
     }
 
     if (isAdmin) {
@@ -107,28 +108,14 @@ const Access = () => {
       return;
     }
 
-    try {
-      const { data: profile } = await withTimeout(
-        supabase
-          .from("profiles")
-          .select("business_name")
-          .eq("user_id", userId)
-          .maybeSingle(),
-        5000,
-        "Profile check took too long"
-      );
-      hasBusinessProfile = !!profile?.business_name;
-    } catch {
-      hasBusinessProfile = false;
-    }
-
-    if (hasBusinessProfile) {
+    if (isB2B) {
       navigate(redirect && redirect.startsWith("/") ? redirect : "/portal", { replace: true });
       return;
     }
 
     goToProducts();
   };
+
 
   const mergeGuestCartForUser = async (userId: string) => {
     const raw = localStorage.getItem("guest-cart");

@@ -5,12 +5,14 @@ import { supabase } from "@/integrations/supabase/client";
 interface AuthContextValue {
   user: SupabaseUser | null;
   isAdmin: boolean;
+  isB2B: boolean;
   isLoading: boolean;
   isRoleLoading: boolean;
   refreshAuth: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+
 
 const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, fallback: T): Promise<T> => {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -26,23 +28,27 @@ const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, fallback: T)
   }
 };
 
-const safeHasRole = async (userId: string) => {
+const safeFetchRoles = async (userId: string) => {
   const response = await withTimeout(
     supabase
       .from("user_roles")
       .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle(),
+      .eq("user_id", userId),
     1800,
     null
   );
-  return !!response?.data;
+  const rows = (response?.data ?? []) as Array<{ role: string }>;
+  return {
+    isAdmin: rows.some((r) => r.role === "admin"),
+    isB2B: rows.some((r) => r.role === "b2b"),
+  };
 };
+
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isB2B, setIsB2B] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isRoleLoading, setIsRoleLoading] = useState(false);
   const roleRequestRef = useRef(0);
@@ -52,15 +58,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(nextUser);
     if (!nextUser) {
       setIsAdmin(false);
+      setIsB2B(false);
       setIsRoleLoading(false);
       return;
     }
 
     setIsAdmin(false);
+    setIsB2B(false);
     setIsRoleLoading(true);
-    safeHasRole(nextUser.id).then((hasAdminRole) => {
+    safeFetchRoles(nextUser.id).then((roles) => {
       if (roleRequestRef.current !== requestId) return;
-      setIsAdmin(hasAdminRole);
+      setIsAdmin(roles.isAdmin);
+      setIsB2B(roles.isB2B);
       setIsRoleLoading(false);
     });
   };
@@ -89,7 +98,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
-      if (!session?.user) setIsAdmin(false);
+      if (!session?.user) {
+        setIsAdmin(false);
+        setIsB2B(false);
+      }
       if (mounted) setIsLoading(false);
       setTimeout(() => {
         if (mounted) applyUser(session?.user || null);
@@ -103,9 +115,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const value = useMemo(
-    () => ({ user, isAdmin, isLoading, isRoleLoading, refreshAuth }),
-    [user, isAdmin, isLoading, isRoleLoading]
+    () => ({ user, isAdmin, isB2B, isLoading, isRoleLoading, refreshAuth }),
+    [user, isAdmin, isB2B, isLoading, isRoleLoading]
   );
+
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
