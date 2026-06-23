@@ -91,8 +91,13 @@ export const Header = () => {
                       Admin Dashboard
                     </DropdownMenuItem>
                   )}
+                  {isB2B && (
+                    <DropdownMenuItem onClick={() => navigate("/portal")}>
+                      Wholesale Portal
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem onClick={() => navigate("/portal")}>
-                    My Orders
+                    {isB2B ? "Orders" : "My Orders"}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate("/portal/profile")}>
                     Profile
@@ -102,6 +107,7 @@ export const Header = () => {
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
                   </DropdownMenuItem>
+
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : !isLoading ? (
