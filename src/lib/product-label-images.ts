@@ -98,6 +98,7 @@ import glp1Sema10mg from "@/assets/product-labels/glp1-sema-10mg.png.asset.json"
 import glp1Sema15mg from "@/assets/product-labels/glp1-sema-15mg.png.asset.json";
 import glp1Sema20mg from "@/assets/product-labels/glp1-sema-20mg.png.asset.json";
 import glp1Sema30mg from "@/assets/product-labels/glp1-sema-30mg.png.asset.json";
+import cagriSema10mg from "@/assets/product-labels/cagrilintide-semaglutide-10mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -293,6 +294,9 @@ export const productLabelImages: Record<string, StrengthMap> = {
     "15mg": glp1Sema15mg.url,
     "20mg": glp1Sema20mg.url,
     "30mg": glp1Sema30mg.url,
+  },
+  "cagrilintide-semaglutide": {
+    "10mg(5mg+5mg)": cagriSema10mg.url,
   },
 };
 
