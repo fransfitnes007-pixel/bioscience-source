@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -6,6 +6,7 @@ interface AuthContextValue {
   user: SupabaseUser | null;
   isAdmin: boolean;
   isLoading: boolean;
+  isRoleLoading: boolean;
   refreshAuth: () => Promise<void>;
 }
 
@@ -31,7 +32,7 @@ const safeHasRole = async (userId: string) => {
       _user_id: userId,
       _role: "admin",
     }),
-    2500,
+    1800,
     null
   );
   return !!response?.data;
@@ -41,16 +42,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRoleLoading, setIsRoleLoading] = useState(false);
+  const roleRequestRef = useRef(0);
 
   const applyUser = (nextUser: SupabaseUser | null) => {
+    const requestId = ++roleRequestRef.current;
     setUser(nextUser);
     if (!nextUser) {
       setIsAdmin(false);
+      setIsRoleLoading(false);
       return;
     }
 
     setIsAdmin(false);
-    safeHasRole(nextUser.id).then((hasAdminRole) => setIsAdmin(hasAdminRole));
+    setIsRoleLoading(true);
+    safeHasRole(nextUser.id).then((hasAdminRole) => {
+      if (roleRequestRef.current !== requestId) return;
+      setIsAdmin(hasAdminRole);
+      setIsRoleLoading(false);
+    });
   };
 
   const refreshAuth = async () => {
@@ -91,8 +101,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const value = useMemo(
-    () => ({ user, isAdmin, isLoading, refreshAuth }),
-    [user, isAdmin, isLoading]
+    () => ({ user, isAdmin, isLoading, isRoleLoading, refreshAuth }),
+    [user, isAdmin, isLoading, isRoleLoading]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

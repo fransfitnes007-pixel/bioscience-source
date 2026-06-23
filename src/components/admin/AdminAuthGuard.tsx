@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface AdminAuthGuardProps {
   children: React.ReactNode;
@@ -11,42 +12,19 @@ const AdminAuthGuard = ({ children }: AdminAuthGuardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const navigate = useNavigate();
+  const { user, isAdmin, isLoading: authLoading, isRoleLoading } = useAuth();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
+    if (authLoading || isRoleLoading) return;
+    if (!user || !isAdmin) {
+      setIsAuthorized(false);
+      setIsLoading(false);
+      navigate("/admin/login");
+      return;
+    }
 
-        if (!session) {
-          navigate("/admin/login");
-          return;
-        }
-
-        // Check if user has admin role using the database function
-        const { data: hasAdminRole, error } = await supabase
-          .rpc('has_role', { _user_id: session.user.id, _role: 'admin' });
-
-        if (error) {
-          console.error("Error checking admin role:", error);
-          navigate("/admin/login");
-          return;
-        }
-
-        if (!hasAdminRole) {
-          navigate("/admin/login");
-          return;
-        }
-
-        setIsAuthorized(true);
-      } catch (error) {
-        console.error("Auth check error:", error);
-        navigate("/admin/login");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkAuth();
+    setIsAuthorized(true);
+    setIsLoading(false);
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
@@ -58,7 +36,7 @@ const AdminAuthGuard = ({ children }: AdminAuthGuardProps) => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [navigate]);
+  }, [authLoading, isRoleLoading, isAdmin, navigate, user]);
 
   if (isLoading) {
     return (

@@ -68,7 +68,7 @@ export const Header = () => {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
             <CartIcon />
-            {user ? (
+            {!isLoading && user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="gap-2 text-sm tracking-wide">
@@ -95,19 +95,19 @@ export const Header = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : (
+            ) : !isLoading ? (
               <Link to="/account">
                 <Button variant="outline" size="sm" className="text-sm tracking-wide">
                   Sign In
                 </Button>
               </Link>
-            )}
+            ) : null}
           </div>
 
           {/* Mobile actions */}
           <div className="lg:hidden flex items-center gap-2">
             <CartIcon />
-            {!user && (
+            {!isLoading && !user && (
               <Link to="/account">
                 <Button variant="outline" size="sm" className="text-xs tracking-wide px-3">
                   Sign In
@@ -142,7 +142,7 @@ export const Header = () => {
                   {link.name}
                 </Link>
               ))}
-              {user ? (
+              {!isLoading && user ? (
                 <>
                   {isAdmin && (
                     <Link to="/admin" onClick={() => setIsMenuOpen(false)} className="font-body text-sm font-medium tracking-wide py-2 text-muted-foreground">
@@ -157,13 +157,13 @@ export const Header = () => {
                     Sign Out
                   </Button>
                 </>
-              ) : (
+              ) : !isLoading ? (
                 <Link to="/account" onClick={() => setIsMenuOpen(false)}>
                   <Button variant="outline" size="sm" className="w-full mt-4">
                     Sign In
                   </Button>
                 </Link>
-              )}
+              ) : null}
             </nav>
           </div>
         )}

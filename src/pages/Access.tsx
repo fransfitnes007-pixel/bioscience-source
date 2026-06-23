@@ -25,6 +25,21 @@ const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, message: str
   }
 };
 
+const sendSignupConfirmation = async (email: string, firstName: string) => {
+  try {
+    await supabase.functions.invoke("send-transactional-email", {
+      body: {
+        templateName: "account-access-confirmation",
+        recipientEmail: email,
+        idempotencyKey: `account-access-${email}`,
+        templateData: { recipientName: firstName || "Researcher" },
+      },
+    });
+  } catch (error) {
+    console.warn("Signup confirmation email failed", error);
+  }
+};
+
 const Access = () => {
   const [activeTab, setActiveTab] = useState<AuthTab>("login");
   const [isLoading, setIsLoading] = useState(false);
@@ -118,22 +133,22 @@ const Access = () => {
       const guestItems = JSON.parse(raw);
       if (!Array.isArray(guestItems) || guestItems.length === 0) return;
 
-      const { error } = await supabase.from("cart_items").insert(
-        guestItems.map((item) => ({
-          user_id: userId,
-          product_id: null,
-          variation_id: null,
-          product_name: item.productName,
-          variation_name: item.variationName,
-          unit_price: item.price,
-          image_url: item.image || null,
-          quantity: item.quantity,
-        }))
-      );
+      const rows = guestItems.map((item) => ({
+        user_id: userId,
+        product_id: null,
+        variation_id: null,
+        product_name: item.productName || item.product_name || "Product",
+        variation_name: item.variationName || item.variation_name || "",
+        unit_price: Number(item.price || item.unit_price || 0),
+        image_url: item.image || item.image_url || null,
+        quantity: Number(item.quantity || 1),
+      }));
 
-      if (!error) localStorage.removeItem("guest-cart");
-    } catch {
-      /* keep guest cart if syncing fails */
+      const { error } = await supabase.from("cart_items").insert(rows);
+      if (error) throw error;
+      localStorage.removeItem("guest-cart");
+    } catch (error) {
+      console.warn("Guest cart sync failed:", error);
     }
   };
 
@@ -157,7 +172,7 @@ const Access = () => {
 
       await finishCustomerAccount();
       if (data.user?.id) await mergeGuestCartForUser(data.user.id);
-      await refreshAuth();
+      refreshAuth();
       toast.success("Welcome back!");
       if (data.user?.id) await routeSignedInUser(data.user.id);
       else goToProducts();
@@ -282,7 +297,8 @@ const Access = () => {
           /* non-blocking */
         }
         await mergeGuestCartForUser(signedInUserId);
-        await refreshAuth();
+        refreshAuth();
+        sendSignupConfirmation(signupData.email.trim().toLowerCase(), signupData.firstName.trim());
         toast.success("Account created! You're signed in.");
         goToProducts();
       } else {

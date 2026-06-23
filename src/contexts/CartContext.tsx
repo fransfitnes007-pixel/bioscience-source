@@ -136,7 +136,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (guestItems.length) {
         setItems(guestItems);
       }
-      refreshCart({ mergeGuest: guestItems });
+      void refreshCart({ mergeGuest: guestItems });
     } else {
       setItems(loadGuestCart());
       setIsLoading(false);
@@ -153,7 +153,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     const guestItems = options?.mergeGuest || [];
     if (guestItems.length) {
-      await supabase.from("cart_items").insert(
+      const { error: mergeError } = await supabase.from("cart_items").insert(
         guestItems.map((item) => ({
           user_id: userId,
           product_id: null,
@@ -165,7 +165,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           quantity: item.quantity,
         }))
       );
-      clearGuestCart();
+      if (!mergeError) clearGuestCart();
     }
 
     const { data, error } = await supabase
@@ -246,7 +246,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         toast.error("Failed to add to cart");
       } else {
         toast.success("Added to cart!");
-        await refreshCart();
+        setItems((prev) => [...prev, { ...item, id: `pending-${Date.now()}` }]);
+        void refreshCart();
       }
     }
   };
