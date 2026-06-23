@@ -15,18 +15,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const navLinks = [
+const retailNavLinks = [
   { name: "Home", path: "/" },
   { name: "Products", path: "/products" },
   { name: "About", path: "/about" },
   { name: "B2B", path: "/b2b/apply" },
 ];
 
+const b2bNavLinks = [
+  { name: "Dashboard", path: "/portal" },
+  { name: "Wholesale", path: "/portal/products" },
+  { name: "Orders", path: "/portal/orders" },
+  { name: "Messages", path: "/portal/messages" },
+];
+
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, isAdmin, isLoading } = useAuth();
+  const { user, isAdmin, isB2B, isLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const navLinks = isB2B ? b2bNavLinks : retailNavLinks;
+
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
