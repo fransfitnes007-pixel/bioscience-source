@@ -153,7 +153,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     const guestItems = options?.mergeGuest || [];
     if (guestItems.length) {
-      await supabase.from("cart_items").upsert(
+      await supabase.from("cart_items").insert(
         guestItems.map((item) => ({
           user_id: userId,
           product_id: null,
@@ -163,8 +163,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           unit_price: item.price,
           image_url: item.image || null,
           quantity: item.quantity,
-        })),
-        { onConflict: "user_id,product_name,variation_name", ignoreDuplicates: false }
+        }))
       );
       clearGuestCart();
     }
