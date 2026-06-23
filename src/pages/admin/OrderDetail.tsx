@@ -267,9 +267,10 @@ const OrderDetail = () => {
       try {
         await supabase.functions.invoke("send-shipping-notification", {
           body: {
-            orderId: order.id,
+            order_id: order.id,
             carrier: fulfillCarrier,
-            trackingNumber: fulfillTracking,
+            tracking_number: fulfillTracking,
+            estimated_delivery: shipment?.estimated_delivery || order.estimated_delivery_date,
           },
         });
       } catch (e) {
