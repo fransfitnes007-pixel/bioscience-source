@@ -6,7 +6,6 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useCart } from "@/contexts/CartContext";
 
 type AuthTab = "login" | "signup";
 
@@ -35,7 +34,6 @@ const Access = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { refreshAuth } = useAuth();
-  const { addToCart } = useCart();
 
   const [loginData, setLoginData] = useState({ identifier: "", password: "" });
   const [signupData, setSignupData] = useState({
@@ -67,14 +65,23 @@ const Access = () => {
     navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
   };
 
-  const addPendingCartItem = async () => {
+  const addPendingCartItem = async (userId: string) => {
     const raw = sessionStorage.getItem("pending-cart-item");
     if (!raw) return;
 
     try {
       const item = JSON.parse(raw);
       sessionStorage.removeItem("pending-cart-item");
-      await addToCart(item);
+      await supabase.from("cart_items").insert({
+        user_id: userId,
+        product_id: null,
+        variation_id: null,
+        product_name: item.productName,
+        variation_name: item.variationName,
+        unit_price: item.price,
+        image_url: item.image || null,
+        quantity: item.quantity,
+      });
     } catch {
       sessionStorage.removeItem("pending-cart-item");
     }
@@ -87,7 +94,7 @@ const Access = () => {
     try {
       const email = loginData.identifier.trim().toLowerCase();
 
-      const { error } = await withTimeout(
+      const { data, error } = await withTimeout(
         supabase.auth.signInWithPassword({
           email,
           password: loginData.password,
@@ -99,8 +106,8 @@ const Access = () => {
       if (error) throw error;
 
       await finishCustomerAccount();
+      if (data.user?.id) await addPendingCartItem(data.user.id);
       await refreshAuth();
-      await addPendingCartItem();
       toast.success("Welcome back!");
       goToProducts();
     } catch (error: unknown) {
@@ -212,8 +219,8 @@ const Access = () => {
           lastName: signupData.lastName.trim(),
           phone: signupData.phone.trim(),
         });
+        if (data.user?.id) await addPendingCartItem(data.user.id);
         await refreshAuth();
-        await addPendingCartItem();
         toast.success("Account created! You're signed in.");
         goToProducts();
       } else {
