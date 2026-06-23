@@ -4073,7 +4073,7 @@ export type Database = {
     Enums: {
       affiliate_tier: "bronze" | "silver" | "gold" | "platinum"
       agreement_type: "purchaser_terms" | "b2b_terms" | "creator_campaign"
-      app_role: "admin" | "user" | "supplier"
+      app_role: "admin" | "user" | "supplier" | "b2b"
       code_type: "tracking_only" | "discount_and_tracking"
       commission_status:
         | "pending"
@@ -4230,7 +4230,7 @@ export const Constants = {
     Enums: {
       affiliate_tier: ["bronze", "silver", "gold", "platinum"],
       agreement_type: ["purchaser_terms", "b2b_terms", "creator_campaign"],
-      app_role: ["admin", "user", "supplier"],
+      app_role: ["admin", "user", "supplier", "b2b"],
       code_type: ["tracking_only", "discount_and_tracking"],
       commission_status: [
         "pending",
