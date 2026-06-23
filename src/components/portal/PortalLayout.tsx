@@ -4,7 +4,7 @@ import PortalSidebar from "./PortalSidebar";
 import ClientAuthGuard from "./ClientAuthGuard";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { usePortalNotifications } from "@/hooks/usePortalNotifications";
-import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -12,24 +12,11 @@ interface PortalLayoutProps {
 
 const PortalLayout = ({ children }: PortalLayoutProps) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
   const isMobile = useIsMobile();
-
-  // Get user ID for notifications
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUserId(session?.user?.id || null);
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      setUserId(session?.user?.id || null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const { user } = useAuth();
 
   // Enable real-time notifications
-  usePortalNotifications(userId);
+  usePortalNotifications(user?.id || null);
 
   return (
     <ClientAuthGuard>
