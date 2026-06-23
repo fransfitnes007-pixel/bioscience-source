@@ -65,28 +65,6 @@ const Access = () => {
     navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
   };
 
-  const addPendingCartItem = async (userId: string) => {
-    const raw = sessionStorage.getItem("pending-cart-item");
-    if (!raw) return;
-
-    try {
-      const item = JSON.parse(raw);
-      sessionStorage.removeItem("pending-cart-item");
-      await supabase.from("cart_items").insert({
-        user_id: userId,
-        product_id: null,
-        variation_id: null,
-        product_name: item.productName,
-        variation_name: item.variationName,
-        unit_price: item.price,
-        image_url: item.image || null,
-        quantity: item.quantity,
-      });
-    } catch {
-      sessionStorage.removeItem("pending-cart-item");
-    }
-  };
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -106,7 +84,6 @@ const Access = () => {
       if (error) throw error;
 
       await finishCustomerAccount();
-      if (data.user?.id) await addPendingCartItem(data.user.id);
       await refreshAuth();
       toast.success("Welcome back!");
       goToProducts();
@@ -219,7 +196,6 @@ const Access = () => {
           lastName: signupData.lastName.trim(),
           phone: signupData.phone.trim(),
         });
-        if (data.user?.id) await addPendingCartItem(data.user.id);
         await refreshAuth();
         toast.success("Account created! You're signed in.");
         goToProducts();
