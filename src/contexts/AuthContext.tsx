@@ -11,6 +11,20 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
+const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, fallback: T): Promise<T> => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<T>((resolve) => {
+    timeoutId = setTimeout(() => resolve(fallback), ms);
+  });
+  try {
+    return await Promise.race([promise, timeout]);
+  } catch {
+    return fallback;
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -23,31 +37,46 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    const { data } = await supabase.rpc("has_role", {
-      _user_id: nextUser.id,
-      _role: "admin",
-    });
+    const { data } = await withTimeout(
+      supabase.rpc("has_role", {
+        _user_id: nextUser.id,
+        _role: "admin",
+      }),
+      2500,
+      { data: false, error: null }
+    );
     setIsAdmin(!!data);
   };
 
   const refreshAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session } } = await withTimeout(
+      supabase.auth.getSession(),
+      2500,
+      { data: { session: null }, error: null }
+    );
     await applyUser(session?.user || null);
   };
 
   useEffect(() => {
     let mounted = true;
 
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    withTimeout(
+      supabase.auth.getSession(),
+      2500,
+      { data: { session: null }, error: null }
+    ).then(async ({ data: { session } }) => {
       if (!mounted) return;
       await applyUser(session?.user || null);
       if (mounted) setIsLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      applyUser(session?.user || null).finally(() => {
-        if (mounted) setIsLoading(false);
-      });
+      setUser(session?.user || null);
+      if (!session?.user) setIsAdmin(false);
+      if (mounted) setIsLoading(false);
+      setTimeout(() => {
+        if (mounted) applyUser(session?.user || null);
+      }, 0);
     });
 
     return () => {
