@@ -50,7 +50,7 @@ const PortalProducts = () => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { toast } = useToast();
-  const { isB2B, isAdmin, loading: authLoading } = useAuth();
+  const { isB2B, isAdmin, isLoading: authLoading } = useAuth();
 
   const [rows, setRows] = useState<CatalogRow[] | null>(null);
   const [loading, setLoading] = useState(true);
