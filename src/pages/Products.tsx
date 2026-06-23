@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Search } from "lucide-react";
 import { productCategories } from "@/lib/products-data";
@@ -6,8 +7,13 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { ProductDetail } from "@/components/products/ProductDetail";
 import { InquiryModal } from "@/components/products/InquiryModal";
 import { Product, ProductVariation } from "@/lib/products-data";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Products = () => {
+  const { isB2B, isLoading, isRoleLoading } = useAuth();
+  if (!isLoading && !isRoleLoading && isB2B) {
+    return <Navigate to="/portal/products" replace />;
+  }
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
