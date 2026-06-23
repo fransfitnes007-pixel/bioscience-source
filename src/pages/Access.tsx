@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 type AuthTab = "login" | "signup";
 
@@ -31,6 +32,8 @@ const Access = () => {
   const [showSignupPwd, setShowSignupPwd] = useState(false);
   const [showConfirmPwd, setShowConfirmPwd] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { refreshAuth } = useAuth();
 
   const [loginData, setLoginData] = useState({ identifier: "", password: "" });
   const [signupData, setSignupData] = useState({
@@ -58,7 +61,8 @@ const Access = () => {
   };
 
   const goToProducts = () => {
-    navigate("/products", { replace: true });
+    const redirect = searchParams.get("redirect");
+    navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -80,6 +84,7 @@ const Access = () => {
       if (error) throw error;
 
       await finishCustomerAccount();
+      await refreshAuth();
       toast.success("Welcome back!");
       goToProducts();
     } catch (error: unknown) {
@@ -191,6 +196,7 @@ const Access = () => {
           lastName: signupData.lastName.trim(),
           phone: signupData.phone.trim(),
         });
+        await refreshAuth();
         toast.success("Account created! You're signed in.");
         goToProducts();
       } else {
