@@ -102,6 +102,7 @@ import cagriSema10mg from "@/assets/product-labels/cagrilintide-semaglutide-10mg
 import cerebrolysin60mg from "@/assets/product-labels/cerebrolysin-60mg.png.asset.json";
 import alprostadil500mcg from "@/assets/product-labels/alprostadil-500mcg.png.asset.json";
 import hyaluronicAcid5mg from "@/assets/product-labels/hyaluronic-acid-5mg.png.asset.json";
+import pnc27_10mg from "@/assets/product-labels/pnc-27-10mg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -309,6 +310,9 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   "hyaluronic-acid": {
     "5mg": hyaluronicAcid5mg.url,
+  },
+  "pnc-27": {
+    "10mg": pnc27_10mg.url,
   },
 };
 
