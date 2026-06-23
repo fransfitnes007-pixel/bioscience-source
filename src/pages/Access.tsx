@@ -6,6 +6,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/contexts/CartContext";
 
 type AuthTab = "login" | "signup";
 
@@ -34,6 +35,7 @@ const Access = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { refreshAuth } = useAuth();
+  const { addToCart } = useCart();
 
   const [loginData, setLoginData] = useState({ identifier: "", password: "" });
   const [signupData, setSignupData] = useState({
@@ -65,6 +67,19 @@ const Access = () => {
     navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
   };
 
+  const addPendingCartItem = async () => {
+    const raw = sessionStorage.getItem("pending-cart-item");
+    if (!raw) return;
+
+    try {
+      const item = JSON.parse(raw);
+      sessionStorage.removeItem("pending-cart-item");
+      await addToCart(item);
+    } catch {
+      sessionStorage.removeItem("pending-cart-item");
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -85,6 +100,7 @@ const Access = () => {
 
       await finishCustomerAccount();
       await refreshAuth();
+      await addPendingCartItem();
       toast.success("Welcome back!");
       goToProducts();
     } catch (error: unknown) {
@@ -197,6 +213,7 @@ const Access = () => {
           phone: signupData.phone.trim(),
         });
         await refreshAuth();
+        await addPendingCartItem();
         toast.success("Account created! You're signed in.");
         goToProducts();
       } else {
