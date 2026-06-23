@@ -33,7 +33,6 @@ const AdminAuthGuard = ({ children }: AdminAuthGuardProps) => {
         }
 
         if (!hasAdminRole) {
-          await supabase.auth.signOut();
           navigate("/admin/login");
           return;
         }
@@ -50,8 +49,8 @@ const AdminAuthGuard = ({ children }: AdminAuthGuardProps) => {
     checkAuth();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_OUT" || !session) {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
+      if (event === "SIGNED_OUT") {
         navigate("/admin/login");
       }
     });
