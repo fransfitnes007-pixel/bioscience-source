@@ -311,6 +311,9 @@ export const productLabelImages: Record<string, StrengthMap> = {
   "hyaluronic-acid": {
     "5mg": hyaluronicAcid5mg.url,
   },
+  "pnc-27": {
+    "10mg": pnc27_10mg.url,
+  },
 };
 
 const normalizeStrength = (s: string) =>
