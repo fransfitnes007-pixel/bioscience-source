@@ -8,6 +8,7 @@ import { APP_SUBSCRIPTION_URL, APP_SUBSCRIPTION_NAME, APP_SUBSCRIPTION_TAGLINE }
 import peptidezLogo from "@/assets/peptidez-logo.png.asset.json";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface DashboardStats {
   totalOrders: number;
@@ -29,41 +30,22 @@ const PortalDashboard = () => {
   const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([]);
   const [profile, setProfile] = useState<{ first_name: string; business_name: string; company_logo_url: string | null } | null>(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
+      if (!user) return;
+      const userId = user.id;
 
-      const userId = session.user.id;
-
-      // Fetch profile
-      const { data: profileData } = await supabase
-        .from('profiles')
-        .select('first_name, business_name, company_logo_url')
-        .eq('user_id', userId)
-        .single();
+      const [{ data: profileData }, { data: ordersData }, { count: unreadCount }] = await Promise.all([
+        supabase.from('profiles').select('first_name, business_name, company_logo_url').eq('user_id', userId).single(),
+        supabase.from('orders').select('id, order_number, status, total, created_at').eq('user_id', userId).order('created_at', { ascending: false }),
+        supabase.from('client_messages').select('id', { count: 'exact', head: true }).eq('client_id', userId).eq('sender_type', 'admin').eq('is_read', false),
+      ]);
 
       if (profileData) setProfile(profileData);
-
-      // Fetch orders
-      const { data: ordersData } = await supabase
-        .from('orders')
-        .select('id, order_number, status, total, created_at')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false });
-
       const orders = ordersData || [];
       setRecentOrders(orders.slice(0, 5));
-
-      // Fetch unread messages
-      const { count: unreadCount } = await supabase
-        .from('client_messages')
-        .select('*', { count: 'exact', head: true })
-        .eq('client_id', userId)
-        .eq('sender_type', 'admin')
-        .eq('is_read', false);
-
       setStats({
         totalOrders: orders.length,
         pendingOrders: orders.filter(o => o.status === 'pending' || o.status === 'processing').length,
@@ -75,7 +57,7 @@ const PortalDashboard = () => {
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
