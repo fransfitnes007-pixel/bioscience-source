@@ -73,6 +73,12 @@ export const SpinningLogo3D = ({
   speed = 0.6,
   cameraZ = 4.2,
 }: SpinningLogo3DProps) => {
+  const shouldUseStaticLogo = typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches;
+
+  if (shouldUseStaticLogo) {
+    return <img src={src} alt="" aria-hidden="true" className={`${className} object-contain`} loading="eager" />;
+  }
+
   return (
     <div className={className}>
       <Canvas
