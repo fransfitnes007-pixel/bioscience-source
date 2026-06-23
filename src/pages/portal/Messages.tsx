@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Send, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Message {
   id: string;
@@ -27,18 +28,18 @@ const PortalMessages = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchMessages = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
+      if (!user) return;
 
-      setUserId(session.user.id);
+      setUserId(user.id);
 
       const { data } = await supabase
         .from('client_messages')
         .select('*')
-        .eq('client_id', session.user.id)
+        .eq('client_id', user.id)
         .order('created_at', { ascending: true });
 
       setMessages(data || []);
@@ -83,7 +84,7 @@ const PortalMessages = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [userId]);
+  }, [user, userId]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
