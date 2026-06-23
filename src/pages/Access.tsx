@@ -65,6 +65,33 @@ const Access = () => {
     navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
   };
 
+  const mergeGuestCartForUser = async (userId: string) => {
+    const raw = localStorage.getItem("guest-cart");
+    if (!raw) return;
+
+    try {
+      const guestItems = JSON.parse(raw);
+      if (!Array.isArray(guestItems) || guestItems.length === 0) return;
+
+      const { error } = await supabase.from("cart_items").insert(
+        guestItems.map((item) => ({
+          user_id: userId,
+          product_id: null,
+          variation_id: null,
+          product_name: item.productName,
+          variation_name: item.variationName,
+          unit_price: item.price,
+          image_url: item.image || null,
+          quantity: item.quantity,
+        }))
+      );
+
+      if (!error) localStorage.removeItem("guest-cart");
+    } catch {
+      /* keep guest cart if syncing fails */
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -84,6 +111,7 @@ const Access = () => {
       if (error) throw error;
 
       await finishCustomerAccount();
+      if (data.user?.id) await mergeGuestCartForUser(data.user.id);
       await refreshAuth();
       toast.success("Welcome back!");
       goToProducts();
@@ -207,6 +235,7 @@ const Access = () => {
         } catch {
           /* non-blocking */
         }
+        await mergeGuestCartForUser(signedInUserId);
         await refreshAuth();
         toast.success("Account created! You're signed in.");
         goToProducts();
