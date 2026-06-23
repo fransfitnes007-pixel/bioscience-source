@@ -65,6 +65,51 @@ const Access = () => {
     navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
   };
 
+  const routeSignedInUser = async (userId: string) => {
+    const redirect = searchParams.get("redirect");
+
+    let isAdmin = false;
+    let hasBusinessProfile = false;
+
+    try {
+      const { data } = await withTimeout(
+        supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
+        5000,
+        "Admin check took too long"
+      );
+      isAdmin = !!data;
+    } catch {
+      isAdmin = false;
+    }
+
+    if (isAdmin) {
+      navigate("/admin", { replace: true });
+      return;
+    }
+
+    try {
+      const { data: profile } = await withTimeout(
+        supabase
+          .from("profiles")
+          .select("business_name")
+          .eq("user_id", userId)
+          .maybeSingle(),
+        5000,
+        "Profile check took too long"
+      );
+      hasBusinessProfile = !!profile?.business_name;
+    } catch {
+      hasBusinessProfile = false;
+    }
+
+    if (hasBusinessProfile) {
+      navigate(redirect && redirect.startsWith("/") ? redirect : "/portal", { replace: true });
+      return;
+    }
+
+    goToProducts();
+  };
+
   const mergeGuestCartForUser = async (userId: string) => {
     const raw = localStorage.getItem("guest-cart");
     if (!raw) return;
@@ -114,7 +159,8 @@ const Access = () => {
       if (data.user?.id) await mergeGuestCartForUser(data.user.id);
       await refreshAuth();
       toast.success("Welcome back!");
-      goToProducts();
+      if (data.user?.id) await routeSignedInUser(data.user.id);
+      else goToProducts();
     } catch (error: unknown) {
       toast.error(getErrorMessage(error, "Login failed"));
     } finally {
@@ -304,8 +350,9 @@ const Access = () => {
           {activeTab === "login" && (
             <form onSubmit={handleLogin} className="space-y-5 animate-fade-in">
               <div>
-                <label className={labelClassName}>Email</label>
+                <label htmlFor="login-email" className={labelClassName}>Email</label>
                 <input
+                  id="login-email"
                   type="text"
                   required
                   value={loginData.identifier}
@@ -315,9 +362,10 @@ const Access = () => {
                 />
               </div>
               <div>
-                <label className={labelClassName}>Password</label>
+                <label htmlFor="login-password" className={labelClassName}>Password</label>
                 <div className="relative">
                   <input
+                    id="login-password"
                     type={showLoginPwd ? "text" : "password"}
                     required
                     value={loginData.password}
