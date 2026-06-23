@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/cart/PriceDisplay";
@@ -33,7 +33,11 @@ const ProductPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { user } = useAuth();
+  const { user, isB2B, isLoading: isAuthLoading, isRoleLoading } = useAuth();
+
+  if (!isAuthLoading && !isRoleLoading && isB2B) {
+    return <Navigate to="/portal/products" replace />;
+  }
 
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
