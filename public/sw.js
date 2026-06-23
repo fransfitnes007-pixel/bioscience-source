@@ -1,10 +1,23 @@
-const CACHE_NAME = 'point-bio-v1';
+const CACHE_NAME = 'resurrected-labz-v2';
 const urlsToCache = [
   '/',
   '/admin',
   '/portal',
   '/manifest.json'
 ];
+
+const shouldCacheRequest = (request, response) => {
+  if (request.method !== 'GET' || response.status !== 200) return false;
+
+  const url = new URL(request.url);
+
+  // Never cache CDN-hosted Lovable Assets. If an image request gets a temporary
+  // HTML fallback response, caching it breaks product label images until the
+  // browser cache is manually cleared.
+  if (url.pathname.startsWith('/__l5e/assets-v1/')) return false;
+
+  return true;
+};
 
 // Install event
 self.addEventListener('install', (event) => {
@@ -29,8 +42,8 @@ self.addEventListener('fetch', (event) => {
         // Clone the response
         const responseClone = response.clone();
         
-        // Only cache successful GET requests
-        if (event.request.method === 'GET' && response.status === 200) {
+        // Only cache safe app-shell requests
+        if (shouldCacheRequest(event.request, response)) {
           caches.open(CACHE_NAME)
             .then((cache) => {
               cache.put(event.request, responseClone);
