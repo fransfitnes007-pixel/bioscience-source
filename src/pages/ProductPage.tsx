@@ -34,16 +34,27 @@ const ProductPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { user, isB2B, isLoading: isAuthLoading, isRoleLoading } = useAuth();
-
-  if (!isAuthLoading && !isRoleLoading && isB2B) {
-    return <Navigate to="/portal/products" replace />;
-  }
+  const { user, isB2B } = useAuth();
+  const { byKey: b2bPricingMap } = useB2BPricing();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
   const [selectedQuantity, setSelectedQuantity] = useState<number>(1);
+  const [selectedB2BTier, setSelectedB2BTier] = useState<B2BTier | null>(null);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+
+  const b2bTiers = useMemo<B2BTier[] | null>(() => {
+    if (!isB2B || !product || !selectedVariation) return null;
+    return lookupB2BTiers(b2bPricingMap, product.name, product.displayName, selectedVariation.strength);
+  }, [isB2B, product, selectedVariation, b2bPricingMap]);
+
+  useEffect(() => {
+    if (b2bTiers && b2bTiers.length > 0) {
+      setSelectedB2BTier((prev) => prev && b2bTiers.find(t => t.tierId === prev.tierId) ? prev : b2bTiers[0]);
+    } else {
+      setSelectedB2BTier(null);
+    }
+  }, [b2bTiers]);
 
   useEffect(() => {
     if (!slug) {
