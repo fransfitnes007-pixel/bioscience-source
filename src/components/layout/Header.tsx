@@ -44,6 +44,12 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/40">
+      {isB2B && (
+        <div className="bg-foreground text-background text-[10px] uppercase tracking-[0.3em] text-center py-1.5 font-medium">
+          Wholesale Account · Partner Pricing & MOQ Active
+        </div>
+      )}
+
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
