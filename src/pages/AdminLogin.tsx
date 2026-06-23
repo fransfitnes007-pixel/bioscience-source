@@ -41,7 +41,11 @@ const AdminLogin = () => {
 
       // Check if user has admin role
       const { data: roleData, error: roleError } = await supabase
-        .rpc('has_role', { _user_id: authData.user.id, _role: 'admin' });
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", authData.user.id)
+        .eq("role", "admin")
+        .maybeSingle();
 
       if (roleError) throw roleError;
 

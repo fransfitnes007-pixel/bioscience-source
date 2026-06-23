@@ -22,7 +22,19 @@ interface EmailRequest {
 
 const LOGO_URL = "https://nunwpsiixyqmbgvvokmq.supabase.co/storage/v1/object/public/email-assets/logo-white.png";
 
-const getConfirmationEmailHTML = (contactName: string, businessName: string) => `
+// Escape user-supplied values before interpolating into HTML templates
+const escapeHtml = (s: string): string =>
+  String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+const getConfirmationEmailHTML = (rawContactName: string, rawBusinessName: string) => {
+  const contactName = escapeHtml(rawContactName);
+  const businessName = escapeHtml(rawBusinessName);
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,9 +85,15 @@ const getConfirmationEmailHTML = (contactName: string, businessName: string) => 
   </table>
 </body>
 </html>
+</html>
 `;
+};
 
-const getApprovalEmailHTML = (contactName: string, businessName: string, setupLink: string) => `
+const getApprovalEmailHTML = (rawContactName: string, rawBusinessName: string, rawSetupLink: string) => {
+  const contactName = escapeHtml(rawContactName);
+  const businessName = escapeHtml(rawBusinessName);
+  const setupLink = encodeURI(rawSetupLink || "https://resurrected.com/access");
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -146,6 +164,7 @@ const getApprovalEmailHTML = (contactName: string, businessName: string, setupLi
 </body>
 </html>
 `;
+};
 
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
