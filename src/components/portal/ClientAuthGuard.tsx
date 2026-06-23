@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface ClientAuthGuardProps {
   children: React.ReactNode;
@@ -11,28 +12,19 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const navigate = useNavigate();
+  const { user, isLoading: authLoading } = useAuth();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
+    if (authLoading) return;
+    if (!user) {
+      setIsAuthorized(false);
+      setIsLoading(false);
+      navigate("/account?redirect=/portal");
+      return;
+    }
 
-        if (!session) {
-          navigate("/account");
-          return;
-        }
-
-        // For B2C, any authenticated user can access the portal
-        setIsAuthorized(true);
-      } catch (error) {
-        console.error("Auth check error:", error);
-        navigate("/account");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkAuth();
+    setIsAuthorized(true);
+    setIsLoading(false);
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
       if (event === "SIGNED_OUT") {
@@ -43,7 +35,7 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [navigate]);
+  }, [authLoading, navigate, user]);
 
   if (isLoading) {
     return (
