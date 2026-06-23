@@ -80,19 +80,13 @@ const ProductPage = () => {
       price: unitPrice,
     };
 
-    if (!user) {
-      try {
-        sessionStorage.setItem("pending-cart-item", JSON.stringify(cartItem));
-      } catch {
-        /* non-blocking */
-      }
-      navigate("/account?redirect=/products");
-      return;
-    }
-
     setIsAddingToCart(true);
     await addToCart(cartItem);
     setIsAddingToCart(false);
+
+    if (!user) {
+      navigate("/account?redirect=/products");
+    }
   };
 
   if (!product) {
