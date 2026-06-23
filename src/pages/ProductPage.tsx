@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link, Navigate } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/cart/PriceDisplay";
@@ -17,6 +17,7 @@ import {
 import { ExternalLink } from "lucide-react";
 import { getLabelImage } from "@/lib/product-label-images";
 import { useAuth } from "@/contexts/AuthContext";
+import { useB2BPricing, lookupB2BTiers, type B2BTier } from "@/hooks/useB2BPricing";
 
 const getUnitPrice = (variation: ProductVariation): number => {
   if (variation.price && variation.price > 0) return variation.price;
@@ -33,16 +34,27 @@ const ProductPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { user, isB2B, isLoading: isAuthLoading, isRoleLoading } = useAuth();
-
-  if (!isAuthLoading && !isRoleLoading && isB2B) {
-    return <Navigate to="/portal/products" replace />;
-  }
+  const { user, isB2B } = useAuth();
+  const { byKey: b2bPricingMap } = useB2BPricing();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
   const [selectedQuantity, setSelectedQuantity] = useState<number>(1);
+  const [selectedB2BTier, setSelectedB2BTier] = useState<B2BTier | null>(null);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+
+  const b2bTiers = useMemo<B2BTier[] | null>(() => {
+    if (!isB2B || !product || !selectedVariation) return null;
+    return lookupB2BTiers(b2bPricingMap, product.name, product.displayName, selectedVariation.strength);
+  }, [isB2B, product, selectedVariation, b2bPricingMap]);
+
+  useEffect(() => {
+    if (b2bTiers && b2bTiers.length > 0) {
+      setSelectedB2BTier((prev) => prev && b2bTiers.find(t => t.tierId === prev.tierId) ? prev : b2bTiers[0]);
+    } else {
+      setSelectedB2BTier(null);
+    }
+  }, [b2bTiers]);
 
   useEffect(() => {
     if (!slug) {
@@ -66,6 +78,25 @@ const ProductPage = () => {
   const handleAddToCart = async () => {
     if (!product || !selectedVariation) {
       toast.error("Please select a variation");
+      return;
+    }
+
+    if (isB2B && b2bTiers && b2bTiers.length > 0) {
+      if (!selectedB2BTier) {
+        toast.error("Please select a wholesale kit size");
+        return;
+      }
+      const cartItem = {
+        productId: product.slug,
+        variationId: `${product.slug}-${selectedVariation.strength}-b2b-${selectedB2BTier.vials}`,
+        productName: product.displayName,
+        variationName: `${selectedVariation.strength} · ${selectedB2BTier.vials} vial wholesale kit`,
+        quantity: 1,
+        price: selectedB2BTier.priceCents / 100,
+      };
+      setIsAddingToCart(true);
+      await addToCart(cartItem);
+      setIsAddingToCart(false);
       return;
     }
 
@@ -103,9 +134,14 @@ const ProductPage = () => {
     );
   }
 
+  const isB2BMode = isB2B && b2bTiers && b2bTiers.length > 0;
   const unitPrice = selectedVariation ? getUnitPrice(selectedVariation) : 0;
-  const lineTotal = unitPrice * selectedQuantity;
-  const originalPrice = getOriginalPrice(lineTotal);
+  const lineTotal = isB2BMode && selectedB2BTier
+    ? selectedB2BTier.priceCents / 100
+    : unitPrice * selectedQuantity;
+  const originalPrice = isB2BMode && selectedB2BTier
+    ? selectedB2BTier.marketPriceCents / 100
+    : getOriginalPrice(lineTotal);
 
   return (
     <Layout>
@@ -180,55 +216,97 @@ const ProductPage = () => {
                 </div>
               </div>
 
-              {/* Quantity */}
-              <div className="mb-8">
-                <h3 className="font-heading text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">
-                  Quantity (Vials)
-                </h3>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedQuantity((q) => Math.max(1, q - 1))}
-                    className="w-12 h-12 border border-border rounded-xl text-xl font-heading hover:border-foreground/50 transition-colors"
-                    disabled={unitPrice === 0}
-                  >
-                    −
-                  </button>
-                  <input
-                    type="number"
-                    min={1}
-                    value={selectedQuantity}
-                    onChange={(e) => setSelectedQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                    disabled={unitPrice === 0}
-                    className="w-24 h-12 text-center border border-border rounded-xl bg-background font-heading text-lg"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setSelectedQuantity((q) => q + 1)}
-                    className="w-12 h-12 border border-border rounded-xl text-xl font-heading hover:border-foreground/50 transition-colors"
-                    disabled={unitPrice === 0}
-                  >
-                    +
-                  </button>
-                  {unitPrice > 0 && (
-                    <span className="font-body text-sm text-muted-foreground ml-2">
-                      ${unitPrice.toFixed(2)} / vial
-                    </span>
-                  )}
+              {/* Quantity / Wholesale tier */}
+              {isB2BMode ? (
+                <div className="mb-8">
+                  <h3 className="font-heading text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">
+                    Wholesale Kit Size
+                  </h3>
+                  <div className="grid grid-cols-3 gap-3">
+                    {b2bTiers!.map((tier) => {
+                      const active = selectedB2BTier?.tierId === tier.tierId;
+                      return (
+                        <button
+                          key={tier.tierId}
+                          type="button"
+                          onClick={() => setSelectedB2BTier(tier)}
+                          className={`relative p-4 border rounded-xl text-left transition-all ${
+                            active
+                              ? "border-foreground bg-foreground/5 ring-2 ring-foreground/20"
+                              : "border-border hover:border-foreground/50"
+                          }`}
+                        >
+                          <span className="font-heading font-semibold text-foreground block mb-1">
+                            {tier.vials} vials
+                          </span>
+                          <span className="font-body text-xs text-muted-foreground block">
+                            ${(tier.priceCents / 100).toLocaleString()}
+                          </span>
+                          <span className="font-body text-[10px] text-muted-foreground/70">
+                            ${(tier.priceCents / 100 / tier.vials).toFixed(2)} / vial
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p className="font-body text-xs text-muted-foreground mt-3 uppercase tracking-wider">
+                    Wholesale partner pricing · 10 vial MOQ
+                  </p>
                 </div>
-              </div>
+              ) : (
+                <div className="mb-8">
+                  <h3 className="font-heading text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">
+                    Quantity (Vials)
+                  </h3>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedQuantity((q) => Math.max(1, q - 1))}
+                      className="w-12 h-12 border border-border rounded-xl text-xl font-heading hover:border-foreground/50 transition-colors"
+                      disabled={unitPrice === 0}
+                    >
+                      −
+                    </button>
+                    <input
+                      type="number"
+                      min={1}
+                      value={selectedQuantity}
+                      onChange={(e) => setSelectedQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                      disabled={unitPrice === 0}
+                      className="w-24 h-12 text-center border border-border rounded-xl bg-background font-heading text-lg"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setSelectedQuantity((q) => q + 1)}
+                      className="w-12 h-12 border border-border rounded-xl text-xl font-heading hover:border-foreground/50 transition-colors"
+                      disabled={unitPrice === 0}
+                    >
+                      +
+                    </button>
+                    {unitPrice > 0 && (
+                      <span className="font-body text-sm text-muted-foreground ml-2">
+                        ${unitPrice.toFixed(2)} / vial
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Price Display */}
               <div className="flex items-center gap-8 mb-8">
-                <PriceDisplay 
-                  price={lineTotal} 
+                <PriceDisplay
+                  price={lineTotal}
                   originalPrice={originalPrice}
-                  size="lg" 
+                  size="lg"
                   showDiscount={lineTotal > 0}
                 />
                 <div>
                   <span className="font-body text-sm text-muted-foreground block">
-                    {lineTotal > 0 ? `${selectedQuantity} × ${selectedVariation?.strength}` : "Price coming soon"}
+                    {lineTotal > 0
+                      ? isB2BMode && selectedB2BTier
+                        ? `${selectedB2BTier.vials} vial kit · ${selectedVariation?.strength}`
+                        : `${selectedQuantity} × ${selectedVariation?.strength}`
+                      : "Price coming soon"}
                   </span>
                   <span className="font-heading text-lg font-medium text-foreground">
                     {selectedVariation?.strength}
