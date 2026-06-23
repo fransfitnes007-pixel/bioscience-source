@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -52,6 +52,18 @@ interface ShippingRate {
   freeShippingReason?: string | null;
 }
 
+const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error("Shipping rate request timed out")), ms);
+  });
+  try {
+    return await Promise.race([promise, timeout]);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+};
+
 const Checkout = () => {
   const navigate = useNavigate();
   const { items, subtotal, currentTier, clearCart } = useCart();
@@ -81,6 +93,10 @@ const Checkout = () => {
   const [selectedShippingRate, setSelectedShippingRate] = useState<ShippingRate | null>(null);
   const [isLoadingShipping, setIsLoadingShipping] = useState(false);
   const [selectedCarrier, setSelectedCarrier] = useState<string | null>(null);
+  const itemsSignature = useMemo(
+    () => items.map((item) => `${item.id}:${item.quantity}:${item.price}`).join("|"),
+    [items]
+  );
   
   const [billing, setBilling] = useState({
     firstName: "",
