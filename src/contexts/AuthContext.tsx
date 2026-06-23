@@ -25,6 +25,18 @@ const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, fallback: T)
   }
 };
 
+const safeHasRole = async (userId: string) => {
+  const response = await withTimeout(
+    supabase.rpc("has_role", {
+      _user_id: userId,
+      _role: "admin",
+    }),
+    2500,
+    null
+  );
+  return !!response?.data;
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -37,15 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    const { data } = await withTimeout(
-      supabase.rpc("has_role", {
-        _user_id: nextUser.id,
-        _role: "admin",
-      }),
-      2500,
-      { data: false, error: null }
-    );
-    setIsAdmin(!!data);
+    setIsAdmin(await safeHasRole(nextUser.id));
   };
 
   const refreshAuth = async () => {
