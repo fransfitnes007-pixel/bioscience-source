@@ -3985,6 +3985,10 @@ export type Database = {
         Args: { payload: Json; queue_name: string }
         Returns: number
       }
+      finish_b2c_account: {
+        Args: { _first_name?: string; _last_name?: string; _phone?: string }
+        Returns: undefined
+      }
       get_all_customer_leads: {
         Args: never
         Returns: {
