@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
 
 export interface CartItem {
   id: string;
@@ -53,8 +54,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   const [dealTiers, setDealTiers] = useState<DealTier[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [userId, setUserId] = useState<string | null>(null);
   const [lastUnlockedTier, setLastUnlockedTier] = useState<number>(0);
+  const { user } = useAuth();
+  const userId = user?.id || null;
 
   // Calculate subtotal
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -108,19 +110,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     fetchDealTiers();
   }, []);
 
-  // Auth listener
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUserId(session?.user?.id || null);
-    });
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUserId(session?.user?.id || null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
   const GUEST_KEY = "guest-cart";
 
   const loadGuestCart = (): CartItem[] => {
@@ -164,17 +153,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     const guestItems = options?.mergeGuest || [];
     if (guestItems.length) {
-      await supabase.from("cart_items").insert(
+      await supabase.from("cart_items").upsert(
         guestItems.map((item) => ({
           user_id: userId,
-          product_id: item.productId || null,
-          variation_id: item.variationId || null,
+          product_id: null,
+          variation_id: null,
           product_name: item.productName,
           variation_name: item.variationName,
           unit_price: item.price,
           image_url: item.image || null,
           quantity: item.quantity,
-        }))
+        })),
+        { onConflict: "user_id,product_name,variation_name", ignoreDuplicates: false }
       );
       clearGuestCart();
     }
@@ -243,6 +233,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     } else {
       const { error } = await supabase.from("cart_items").insert({
         user_id: userId,
+        product_id: null,
+        variation_id: null,
         product_name: item.productName,
         variation_name: item.variationName,
         unit_price: item.price,
