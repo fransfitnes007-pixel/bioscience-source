@@ -148,7 +148,7 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
                   <Button
                     variant="ghost"
                     className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground"
-                    onClick={() => { setMobileOpen(false); navigate("/"); }}
+                    onClick={() => { setMobileOpen(false); navigate("/products"); }}
                   >
                     <Home className="h-5 w-5 shrink-0" />
                     <span>Back to Site</span>
@@ -230,7 +230,7 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
               "w-full justify-start gap-3 text-muted-foreground hover:text-foreground",
               isCollapsed && "justify-center px-2"
             )}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/products")}
           >
             <Home className="h-5 w-5 shrink-0" />
             {!isCollapsed && <span>Back to Site</span>}
