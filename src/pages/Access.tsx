@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 type AuthTab = "login" | "signup";
 
@@ -31,6 +32,8 @@ const Access = () => {
   const [showSignupPwd, setShowSignupPwd] = useState(false);
   const [showConfirmPwd, setShowConfirmPwd] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { refreshAuth } = useAuth();
 
   const [loginData, setLoginData] = useState({ identifier: "", password: "" });
   const [signupData, setSignupData] = useState({
@@ -58,7 +61,35 @@ const Access = () => {
   };
 
   const goToProducts = () => {
-    navigate("/products", { replace: true });
+    const redirect = searchParams.get("redirect");
+    navigate(redirect && redirect.startsWith("/") ? redirect : "/products", { replace: true });
+  };
+
+  const mergeGuestCartForUser = async (userId: string) => {
+    const raw = localStorage.getItem("guest-cart");
+    if (!raw) return;
+
+    try {
+      const guestItems = JSON.parse(raw);
+      if (!Array.isArray(guestItems) || guestItems.length === 0) return;
+
+      const { error } = await supabase.from("cart_items").insert(
+        guestItems.map((item) => ({
+          user_id: userId,
+          product_id: null,
+          variation_id: null,
+          product_name: item.productName,
+          variation_name: item.variationName,
+          unit_price: item.price,
+          image_url: item.image || null,
+          quantity: item.quantity,
+        }))
+      );
+
+      if (!error) localStorage.removeItem("guest-cart");
+    } catch {
+      /* keep guest cart if syncing fails */
+    }
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -68,7 +99,7 @@ const Access = () => {
     try {
       const email = loginData.identifier.trim().toLowerCase();
 
-      const { error } = await withTimeout(
+      const { data, error } = await withTimeout(
         supabase.auth.signInWithPassword({
           email,
           password: loginData.password,
@@ -80,6 +111,8 @@ const Access = () => {
       if (error) throw error;
 
       await finishCustomerAccount();
+      if (data.user?.id) await mergeGuestCartForUser(data.user.id);
+      await refreshAuth();
       toast.success("Welcome back!");
       goToProducts();
     } catch (error: unknown) {
@@ -165,11 +198,30 @@ const Access = () => {
         return;
       }
 
-      // Best-effort: persist signature record (won't block if it fails)
-      if (data.user?.id) {
+      let signedInUserId = data.session?.user.id || null;
+
+      if (!data.session) {
+        const { data: signInData, error: signInError } = await withTimeout(
+          supabase.auth.signInWithPassword({
+            email: signupData.email.trim().toLowerCase(),
+            password: signupData.password,
+          }),
+          12000,
+          "Account created, but sign in took too long. Please sign in."
+        );
+        if (signInError) throw signInError;
+        signedInUserId = signInData.user?.id || null;
+      }
+
+      if (signedInUserId) {
+        await finishCustomerAccount({
+          firstName: signupData.firstName.trim(),
+          lastName: signupData.lastName.trim(),
+          phone: signupData.phone.trim(),
+        });
         try {
           await supabase.from("agreement_signatures").insert({
-            user_id: data.user.id,
+            user_id: signedInUserId,
             agreement_type: "purchaser_terms",
             agreement_version: "1.0",
             signer_name: `${signupData.firstName.trim()} ${signupData.lastName.trim()}`,
@@ -183,14 +235,8 @@ const Access = () => {
         } catch {
           /* non-blocking */
         }
-      }
-
-      if (data.session) {
-        await finishCustomerAccount({
-          firstName: signupData.firstName.trim(),
-          lastName: signupData.lastName.trim(),
-          phone: signupData.phone.trim(),
-        });
+        await mergeGuestCartForUser(signedInUserId);
+        await refreshAuth();
         toast.success("Account created! You're signed in.");
         goToProducts();
       } else {

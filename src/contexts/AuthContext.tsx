@@ -42,23 +42,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const applyUser = async (nextUser: SupabaseUser | null) => {
+  const applyUser = (nextUser: SupabaseUser | null) => {
     setUser(nextUser);
     if (!nextUser) {
       setIsAdmin(false);
       return;
     }
 
-    setIsAdmin(await safeHasRole(nextUser.id));
+    setIsAdmin(false);
+    safeHasRole(nextUser.id).then((hasAdminRole) => setIsAdmin(hasAdminRole));
   };
 
   const refreshAuth = async () => {
     const { data: { session } } = await withTimeout(
       supabase.auth.getSession(),
-      2500,
+      8000,
       { data: { session: null }, error: null }
     );
-    await applyUser(session?.user || null);
+    applyUser(session?.user || null);
   };
 
   useEffect(() => {
@@ -66,11 +67,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     withTimeout(
       supabase.auth.getSession(),
-      2500,
+      8000,
       { data: { session: null }, error: null }
-    ).then(async ({ data: { session } }) => {
+    ).then(({ data: { session } }) => {
       if (!mounted) return;
-      await applyUser(session?.user || null);
+      applyUser(session?.user || null);
       if (mounted) setIsLoading(false);
     });
 
