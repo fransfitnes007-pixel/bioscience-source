@@ -12,6 +12,18 @@ const getErrorMessage = (error: unknown, fallback: string) => {
   return error instanceof Error ? error.message : fallback;
 };
 
+const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, message: string) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(message)), ms);
+  });
+  try {
+    return await Promise.race([promise, timeout]);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+};
+
 const Access = () => {
   const [activeTab, setActiveTab] = useState<AuthTab>("login");
   const [isLoading, setIsLoading] = useState(false);
@@ -32,15 +44,21 @@ const Access = () => {
     initials: "",
   });
 
-  const routeAfterAuth = async (userId: string) => {
-    const { data: roleData } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId);
-    const roles = roleData?.map((r) => r.role) || [];
-    if (roles.includes("supplier")) navigate("/supplier");
-    else if (roles.includes("admin")) navigate("/admin");
-    else navigate("/portal");
+  const finishCustomerAccount = async (profile?: { firstName?: string; lastName?: string; phone?: string }) => {
+    const { error } = await withTimeout(
+      supabase.rpc("finish_b2c_account", {
+        _first_name: profile?.firstName || null,
+        _last_name: profile?.lastName || null,
+        _phone: profile?.phone || null,
+      }),
+      8000,
+      "Account saved, but the profile sync took too long. Please refresh."
+    );
+    if (error) throw error;
+  };
+
+  const goToProducts = () => {
+    navigate("/products", { replace: true });
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -48,20 +66,22 @@ const Access = () => {
     setIsLoading(true);
 
     try {
-      let email = loginData.identifier;
-      if (!loginData.identifier.includes("@")) {
-        email = `${loginData.identifier.toLowerCase()}@supplier.resurrected.com`;
-      }
+      const email = loginData.identifier.trim().toLowerCase();
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password: loginData.password,
-      });
+      const { error } = await withTimeout(
+        supabase.auth.signInWithPassword({
+          email,
+          password: loginData.password,
+        }),
+        12000,
+        "Sign in took too long. Please try again."
+      );
 
       if (error) throw error;
 
+      await finishCustomerAccount();
       toast.success("Welcome back!");
-      await routeAfterAuth(data.user.id);
+      goToProducts();
     } catch (error: unknown) {
       toast.error(getErrorMessage(error, "Login failed"));
     } finally {
