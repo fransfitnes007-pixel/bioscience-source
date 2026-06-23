@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartIcon } from "@/components/layout/CartIcon";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import { SpinningLogo3D } from "@/components/home/SpinningLogo3D";
 import resurrectedMark from "@/assets/resurrected-logo.png";
 import {
@@ -24,38 +24,9 @@ const navLinks = [
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState<SupabaseUser | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { user, isAdmin, isLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setUser(session?.user || null);
-      
-      if (session?.user) {
-        const { data: adminData } = await supabase
-          .rpc('has_role', { _user_id: session.user.id, _role: 'admin' });
-        setIsAdmin(!!adminData);
-      }
-    };
-
-    checkUser();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user || null);
-      if (session?.user) {
-        const { data: adminData } = await supabase
-          .rpc('has_role', { _user_id: session.user.id, _role: 'admin' });
-        setIsAdmin(!!adminData);
-      } else {
-        setIsAdmin(false);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -124,6 +95,8 @@ export const Header = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+            ) : isLoading ? (
+              <div className="h-9 w-20 rounded-full border border-border/60" />
             ) : (
               <Link to="/account">
                 <Button variant="outline" size="sm" className="text-sm tracking-wide">
@@ -179,7 +152,7 @@ export const Header = () => {
                     Sign Out
                   </Button>
                 </>
-              ) : (
+              ) : isLoading ? null : (
                 <Link to="/account" onClick={() => setIsMenuOpen(false)}>
                   <Button variant="outline" size="sm" className="w-full mt-4">
                     Sign In

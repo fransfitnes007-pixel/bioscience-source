@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -52,6 +52,18 @@ interface ShippingRate {
   freeShippingReason?: string | null;
 }
 
+const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error("Shipping rate request timed out")), ms);
+  });
+  try {
+    return await Promise.race([promise, timeout]);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+};
+
 const Checkout = () => {
   const navigate = useNavigate();
   const { items, subtotal, currentTier, clearCart } = useCart();
@@ -81,6 +93,10 @@ const Checkout = () => {
   const [selectedShippingRate, setSelectedShippingRate] = useState<ShippingRate | null>(null);
   const [isLoadingShipping, setIsLoadingShipping] = useState(false);
   const [selectedCarrier, setSelectedCarrier] = useState<string | null>(null);
+  const itemsSignature = useMemo(
+    () => items.map((item) => `${item.id}:${item.quantity}:${item.price}`).join("|"),
+    [items]
+  );
   
   const [billing, setBilling] = useState({
     firstName: "",
@@ -155,28 +171,34 @@ const Checkout = () => {
     const destZip = sameAsBilling ? billing.zip : shipping.zip;
     const destCity = sameAsBilling ? billing.city : shipping.city;
 
-    // Only fetch if we have minimum address info
-    if (!destCountry || items.length === 0) return;
+    // Only fetch once the address is specific enough for a real carrier rate.
+    if (!destCountry || !destState || !destZip || !destCity || items.length === 0) {
+      setIsLoadingShipping(false);
+      return;
+    }
 
     const fetchRates = async () => {
       setIsLoadingShipping(true);
       try {
-        const { data, error } = await supabase.functions.invoke("calculate-shipping", {
-          body: {
-            items: items.map(item => ({
-              productName: item.productName,
-              quantity: item.quantity,
-              price: item.price,
-            })),
-            destination: {
-              country: destCountry,
-              state: destState,
-              zip: destZip,
-              city: destCity,
+        const { data, error } = await withTimeout(
+          supabase.functions.invoke("calculate-shipping", {
+            body: {
+              items: items.map(item => ({
+                productName: item.productName,
+                quantity: item.quantity,
+                price: item.price,
+              })),
+              destination: {
+                country: destCountry,
+                state: destState,
+                zip: destZip,
+                city: destCity,
+              },
+              subtotal,
             },
-            subtotal,
-          },
-        });
+          }),
+          6000
+        );
 
         if (error) throw error;
 
@@ -206,9 +228,9 @@ const Checkout = () => {
       }
     };
 
-    const debounce = setTimeout(fetchRates, 500);
+    const debounce = setTimeout(fetchRates, 350);
     return () => clearTimeout(debounce);
-  }, [billing.country, billing.state, billing.zip, billing.city, shipping.country, shipping.state, shipping.zip, shipping.city, sameAsBilling, items, subtotal]);
+  }, [billing.country, billing.state, billing.zip, billing.city, shipping.country, shipping.state, shipping.zip, shipping.city, sameAsBilling, itemsSignature, subtotal]);
 
   // Redirect if cart is empty
   useEffect(() => {

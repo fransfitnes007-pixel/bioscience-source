@@ -34,8 +34,8 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
 
     checkAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_OUT" || !session) {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
+      if (event === "SIGNED_OUT") {
         navigate("/");
       }
     });
