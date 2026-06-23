@@ -144,7 +144,15 @@ const PortalSidebar = ({ isCollapsed, onToggle }: PortalSidebarProps) => {
                   ))}
                 </nav>
 
-                <div className="p-2 border-t border-border">
+                <div className="p-2 border-t border-border space-y-1">
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground"
+                    onClick={() => { setMobileOpen(false); navigate("/"); }}
+                  >
+                    <Home className="h-5 w-5 shrink-0" />
+                    <span>Back to Site</span>
+                  </Button>
                   <Button
                     variant="ghost"
                     className="w-full justify-start gap-3 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
