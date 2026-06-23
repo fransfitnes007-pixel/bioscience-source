@@ -4018,16 +4018,6 @@ export type Database = {
           zip_code: string
         }[]
       }
-      get_supplier_id: { Args: { _user_id: string }; Returns: string }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      is_approved: { Args: { _user_id: string }; Returns: boolean }
-      is_supplier: { Args: { _user_id: string }; Returns: boolean }
       move_to_dlq: {
         Args: {
           dlq_name: string
