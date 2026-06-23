@@ -72,6 +72,7 @@ interface OrderData {
   created_at: string;
   paid_at: string;
   shipped_at: string;
+  estimated_delivery_date?: string | null;
   updated_at: string;
 }
 
@@ -99,6 +100,7 @@ interface Shipment {
   carrier: string;
   tracking_number: string;
   tracking_url: string;
+  estimated_delivery?: string | null;
   shipped_at: string;
   delivered_at: string;
   created_at: string;
