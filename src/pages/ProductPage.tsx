@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion";
 import { ExternalLink } from "lucide-react";
 import { getLabelImage } from "@/lib/product-label-images";
+import { useAuth } from "@/contexts/AuthContext";
 
 const getUnitPrice = (variation: ProductVariation): number => {
   if (variation.price && variation.price > 0) return variation.price;
@@ -32,6 +33,7 @@ const ProductPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { user } = useAuth();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | null>(null);
@@ -69,15 +71,27 @@ const ProductPage = () => {
       return;
     }
 
-    setIsAddingToCart(true);
-    await addToCart({
+    const cartItem = {
       productId: product.slug,
       variationId: `${product.slug}-${selectedVariation.strength}`,
       productName: product.displayName,
       variationName: `${selectedVariation.strength} (1 vial)`,
       quantity: selectedQuantity,
       price: unitPrice,
-    });
+    };
+
+    if (!user) {
+      try {
+        sessionStorage.setItem("pending-cart-item", JSON.stringify(cartItem));
+      } catch {
+        /* non-blocking */
+      }
+      navigate("/account?redirect=/products");
+      return;
+    }
+
+    setIsAddingToCart(true);
+    await addToCart(cartItem);
     setIsAddingToCart(false);
   };
 
