@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const refreshAuth = async () => {
     const { data: { session } } = await withTimeout(
       supabase.auth.getSession(),
-      2500,
+      8000,
       { data: { session: null }, error: null }
     );
     applyUser(session?.user || null);
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     withTimeout(
       supabase.auth.getSession(),
-      2500,
+      8000,
       { data: { session: null }, error: null }
     ).then(({ data: { session } }) => {
       if (!mounted) return;
