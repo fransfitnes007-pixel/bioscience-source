@@ -61,20 +61,27 @@ const Gateway = () => {
       if (error) throw error;
       
       // Check if user is admin
-      const { data: isAdmin } = await supabase
-        .rpc('has_role', { _user_id: authData.user.id, _role: 'admin' });
-      
-      if (isAdmin) {
+      const { data: adminRole } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', authData.user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+
+      if (adminRole) {
         toast.success("Welcome back, Admin!");
         navigate("/admin");
         return;
       }
-      
+
       // Check if user is approved client
-      const { data: isApproved } = await supabase
-        .rpc('is_approved', { _user_id: authData.user.id });
-      
-      if (isApproved) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('status')
+        .eq('user_id', authData.user.id)
+        .maybeSingle();
+
+      if (profile?.status === 'approved') {
         toast.success("Logged in successfully");
         navigate("/portal");
       } else {

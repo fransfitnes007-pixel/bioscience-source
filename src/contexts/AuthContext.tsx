@@ -28,10 +28,12 @@ const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, fallback: T)
 
 const safeHasRole = async (userId: string) => {
   const response = await withTimeout(
-    supabase.rpc("has_role", {
-      _user_id: userId,
-      _role: "admin",
-    }),
+    supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle(),
     1800,
     null
   );

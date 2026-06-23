@@ -88,7 +88,12 @@ const Access = () => {
 
     try {
       const { data } = await withTimeout(
-        supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
+        supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", userId)
+          .eq("role", "admin")
+          .maybeSingle(),
         5000,
         "Admin check took too long"
       );
