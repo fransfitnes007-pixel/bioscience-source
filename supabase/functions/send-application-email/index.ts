@@ -85,9 +85,15 @@ const getConfirmationEmailHTML = (rawContactName: string, rawBusinessName: strin
   </table>
 </body>
 </html>
+</html>
 `;
+};
 
-const getApprovalEmailHTML = (contactName: string, businessName: string, setupLink: string) => `
+const getApprovalEmailHTML = (rawContactName: string, rawBusinessName: string, rawSetupLink: string) => {
+  const contactName = escapeHtml(rawContactName);
+  const businessName = escapeHtml(rawBusinessName);
+  const setupLink = encodeURI(rawSetupLink || "https://resurrected.com/access");
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -158,6 +164,7 @@ const getApprovalEmailHTML = (contactName: string, businessName: string, setupLi
 </body>
 </html>
 `;
+};
 
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
