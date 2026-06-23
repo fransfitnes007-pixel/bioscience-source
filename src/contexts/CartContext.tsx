@@ -136,23 +136,48 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem(GUEST_KEY, JSON.stringify(next));
   };
 
+  const clearGuestCart = () => {
+    localStorage.removeItem(GUEST_KEY);
+  };
+
   // Fetch cart when user changes
   useEffect(() => {
     if (userId) {
-      refreshCart();
+      const guestItems = loadGuestCart();
+      if (guestItems.length) {
+        setItems(guestItems);
+      }
+      refreshCart({ mergeGuest: guestItems });
     } else {
       setItems(loadGuestCart());
       setIsLoading(false);
     }
   }, [userId]);
 
-  const refreshCart = async () => {
+  const refreshCart = async (options?: { mergeGuest?: CartItem[] }) => {
     if (!userId) {
       setItems(loadGuestCart());
       setIsLoading(false);
       return;
     }
     setIsLoading(true);
+
+    const guestItems = options?.mergeGuest || [];
+    if (guestItems.length) {
+      await supabase.from("cart_items").insert(
+        guestItems.map((item) => ({
+          user_id: userId,
+          product_id: item.productId || null,
+          variation_id: item.variationId || null,
+          product_name: item.productName,
+          variation_name: item.variationName,
+          unit_price: item.price,
+          image_url: item.image || null,
+          quantity: item.quantity,
+        }))
+      );
+      clearGuestCart();
+    }
 
     const { data, error } = await supabase
       .from("cart_items")
@@ -181,6 +206,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           image: item.image_url,
         }))
       );
+    } else if (error) {
+      console.error("Cart load error:", error);
     }
     setIsLoading(false);
   };
