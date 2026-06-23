@@ -68,28 +68,41 @@ const Access = () => {
   const routeSignedInUser = async (userId: string) => {
     const redirect = searchParams.get("redirect");
 
-    const { data: isAdmin } = await withTimeout(
-      supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
-      5000,
-      { data: false, error: null }
-    );
+    let isAdmin = false;
+    let hasBusinessProfile = false;
+
+    try {
+      const { data } = await withTimeout(
+        supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
+        5000,
+        "Admin check took too long"
+      );
+      isAdmin = !!data;
+    } catch {
+      isAdmin = false;
+    }
 
     if (isAdmin) {
       navigate("/admin", { replace: true });
       return;
     }
 
-    const { data: profile } = await withTimeout(
-      supabase
-        .from("profiles")
-        .select("business_name")
-        .eq("user_id", userId)
-        .maybeSingle(),
-      5000,
-      { data: null, error: null }
-    );
+    try {
+      const { data: profile } = await withTimeout(
+        supabase
+          .from("profiles")
+          .select("business_name")
+          .eq("user_id", userId)
+          .maybeSingle(),
+        5000,
+        "Profile check took too long"
+      );
+      hasBusinessProfile = !!profile?.business_name;
+    } catch {
+      hasBusinessProfile = false;
+    }
 
-    if (profile?.business_name) {
+    if (hasBusinessProfile) {
       navigate(redirect && redirect.startsWith("/") ? redirect : "/portal", { replace: true });
       return;
     }
