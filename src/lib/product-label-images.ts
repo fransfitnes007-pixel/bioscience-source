@@ -100,6 +100,7 @@ import glp1Sema20mg from "@/assets/product-labels/glp1-sema-20mg.png.asset.json"
 import glp1Sema30mg from "@/assets/product-labels/glp1-sema-30mg.png.asset.json";
 import cagriSema10mg from "@/assets/product-labels/cagrilintide-semaglutide-10mg.png.asset.json";
 import cerebrolysin60mg from "@/assets/product-labels/cerebrolysin-60mg.png.asset.json";
+import alprostadil500mcg from "@/assets/product-labels/alprostadil-500mcg.png.asset.json";
 
 type StrengthMap = Record<string, string>;
 
@@ -301,6 +302,9 @@ export const productLabelImages: Record<string, StrengthMap> = {
   },
   cerebrolysin: {
     "60mg": cerebrolysin60mg.url,
+  },
+  alprostadil: {
+    "500mcg": alprostadil500mcg.url,
   },
 };
 
