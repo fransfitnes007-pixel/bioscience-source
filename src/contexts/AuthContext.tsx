@@ -48,6 +48,7 @@ const safeFetchRoles = async (userId: string) => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isB2B, setIsB2B] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isRoleLoading, setIsRoleLoading] = useState(false);
   const roleRequestRef = useRef(0);
@@ -57,15 +58,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(nextUser);
     if (!nextUser) {
       setIsAdmin(false);
+      setIsB2B(false);
       setIsRoleLoading(false);
       return;
     }
 
     setIsAdmin(false);
+    setIsB2B(false);
     setIsRoleLoading(true);
-    safeHasRole(nextUser.id).then((hasAdminRole) => {
+    safeFetchRoles(nextUser.id).then((roles) => {
       if (roleRequestRef.current !== requestId) return;
-      setIsAdmin(hasAdminRole);
+      setIsAdmin(roles.isAdmin);
+      setIsB2B(roles.isB2B);
       setIsRoleLoading(false);
     });
   };
@@ -94,7 +98,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
-      if (!session?.user) setIsAdmin(false);
+      if (!session?.user) {
+        setIsAdmin(false);
+        setIsB2B(false);
+      }
       if (mounted) setIsLoading(false);
       setTimeout(() => {
         if (mounted) applyUser(session?.user || null);
@@ -108,9 +115,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const value = useMemo(
-    () => ({ user, isAdmin, isLoading, isRoleLoading, refreshAuth }),
-    [user, isAdmin, isLoading, isRoleLoading]
+    () => ({ user, isAdmin, isB2B, isLoading, isRoleLoading, refreshAuth }),
+    [user, isAdmin, isB2B, isLoading, isRoleLoading]
   );
+
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
