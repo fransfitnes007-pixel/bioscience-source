@@ -106,9 +106,16 @@ export const Header = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile actions */}
           <div className="lg:hidden flex items-center gap-2">
             <CartIcon />
+            {!user && !isLoading && (
+              <Link to="/account">
+                <Button variant="outline" size="sm" className="text-xs tracking-wide px-3">
+                  Sign In
+                </Button>
+              </Link>
+            )}
             <button
               className="p-2 text-foreground"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
