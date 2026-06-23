@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link, Navigate } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/cart/PriceDisplay";
@@ -17,6 +17,7 @@ import {
 import { ExternalLink } from "lucide-react";
 import { getLabelImage } from "@/lib/product-label-images";
 import { useAuth } from "@/contexts/AuthContext";
+import { useB2BPricing, lookupB2BTiers, type B2BTier } from "@/hooks/useB2BPricing";
 
 const getUnitPrice = (variation: ProductVariation): number => {
   if (variation.price && variation.price > 0) return variation.price;
