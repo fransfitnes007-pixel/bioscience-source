@@ -12,7 +12,7 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const navigate = useNavigate();
-  const { user, isLoading: authLoading } = useAuth();
+  const { user, isAdmin, isB2B, isLoading: authLoading, isRoleLoading } = useAuth();
 
   useEffect(() => {
     if (authLoading) return;
@@ -20,6 +20,17 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
       setIsAuthorized(false);
       setIsLoading(false);
       navigate("/account?redirect=/portal");
+      return;
+    }
+
+    // Wait for roles before deciding
+    if (isRoleLoading) return;
+
+    if (!isB2B && !isAdmin) {
+      // Retail (B2C) accounts don't have a portal — send them back to the normal site
+      setIsAuthorized(false);
+      setIsLoading(false);
+      navigate("/", { replace: true });
       return;
     }
 
@@ -35,7 +46,8 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [authLoading, navigate, user]);
+  }, [authLoading, isRoleLoading, isB2B, isAdmin, navigate, user]);
+
 
   if (isLoading) {
     return (
