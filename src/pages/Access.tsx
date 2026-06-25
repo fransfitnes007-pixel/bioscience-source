@@ -112,9 +112,8 @@ const Access = () => {
       const rows = (data ?? []) as Array<{ role: string }>;
       isAdmin = rows.some((r) => r.role === "admin");
       isB2B = rows.some((r) => r.role === "b2b");
-    } catch {
-      isAdmin = false;
-      isB2B = false;
+    } catch (error) {
+      throw error instanceof Error ? error : new Error("Role check failed");
     }
 
     if (isAdmin) {
