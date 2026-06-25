@@ -14,6 +14,8 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 
+const ROLE_CHECK_TIMEOUT_MS = 10000;
+
 const withTimeout = async <T,>(promise: PromiseLike<T>, ms: number, fallback: T): Promise<T> => {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
   const timeout = new Promise<T>((resolve) => {
@@ -34,9 +36,18 @@ const safeFetchRoles = async (userId: string) => {
       .from("user_roles")
       .select("role")
       .eq("user_id", userId),
-    1800,
+    ROLE_CHECK_TIMEOUT_MS,
     null
   );
+
+  if (!response) {
+    throw new Error("Role check timed out");
+  }
+
+  if (response.error) {
+    throw response.error;
+  }
+
   const rows = (response?.data ?? []) as Array<{ role: string }>;
   return {
     isAdmin: rows.some((r) => r.role === "admin"),
@@ -53,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isRoleLoading, setIsRoleLoading] = useState(false);
   const roleRequestRef = useRef(0);
 
-  const applyUser = (nextUser: SupabaseUser | null) => {
+  const applyUser = async (nextUser: SupabaseUser | null) => {
     const requestId = ++roleRequestRef.current;
     setUser(nextUser);
     if (!nextUser) {
@@ -66,12 +77,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsAdmin(false);
     setIsB2B(false);
     setIsRoleLoading(true);
-    safeFetchRoles(nextUser.id).then((roles) => {
+    try {
+      const roles = await safeFetchRoles(nextUser.id);
       if (roleRequestRef.current !== requestId) return;
       setIsAdmin(roles.isAdmin);
       setIsB2B(roles.isB2B);
+    } catch (error) {
+      if (roleRequestRef.current !== requestId) return;
+      console.warn("Role lookup failed", error);
+      setIsAdmin(false);
+      setIsB2B(false);
+    } finally {
+      if (roleRequestRef.current !== requestId) return;
       setIsRoleLoading(false);
-    });
+    }
   };
 
   const refreshAuth = async () => {
@@ -80,7 +99,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       8000,
       { data: { session: null }, error: null }
     );
-    applyUser(session?.user || null);
+    await applyUser(session?.user || null);
   };
 
   useEffect(() => {
@@ -92,20 +111,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       { data: { session: null }, error: null }
     ).then(({ data: { session } }) => {
       if (!mounted) return;
-      applyUser(session?.user || null);
-      if (mounted) setIsLoading(false);
+      void applyUser(session?.user || null).finally(() => {
+        if (mounted) setIsLoading(false);
+      });
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null);
-      if (!session?.user) {
-        setIsAdmin(false);
-        setIsB2B(false);
-      }
       if (mounted) setIsLoading(false);
-      setTimeout(() => {
-        if (mounted) applyUser(session?.user || null);
-      }, 0);
+      if (mounted) void applyUser(session?.user || null);
     });
 
     return () => {

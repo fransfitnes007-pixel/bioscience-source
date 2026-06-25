@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Shield } from "lucide-react";
 import resurrectedLogo from "@/assets/resurrected-logo.png";
 import { isLovablePreview } from "@/lib/preview-auth";
+import { normalizeSignInEmail } from "@/lib/account-email-aliases";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ const AdminLogin = () => {
 
     try {
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email,
+        email: normalizeSignInEmail(email),
         password,
       });
 
