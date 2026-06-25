@@ -118,7 +118,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (mounted) setIsLoading(false);
-      if (mounted) void applyUser(session?.user || null);
+      setTimeout(() => {
+        if (mounted) void applyUser(session?.user || null);
+      }, 0);
     });
 
     return () => {
