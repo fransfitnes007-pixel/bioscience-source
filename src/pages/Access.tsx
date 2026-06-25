@@ -6,6 +6,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { normalizeSignInEmail } from "@/lib/account-email-aliases";
 
 type AuthTab = "login" | "signup";
 
@@ -99,14 +100,15 @@ const Access = () => {
     let isB2B = false;
 
     try {
-      const { data } = await withTimeout(
+      const { data, error } = await withTimeout(
         supabase
           .from("user_roles")
           .select("role")
           .eq("user_id", userId),
-        5000,
+        10000,
         "Role check took too long"
       );
+      if (error) throw error;
       const rows = (data ?? []) as Array<{ role: string }>;
       isAdmin = rows.some((r) => r.role === "admin");
       isB2B = rows.some((r) => r.role === "b2b");
@@ -161,7 +163,7 @@ const Access = () => {
     setIsLoading(true);
 
     try {
-      const email = loginData.identifier.trim().toLowerCase();
+      const email = normalizeSignInEmail(loginData.identifier);
 
       const { data, error } = await withTimeout(
         supabase.auth.signInWithPassword({
@@ -176,7 +178,7 @@ const Access = () => {
 
       await finishCustomerAccount();
       if (data.user?.id) await mergeGuestCartForUser(data.user.id);
-      refreshAuth();
+      await refreshAuth();
       toast.success("Welcome back!");
       if (data.user?.id) await routeSignedInUser(data.user.id);
       else goToProducts();
@@ -235,7 +237,7 @@ const Access = () => {
     try {
       const { data, error: authError } = await withTimeout(
         supabase.auth.signUp({
-          email: signupData.email.trim().toLowerCase(),
+          email: normalizeSignInEmail(signupData.email),
           password: signupData.password,
           options: {
             emailRedirectTo: `${window.location.origin}/products`,
@@ -268,7 +270,7 @@ const Access = () => {
       if (!data.session) {
         const { data: signInData, error: signInError } = await withTimeout(
           supabase.auth.signInWithPassword({
-            email: signupData.email.trim().toLowerCase(),
+            email: normalizeSignInEmail(signupData.email),
             password: signupData.password,
           }),
           12000,
