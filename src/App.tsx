@@ -118,6 +118,7 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/sms-terms" element={<SmsTerms />} />
             <Route path="/account" element={<Access />} />
+            <Route path="/auth-debug" element={<AuthDebug />} />
             <Route path="/set-password" element={<SetPassword />} />
             <Route path="/unsubscribe" element={<Unsubscribe />} />
             {/* B2B Routes */}
