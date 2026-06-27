@@ -36,6 +36,7 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import SetPassword from "./pages/SetPassword";
 import Unsubscribe from "./pages/Unsubscribe";
 import AdminLogin from "./pages/AdminLogin";
+import AuthDebug from "./pages/AuthDebug";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminApplications from "./pages/admin/Applications";
 import AdminInquiries from "./pages/admin/Inquiries";
