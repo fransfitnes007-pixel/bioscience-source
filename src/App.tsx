@@ -36,6 +36,7 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import SetPassword from "./pages/SetPassword";
 import Unsubscribe from "./pages/Unsubscribe";
 import AdminLogin from "./pages/AdminLogin";
+import AuthDebug from "./pages/AuthDebug";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminApplications from "./pages/admin/Applications";
 import AdminInquiries from "./pages/admin/Inquiries";
@@ -117,6 +118,7 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/sms-terms" element={<SmsTerms />} />
             <Route path="/account" element={<Access />} />
+            <Route path="/auth-debug" element={<AuthDebug />} />
             <Route path="/set-password" element={<SetPassword />} />
             <Route path="/unsubscribe" element={<Unsubscribe />} />
             {/* B2B Routes */}
