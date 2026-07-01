@@ -1,25 +1,33 @@
-# Plan
 
-Replace the existing product label asset pointers for the six matched products in this upload batch so the product pages show the new vial photos.
+## Deliverable
 
-## Products matched from this batch
-- TB500 5mg → `src/assets/product-labels/tb500-5mg.png.asset.json`
-- DSIP 15mg → `src/assets/product-labels/dsip-15mg.png.asset.json`
-- GLP1-SEMA 30mg → `src/assets/product-labels/glp1-sema-30mg.png.asset.json`
-- GLP3-RETA 5mg → `src/assets/product-labels/glp3-reta-5mg.png.asset.json`
-- PT-141 10mg → `src/assets/product-labels/pt-141-10mg.png.asset.json`
-- EPITHALON 50mg → `src/assets/product-labels/epithalon-50mg.png.asset.json`
-- SERMORELIN 10mg → `src/assets/product-labels/sermorelin-10mg.png.asset.json`
+Three files in `/mnt/documents/` that another platform can consume to place every product image against the correct product/strength:
 
-## What I’ll do
-1. Upload each matching PNG from your attachments to the Lovable asset CDN.
-2. Overwrite only the corresponding `.asset.json` files above with the new asset pointers.
-3. Leave all other product dosages and product mappings unchanged.
-4. Verify the existing image map still points to these files so the updated photos appear automatically on the product pages.
+1. **`product-images-manifest.csv`** — one row per image (~102 rows). Columns:
+   `sku, category, product_name, display_name, slug, strength, image_url, image_filename`
+   - `sku` = `{DISPLAY_NAME}-{STRENGTH}` (e.g. `GLP1-SEMA-5MG`, `BPC-157-10MG`) — this is the convention already used in the B2B catalog.
+   - `image_url` = full CDN URL from the `.asset.json` pointer (e.g. `https://resurrectedlabz.com/__l5e/assets-v1/<uuid>/glp1-sema-5mg.png`).
 
-## Notes
-- Your upload contains duplicate copies for DSIP, GLP1-SEMA, and EPITHALON; I’ll use one copy per product.
-- No product code changes should be needed because these dosage slots already exist in the catalog and image map.
+2. **`product-images-manifest.pdf`** — branded, human-readable version. Each row also embeds a thumbnail of the actual image (downloaded from the CDN), so the other platform / a human can visually confirm the match before wiring it up. Grouped by category, sorted by product then strength.
 
-## Technical details
-The project already imports these label pointers through `src/lib/product-label-images.ts`, so replacing the pointer files is enough. This is the same pattern used for the previous vial-image batch.
+3. **`product-images-README.md`** — plain-English instructions for the other builder:
+   - How the CSV is keyed (slug + normalized strength).
+   - The exact normalization rule (`lowercase, strip spaces, drop anything after "/"`, so `"0.1 mg"` → `"0.1mg"`, `"10mg / vial"` → `"10mg"`).
+   - Pseudo-code for the lookup: `getImage(slug, strength)`.
+   - Note that CDN URLs are immutable and safe to hard-code / mirror.
+   - List of any product/strength combos in `products-data.ts` that do **not** yet have an image (so the other side knows what's still label-only).
+
+## How I'll build it
+
+1. Parse `src/lib/products-data.ts` to enumerate every `(category, product, slug, strength)` tuple.
+2. Walk `src/assets/product-labels/*.asset.json`, read each pointer's `url` + `original_filename`.
+3. Cross-reference against `src/lib/product-label-images.ts` (the source of truth for slug↔file mapping) to attach the right image to the right product.
+4. Emit CSV + Markdown.
+5. Download each CDN image to `/tmp` and render the PDF with `reportlab`, embedding thumbnails. Visually QA every page (convert to JPGs, inspect) before delivering.
+6. Report to you: total images, total products with images, any gaps.
+
+No source-code changes. Purely a spec/export bundle for handoff.
+
+## One confirm
+
+Is the SKU convention `{DISPLAYNAME}-{STRENGTH}` (uppercase, hyphen — e.g. `GLP1-SEMA-5MG`, `NAD-100MG`, `HGH-SOMATROPIN-15IU`) fine for the other platform, or do you already have a different SKU format you want me to use?
